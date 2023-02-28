@@ -54,11 +54,11 @@ export const ComingSoon = styled.span.attrs({
   className: "absolute left-0 top-5 text-xs text-primary whitespace-nowrap",
 })``;
 
-export const RightTools = styled.div.attrs({
+export const RightActions = styled.div.attrs({
   className: "flex items-center space-x-8 ml-auto",
 })``;
 
 // search
 export const SearchWrapper = styled.div.attrs({
-  className: "flex w-2/5 mx-1",
+  className: "flex w-1/5 mx-1",
 })``;

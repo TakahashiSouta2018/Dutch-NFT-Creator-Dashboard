@@ -2,7 +2,11 @@ import React from "react";
 import { useRouter } from "next/router";
 
 // components
+import { SearchInput, IconButton } from "@/common";
 import * as DutchC from "./styles";
+
+// icons
+import { IBell } from "@/common";
 
 // types
 import { Menu } from "@/types";
@@ -59,6 +63,16 @@ const Header: React.FC = () => {
             </DutchC.NavLink>
           ))}
         </DutchC.Nav>
+
+        <DutchC.SearchWrapper>
+          <SearchInput placeholder="Enter NFTs to find holders" isShortCut />
+        </DutchC.SearchWrapper>
+
+        <DutchC.RightActions>
+          <IconButton icon="bell" />
+          <IconButton icon="wallet" />
+          <IconButton icon="user" />
+        </DutchC.RightActions>
       </DutchC.HeaderInner>
     </DutchC.HeaderWrapper>
   );
