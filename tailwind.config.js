@@ -8,6 +8,12 @@ module.exports = {
       fontFamily: {
         satoshi: ["Satoshi", ...defaultTheme.fontFamily.sans],
       },
+      colors: {
+        primary: "#FF4800",
+      },
+      maxWidth: {
+        wide: "1920px",
+      },
     },
   },
   plugins: [],
