@@ -2,9 +2,9 @@ import React from "react";
 
 // components
 import * as DutchC from "./styles";
-import type { NavLinkWrapperProps } from "./styles";
+import type { LinkWrapperProps } from "./styles";
 
-type NavLinkProps = NavLinkWrapperProps & {
+type NavLinkProps = LinkWrapperProps & {
   href: string;
   children: React.ReactNode;
 };

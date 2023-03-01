@@ -26,3 +26,8 @@ export type SearchInputVariant = {
  * Badge
  */
 export type BadgeVariants = "default" | "dot" | "icon";
+
+/**
+ * Link
+ */
+export type LinkSizes = "small" | "large";

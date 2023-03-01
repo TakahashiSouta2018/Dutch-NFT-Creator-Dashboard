@@ -1,8 +1,12 @@
 import React from "react";
 
 // components
-import { AppLayout } from "@/components";
+import { AppLayout, DashboardSubNav } from "@/components";
 
 export default function DashboardNFTManagement() {
-  return <AppLayout>Dashboard - NFT Management</AppLayout>;
+  return (
+    <AppLayout>
+      <DashboardSubNav />
+    </AppLayout>
+  );
 }
