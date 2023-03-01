@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 
 // components
-import { SearchInput, IconButton, Badge } from "@/common";
+import { SearchInput, IconButton, Badge, NavLink } from "@/common";
 import * as DutchC from "./styles";
 
 // types
@@ -48,7 +48,7 @@ const Header: React.FC = () => {
 
         <DutchC.Nav>
           {menus.map((menu) => (
-            <DutchC.NavLink
+            <NavLink
               key={menu.slug}
               href={menu.path}
               active={PAGE_PATH === menu.slug ? 1 : 0}
@@ -57,7 +57,7 @@ const Header: React.FC = () => {
               {menu.slug === "marketplace" && (
                 <DutchC.ComingSoon>Coming Soon</DutchC.ComingSoon>
               )}
-            </DutchC.NavLink>
+            </NavLink>
           ))}
         </DutchC.Nav>
 
