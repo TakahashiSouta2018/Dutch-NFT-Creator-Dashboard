@@ -4,16 +4,10 @@ import React, { useState } from "react";
 import * as DutchC from "./styles";
 
 // icons
-import { IBell, IWallet, IUser } from "../Icons";
-
-const icons = {
-  bell: IBell,
-  wallet: IWallet,
-  user: IUser,
-};
+import { icons, IconType } from "../Icons";
 
 interface IconButtonProps {
-  icon: "bell" | "wallet" | "user";
+  icon: IconType;
 }
 
 const IconButton: React.FC<IconButtonProps> = ({ icon }) => {

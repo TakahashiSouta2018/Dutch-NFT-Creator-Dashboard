@@ -1,19 +1,9 @@
 import React from "react";
-import {
-  MagnifyingGlassIcon as SolidMagnifyingGlass,
-  BellIcon as SolidBell,
-  WalletIcon as SolidWallet,
-  UserIcon as SolidUser,
-} from "@heroicons/react/24/solid";
-import {
-  MagnifyingGlassIcon as OutlineMagnifyingGlass,
-  BellIcon as OutlineBell,
-  WalletIcon as OutlineWallet,
-  UserIcon as OutlineUser,
-} from "@heroicons/react/24/outline";
+import SolidIcons from "@heroicons/react/24/solid";
+import OutlineIcons from "@heroicons/react/24/outline";
 
 // type
-import { IconVariants } from "@/types/icon";
+import { IconVariants } from "@/types";
 
 type IconProps = IconVariants;
 
@@ -35,7 +25,11 @@ export const ISearch: React.FC<IconProps> = ({
   size = "medium",
   color = "black",
 }) => {
-  return <SolidMagnifyingGlass className={`${sizes[size]} ${colors[color]}`} />;
+  return (
+    <SolidIcons.MagnifyingGlassIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  );
 };
 
 export const IBell: React.FC<IconProps> = ({
@@ -44,9 +38,9 @@ export const IBell: React.FC<IconProps> = ({
   color = "black",
 }) => {
   return variant === "solid" ? (
-    <SolidBell className={`${sizes[size]} ${colors[color]}`} />
+    <SolidIcons.BellIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
-    <OutlineBell className={`${sizes[size]} ${colors[color]}`} />
+    <SolidIcons.BellIcon className={`${sizes[size]} ${colors[color]}`} />
   );
 };
 
@@ -56,9 +50,9 @@ export const IWallet: React.FC<IconProps> = ({
   color = "black",
 }) => {
   return variant === "solid" ? (
-    <SolidWallet className={`${sizes[size]} ${colors[color]}`} />
+    <SolidIcons.WalletIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
-    <OutlineWallet className={`${sizes[size]} ${colors[color]}`} />
+    <OutlineIcons.WalletIcon className={`${sizes[size]} ${colors[color]}`} />
   );
 };
 
@@ -68,8 +62,29 @@ export const IUser: React.FC<IconProps> = ({
   color = "black",
 }) => {
   return variant === "solid" ? (
-    <SolidUser className={`${sizes[size]} ${colors[color]}`} />
+    <SolidIcons.UserIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
-    <OutlineUser className={`${sizes[size]} ${colors[color]}`} />
+    <SolidIcons.UserIcon className={`${sizes[size]} ${colors[color]}`} />
   );
 };
+
+export const ICalendar: React.FC<IconProps> = ({
+  variant = "solid",
+  size = "medium",
+  color = "black",
+}) => {
+  return variant === "solid" ? (
+    <SolidIcons.CalendarIcon className={`${sizes[size]} ${colors[color]}`} />
+  ) : (
+    <SolidIcons.CalendarIcon className={`${sizes[size]} ${colors[color]}`} />
+  );
+};
+
+export const icons = {
+  bell: IBell,
+  wallet: IWallet,
+  user: IUser,
+  calendar: ICalendar,
+};
+
+export type IconType = keyof typeof icons;
