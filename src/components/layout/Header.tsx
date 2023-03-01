@@ -2,11 +2,8 @@ import React from "react";
 import { useRouter } from "next/router";
 
 // components
-import { SearchInput, IconButton } from "@/common";
+import { SearchInput, IconButton, Badge } from "@/common";
 import * as DutchC from "./styles";
-
-// icons
-import { IBell } from "@/common";
 
 // types
 import { Menu } from "@/types";
@@ -69,6 +66,8 @@ const Header: React.FC = () => {
         </DutchC.SearchWrapper>
 
         <DutchC.RightActions>
+          <Badge variant="dot" label="STATUS" />
+
           <IconButton icon="bell" />
           <IconButton icon="wallet" />
           <IconButton icon="user" />
