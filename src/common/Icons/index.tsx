@@ -104,6 +104,34 @@ export const ISun: React.FC<IconProps> = ({
   );
 };
 
+export const IPlayCircle: React.FC<IconProps> = ({
+  variant = "solid",
+  size = "medium",
+  color = "black",
+}) => {
+  return variant === "solid" ? (
+    <SolidIcons.PlayCircleIcon className={`${sizes[size]} ${colors[color]}`} />
+  ) : (
+    <SolidIcons.PlayCircleIcon className={`${sizes[size]} ${colors[color]}`} />
+  );
+};
+
+export const IInformationCircle: React.FC<IconProps> = ({
+  variant = "solid",
+  size = "medium",
+  color = "black",
+}) => {
+  return variant === "solid" ? (
+    <SolidIcons.InformationCircleIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <SolidIcons.InformationCircleIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
 export const icons = {
   bell: IBell,
   wallet: IWallet,
@@ -111,6 +139,8 @@ export const icons = {
   calendar: ICalendar,
   moon: IMoon,
   sun: ISun,
+  play: IPlayCircle,
+  informationcircle: IInformationCircle,
 };
 
 export type IconType = keyof typeof icons;
