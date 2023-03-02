@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useTheme } from "next-themes";
 
 // components
 import { SearchInput, IconButton, Badge, NavLink } from "@/common";
@@ -33,14 +34,28 @@ const menus: Menu[] = [
 
 const Header: React.FC = () => {
   const router = useRouter();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   const PAGE_PATH = router.asPath.split("/")[1] ?? "";
+
+  const toggleTheme = useCallback(() => {
+    setTheme(theme === "light" ? "dark" : "light");
+  }, [setTheme, theme]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <DutchC.HeaderWrapper>
       <DutchC.HeaderInner>
         <DutchC.Logo
-          src="/images/logo.svg"
+          src={`/images/${theme === "light" ? "logo.svg" : "logo-dark.svg"}`}
           width={145}
           height={36}
           alt="logo"
@@ -68,6 +83,7 @@ const Header: React.FC = () => {
         <DutchC.RightActions>
           <Badge variant="dot" label="STATUS" />
 
+          <IconButton icon="moon" onClick={toggleTheme} />
           <IconButton icon="bell" />
           <IconButton icon="wallet" />
           <IconButton icon="user" />

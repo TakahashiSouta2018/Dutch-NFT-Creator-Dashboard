@@ -3,13 +3,22 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
         satoshi: ["Satoshi", ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        primary: "#FF4800",
+        "primary-orange": "#FF4800",
+        "dark-surface": "#121212",
+        "dark-orange": "#FF5A19",
+        "dark-green": "#62BA52",
+        "dark-red": "#D13636",
+        "dark-blue": "#5169A4",
+        "accent-green": "#3CAA2A",
+        "accent-red": "#C60707",
+        "accent-blue": "#28458F",
       },
       maxWidth: {
         wide: "1920px",
