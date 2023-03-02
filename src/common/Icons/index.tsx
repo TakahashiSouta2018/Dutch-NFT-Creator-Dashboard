@@ -17,7 +17,7 @@ const colors = {
   black: "text-black/70",
   gray: "text-black/30",
   white: "text-white",
-  orange: "text-primary",
+  orange: "text-primary-orange",
 };
 
 export const ISearch: React.FC<IconProps> = ({
@@ -80,11 +80,37 @@ export const ICalendar: React.FC<IconProps> = ({
   );
 };
 
+export const IMoon: React.FC<IconProps> = ({
+  variant = "solid",
+  size = "medium",
+  color = "black",
+}) => {
+  return variant === "solid" ? (
+    <SolidIcons.MoonIcon className={`${sizes[size]} ${colors[color]}`} />
+  ) : (
+    <SolidIcons.MoonIcon className={`${sizes[size]} ${colors[color]}`} />
+  );
+};
+
+export const ISun: React.FC<IconProps> = ({
+  variant = "solid",
+  size = "medium",
+  color = "black",
+}) => {
+  return variant === "solid" ? (
+    <SolidIcons.SunIcon className={`${sizes[size]} ${colors[color]}`} />
+  ) : (
+    <SolidIcons.SunIcon className={`${sizes[size]} ${colors[color]}`} />
+  );
+};
+
 export const icons = {
   bell: IBell,
   wallet: IWallet,
   user: IUser,
   calendar: ICalendar,
+  moon: IMoon,
+  sun: ISun,
 };
 
 export type IconType = keyof typeof icons;

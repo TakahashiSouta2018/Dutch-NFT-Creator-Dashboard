@@ -8,5 +8,5 @@ import styled from "styled-components";
 // --- Icon Button
 export const IconButtonWrapper = styled.div.attrs({
   className:
-    "inline-flex items-center justify-center w-9 h-9 border border-black/10 rounded-lg hover:bg-black/10 active:bg-black cursor-pointer",
+    "inline-flex items-center justify-center w-9 h-9 rounded-lg hover:bg-black/10 active:bg-black cursor-pointer",
 })``;
