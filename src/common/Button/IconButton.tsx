@@ -8,9 +8,10 @@ import { icons, IconType } from "../Icons";
 
 interface IconButtonProps {
   icon: IconType;
+  onClick?: () => void;
 }
 
-const IconButton: React.FC<IconButtonProps> = ({ icon }) => {
+const IconButton: React.FC<IconButtonProps> = ({ icon, onClick }) => {
   const [isPressed, setIsPressed] = useState(false);
   const Icon = icons[icon];
 
@@ -20,6 +21,7 @@ const IconButton: React.FC<IconButtonProps> = ({ icon }) => {
       onMouseUp={() => setIsPressed(false)}
       onTouchStart={() => setIsPressed(true)}
       onTouchEnd={() => setIsPressed(false)}
+      onClick={onClick}
     >
       <Icon
         variant={isPressed ? "outlined" : "solid"}
