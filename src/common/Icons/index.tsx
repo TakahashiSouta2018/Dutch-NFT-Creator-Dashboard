@@ -15,6 +15,7 @@ const sizes = {
 
 const colors = {
   black: "text-black/70",
+  "dark-gray": "text-black/60",
   gray: "text-black/30",
   white: "text-white",
   orange: "text-primary-orange",
@@ -132,6 +133,18 @@ export const IInformationCircle: React.FC<IconProps> = ({
   );
 };
 
+export const IHome: React.FC<IconProps> = ({
+  variant = "solid",
+  size = "medium",
+  color = "black",
+}) => {
+  return variant === "solid" ? (
+    <SolidIcons.HomeIcon className={`${sizes[size]} ${colors[color]}`} />
+  ) : (
+    <SolidIcons.HomeIcon className={`${sizes[size]} ${colors[color]}`} />
+  );
+};
+
 export const icons = {
   bell: IBell,
   wallet: IWallet,
@@ -141,6 +154,7 @@ export const icons = {
   sun: ISun,
   play: IPlayCircle,
   informationcircle: IInformationCircle,
+  home: IHome,
 };
 
 export type IconType = keyof typeof icons;

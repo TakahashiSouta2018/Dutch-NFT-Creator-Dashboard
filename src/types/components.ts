@@ -9,7 +9,7 @@ export type IconButtonVariants = {};
 export type IconVariants = {
   variant: "solid" | "outlined";
   size: "small" | "medium" | "large";
-  color: "black" | "gray" | "white" | "orange";
+  color: "black" | "gray" | "white" | "orange" | "dark-gray";
 };
 
 /**

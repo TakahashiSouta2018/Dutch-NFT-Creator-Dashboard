@@ -11,7 +11,7 @@ export type LinkWrapperProps = {
 // --- Nav Link
 export const NavLinkWrapper = styled(Link).attrs({
   className:
-    "relative text-black/60 hover:text-black dark:text-white/70 dark:hover:text-white",
+    "relative text-black/60 hover:text-black dark:text-white/70 dark:hover:text-white transition",
 })`
   && {
     ${(p: LinkWrapperProps) =>
@@ -34,7 +34,7 @@ export const NavLinkWrapper = styled(Link).attrs({
 // --- Link
 export const LinkWrapper = styled(Link).attrs({
   className:
-    "relative text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white",
+    "relative text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition",
 })`
   ${(p: LinkWrapperProps & { size?: LinkSizes }) =>
     p.active ? "color: var(--active-color) !important; font-weight: 500;" : ""}
