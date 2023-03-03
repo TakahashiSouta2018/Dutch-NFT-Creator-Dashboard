@@ -1,13 +1,18 @@
 /**
  * Button
  */
+export type ButtonVariants = {
+  variant?: "solid" | "outline" | "text";
+  size?: "small" | "large";
+};
+
 export type IconButtonVariants = {};
 
 /**
  * Icon
  */
 export type IconVariants = {
-  variant: "solid" | "outlined";
+  variant: "solid" | "outline";
   size: "small" | "medium" | "large";
   color: "black" | "gray" | "white" | "orange" | "dark-gray";
 };
