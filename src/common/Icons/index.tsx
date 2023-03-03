@@ -145,6 +145,22 @@ export const IHome: React.FC<IconProps> = ({
   );
 };
 
+export const IArrowDownOnSquare: React.FC<IconProps> = ({
+  variant = "solid",
+  size = "medium",
+  color = "black",
+}) => {
+  return variant === "solid" ? (
+    <SolidIcons.ArrowDownOnSquareIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <SolidIcons.ArrowDownOnSquareIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
 export const icons = {
   bell: IBell,
   wallet: IWallet,
@@ -155,6 +171,7 @@ export const icons = {
   play: IPlayCircle,
   informationcircle: IInformationCircle,
   home: IHome,
+  "arrow-down-on-square": IArrowDownOnSquare,
 };
 
 export type IconType = keyof typeof icons;
