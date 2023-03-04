@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 // components
-import * as DutchC from "./styles";
+import * as DutchC from './styles';
 
 // icons
-import { icons, IconType } from "../Icons";
+import { icons, IconType } from '../Icons';
 
 interface IconButtonProps {
   icon: IconType;
@@ -22,9 +22,9 @@ const IconButton: React.FC<IconButtonProps> = ({ icon }) => {
       onTouchEnd={() => setIsPressed(false)}
     >
       <Icon
-        variant={isPressed ? "outlined" : "solid"}
+        variant={isPressed ? 'outlined' : 'solid'}
         size="large"
-        color={isPressed ? "white" : "black"}
+        color={isPressed ? 'white' : 'black'}
       />
     </DutchC.IconButtonWrapper>
   );

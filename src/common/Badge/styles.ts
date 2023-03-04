@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { BadgeVariants } from "@/types";
+import styled from 'styled-components';
+import { BadgeVariants } from '@/types';
 
 // types
 type BadgeWrapperProps = {
@@ -9,19 +9,19 @@ type BadgeWrapperProps = {
 // components
 export const BadgeWrapper = styled.div.attrs({
   className:
-    "relative inline-flex items-center justify-center h-6.5 bg-black/10 text-xs leading-4.5 whitespace-nowrap text-black/50 font-medium px-2 py-1 rounded",
+    'relative inline-flex items-center justify-center h-6.5 bg-black/10 text-xs leading-4.5 whitespace-nowrap text-black/50 font-medium px-2 py-1 rounded',
 })`
   ${(p: BadgeWrapperProps) =>
-    (p.variant === "dot" || p.variant === "icon") && "font-weight: 700;"}
+    (p.variant === 'dot' || p.variant === 'icon') && 'font-weight: 700;'}
   ${(p: BadgeWrapperProps) =>
-    p.variant === "dot" &&
-    "background-color: rgba(60, 170, 42, 0.2); color: #3CAA2A; padding-left: 24px;"}
+    p.variant === 'dot' &&
+    'background-color: rgba(60, 170, 42, 0.2); color: #3CAA2A; padding-left: 24px;'}
   ${(p: BadgeWrapperProps) =>
-    p.variant === "icon" && "color: black; padding-left: 32px;"}
+    p.variant === 'icon' && 'color: black; padding-left: 32px;'}
   
   &::after {
     position: absolute;
-    content: "";
+    content: '';
     width: 8px;
     height: 8px;
     border-radius: 50%;
@@ -29,15 +29,15 @@ export const BadgeWrapper = styled.div.attrs({
     left: 8px;
     transform: translateY(-4px);
     background: #3caa2a;
-    ${(p: BadgeWrapperProps) => p.variant !== "dot" && "display: none;"}
+    ${(p: BadgeWrapperProps) => p.variant !== 'dot' && 'display: none;'}
   }
 `;
 
 export const BadgeIconWrapper = styled.div.attrs({
   className:
-    "absolute top-0 left-0 bottom-0 w-8 inline-flex items-center justify-center",
+    'absolute top-0 left-0 bottom-0 w-8 inline-flex items-center justify-center',
 })``;
 
 export const BadgeIconLabel = styled.span.attrs({
-  className: "mt-0.5",
+  className: 'mt-0.5',
 })``;
