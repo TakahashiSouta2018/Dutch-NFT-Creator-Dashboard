@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
 // components
-import { AppLayout, DashboardSubNav } from "@/components";
+import { AppLayout, DashboardSubNav } from '@/components';
 
 export default function DashboardNFTManagement() {
   return (

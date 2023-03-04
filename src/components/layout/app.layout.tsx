@@ -1,8 +1,9 @@
-import React from "react";
+import useConnectHook from '@/hooks/useConnectHook';
+import React from 'react';
 
 // components
-import Header from "./Header";
-import * as DutchC from "./styles";
+import Header from './Header';
+import * as DutchC from './styles';
 
 // types
 interface AppLayoutProps {
@@ -10,6 +11,8 @@ interface AppLayoutProps {
 }
 
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
+  useConnectHook();
+
   return (
     <DutchC.AppWrapper>
       <Header />

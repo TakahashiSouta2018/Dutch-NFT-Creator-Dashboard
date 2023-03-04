@@ -1,19 +1,19 @@
-import React from "react";
+import React from 'react';
 
 // components
-import * as DutchC from "./styles";
+import * as DutchC from './styles';
 
 // icons
-import { ISearch } from "../Icons";
+import { ISearch } from '../Icons';
 
 // types
-import { SearchInputVariant } from "@/types";
+import { SearchInputVariant } from '@/types';
 
-type SearchInputProps = JSX.IntrinsicElements["input"] & SearchInputVariant;
+type SearchInputProps = JSX.IntrinsicElements['input'] & SearchInputVariant;
 
 const SearchInput: React.FC<SearchInputProps> = ({
   isShortCut = false,
-  placeholder = "",
+  placeholder = '',
   ...rest
 }) => {
   return (
@@ -28,7 +28,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
       {/* shortcut icon */}
       {isShortCut && (
         <DutchC.ShortCutWrapper>
-          <DutchC.ShortCut>{"/"}</DutchC.ShortCut>
+          <DutchC.ShortCut>{'/'}</DutchC.ShortCut>
         </DutchC.ShortCutWrapper>
       )}
     </DutchC.SearchInputWrapper>

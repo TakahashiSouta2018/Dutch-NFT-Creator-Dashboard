@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
 // components
-import { AppLayout } from "@/components";
+import { AppLayout } from '@/components';
 
 export default function Dashboard() {
   return <AppLayout>Dashboard</AppLayout>;

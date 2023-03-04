@@ -1,42 +1,42 @@
-import React from "react";
-import { useRouter } from "next/router";
+import React from 'react';
+import { useRouter } from 'next/router';
 
 // components
-import { Link } from "@/common";
-import * as DutchC from "./styles";
+import { Link } from '@/common';
+import * as DutchC from './styles';
 
 const subnavs = [
   {
-    name: "NFT Management",
-    path: "/dashboard/nft-management",
-    slug: "nft-management",
+    name: 'NFT Management',
+    path: '/dashboard/nft-management',
+    slug: 'nft-management',
   },
   {
-    name: "Find Holders",
-    path: "/dashboard/holders",
-    slug: "holders",
+    name: 'Find Holders',
+    path: '/dashboard/holders',
+    slug: 'holders',
   },
   {
-    name: "Airdrop",
-    path: "/dashboard/airdrop",
-    slug: "airdrop",
+    name: 'Airdrop',
+    path: '/dashboard/airdrop',
+    slug: 'airdrop',
   },
   {
-    name: "Trade-in",
-    path: "/dashboard/trade-in",
-    slug: "trade-in",
+    name: 'Trade-in',
+    path: '/dashboard/trade-in',
+    slug: 'trade-in',
   },
   {
-    name: "Sales",
-    path: "/dashboard/sales",
-    slug: "sales",
+    name: 'Sales',
+    path: '/dashboard/sales',
+    slug: 'sales',
   },
 ];
 
 const DashboardSubNav: React.FC = () => {
   const router = useRouter();
 
-  const PAGE_PATH = router.asPath.split("/")[2] ?? "";
+  const PAGE_PATH = router.asPath.split('/')[2] ?? '';
 
   return (
     <DutchC.SubNavWrapper>

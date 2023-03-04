@@ -1,3 +1,5 @@
+import * as sdk from '@loopring-web/loopring-sdk';
+
 /**
  * Button
  */
@@ -7,9 +9,9 @@ export type IconButtonVariants = {};
  * Icon
  */
 export type IconVariants = {
-  variant: "solid" | "outlined";
-  size: "small" | "medium" | "large";
-  color: "black" | "gray" | "white" | "orange";
+  variant: 'solid' | 'outlined';
+  size: 'small' | 'medium' | 'large';
+  color: 'black' | 'gray' | 'white' | 'orange';
 };
 
 /**
@@ -25,9 +27,39 @@ export type SearchInputVariant = {
 /**
  * Badge
  */
-export type BadgeVariants = "default" | "dot" | "icon";
+export type BadgeVariants = 'default' | 'dot' | 'icon';
 
 /**
  * Link
  */
-export type LinkSizes = "small" | "large";
+export type LinkSizes = 'small' | 'large';
+
+export interface AccountInfoI {
+  accInfo: sdk.AccountInfo;
+  eddsaKey: {
+    keyPair: {
+      publicKeyX: string;
+      publicKeyY: string;
+      secretKey: string;
+    };
+    formatedPx: string;
+    formatedPy: string;
+    sk: string;
+    counterFactualInfo: any;
+  };
+  apiKey: string;
+}
+
+export interface CollectionObjectI {
+  name: string;
+  tileUri: string;
+  description: string;
+  owner: string;
+  avatar: string;
+  banner: string;
+}
+
+export interface FeeI {
+  raw_data: unknown;
+  fees: sdk.LoopringMap<sdk.OffchainFeeInfo>;
+}

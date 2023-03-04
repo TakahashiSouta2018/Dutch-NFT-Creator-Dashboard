@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 
 // components
-import * as DutchC from "./styles";
+import * as DutchC from './styles';
 
 // icons
-import { icons, IconType } from "../Icons";
+import { icons, IconType } from '../Icons';
 
 // types
-import { BadgeVariants } from "@/types";
+import { BadgeVariants } from '@/types';
 
 interface BadgeProps {
   variant: BadgeVariants;
@@ -16,8 +16,8 @@ interface BadgeProps {
 }
 
 const Badge: React.FC<BadgeProps> = ({
-  variant = "default",
-  label = "",
+  variant = 'default',
+  label = '',
   icon,
 }) => {
   const Icon = icon ? icons[icon] : null;
