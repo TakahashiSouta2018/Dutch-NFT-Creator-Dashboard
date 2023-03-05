@@ -7,18 +7,37 @@ import {
   ConnectorNames,
   NFTCounterFactualInfo,
 } from '@loopring-web/loopring-sdk';
-import { AccountInfoI, CollectionObjectI, FeeI } from '@/types';
+import { AccountInfoI, CollectionObjectI, FeeI, LooseObjectI } from '@/types';
 import { getTimestampDaysLater, TOKEN_INFO } from '@/utils/helper';
+import validateMetadata from '@/utils/validateMetadata';
+import { pinJSONToIPFS } from './pinata';
+
+interface MintNFTI {
+  accountInfo: AccountInfoI;
+  collectionMeta: sdk.CollectionMeta;
+  walletType: ConnectorNames;
+  metadata: LooseObjectI;
+  amount: string;
+  royaltyPercentage: number;
+  fee: FeeI;
+}
 
 export class LoopringService {
   exchangeAPI: sdk.ExchangeAPI;
   userAPI: sdk.UserAPI;
+  nftAPI: sdk.NFTAPI;
 
   constructor() {
     this.exchangeAPI = new sdk.ExchangeAPI({
       chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
     });
     this.userAPI = new sdk.UserAPI({
+      chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
+    });
+    this.userAPI = new sdk.UserAPI({
+      chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
+    });
+    this.nftAPI = new sdk.NFTAPI({
       chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
     });
   }
@@ -102,8 +121,10 @@ export class LoopringService {
         ((collectionRes as sdk.RESULT_INFO).code ||
           (collectionRes as sdk.RESULT_INFO).message)) ||
       !collectionRes.collections.length
-    )
-      return { error: true, message: 'Collection is disable to mint ' };
+    ) {
+      alert('Collection is disable to mint');
+      return null;
+    }
 
     const collectionMeta = (collectionRes as any)
       .collections[0] as CollectionMeta;
@@ -127,13 +148,25 @@ export class LoopringService {
     return fee;
   }
 
-  async mintNFT(
-    accountInfo: AccountInfoI,
-    collectionMeta: sdk.CollectionMeta,
-    walletType: ConnectorNames,
-    fee: FeeI
-  ) {
+  async mintNFT(params: MintNFTI) {
     try {
+      const {
+        metadata,
+        accountInfo,
+        collectionMeta,
+        fee,
+        royaltyPercentage,
+        amount,
+        walletType,
+      } = params;
+      const isMetadataValid = validateMetadata(metadata);
+
+      if (!isMetadataValid) {
+        return alert('Invalid Metadata');
+      }
+
+      const metadataCID = await pinJSONToIPFS(metadata);
+
       const { exchangeInfo } = await this.exchangeAPI.getExchangeInfo();
 
       const counterFactualNftInfo: NFTCounterFactualInfo = {
@@ -154,26 +187,28 @@ export class LoopringService {
         accountInfo.apiKey
       );
 
+      const nftId = this.nftAPI.ipfsCid0ToNftID(metadataCID);
+
       const response = await this.userAPI.submitNFTMint({
         request: {
+          maxFee: {
+            tokenId: TOKEN_INFO.tokenMap['LRC'].tokenId,
+            amount: fee.fees['LRC'].fee ?? '9400000000000000000',
+          },
           exchange: exchangeInfo.exchangeAddress,
           minterId: accountInfo.accInfo.accountId,
           minterAddress: accountInfo.accInfo.owner,
           toAccountId: accountInfo.accInfo.accountId,
           toAddress: accountInfo.accInfo.owner,
-          nftType: 0,
           tokenAddress: collectionMeta.contractAddress,
-          nftId: '',
-          amount: '1',
           validUntil: getTimestampDaysLater(30),
-          storageId: storageId.offchainId ?? 9,
-          maxFee: {
-            tokenId: TOKEN_INFO.tokenMap['LRC'].tokenId,
-            amount: fee.fees['LRC'].fee ?? '9400000000000000000',
-          },
+          storageId: storageId.offchainId,
           counterFactualNftInfo,
-          royaltyPercentage: 5,
-          forceToMint: false, // suggest use as false, for here is just for run test
+          forceToMint: false,
+          royaltyPercentage,
+          nftType: 0, // ERC1155
+          nftId,
+          amount,
         },
         //@ts-ignore
         web3: connectProvides.usedWeb3 as unknown as Web3,

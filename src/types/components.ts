@@ -63,3 +63,7 @@ export interface FeeI {
   raw_data: unknown;
   fees: sdk.LoopringMap<sdk.OffchainFeeInfo>;
 }
+
+export interface LooseObjectI {
+  [key: string]: string | string[] | number | any;
+}
