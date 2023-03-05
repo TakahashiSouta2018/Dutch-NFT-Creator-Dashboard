@@ -8,18 +8,17 @@ import {
   NFTCounterFactualInfo,
 } from '@loopring-web/loopring-sdk';
 import { AccountInfoI, CollectionObjectI, FeeI, LooseObjectI } from '@/types';
-import { getTimestampDaysLater, TOKEN_INFO } from '@/utils/helper';
-import validateMetadata from '@/utils/validateMetadata';
+import { validateMetadata } from '@/lib/metadata';
 import { pinJSONToIPFS } from './pinata';
+import { getTimestampDaysLater, TOKEN_INFO } from '@/helpers';
 
 interface MintNFTI {
   accountInfo: AccountInfoI;
-  collectionMeta: sdk.CollectionMeta;
+  nftTokenAddress: string;
   walletType: ConnectorNames;
   metadata: LooseObjectI;
   amount: string;
   royaltyPercentage: number;
-  fee: FeeI;
 }
 
 export class LoopringService {
@@ -153,17 +152,21 @@ export class LoopringService {
       const {
         metadata,
         accountInfo,
-        collectionMeta,
-        fee,
+        nftTokenAddress,
         royaltyPercentage,
         amount,
         walletType,
       } = params;
       const isMetadataValid = validateMetadata(metadata);
+      const collectionMeta = await this.getCollectionMeta(
+        accountInfo,
+        nftTokenAddress
+      );
 
-      if (!isMetadataValid) {
-        return alert('Invalid Metadata');
-      }
+      if (!isMetadataValid) return alert('Invalid Metadata');
+      if (!collectionMeta) return;
+
+      const fee = await this.getNFTOffchainFeeAmt(accountInfo, collectionMeta);
 
       const metadataCID = await pinJSONToIPFS(metadata);
 
