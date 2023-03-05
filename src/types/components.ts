@@ -63,7 +63,40 @@ export interface FeeI {
   raw_data: unknown;
   fees: sdk.LoopringMap<sdk.OffchainFeeInfo>;
 }
+export interface CSVMetadataI {
+  amount: string;
+  description: string;
+  name: string;
+  properties: string;
+  royalties: string;
+}
 
 export interface LooseObjectI {
   [key: string]: string | string[] | number | any;
+}
+
+export interface NftDataI {
+  image: string;
+  animation_url: string;
+  name: string;
+  royalty_percentage: number;
+  description: string;
+  collection_metadata: string;
+  mint_channel: string;
+  properties: Record<string, string>;
+  attributes: AttributeI[];
+}
+
+export interface AttributeI {
+  trait_type: string;
+  value: unknown;
+}
+
+export interface ConstrucMetadataI {
+  folderCID: string;
+  collectionMetadata: string;
+  mintChannel?: string;
+  imageNames: string[];
+  animationUrlNames: string[];
+  csvFileContents: CSVMetadataI[];
 }

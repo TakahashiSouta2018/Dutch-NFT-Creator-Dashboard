@@ -1,21 +1,24 @@
 import { LooseObjectI } from '@/types';
 import axios from 'axios';
 
+const headers = {
+  pinata_api_key: String(process.env.NEXT_PUBLIC_PINATA_API_KEY),
+  pinata_secret_api_key: String(process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY),
+};
+
 const pinFile = async (file: File) => {
   const data = new FormData();
   data.append('file', file);
 
   try {
-    const headers = {
-      pinata_api_key: process.env.NEXT_PUBLIC_PINATA_API_KEY as string,
-      pinata_secret_api_key: process.env
-        .NEXT_PUBLIC_PINATA_SECRET_API_KEY as string,
-    };
-
     const result = await axios.post(
       'https://api.pinata.cloud/pinning/pinFileToIPFS',
       data,
-      { headers }
+      {
+        // @ts-ignore
+        maxBodyLength: 'Infinity',
+        headers,
+      }
     );
     if (result.data) return result.data.IpfsHash;
   } catch (error: any) {
@@ -63,15 +66,36 @@ export const pinFileToIPFS = async (images: string[]) => {
   }
 };
 
+export const pinFolderToIPFS = async (formData: FormData) => {
+  try {
+    const headers = {
+      pinata_api_key: String(process.env.NEXT_PUBLIC_PINATA_API_KEY),
+      pinata_secret_api_key: String(
+        process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY
+      ),
+    };
+    const result = await axios.post(
+      'https://api.pinata.cloud/pinning/pinFileToIPFS',
+      formData,
+      {
+        // @ts-ignore
+        maxBodyLength: 'Infinity',
+        headers: {
+          ...headers,
+          //@ts-ignore
+          'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
+        },
+      }
+    );
+    if (result.data) return result.data.IpfsHash;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const pinJSONToIPFS = async (metadata: LooseObjectI) => {
   try {
     const data = { ...metadata };
-
-    const headers = {
-      pinata_api_key: process.env.NEXT_PUBLIC_PINATA_API_KEY as string,
-      pinata_secret_api_key: process.env
-        .NEXT_PUBLIC_PINATA_SECRET_API_KEY as string,
-    };
 
     const result = await axios.post(
       'https://api.pinata.cloud/pinning/pinJSONToIPFS',
