@@ -16,6 +16,35 @@ export const CreateContent = styled.div.attrs({
   className: 'flex flex-col w-full space-y-4',
 })``;
 
+export const CreateContentHeader = styled.div.attrs({
+  className: 'flex justify-between border-b border-black/10',
+})``;
+
+export const CreateContentLeft = styled.div.attrs({
+  className: 'flex flex-col',
+})``;
+
+export const CreateContentTitle = styled.h1.attrs({
+  className: 'text-2xl whitespace-nowrap font-bold',
+})``;
+
+export const CreateContentSubTitle = styled.h3.attrs({
+  className: 'text-sm whitespace-nowrap text-black/70',
+})``;
+
+export const CreateContentCollection = styled.div.attrs({
+  className: 'flex w-4/5 my-4',
+})``;
+
+export const CreateContentHeaderActions = styled.div.attrs({
+  className: 'flex space-x-3',
+})``;
+
+export const CreateContentBody = styled.div.attrs({
+  className:
+    'flex items-center justify-center min-h-[315px] border border-black/10 px-4 rounded-lg',
+})``;
+
 // --- Breadcrumb
 export const BreadcrumbWrapper = styled.div.attrs({
   className: 'flex items-center',
