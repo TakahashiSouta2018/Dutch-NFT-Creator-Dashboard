@@ -26,7 +26,7 @@ const Badge: React.FC<BadgeProps> = ({
     <DutchC.BadgeWrapper variant={variant}>
       {Icon && (
         <DutchC.BadgeIconWrapper>
-          <Icon variant="outlined" size="medium" color="black" />
+          <Icon variant="outline" size="medium" color="black" />
         </DutchC.BadgeIconWrapper>
       )}
       <DutchC.BadgeIconLabel>{label}</DutchC.BadgeIconLabel>

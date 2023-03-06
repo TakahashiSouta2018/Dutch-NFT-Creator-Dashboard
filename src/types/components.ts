@@ -3,15 +3,20 @@ import * as sdk from '@loopring-web/loopring-sdk';
 /**
  * Button
  */
+export type ButtonVariants = {
+  variant?: "solid" | "outline" | "text";
+  size?: "small" | "large";
+};
+
 export type IconButtonVariants = {};
 
 /**
  * Icon
  */
 export type IconVariants = {
-  variant: 'solid' | 'outlined';
-  size: 'small' | 'medium' | 'large';
-  color: 'black' | 'gray' | 'white' | 'orange';
+  variant?: "solid" | "outline";
+  size?: "small" | "medium" | "large";
+  color?: "black" | "gray" | "white" | "orange" | "dark-gray";
 };
 
 /**
@@ -21,7 +26,7 @@ export type IconVariants = {
 
 // --- Search Input
 export type SearchInputVariant = {
-  isShortCut: boolean;
+  isShortCut?: boolean;
 };
 
 /**
@@ -32,7 +37,12 @@ export type BadgeVariants = 'default' | 'dot' | 'icon';
 /**
  * Link
  */
-export type LinkSizes = 'small' | 'large';
+export type LinkSizes = "small" | "large";
+
+/**
+ * Dropdown
+ */
+export type DropdownPositionVariants = "TL" | "TR" | "BL" | "BR";
 
 export interface AccountInfoI {
   accInfo: sdk.AccountInfo;
