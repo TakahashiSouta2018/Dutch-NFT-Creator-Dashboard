@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useTheme } from "next-themes";
 
 // components
-import * as DutchC from "./styles";
+import * as DutchC from './styles';
 
 // icons
-import { icons, IconType } from "../Icons";
+import { icons, IconType } from '../Icons';
 
 interface IconButtonProps {
   icon: IconType;

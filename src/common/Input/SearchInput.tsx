@@ -2,19 +2,19 @@ import React from "react";
 import { useTheme } from "next-themes";
 
 // components
-import * as DutchC from "./styles";
+import * as DutchC from './styles';
 
 // icons
-import { ISearch } from "../Icons";
+import { ISearch } from '../Icons';
 
 // types
-import { SearchInputVariant } from "@/types";
+import { SearchInputVariant } from '@/types';
 
-type SearchInputProps = JSX.IntrinsicElements["input"] & SearchInputVariant;
+type SearchInputProps = JSX.IntrinsicElements['input'] & SearchInputVariant;
 
 const SearchInput: React.FC<SearchInputProps> = ({
   isShortCut = false,
-  placeholder = "",
+  placeholder = '',
   ...rest
 }) => {
   const { theme } = useTheme();
@@ -35,7 +35,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
       {/* shortcut icon */}
       {isShortCut && (
         <DutchC.ShortCutWrapper>
-          <DutchC.ShortCut>{"/"}</DutchC.ShortCut>
+          <DutchC.ShortCut>{'/'}</DutchC.ShortCut>
         </DutchC.ShortCutWrapper>
       )}
     </DutchC.SearchInputWrapper>

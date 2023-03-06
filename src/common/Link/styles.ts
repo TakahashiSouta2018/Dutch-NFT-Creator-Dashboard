@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import Link from "next/link";
-import { LinkSizes } from "@/types";
+import styled from 'styled-components';
+import Link from 'next/link';
+import { LinkSizes } from '@/types';
 
 // types
 export type LinkWrapperProps = {
@@ -18,7 +18,7 @@ export const NavLinkWrapper = styled(Link).attrs({
       p.active && "color: var(--active-color); font-weight: 700;"}
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       width: 5px;
       height: 5px;

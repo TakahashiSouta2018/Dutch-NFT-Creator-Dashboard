@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 // components
 import { AppLayout, DashboardSubNav, NFTManagement } from "@/components";
