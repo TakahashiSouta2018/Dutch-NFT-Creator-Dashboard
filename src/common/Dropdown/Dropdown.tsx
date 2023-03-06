@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
 // components
-import * as DutchC from "./styles";
+import * as DutchC from './styles';
 
 // types
-import type { DropdownPositionVariants } from "@/types";
+import type { DropdownPositionVariants } from '@/types';
 
 interface DropdownProps {
   value: string;
@@ -13,9 +13,9 @@ interface DropdownProps {
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
-  value = "",
+  value = '',
   options = [],
-  pos = "BL",
+  pos = 'BL',
 }) => {
   return <DutchC.DropdownWrapper></DutchC.DropdownWrapper>;
 };

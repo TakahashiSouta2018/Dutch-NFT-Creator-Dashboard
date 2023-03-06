@@ -1,5 +1,5 @@
-import React from "react";
-import { useTheme } from "next-themes";
+import React from 'react';
+import { useTheme } from 'next-themes';
 
 // components
 import * as DutchC from './styles';
@@ -26,7 +26,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
         <ISearch
           variant="solid"
           size="medium"
-          color={theme === "light" ? "black" : "white"}
+          color={theme === 'light' ? 'black' : 'white'}
         />
       </DutchC.SearchIconWrapper>
 

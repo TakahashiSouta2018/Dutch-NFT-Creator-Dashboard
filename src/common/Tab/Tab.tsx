@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
 // component
-import * as DutchC from "./styles";
+import * as DutchC from './styles';
 
 interface TabProps {
   children: React.ReactNode;

@@ -14,11 +14,11 @@ const sizes = {
 };
 
 const colors = {
-  black: "text-black/70",
-  "dark-gray": "text-black/60",
-  gray: "text-black/30",
-  white: "text-white",
-  orange: "text-primary-orange",
+  black: 'text-black/70',
+  'dark-gray': 'text-black/60',
+  gray: 'text-black/30',
+  white: 'text-white',
+  orange: 'text-primary-orange',
 };
 
 export const ISearch: React.FC<IconProps> = ({
@@ -82,11 +82,11 @@ export const ICalendar: React.FC<IconProps> = ({
 };
 
 export const IMoon: React.FC<IconProps> = ({
-  variant = "solid",
-  size = "medium",
-  color = "black",
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
 }) => {
-  return variant === "solid" ? (
+  return variant === 'solid' ? (
     <SolidIcons.MoonIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
     <SolidIcons.MoonIcon className={`${sizes[size]} ${colors[color]}`} />
@@ -94,11 +94,11 @@ export const IMoon: React.FC<IconProps> = ({
 };
 
 export const ISun: React.FC<IconProps> = ({
-  variant = "solid",
-  size = "medium",
-  color = "black",
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
 }) => {
-  return variant === "solid" ? (
+  return variant === 'solid' ? (
     <SolidIcons.SunIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
     <SolidIcons.SunIcon className={`${sizes[size]} ${colors[color]}`} />
@@ -106,11 +106,11 @@ export const ISun: React.FC<IconProps> = ({
 };
 
 export const IPlayCircle: React.FC<IconProps> = ({
-  variant = "solid",
-  size = "medium",
-  color = "black",
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
 }) => {
-  return variant === "solid" ? (
+  return variant === 'solid' ? (
     <SolidIcons.PlayCircleIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
     <SolidIcons.PlayCircleIcon className={`${sizes[size]} ${colors[color]}`} />
@@ -118,11 +118,11 @@ export const IPlayCircle: React.FC<IconProps> = ({
 };
 
 export const IInformationCircle: React.FC<IconProps> = ({
-  variant = "solid",
-  size = "medium",
-  color = "black",
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
 }) => {
-  return variant === "solid" ? (
+  return variant === 'solid' ? (
     <SolidIcons.InformationCircleIcon
       className={`${sizes[size]} ${colors[color]}`}
     />
@@ -134,11 +134,11 @@ export const IInformationCircle: React.FC<IconProps> = ({
 };
 
 export const IHome: React.FC<IconProps> = ({
-  variant = "solid",
-  size = "medium",
-  color = "black",
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
 }) => {
-  return variant === "solid" ? (
+  return variant === 'solid' ? (
     <SolidIcons.HomeIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
     <SolidIcons.HomeIcon className={`${sizes[size]} ${colors[color]}`} />
@@ -146,11 +146,11 @@ export const IHome: React.FC<IconProps> = ({
 };
 
 export const IArrowDownOnSquare: React.FC<IconProps> = ({
-  variant = "solid",
-  size = "medium",
-  color = "black",
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
 }) => {
-  return variant === "solid" ? (
+  return variant === 'solid' ? (
     <SolidIcons.ArrowDownOnSquareIcon
       className={`${sizes[size]} ${colors[color]}`}
     />
@@ -162,11 +162,11 @@ export const IArrowDownOnSquare: React.FC<IconProps> = ({
 };
 
 export const IFunnel: React.FC<IconProps> = ({
-  variant = "solid",
-  size = "medium",
-  color = "black",
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
 }) => {
-  return variant === "solid" ? (
+  return variant === 'solid' ? (
     <SolidIcons.FunnelIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
     <SolidIcons.FunnelIcon className={`${sizes[size]} ${colors[color]}`} />
@@ -183,7 +183,7 @@ export const icons = {
   play: IPlayCircle,
   informationcircle: IInformationCircle,
   home: IHome,
-  "arrow-down-on-square": IArrowDownOnSquare,
+  'arrow-down-on-square': IArrowDownOnSquare,
   funnel: IFunnel,
 };
 

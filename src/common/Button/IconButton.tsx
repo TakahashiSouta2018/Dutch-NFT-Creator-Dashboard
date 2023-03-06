@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useTheme } from "next-themes";
+import React, { useState } from 'react';
+import { useTheme } from 'next-themes';
 
 // components
 import * as DutchC from './styles';
@@ -32,16 +32,16 @@ const IconButton: React.FC<IconButtonProps> = ({
       onClick={onClick}
     >
       <Icon
-        variant={isPressed ? "outline" : "solid"}
+        variant={isPressed ? 'outline' : 'solid'}
         size="large"
         color={
           isPressed
-            ? theme === "light"
-              ? "white"
-              : "black"
-            : theme === "dark"
-            ? "white"
-            : "black"
+            ? theme === 'light'
+              ? 'white'
+              : 'black'
+            : theme === 'dark'
+            ? 'white'
+            : 'black'
         }
       />
     </DutchC.IconButtonWrapper>

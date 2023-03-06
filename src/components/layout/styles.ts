@@ -8,7 +8,7 @@ export const AppWrapper = styled.div.attrs({
 })``;
 
 export const ContentWrapper = styled.div.attrs({
-  className: "relative max-w-app mx-auto select-none",
+  className: 'relative max-w-app mx-auto select-none',
 })``;
 
 // --- Header
@@ -18,7 +18,7 @@ export const HeaderWrapper = styled.div.attrs({
 
 export const HeaderInner = styled.div.attrs({
   className:
-    "max-w-wide mx-auto h-full flex items-center px-6 py-2 border-b border-black/10 dark:border-white/10",
+    'max-w-wide mx-auto h-full flex items-center px-6 py-2 border-b border-black/10 dark:border-white/10',
 })``;
 
 export const Logo = styled(Image).attrs({ className: '' })``;
@@ -29,7 +29,7 @@ export const Nav = styled.nav.attrs({
 
 export const ComingSoon = styled.span.attrs({
   className:
-    "absolute left-0 top-5 text-xs text-primary-orange dark:text-dark-orange whitespace-nowrap",
+    'absolute left-0 top-5 text-xs text-primary-orange dark:text-dark-orange whitespace-nowrap',
 })``;
 
 export const RightActions = styled.div.attrs({

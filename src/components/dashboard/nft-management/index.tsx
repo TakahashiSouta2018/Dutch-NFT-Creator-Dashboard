@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
+import React, { useState, useEffect } from 'react';
+import { useTheme } from 'next-themes';
 
 // components
 import {
@@ -9,13 +9,13 @@ import {
   Button,
   IconButton,
   SearchInput,
-} from "@/common";
-import * as DutchC from "./styles";
+} from '@/common';
+import * as DutchC from './styles';
 
 // icons
-import * as Icons from "@/common/Icons";
+import * as Icons from '@/common/Icons';
 
-type WIDEFILTER = "ALL" | "LIST" | "COLLECTION" | "ARCHIVE" | "BANK0X";
+type WIDEFILTER = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE' | 'BANK0X';
 
 type WIDEFILTERTYPE = {
   label: string;
@@ -25,26 +25,26 @@ type WIDEFILTERTYPE = {
 const wideFilters: WIDEFILTERTYPE[][] = [
   [
     {
-      label: "All(5)",
-      slug: "ALL",
+      label: 'All(5)',
+      slug: 'ALL',
     },
     {
-      label: "Lists(5)",
-      slug: "LIST",
+      label: 'Lists(5)',
+      slug: 'LIST',
     },
     {
-      label: "Collections(2)",
-      slug: "COLLECTION",
+      label: 'Collections(2)',
+      slug: 'COLLECTION',
     },
     {
-      label: "Archives(2)",
-      slug: "ARCHIVE",
+      label: 'Archives(2)',
+      slug: 'ARCHIVE',
     },
   ],
   [
     {
-      label: "BANK0x(1)",
-      slug: "BANK0X",
+      label: 'BANK0x(1)',
+      slug: 'BANK0X',
     },
   ],
 ];
@@ -52,7 +52,7 @@ const wideFilters: WIDEFILTERTYPE[][] = [
 const NFTManagement: React.FC = () => {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [currentWideFilter, setCurrentWideFilter] = useState<WIDEFILTER>("ALL");
+  const [currentWideFilter, setCurrentWideFilter] = useState<WIDEFILTER>('ALL');
 
   useEffect(() => {
     setMounted(true);
@@ -118,7 +118,7 @@ const NFTManagement: React.FC = () => {
           <Icons.IInformationCircle
             variant="solid"
             size="large"
-            color={theme === "light" ? "black" : "white"}
+            color={theme === 'light' ? 'black' : 'white'}
           />
         </DutchC.NFTManagementGuideInfoIconWrapper>
 

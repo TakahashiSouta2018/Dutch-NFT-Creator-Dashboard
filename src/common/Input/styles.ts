@@ -8,7 +8,7 @@ type SearchInputWrapperProps = SearchInputVariant;
 // components
 export const Input = styled.input.attrs({
   className:
-    "outline-none w-full inline-flex items-center justify-center h-9.5 border border-black/10 rounded-lg px-10 text-sm peer placeholder:text-black/70 focus:border-black dark:border-white/10 dark:bg-dark-surface dark:placeholder:text-white/70 transition",
+    'outline-none w-full inline-flex items-center justify-center h-9.5 border border-black/10 rounded-lg px-10 text-sm peer placeholder:text-black/70 focus:border-black dark:border-white/10 dark:bg-dark-surface dark:placeholder:text-white/70 transition',
 })`
   ${(p: SearchInputWrapperProps) => !p.isShortCut && 'padding-right: 10px;'}
 `;
@@ -32,5 +32,5 @@ export const ShortCutWrapper = styled.div.attrs({
 
 export const ShortCut = styled.div.attrs({
   className:
-    "w-5 h-5 bg-black/10 rounded-sm flex items-center justify-center dark:bg-white/10",
+    'w-5 h-5 bg-black/10 rounded-sm flex items-center justify-center dark:bg-white/10',
 })``;

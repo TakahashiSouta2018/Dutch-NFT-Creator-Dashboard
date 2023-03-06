@@ -1,6 +1,6 @@
-import React, { useState, useCallback, useEffect } from "react";
-import { useRouter } from "next/router";
-import { useTheme } from "next-themes";
+import React, { useState, useCallback, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useTheme } from 'next-themes';
 
 // components
 import { SearchInput, IconButton, Badge, NavLink } from '@/common';
@@ -40,7 +40,7 @@ const Header: React.FC = () => {
   const PAGE_PATH = router.asPath.split('/')[1] ?? '';
 
   const toggleTheme = useCallback(() => {
-    setTheme(theme === "light" ? "dark" : "light");
+    setTheme(theme === 'light' ? 'dark' : 'light');
   }, [setTheme, theme]);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const Header: React.FC = () => {
     <DutchC.HeaderWrapper>
       <DutchC.HeaderInner>
         <DutchC.Logo
-          src={`/images/${theme === "light" ? "logo.svg" : "logo-dark.svg"}`}
+          src={`/images/${theme === 'light' ? 'logo.svg' : 'logo-dark.svg'}`}
           width={145}
           height={36}
           alt="logo"
@@ -84,7 +84,7 @@ const Header: React.FC = () => {
           <Badge variant="dot" label="STATUS" />
 
           <IconButton
-            icon={theme === "light" ? "moon" : "sun"}
+            icon={theme === 'light' ? 'moon' : 'sun'}
             onClick={toggleTheme}
           />
           <IconButton icon="bell" />
