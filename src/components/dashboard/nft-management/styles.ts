@@ -36,6 +36,14 @@ export const NFTManagementSubTool = styled.div.attrs({
   className: "flex items-center justify-between py-4",
 })``;
 
+export const NFTManagementSubToolLeft = styled.div.attrs({
+  className: "flex items-center space-x-2",
+})``;
+
+export const NFTManagementSubToolRight = styled.div.attrs({
+  className: "flex items-center space-x-2",
+})``;
+
 export const NFTManagementDot = styled.div.attrs({
   className: "w-[5px] h-[5px] inline-flex rounded-full bg-black/60",
 })``;

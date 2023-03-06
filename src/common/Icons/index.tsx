@@ -161,6 +161,18 @@ export const IArrowDownOnSquare: React.FC<IconProps> = ({
   );
 };
 
+export const IFunnel: React.FC<IconProps> = ({
+  variant = "solid",
+  size = "medium",
+  color = "black",
+}) => {
+  return variant === "solid" ? (
+    <SolidIcons.FunnelIcon className={`${sizes[size]} ${colors[color]}`} />
+  ) : (
+    <SolidIcons.FunnelIcon className={`${sizes[size]} ${colors[color]}`} />
+  );
+};
+
 export const icons = {
   bell: IBell,
   wallet: IWallet,
@@ -172,6 +184,7 @@ export const icons = {
   informationcircle: IInformationCircle,
   home: IHome,
   "arrow-down-on-square": IArrowDownOnSquare,
+  funnel: IFunnel,
 };
 
 export type IconType = keyof typeof icons;

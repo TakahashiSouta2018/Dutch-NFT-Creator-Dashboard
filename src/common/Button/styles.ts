@@ -5,6 +5,10 @@ import { ButtonVariants } from "@/types";
 
 type ButtonWrapperProps = ButtonVariants;
 
+interface IconButtonWrapperProps {
+  rounded?: number;
+}
+
 // components
 // --- Button
 export const ButtonWrapper = styled.button.attrs({
@@ -26,4 +30,9 @@ export const ButtonWrapper = styled.button.attrs({
 export const IconButtonWrapper = styled.div.attrs({
   className:
     "inline-flex items-center justify-center w-9 h-9 rounded-lg hover:bg-black/10 active:bg-black cursor-pointer transition",
-})``;
+})`
+  ${(p: IconButtonWrapperProps) =>
+    p.rounded
+      ? "border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 8px;"
+      : ""}
+`;

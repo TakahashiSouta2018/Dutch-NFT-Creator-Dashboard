@@ -9,16 +9,22 @@ import { icons, IconType } from "../Icons";
 
 interface IconButtonProps {
   icon: IconType;
+  rounded?: boolean;
   onClick?: () => void;
 }
 
-const IconButton: React.FC<IconButtonProps> = ({ icon, onClick }) => {
+const IconButton: React.FC<IconButtonProps> = ({
+  icon,
+  rounded = false,
+  onClick,
+}) => {
   const { theme } = useTheme();
   const [isPressed, setIsPressed] = useState(false);
   const Icon = icons[icon];
 
   return (
     <DutchC.IconButtonWrapper
+      rounded={rounded ? 1 : 0}
       onMouseDown={() => setIsPressed(true)}
       onMouseUp={() => setIsPressed(false)}
       onTouchStart={() => setIsPressed(true)}

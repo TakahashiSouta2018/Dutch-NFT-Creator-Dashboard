@@ -2,7 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 
 // components
-import { TabContainer, TabGroup, Tab, Button } from "@/common";
+import {
+  TabContainer,
+  TabGroup,
+  Tab,
+  Button,
+  IconButton,
+  SearchInput,
+} from "@/common";
 import * as DutchC from "./styles";
 
 // icons
@@ -91,7 +98,16 @@ const NFTManagement: React.FC = () => {
               </Button>
             </DutchC.NFTManagementTopTool>
             {/* Sub Toolbar */}
-            <DutchC.NFTManagementSubTool></DutchC.NFTManagementSubTool>
+            <DutchC.NFTManagementSubTool>
+              {/* left */}
+              <DutchC.NFTManagementSubToolLeft>
+                <IconButton icon="funnel" rounded />
+                <SearchInput placeholder="NFT name or id" />
+              </DutchC.NFTManagementSubToolLeft>
+
+              {/* right */}
+              <DutchC.NFTManagementSubToolRight></DutchC.NFTManagementSubToolRight>
+            </DutchC.NFTManagementSubTool>
           </DutchC.NFTManagementContentBody>
         </DutchC.NFTManagementContent>
       </DutchC.NFTManagementContentWrapper>
