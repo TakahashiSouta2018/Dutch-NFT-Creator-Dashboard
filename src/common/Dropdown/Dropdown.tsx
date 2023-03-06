@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
+import { useDetectClickOutside } from 'react-detect-click-outside';
 
 // components
 import * as DutchC from './styles';
+
+// icons
+import * as Icons from '@/common/Icons';
 
 // types
 import type { DropdownPositionVariants } from '@/types';
@@ -9,15 +13,64 @@ import type { DropdownPositionVariants } from '@/types';
 interface DropdownProps {
   value: string;
   options: string[];
-  pos: DropdownPositionVariants;
+  position: DropdownPositionVariants;
+  label?: string;
+  onSelect: (value: string) => void;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
-  value = '',
+  value = 'Color',
   options = [],
-  pos = 'BL',
+  position = 'BL',
+  label,
+  onSelect,
 }) => {
-  return <DutchC.DropdownWrapper></DutchC.DropdownWrapper>;
+  const [open, setOpen] = useState(false);
+
+  const handleToggle = useCallback(() => {
+    setOpen((open) => !open);
+  }, []);
+
+  const handleClose = useCallback((e: Event) => {
+    e.stopPropagation();
+    setOpen(false);
+  }, []);
+
+  const handleClickOption = useCallback(
+    (value: string) => {
+      onSelect(value);
+    },
+    [onSelect]
+  );
+
+  const ref = useDetectClickOutside({ onTriggered: handleClose });
+
+  return (
+    <DutchC.DropdownWrapper onClick={handleToggle} ref={ref}>
+      {label && <DutchC.DropdownLabel>{label}</DutchC.DropdownLabel>}
+      <DutchC.DropdownInner selected={open ? 1 : 0}>
+        {/* value */}
+        <DutchC.DropdownValue>{value}</DutchC.DropdownValue>
+        {/* arrow icon */}
+        <DutchC.DropdownIconWrapper>
+          <Icons.IChevronDown size="small" color="black" />
+        </DutchC.DropdownIconWrapper>
+        {/* dropdown options */}
+        {open && (
+          <DutchC.DropdownList position={position}>
+            {options.map((option) => (
+              <DutchC.DropdownListItem
+                key={option}
+                onClick={() => handleClickOption(option)}
+              >
+                {option}
+              </DutchC.DropdownListItem>
+            ))}
+          </DutchC.DropdownList>
+        )}
+      </DutchC.DropdownInner>
+    </DutchC.DropdownWrapper>
+  );
 };
 
 export default Dropdown;
