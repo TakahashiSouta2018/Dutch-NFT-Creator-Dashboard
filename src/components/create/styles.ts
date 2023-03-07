@@ -1,16 +1,22 @@
 import styled from 'styled-components';
 
 // types
+type CreateContentWrapperProps = {
+  open?: number;
+};
 
 // components
 export const CreateWrapper = styled.div.attrs({
-  className: 'relative flex px-6 py-4 mt-16',
+  className: 'relative flex px-6 py-4 mt-16 overflow-x-hidden',
 })``;
 
 // --- Main Content
 export const CreateContentWrapper = styled.div.attrs({
-  className: 'flex w-full grow',
-})``;
+  className: 'flex transition-all',
+})`
+  ${(p: CreateContentWrapperProps) =>
+    p.open ? 'width: 83.333333%;' : 'width: 100%;'}
+`;
 
 export const CreateContent = styled.div.attrs({
   className: 'flex flex-col w-full space-y-4',
@@ -66,4 +72,8 @@ export const BreadcrumbWrapper = styled.div.attrs({
 export const BreadcrumbItem = styled.a.attrs({
   className:
     'relative inline-flex items-center justify-center px-4 first:pl-2 last:pr-2 text-black/60',
+})``;
+
+export const GuideInfoIconWrapper = styled.div.attrs({
+  className: 'absolute top-4 right-6 cursor-pointer',
 })``;

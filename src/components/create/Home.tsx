@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTheme } from 'next-themes';
 
 // components
 import { Dropdown, Button } from '@/common';
@@ -6,17 +7,27 @@ import { Guide } from '@/components/shared';
 import * as DutchC from './styles';
 import Breadcrumb from './Breadcrumb';
 
+// icons
+import * as Icons from '@/common/Icons';
+
 const options = ['Option A', 'Option B', 'Option C'];
 
 const CreateHome: React.FC = () => {
+  const { theme } = useTheme();
   const [collection, setCollection] = useState(options[0]);
+  const [open, setOpen] = useState(true);
+
   const onCollectionSelect = (value: string) => {
     setCollection(value);
   };
 
+  const toggleGuide = () => {
+    setOpen((open) => !open);
+  };
+
   return (
     <DutchC.CreateWrapper>
-      <DutchC.CreateContentWrapper>
+      <DutchC.CreateContentWrapper open={open ? 1 : 0}>
         <DutchC.CreateContent>
           <Breadcrumb />
           <DutchC.CreateContentHeader>
@@ -53,7 +64,15 @@ const CreateHome: React.FC = () => {
         </DutchC.CreateContent>
       </DutchC.CreateContentWrapper>
 
-      <Guide />
+      {/* toggle guide */}
+      <DutchC.GuideInfoIconWrapper onClick={toggleGuide}>
+        <Icons.IInformationCircle
+          variant="solid"
+          size="large"
+          color={theme === 'light' ? 'black' : 'white'}
+        />
+      </DutchC.GuideInfoIconWrapper>
+      <Guide open={open} />
     </DutchC.CreateWrapper>
   );
 };

@@ -1,11 +1,17 @@
 import styled from 'styled-components';
 
 // types
+type GuideWrapperProps = {
+  open: boolean;
+};
 
 // components
 export const GuideWrapper = styled.div.attrs({
-  className: 'relative flex flex-col gap-8 py-9 ml-6 w-1/6',
-})``;
+  className: 'flex flex-col gap-8 py-9 ml-6 w-1/6 transition',
+})`
+  ${(p: GuideWrapperProps) =>
+    p.open ? '' : 'position: absolute; right: 0; transform: translateX(100%);'}
+`;
 
 export const GuideCard = styled.div.attrs({
   className: 'flex flex-col space-y-2 py-2',
@@ -22,8 +28,4 @@ export const GuideCardContent = styled.p.attrs({
 export const GuideCardFooter = styled.div.attrs({
   className:
     'inline-flex items-center space-x-1 text-sm text-primary-orange cursor-pointer dark:text-dark-orange',
-})``;
-
-export const GuideInfoIconWrapper = styled.div.attrs({
-  className: 'absolute top-0 right-0 cursor-pointer',
 })``;

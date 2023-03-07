@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTheme } from 'next-themes';
 
 // components
 import * as DutchC from './styles';
@@ -7,20 +6,13 @@ import * as DutchC from './styles';
 // icons
 import * as Icons from '@/common/Icons';
 
-const Guide: React.FC = () => {
-  const { theme } = useTheme();
+interface GuideProps {
+  open: boolean;
+}
 
+const Guide: React.FC<GuideProps> = ({ open }) => {
   return (
-    <DutchC.GuideWrapper>
-      {/* information icon */}
-      <DutchC.GuideInfoIconWrapper>
-        <Icons.IInformationCircle
-          variant="solid"
-          size="large"
-          color={theme === 'light' ? 'black' : 'white'}
-        />
-      </DutchC.GuideInfoIconWrapper>
-
+    <DutchC.GuideWrapper open={open}>
       <DutchC.GuideCard>
         <DutchC.GuideCardHeader>What is NFT Management?</DutchC.GuideCardHeader>
 
