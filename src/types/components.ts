@@ -110,3 +110,31 @@ export interface ConstrucMetadataI {
   animationUrlNames: string[];
   csvFileContents: CSVMetadataI[];
 }
+
+export interface MintNFTPostDataI {
+  exchange: string;
+  minterId: number;
+  minterAddress: string;
+  toAccountId: number;
+  toAddress: string;
+  nftType: number;
+  tokenAddress: string;
+  nftId: string;
+  amount: string;
+  creatorFeeBips: number;
+  validUntil: number;
+  storageId: number;
+  maxFee: {
+    tokenId: number;
+    amount: string;
+  };
+  eddsaSignature: string;
+  forceToMint: boolean;
+  counterFactualNftInfo: {
+    nftFactory: string;
+    nftOwner: string;
+    nftBaseUri: string;
+  };
+  royaltyAddress: string;
+  royaltyPercentage: number;
+}

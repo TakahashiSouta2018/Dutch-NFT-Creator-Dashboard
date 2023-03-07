@@ -9,7 +9,7 @@ import { shallowEqual } from 'react-redux';
 import ConnectWallet from '@/components/shared/connectWallet';
 import { AppLayout } from '@/components';
 
-const BulkMint = () => {
+const FolderUpload = () => {
   const [selectedImageFolder, setSelectedImageFolder] =
     useState<FileList | null>(null);
   const [selectedCSVFileContent, setSelectedCSVFileContent] = useState<
@@ -69,10 +69,16 @@ const BulkMint = () => {
     const formData = new FormData();
     const fileNames: string[] = [];
 
+    const min = 1;
+    const max = 10000000000; // 10 billion
+
     selectedImageFolderArr.forEach((file) => {
       formData.append('file', file);
-      fileNames.push(file.name);
+      const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+      fileNames.push(`${randomNumber}${file.name}`);
     });
+
+    console.log({ fileNames });
 
     const metadata = JSON.stringify({
       name: 'Folder name', // update to collection name
@@ -98,18 +104,33 @@ const BulkMint = () => {
           'https://nftinfos.loopring.io/0x4a160986c99ec5a35a91471c4c738e46dc2ab647',
       });
 
-      await Promise.all(
-        nftDataArray.map((nftData, index) =>
-          loopringService.mintNFT({
-            accountInfo,
-            walletType,
-            metadata: nftData,
-            amount: selectedCSVFileContent[index].amount,
-            royaltyPercentage: nftData.royalty_percentage,
-            nftTokenAddress: '0x4a160986c99ec5a35a91471c4c738e46dc2ab647',
-          })
-        )
-      );
+      for (let index = 0; index < nftDataArray.length; index++) {
+        const nftData = nftDataArray[index];
+
+        const res = await loopringService.mintNFT({
+          accountInfo,
+          walletType,
+          metadata: nftData,
+          amount: selectedCSVFileContent[index].amount,
+          royaltyPercentage: nftData.royalty_percentage,
+          nftTokenAddress: '0x4a160986c99ec5a35a91471c4c738e46dc2ab647',
+        });
+
+        console.log({ res });
+      }
+
+      // await Promise.all(
+      //   nftDataArray.map((nftData, index) =>
+      //     loopringService.mintNFT({
+      //       accountInfo,
+      //       walletType,
+      //       metadata: nftData,
+      //       amount: selectedCSVFileContent[index].amount,
+      //       royaltyPercentage: nftData.royalty_percentage,
+      //       nftTokenAddress: '0x4a160986c99ec5a35a91471c4c738e46dc2ab647',
+      //     })
+      //   )
+      // );
     } catch (error) {
       console.log(error);
     }
@@ -139,4 +160,4 @@ const BulkMint = () => {
   );
 };
 
-export default BulkMint;
+export default FolderUpload;
