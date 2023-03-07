@@ -71,7 +71,7 @@ export const BreadcrumbWrapper = styled.div.attrs({
 
 export const BreadcrumbItem = styled.a.attrs({
   className:
-    'relative inline-flex items-center justify-center px-4 first:pl-2 last:pr-2 text-black/60',
+    'relative inline-flex items-center justify-center px-4 first:pl-2 last:pr-2 text-black/60 capitalize',
 })``;
 
 export const GuideInfoIconWrapper = styled.div.attrs({
