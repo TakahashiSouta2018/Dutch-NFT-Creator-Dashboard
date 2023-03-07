@@ -113,7 +113,7 @@ const NFTManagement: React.FC = () => {
         </DutchC.NFTManagementContent>
       </DutchC.NFTManagementContentWrapper>
 
-      <Guide />
+      <Guide open={true} />
     </DutchC.NFTManagementWrapper>
   );
 };
