@@ -11,6 +11,7 @@ const sizes = {
   small: 'w-3 h-3',
   medium: 'w-4 h-4',
   large: 'w-5 h-5',
+  xlarge: 'w-11 h-9',
 };
 
 const colors = {
@@ -197,6 +198,18 @@ export const IChevronUp: React.FC<IconProps> = ({
   );
 };
 
+export const IPhoto: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.PhotoIcon className={`${sizes[size]} ${colors[color]}`} />
+  ) : (
+    <SolidIcons.PhotoIcon className={`${sizes[size]} ${colors[color]}`} />
+  );
+};
+
 export const icons = {
   bell: IBell,
   wallet: IWallet,
@@ -211,6 +224,7 @@ export const icons = {
   funnel: IFunnel,
   'chevron-up': IChevronUp,
   'chevron-down': IChevronDown,
+  photo: IPhoto,
 };
 
 export type IconType = keyof typeof icons;

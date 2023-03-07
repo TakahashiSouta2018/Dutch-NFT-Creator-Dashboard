@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useTheme } from 'next-themes';
 
 // components
@@ -51,7 +52,9 @@ const CreateHome: React.FC = () => {
             </DutchC.CreateContentLeft>
 
             <DutchC.CreateContentHeaderActions>
-              <Button variant="solid">Create Collection</Button>
+              <Button variant="solid">
+                <Link href="/create/create-collection">Create Collection</Link>
+              </Button>
               <Button variant="solid">Draft NFT</Button>
               <Button variant="solid">Bulk NFT</Button>
             </DutchC.CreateContentHeaderActions>

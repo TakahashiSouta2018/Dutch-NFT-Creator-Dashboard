@@ -15,7 +15,7 @@ export type IconButtonVariants = {};
  */
 export type IconVariants = {
   variant?: 'solid' | 'outline';
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large' | 'xlarge';
   color?: 'black' | 'gray' | 'white' | 'orange' | 'dark-gray';
 };
 
@@ -43,6 +43,11 @@ export type LinkSizes = 'small' | 'large';
  * Dropdown
  */
 export type DropdownPositionVariants = 'TL' | 'TR' | 'BL' | 'BR';
+
+/**
+ * Media Upload
+ */
+export type MediaUploadVariants = 'tile' | 'avatar' | 'banner';
 
 export interface AccountInfoI {
   accInfo: sdk.AccountInfo;

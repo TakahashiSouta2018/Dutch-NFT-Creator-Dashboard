@@ -5,3 +5,4 @@ export * from './Badge';
 export * from './Link';
 export * from './Tab';
 export * from './Dropdown';
+export * from './Upload';
