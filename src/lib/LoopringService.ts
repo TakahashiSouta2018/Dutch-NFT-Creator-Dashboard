@@ -7,10 +7,16 @@ import {
   ConnectorNames,
   NFTCounterFactualInfo,
 } from '@loopring-web/loopring-sdk';
-import { AccountInfoI, CollectionObjectI, FeeI, LooseObjectI } from '@/types';
+import {
+  AccountInfoI,
+  CollectionObjectI,
+  LooseObjectI,
+  MintNFTPostDataI,
+} from '@/types';
 import { validateMetadata } from '@/lib/metadata';
 import { pinJSONToIPFS } from './pinata';
 import { getTimestampDaysLater, TOKEN_INFO } from '@/helpers';
+import axios from 'axios';
 
 interface MintNFTI {
   accountInfo: AccountInfoI;
@@ -185,43 +191,60 @@ export class LoopringService {
       const storageId = await this.userAPI.getNextStorageId(
         {
           accountId: accountInfo.accInfo.accountId,
-          sellTokenId: TOKEN_INFO.tokenMap['LRC'].tokenId,
+          sellTokenId: TOKEN_INFO.tokenMap['ETH'].tokenId,
         },
         accountInfo.apiKey
       );
 
       const nftId = this.nftAPI.ipfsCid0ToNftID(metadataCID);
 
-      const response = await this.userAPI.submitNFTMint({
-        request: {
-          maxFee: {
-            tokenId: TOKEN_INFO.tokenMap['LRC'].tokenId,
-            amount: fee.fees['LRC'].fee ?? '9400000000000000000',
-          },
-          exchange: exchangeInfo.exchangeAddress,
-          minterId: accountInfo.accInfo.accountId,
-          minterAddress: accountInfo.accInfo.owner,
-          toAccountId: accountInfo.accInfo.accountId,
-          toAddress: accountInfo.accInfo.owner,
-          tokenAddress: collectionMeta.contractAddress,
-          validUntil: getTimestampDaysLater(30),
-          storageId: storageId.offchainId,
-          counterFactualNftInfo,
-          forceToMint: false,
-          royaltyPercentage,
-          nftType: 0, // ERC1155
-          nftId,
-          amount,
+      const request = {
+        maxFee: {
+          tokenId: TOKEN_INFO.tokenMap['ETH'].tokenId,
+          amount: fee.fees['ETH'].fee,
         },
-        //@ts-ignore
-        web3: connectProvides.usedWeb3 as unknown as Web3,
-        chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID) as ChainId,
-        walletType,
-        eddsaKey: accountInfo.eddsaKey.sk,
-        apiKey: accountInfo.apiKey,
-      });
+        exchange: exchangeInfo.exchangeAddress,
+        minterId: accountInfo.accInfo.accountId,
+        minterAddress: accountInfo.accInfo.owner,
+        toAccountId: accountInfo.accInfo.accountId,
+        toAddress: accountInfo.accInfo.owner,
+        tokenAddress: collectionMeta.contractAddress,
+        validUntil: getTimestampDaysLater(30),
+        storageId: storageId.offchainId,
+        counterFactualNftInfo,
+        forceToMint: false,
+        royaltyPercentage,
+        nftType: 0, // ERC1155
+        nftId,
+        amount,
+      };
 
-      return response;
+      const eddsaSignature = sdk.get_EddsaSig_NFT_Mint(
+        //@ts-ignore
+        { ...request },
+        accountInfo.eddsaKey.sk
+      );
+
+      const postData: MintNFTPostDataI = {
+        ...request,
+        creatorFeeBips: 0,
+        eddsaSignature: eddsaSignature.result,
+        royaltyAddress: collectionMeta.contractAddress,
+      };
+
+      const headers = {
+        'X-API-KEY': accountInfo.apiKey,
+      };
+
+      const result = await axios.post(
+        'https://api3.loopring.io/api/v3/nft/mint',
+        { ...postData },
+        { headers }
+      );
+
+      console.log({ result: result.data });
+
+      return result.data;
     } catch (error) {
       console.log(error);
     }
