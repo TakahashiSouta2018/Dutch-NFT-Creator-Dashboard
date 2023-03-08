@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTheme } from 'next-themes';
 
 // components
 import { Button } from '@/common';
@@ -27,13 +28,22 @@ const types = {
 };
 
 const MediaUpload: React.FC<MediaUploadProps> = ({ variant }) => {
+  const { theme } = useTheme();
+
   return (
     <DutchC.ImageUploadWrapper>
-      <IPhoto variant="solid" size="xlarge" color="gray" />
-      <span className="mt-2">
-        <b>{types[variant]}</b> Dimension {aspects[variant]}
+      <IPhoto
+        variant="solid"
+        size="xlarge"
+        color={theme === 'dark' ? 'white-gray' : 'gray'}
+      />
+      <span className="mt-2 dark:text-white/70">
+        <b className="dark:text-white">{types[variant]}</b> Dimension{' '}
+        {aspects[variant]}
       </span>
-      <span className="mb-2">Drag and drop your media or</span>
+      <span className="mb-2 dark:text-white/70">
+        Drag and drop your media or
+      </span>
       <Button variant="outline" size="small">
         Upload Media
       </Button>

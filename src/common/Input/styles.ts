@@ -37,11 +37,11 @@ export const InputIconWrapper = styled.div.attrs({
 })``;
 
 export const InputLabel = styled.label.attrs({
-  className: 'text-sm whitespace-nowrap text-black',
+  className: 'text-sm whitespace-nowrap text-black dark:text-white',
 })``;
 
 export const InputHelper = styled.label.attrs({
-  className: 'text-xs whitespace-nowrap text-black/70',
+  className: 'text-xs whitespace-nowrap text-black/70 dark:text-white/70',
 })``;
 
 // --- Search Input
@@ -90,13 +90,13 @@ export const TextAreaLabelWrapper = styled.div.attrs({
 })``;
 
 export const TextAreaLabel = styled.label.attrs({
-  className: 'text-sm whitespace-nowrap text-black',
+  className: 'text-sm whitespace-nowrap text-black dark:text-white',
 })``;
 
 export const TextAreaOptional = styled.span.attrs({
-  className: 'text-xs whitespace-nowrap text-black/70',
+  className: 'text-xs whitespace-nowrap text-black/70 dark:text-white/70',
 })``;
 
 export const TextAreaCounter = styled.span.attrs({
-  className: 'text-sm whitespace-nowrap text-black/70',
+  className: 'text-sm whitespace-nowrap text-black/70 dark:text-white/70',
 })``;

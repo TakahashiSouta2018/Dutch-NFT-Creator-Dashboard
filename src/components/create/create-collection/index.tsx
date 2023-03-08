@@ -32,8 +32,10 @@ const CreateCollectionHome: React.FC = () => {
             <DutchC.CreateCollectionMediaUploadWrapper>
               {/* label */}
               <DutchC.CreateCollectionMediaUploadLabel>
-                <span className="font-medium">Media*</span>
-                <span>(Supported: JPG, JPEG, PNG, GIF)</span>
+                <span className="font-medium dark:text-white/70">Media*</span>
+                <span className="dark:text-white/70">
+                  (Supported: JPG, JPEG, PNG, GIF)
+                </span>
               </DutchC.CreateCollectionMediaUploadLabel>
               {/* Media Upload */}
               <DutchC.CreateCollectionMediaUploadInner>

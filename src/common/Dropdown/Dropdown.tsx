@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useDetectClickOutside } from 'react-detect-click-outside';
+import { useTheme } from 'next-themes';
 
 // components
 import * as DutchC from './styles';
@@ -25,6 +26,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   label,
   onSelect,
 }) => {
+  const { theme } = useTheme();
   const [open, setOpen] = useState(false);
 
   const handleToggle = useCallback(() => {
@@ -53,7 +55,10 @@ const Dropdown: React.FC<DropdownProps> = ({
         <DutchC.DropdownValue>{value}</DutchC.DropdownValue>
         {/* arrow icon */}
         <DutchC.DropdownIconWrapper>
-          <Icons.IChevronDown size="small" color="black" />
+          <Icons.IChevronDown
+            size="small"
+            color={theme === 'dark' ? 'white' : 'black'}
+          />
         </DutchC.DropdownIconWrapper>
         {/* dropdown options */}
         {open && (

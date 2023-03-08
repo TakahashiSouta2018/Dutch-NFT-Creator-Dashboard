@@ -27,11 +27,12 @@ export const CreateCollectionContent = styled.div.attrs({
 })``;
 
 export const CreateCollectionContentBody = styled.div.attrs({
-  className: 'flex flex-col space-y-4 p-4 border border-black/10 rounded-lg',
+  className:
+    'flex flex-col space-y-4 p-4 border border-black/10 rounded-lg dark:border-white/10',
 })``;
 
 export const CreateCollectionHeader = styled.h1.attrs({
-  className: 'text-2xl font-bold whitespace-nowrap text-black',
+  className: 'text-2xl font-bold whitespace-nowrap text-black dark:text-white',
 })``;
 
 export const CreateCollectionMediaUploadWrapper = styled.div.attrs({

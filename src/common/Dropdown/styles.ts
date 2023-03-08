@@ -17,12 +17,12 @@ export const DropdownWrapper = styled.div.attrs({
 })``;
 
 export const DropdownLabel = styled.label.attrs({
-  className: 'text-sm whitespace-nowrap text-black/70',
+  className: 'text-sm whitespace-nowrap text-black/70 dark:text-white/70',
 })``;
 
 export const DropdownInner = styled.div.attrs({
   className:
-    'relative inline-flex items-center w-full h-9.5 pl-3 pr-10 border border-black/10 text-sm rounded text-black/70 hover:border-black hover:text-black/90 disabled:border-black/30 disabled:opacity-50 transition cursor-pointer',
+    'relative inline-flex items-center w-full h-9.5 pl-3 pr-10 border border-black/10 text-sm rounded-md text-black/70 hover:border-black hover:text-black/90 disabled:border-black/30 disabled:opacity-50 transition cursor-pointer dark:border-white/10 dark:text-white',
 })`
   ${(p: DropdownInnerProps) => (p.selected ? 'border-color: black;' : '')}
 `;

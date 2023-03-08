@@ -19,6 +19,7 @@ const colors = {
   'dark-gray': 'text-black/60',
   gray: 'text-black/30',
   white: 'text-white',
+  'white-gray': 'text-white/60',
   orange: 'text-primary-orange',
 };
 

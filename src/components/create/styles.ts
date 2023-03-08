@@ -24,7 +24,8 @@ export const CreateContent = styled.div.attrs({
 })``;
 
 export const CreateContentHeader = styled.div.attrs({
-  className: 'flex justify-between border-b border-black/10',
+  className:
+    'flex justify-between border-b border-black/10 dark:border-white/10',
 })``;
 
 export const CreateContentLeft = styled.div.attrs({
@@ -36,7 +37,7 @@ export const CreateContentTitle = styled.h1.attrs({
 })``;
 
 export const CreateContentSubTitle = styled.h3.attrs({
-  className: 'text-sm whitespace-nowrap text-black/70',
+  className: 'text-sm whitespace-nowrap text-black/70 dark:text-white/70',
 })``;
 
 export const CreateContentCollection = styled.div.attrs({
@@ -49,7 +50,7 @@ export const CreateContentHeaderActions = styled.div.attrs({
 
 export const CreateContentBody = styled.div.attrs({
   className:
-    'flex items-center justify-center min-h-[315px] border border-black/10 px-4 rounded-lg',
+    'flex items-center justify-center min-h-[315px] border border-black/10 px-4 rounded-lg dark:border-white/10',
 })``;
 
 // --- Breadcrumb
@@ -65,14 +66,14 @@ export const BreadcrumbWrapper = styled.div.attrs({
       width: 5px;
       height: 5px;
       border-radius: 50%;
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: var(--breadcrumb-color);
     }
   }
 `;
 
 export const BreadcrumbItem = styled(Link).attrs({
   className:
-    'relative inline-flex items-center justify-center px-4 first:pl-2 last:pr-2 text-black/60 capitalize',
+    'relative inline-flex items-center justify-center px-4 first:pl-2 last:pr-2 text-black/60 capitalize dark:text-white/60',
 })``;
 
 export const GuideInfoIconWrapper = styled.div.attrs({

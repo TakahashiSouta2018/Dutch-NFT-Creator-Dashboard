@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useTheme } from 'next-themes';
 
 // components
 import * as DutchC from './styles';
@@ -14,6 +15,7 @@ type BreadCrumbItemT = {
 };
 
 const Breadcrumb: React.FC = () => {
+  const { theme } = useTheme();
   const router = useRouter();
   const [breadcrumbs, setBreadcrumbs] = useState<BreadCrumbItemT[]>([]);
 
@@ -38,7 +40,11 @@ const Breadcrumb: React.FC = () => {
   return (
     <DutchC.BreadcrumbWrapper>
       <DutchC.BreadcrumbItem href="/">
-        <Icons.IHome variant="solid" size="medium" color="dark-gray" />
+        <Icons.IHome
+          variant="solid"
+          size="medium"
+          color={theme === 'dark' ? 'white-gray' : 'dark-gray'}
+        />
       </DutchC.BreadcrumbItem>
 
       {breadcrumbs &&

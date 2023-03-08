@@ -62,7 +62,7 @@ const CreateHome: React.FC = () => {
 
           <DutchC.CreateContentBody>
             {/* No items */}
-            <span>No items to show here.</span>
+            <span className="dark:text-white/50">No items to show here.</span>
           </DutchC.CreateContentBody>
         </DutchC.CreateContent>
       </DutchC.CreateContentWrapper>
