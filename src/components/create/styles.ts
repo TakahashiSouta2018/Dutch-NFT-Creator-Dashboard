@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Link from 'next/link';
 
 // types
 type CreateContentWrapperProps = {
@@ -69,7 +70,7 @@ export const BreadcrumbWrapper = styled.div.attrs({
   }
 `;
 
-export const BreadcrumbItem = styled.a.attrs({
+export const BreadcrumbItem = styled(Link).attrs({
   className:
     'relative inline-flex items-center justify-center px-4 first:pl-2 last:pr-2 text-black/60 capitalize',
 })``;
