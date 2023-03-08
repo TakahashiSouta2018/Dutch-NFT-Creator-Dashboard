@@ -14,7 +14,8 @@ type SearchInputProps = JSX.IntrinsicElements['input'] & SearchInputVariant;
 
 const SearchInput: React.FC<SearchInputProps> = ({
   isShortCut = false,
-  placeholder = '',
+  className,
+  ref,
   ...rest
 }) => {
   const { theme } = useTheme();
@@ -30,7 +31,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
         />
       </DutchC.SearchIconWrapper>
 
-      <DutchC.Input placeholder={placeholder} isShortCut={isShortCut} />
+      <DutchC.SearchInput isShortCut={isShortCut} {...rest} />
 
       {/* shortcut icon */}
       {isShortCut && (

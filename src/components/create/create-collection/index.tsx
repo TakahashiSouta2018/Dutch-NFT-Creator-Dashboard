@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTheme } from 'next-themes';
 
 // components
-import { MediaUpload } from '@/common';
+import { MediaUpload, TextInput } from '@/common';
 import { Guide } from '@/components/shared';
 import * as DutchC from './styles';
 import Breadcrumb from '../Breadcrumb';
@@ -57,6 +57,9 @@ const CreateCollectionHome: React.FC = () => {
                 </DutchC.CreateCollectionMediaUploadItem>
               </DutchC.CreateCollectionMediaUploadInner>
             </DutchC.CreateCollectionMediaUploadWrapper>
+
+            {/* Name */}
+            <TextInput label="Name" required />
           </DutchC.CreateCollectionContentBody>
         </DutchC.CreateCollectionContent>
       </DutchC.CreateCollectionWrapper>
