@@ -56,3 +56,7 @@ export const CreateCollectionMediaUploadItem = styled.div.attrs({
 export const GuideInfoIconWrapper = styled.div.attrs({
   className: 'absolute top-4 right-6 cursor-pointer',
 })``;
+
+export const CreateCollectionButtonWrapper = styled.div.attrs({
+  className: 'w-1/6',
+})``;

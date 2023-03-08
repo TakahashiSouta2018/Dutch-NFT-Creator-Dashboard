@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTheme } from 'next-themes';
 
 // components
-import { MediaUpload, TextInput } from '@/common';
+import { MediaUpload, TextInput, TextArea, Button } from '@/common';
 import { Guide } from '@/components/shared';
 import * as DutchC from './styles';
 import Breadcrumb from '../Breadcrumb';
@@ -60,6 +60,14 @@ const CreateCollectionHome: React.FC = () => {
 
             {/* Name */}
             <TextInput label="Name" required />
+
+            {/* Description */}
+            <TextArea label="Description" placeholder="Text" />
+
+            {/* Create */}
+            <DutchC.CreateCollectionButtonWrapper>
+              <Button variant="solid">Create Collection</Button>
+            </DutchC.CreateCollectionButtonWrapper>
           </DutchC.CreateCollectionContentBody>
         </DutchC.CreateCollectionContent>
       </DutchC.CreateCollectionWrapper>
