@@ -47,7 +47,7 @@ export type DropdownPositionVariants = 'TL' | 'TR' | 'BL' | 'BR';
 /**
  * Media Upload
  */
-export type MediaUploadVariants = 'tile' | 'avatar' | 'banner';
+export type MediaUploadVariants = 'tile' | 'avatar' | 'banner' | 'default';
 
 export interface AccountInfoI {
   accInfo: sdk.AccountInfo;

@@ -19,12 +19,14 @@ const aspects = {
   tile: '5:7',
   avatar: '1:1',
   banner: '3:1',
+  default: '1:1',
 };
 
 const types = {
   tile: 'Title',
   avatar: 'Avatar',
   banner: 'Banner',
+  default: '',
 };
 
 const MediaUpload: React.FC<MediaUploadProps> = ({ variant }) => {
