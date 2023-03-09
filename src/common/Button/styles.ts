@@ -13,7 +13,7 @@ interface IconButtonWrapperProps {
 // --- Button
 export const ButtonWrapper = styled.button.attrs({
   className:
-    'relative inline-flex gap-3 items-center justify-center h-10 rounded-lg px-4 bg-black/90 text-white cursor-pointer transition focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-4 dark:bg-white dark:text-black dark:font-bold dark:focus:ring-white/30 dark:focus:ring-offset-dark-surface disabled:bg-black/30 disabled:text-white dark:disabled:bg-white/50 dark:disabled:text-black/30',
+    'relative inline-flex gap-3 items-center justify-center h-10 rounded-lg px-4 bg-black/90 text-white cursor-pointer transition focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-4 focus:ring-offset-transparent dark:bg-white dark:text-black dark:font-bold dark:focus:ring-white/30 dark:focus:ring-offset-dark-surface disabled:bg-black/30 disabled:text-white dark:disabled:bg-white/50 dark:disabled:text-black/30',
 })`
   ${(p: ButtonWrapperProps) =>
     p.size === 'small'
