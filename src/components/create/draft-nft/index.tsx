@@ -2,7 +2,14 @@ import React, { useState, useCallback } from 'react';
 import { useTheme } from 'next-themes';
 
 // components
-import { Button, Dropdown, MediaUpload, TextArea, TextInput } from '@/common';
+import {
+  Button,
+  Dropdown,
+  MediaUpload,
+  TextArea,
+  TextInput,
+  OutlineButton,
+} from '@/common';
 import { Guide } from '@/components/shared';
 import Breadcrumb from '../Breadcrumb';
 import * as DutchC from './styles';
@@ -149,7 +156,7 @@ const CreateDraftNFTHome: React.FC = () => {
                 {/* Actions */}
                 <DutchC.CreateDraftNFTActions>
                   <Button>Save Draft</Button>
-                  <Button>Cancel</Button>
+                  <OutlineButton>Cancel</OutlineButton>
                 </DutchC.CreateDraftNFTActions>
               </DutchC.CreateDraftNFTContentMainMiddle>
 

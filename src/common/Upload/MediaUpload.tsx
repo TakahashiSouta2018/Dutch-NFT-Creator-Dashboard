@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from 'next-themes';
 
 // components
-import { Button } from '@/common';
+import { OutlineButton } from '@/common';
 import * as DutchC from './styles';
 
 // icons
@@ -46,7 +46,7 @@ const MediaUpload: React.FC<MediaUploadProps> = ({ variant }) => {
       <span className="mb-2 dark:text-white/70">
         Drag and drop your media or
       </span>
-      <Button size="small">Upload Media</Button>
+      <OutlineButton size="small">Upload Media</OutlineButton>
     </DutchC.ImageUploadWrapper>
   );
 };

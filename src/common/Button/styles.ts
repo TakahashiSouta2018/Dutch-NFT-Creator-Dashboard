@@ -31,3 +31,14 @@ export const IconButtonWrapper = styled.div.attrs({
       ? 'border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 8px;'
       : ''}
 `;
+
+// --- Outline Button
+export const OutlineButtonWrapper = styled.button.attrs({
+  className:
+    'relative inline-flex gap-3 items-center justify-center h-10 rounded-lg px-4 bg-transparent border border-black/10 text-black/90 cursor-pointer transition focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-4 hover:bg-white/5 dark:border dark:border-white/20 dark:hover:bg-white/5 dark:bg-transparent dark:text-white/90 dark:focus:ring-white/30 dark:focus:ring-offset-dark-surface disabled:text-black/50 disabled:border-black/10 dark:disabled:border-white/10 dark:disabled:text-white/30 dark:hover:disabled:bg-transparent',
+})`
+  ${(p: ButtonWrapperProps) =>
+    p.size === 'small'
+      ? 'height: 32px; padding: 0 12px; font-size: 14px; gap: 8px;'
+      : ''}
+`;
