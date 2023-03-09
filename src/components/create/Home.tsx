@@ -58,7 +58,9 @@ const CreateHome: React.FC = () => {
               <Button>
                 <Link href="/create/draft-nft">Draft NFT</Link>
               </Button>
-              <Button>Bulk NFT</Button>
+              <Button>
+                <Link href="/create/bulk-mint">Bulk NFT</Link>
+              </Button>
             </DutchC.CreateContentHeaderActions>
           </DutchC.CreateContentHeader>
 
