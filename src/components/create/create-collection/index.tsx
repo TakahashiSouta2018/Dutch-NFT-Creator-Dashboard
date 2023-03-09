@@ -68,7 +68,7 @@ const CreateCollectionHome: React.FC = () => {
 
             {/* Create */}
             <DutchC.CreateCollectionButtonWrapper>
-              <Button variant="solid">Create Collection</Button>
+              <Button>Create Collection</Button>
             </DutchC.CreateCollectionButtonWrapper>
           </DutchC.CreateCollectionContentBody>
         </DutchC.CreateCollectionContent>

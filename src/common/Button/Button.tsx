@@ -17,24 +17,25 @@ type ButtonProps = JSX.IntrinsicElements['button'] &
   };
 
 const Button: React.FC<ButtonProps> = ({
-  variant = 'solid',
   size = 'large',
   children,
-  disabled,
   leftIcon,
   rightIcon,
+  className,
+  ref,
+  ...rest
 }) => {
   const LeftIcon = leftIcon ? icons[leftIcon] : null;
   const RightIcon = rightIcon ? icons[rightIcon] : null;
 
   return (
-    <DutchC.ButtonWrapper variant={variant} size={size} disabled={disabled}>
+    <DutchC.ButtonWrapper size={size} {...rest}>
       {/* left icon */}
       {LeftIcon && (
         <LeftIcon
           variant="solid"
           size={size === 'large' ? 'medium' : 'small'}
-          color={variant === 'solid' ? 'white' : 'black'}
+          color="white"
         />
       )}
 
@@ -45,7 +46,7 @@ const Button: React.FC<ButtonProps> = ({
         <RightIcon
           variant="solid"
           size={size === 'large' ? 'medium' : 'small'}
-          color={variant === 'solid' ? 'white' : 'black'}
+          color="white"
         />
       )}
     </DutchC.ButtonWrapper>

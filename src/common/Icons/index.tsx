@@ -21,6 +21,8 @@ const colors = {
   white: 'text-white',
   'white-gray': 'text-white/60',
   orange: 'text-primary-orange',
+  'accent-red': 'text-accent-red',
+  'dark-red': 'text-dark-red',
 };
 
 export const ISearch: React.FC<IconProps> = ({
@@ -211,6 +213,18 @@ export const IPhoto: React.FC<IconProps> = ({
   );
 };
 
+export const IMinusCircle: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.MinusCircleIcon className={`${sizes[size]} ${colors[color]}`} />
+  ) : (
+    <SolidIcons.MinusCircleIcon className={`${sizes[size]} ${colors[color]}`} />
+  );
+};
+
 export const icons = {
   bell: IBell,
   wallet: IWallet,
@@ -226,6 +240,7 @@ export const icons = {
   'chevron-up': IChevronUp,
   'chevron-down': IChevronDown,
   photo: IPhoto,
+  'minus-circle': IMinusCircle,
 };
 
 export type IconType = keyof typeof icons;

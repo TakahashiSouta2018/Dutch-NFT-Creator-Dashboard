@@ -94,9 +94,7 @@ const NFTManagement: React.FC = () => {
                 ))}
               </TabContainer>
               {/* Sync Action */}
-              <Button variant="outline" leftIcon="arrow-down-on-square">
-                Small Sync NFTs
-              </Button>
+              <Button leftIcon="arrow-down-on-square">Small Sync NFTs</Button>
             </DutchC.NFTManagementTopTool>
             {/* Sub Toolbar */}
             <DutchC.NFTManagementSubTool>

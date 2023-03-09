@@ -54,6 +54,32 @@ export const CreateDraftNFTContentMainMiddle = styled.div.attrs({
   className: 'flex flex-col space-y-4',
 })``;
 
+export const CreateDraftNFTPropertiesWrapper = styled.div.attrs({
+  className: 'flex flex-col space-y-1',
+})``;
+
+export const CreateDraftNFTPropertiesLabel = styled.label.attrs({
+  className: 'text-sm whitespace-nowrap font-medium text-black dark:text-white',
+})``;
+
+export const CreateDraftNFTPropertiesAdd = styled.button.attrs({
+  className:
+    'inline-flex w-fit text-sm whitespace-nowrap text-black/70 cursor-pointer dark:text-white/70',
+})``;
+
+export const CreateDraftNFTActions = styled.div.attrs({
+  className: 'flex items-center space-x-2',
+})``;
+
 export const GuideInfoIconWrapper = styled.div.attrs({
   className: 'absolute top-4 right-6 cursor-pointer',
+})``;
+
+// --- NFT Property
+export const NFTPropertyWrapper = styled.div.attrs({
+  className: 'flex items-center space-x-2',
+})``;
+
+export const NFTPropertyRemove = styled.button.attrs({
+  className: 'cursor-pointer',
 })``;

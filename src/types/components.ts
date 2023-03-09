@@ -16,7 +16,15 @@ export type IconButtonVariants = {};
 export type IconVariants = {
   variant?: 'solid' | 'outline';
   size?: 'small' | 'medium' | 'large' | 'xlarge';
-  color?: 'black' | 'gray' | 'white' | 'orange' | 'dark-gray' | 'white-gray';
+  color?:
+    | 'black'
+    | 'gray'
+    | 'white'
+    | 'orange'
+    | 'dark-gray'
+    | 'white-gray'
+    | 'accent-red'
+    | 'dark-red';
 };
 
 /**

@@ -46,9 +46,7 @@ const MediaUpload: React.FC<MediaUploadProps> = ({ variant }) => {
       <span className="mb-2 dark:text-white/70">
         Drag and drop your media or
       </span>
-      <Button variant="outline" size="small">
-        Upload Media
-      </Button>
+      <Button size="small">Upload Media</Button>
     </DutchC.ImageUploadWrapper>
   );
 };

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useTheme } from 'next-themes';
 
 // components
-import { Dropdown, MediaUpload, TextArea, TextInput } from '@/common';
+import { Button, Dropdown, MediaUpload, TextArea, TextInput } from '@/common';
 import { Guide } from '@/components/shared';
 import Breadcrumb from '../Breadcrumb';
 import * as DutchC from './styles';
@@ -10,18 +10,61 @@ import * as DutchC from './styles';
 // icons
 import * as Icons from '@/common/Icons';
 
-interface NFTPropertyProps {
+// types
+type NFTPropertyT = {
+  id: number;
   type: string;
   value: string;
+};
+
+interface NFTPropertyI {
+  type: string;
+  value: string;
+  onRemove?: () => void;
 }
 
 const CreateDraftNFTHome: React.FC = () => {
   const { theme } = useTheme();
   const [open, setOpen] = useState(true);
+  const [counter, setCounter] = useState(1);
+  const [properties, setProperties] = useState<NFTPropertyT[]>([
+    {
+      id: 0,
+      type: '',
+      value: '',
+    },
+  ]);
 
   const toggleGuide = () => {
     setOpen((open) => !open);
   };
+
+  const handleAddProperty = useCallback(() => {
+    setProperties((properties) => [
+      ...properties,
+      {
+        id: counter,
+        type: '',
+        value: '',
+      },
+    ]);
+
+    setCounter((counter) => counter + 1);
+  }, [counter]);
+
+  const handleRemoveProperty = useCallback(
+    (id: number) => {
+      const index = properties.findIndex((property) => property.id === id);
+
+      if (index >= 0) {
+        setProperties((properties) => [
+          ...properties.slice(0, index),
+          ...properties.slice(index + 1),
+        ]);
+      }
+    },
+    [properties]
+  );
 
   return (
     <DutchC.CreateWrapper>
@@ -82,6 +125,32 @@ const CreateDraftNFTHome: React.FC = () => {
                 />
 
                 {/* Properties */}
+                <DutchC.CreateDraftNFTPropertiesWrapper>
+                  <DutchC.CreateDraftNFTPropertiesLabel>
+                    Properties
+                  </DutchC.CreateDraftNFTPropertiesLabel>
+
+                  {/* list */}
+                  {properties.map((property) => (
+                    <NFTProperty
+                      key={property.id}
+                      onRemove={() => handleRemoveProperty(property.id)}
+                      {...property}
+                    />
+                  ))}
+
+                  <DutchC.CreateDraftNFTPropertiesAdd
+                    onClick={handleAddProperty}
+                  >
+                    + Add property
+                  </DutchC.CreateDraftNFTPropertiesAdd>
+                </DutchC.CreateDraftNFTPropertiesWrapper>
+
+                {/* Actions */}
+                <DutchC.CreateDraftNFTActions>
+                  <Button>Save Draft</Button>
+                  <Button>Cancel</Button>
+                </DutchC.CreateDraftNFTActions>
               </DutchC.CreateDraftNFTContentMainMiddle>
 
               {/* Description */}
@@ -103,8 +172,22 @@ const CreateDraftNFTHome: React.FC = () => {
   );
 };
 
-const NFTProperty: React.FC = () => {
-  return <></>;
+const NFTProperty: React.FC<NFTPropertyI> = ({ type, value, onRemove }) => {
+  const { theme } = useTheme();
+
+  return (
+    <DutchC.NFTPropertyWrapper>
+      <TextInput placeholder="Type" />
+      <TextInput placeholder="Value" />
+      <DutchC.NFTPropertyRemove onClick={onRemove}>
+        <Icons.IMinusCircle
+          variant="solid"
+          color={theme === 'dark' ? 'dark-red' : 'accent-red'}
+          size="large"
+        />
+      </DutchC.NFTPropertyRemove>
+    </DutchC.NFTPropertyWrapper>
+  );
 };
 
 export default CreateDraftNFTHome;
