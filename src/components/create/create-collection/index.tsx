@@ -9,13 +9,35 @@ import Breadcrumb from '../Breadcrumb';
 
 // icons
 import * as Icons from '@/common/Icons';
+import { useForm } from '@/hooks/useForm';
+import useCollectionHook from '@/hooks/useCollectionHook';
 
 const CreateCollectionHome: React.FC = () => {
+  const [values, handleChange] = useForm({
+    name: '',
+    description: '',
+  });
+  const [tileUri, setTileUri] = useState<string>('');
+  const [avatar, setAvatar] = useState<string>('');
+  const [banner, setBanner] = useState<string>('');
+
   const { theme } = useTheme();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState<boolean>(true);
+
+  const { createCollection } = useCollectionHook();
 
   const toggleGuide = () => {
     setOpen((open) => !open);
+  };
+
+  const handleCreateCollection = async () => {
+    await createCollection({
+      name: values.name,
+      description: values.description,
+      tileUri,
+      avatar,
+      banner,
+    });
   };
 
   return (
@@ -43,32 +65,62 @@ const CreateCollectionHome: React.FC = () => {
                   colSpan="1"
                   aspect="5/7"
                 >
-                  <MediaUpload variant="tile" />
+                  <MediaUpload
+                    variant="tile"
+                    setImageUrl={setTileUri}
+                    imageUrl={tileUri}
+                    name="tileUri"
+                  />
                 </DutchC.CreateCollectionMediaUploadItem>
                 <DutchC.CreateCollectionMediaUploadItem
                   colSpan="1"
                   aspect="1/1"
                 >
-                  <MediaUpload variant="avatar" />
+                  <MediaUpload
+                    variant="avatar"
+                    setImageUrl={setAvatar}
+                    imageUrl={avatar}
+                    name="avatar"
+                  />
                 </DutchC.CreateCollectionMediaUploadItem>
                 <DutchC.CreateCollectionMediaUploadItem
                   colSpan="3"
                   aspect="3/1"
                 >
-                  <MediaUpload variant="banner" />
+                  <MediaUpload
+                    variant="banner"
+                    setImageUrl={setBanner}
+                    imageUrl={banner}
+                    name="banner"
+                  />
                 </DutchC.CreateCollectionMediaUploadItem>
               </DutchC.CreateCollectionMediaUploadInner>
             </DutchC.CreateCollectionMediaUploadWrapper>
 
             {/* Name */}
-            <TextInput label="Name" required />
+            <TextInput
+              label="Name"
+              onChange={handleChange}
+              value={values.name}
+              name="name"
+              required
+            />
 
             {/* Description */}
-            <TextArea label="Description" placeholder="Text" />
+            <TextArea
+              label="Description"
+              onChange={handleChange}
+              value={values.Description}
+              name="Description"
+              required
+              placeholder="Text"
+            />
 
             {/* Create */}
             <DutchC.CreateCollectionButtonWrapper>
-              <Button>Create Collection</Button>
+              <Button type="button" onClick={handleCreateCollection}>
+                Create Collection
+              </Button>
             </DutchC.CreateCollectionButtonWrapper>
           </DutchC.CreateCollectionContentBody>
         </DutchC.CreateCollectionContent>

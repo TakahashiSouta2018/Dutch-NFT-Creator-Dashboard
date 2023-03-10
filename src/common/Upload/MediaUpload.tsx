@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
@@ -11,9 +11,13 @@ import { IPhoto } from '@/common/Icons';
 
 // types
 import { MediaUploadVariants } from '@/types';
+import { toBase64 } from '@/lib/pinata';
 
 interface MediaUploadProps {
   variant: MediaUploadVariants;
+  name: string;
+  imageUrl: string;
+  setImageUrl: (value: string) => void;
 }
 
 const aspects = {
@@ -37,11 +41,15 @@ const aspectClassNames = {
   default: 'aspect-square',
 };
 
-const MediaUpload: React.FC<MediaUploadProps> = ({ variant }) => {
+const MediaUpload: React.FC<MediaUploadProps> = ({
+  variant,
+  name,
+  imageUrl,
+  setImageUrl,
+}) => {
   const { theme } = useTheme();
   const hiddenFileInput = useRef<HTMLInputElement>(null);
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [selectedImageName, setSelectedImageName] = useState<string>('');
 
   const handleOpen = () => {
     if (hiddenFileInput) {
@@ -49,15 +57,18 @@ const MediaUpload: React.FC<MediaUploadProps> = ({ variant }) => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedImage(e.target.files ? e.target.files[0] : null);
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target && e.target.files && e.target.files[0]) {
+      const { size, type, name } = e.target.files[0];
+      if (!type.toLowerCase().match(/image\/(jpg|jpeg|png|gif)$/)) {
+        alert('Selected file image must be jpg, jpeg, png or gif image only');
+        return;
+      }
+      const x = await toBase64(e.target.files[0]);
+      setImageUrl(x as string);
+      setSelectedImageName(name);
+    } else alert('Image upload failed');
   };
-
-  useEffect(() => {
-    if (selectedImage) {
-      setImageUrl(URL.createObjectURL(selectedImage));
-    }
-  }, [selectedImage]);
 
   return (
     <DutchC.ImageUploadWrapper>
@@ -99,9 +110,7 @@ const MediaUpload: React.FC<MediaUploadProps> = ({ variant }) => {
                 <span className="text-white font-bold">{types[variant]}</span>{' '}
                 <span className="text-white/70">{aspects[variant]}</span>
               </p>
-              <span className="text-white font-bold">
-                {selectedImage?.name}
-              </span>
+              <span className="text-white font-bold">{selectedImageName}</span>
             </div>
             <Button onClick={handleOpen}>Change</Button>
           </DutchC.ImageUploadActions>
@@ -112,6 +121,7 @@ const MediaUpload: React.FC<MediaUploadProps> = ({ variant }) => {
         ref={hiddenFileInput}
         type="file"
         style={{ display: 'none' }}
+        name={name}
         onChange={handleChange}
       />
     </DutchC.ImageUploadWrapper>
