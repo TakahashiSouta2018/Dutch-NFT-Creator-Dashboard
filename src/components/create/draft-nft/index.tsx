@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 
 // components
@@ -16,6 +16,9 @@ import * as DutchC from './styles';
 
 // icons
 import * as Icons from '@/common/Icons';
+import useNFTHook from '@/hooks/useNFTHook';
+import { useForm } from '@/hooks/useForm';
+import useCollectionHook from '@/hooks/useCollectionHook';
 
 // types
 type NFTPropertyT = {
@@ -34,6 +37,12 @@ const CreateDraftNFTHome: React.FC = () => {
   const { theme } = useTheme();
   const [open, setOpen] = useState(true);
   const [counter, setCounter] = useState(1);
+  const [media, setMedia] = useState<string>('');
+  const [selectedCollectionAddress, setSelectedCollectionAddress] =
+    useState<string>('');
+  const [selectedCollectionName, setSelectedCollectionName] =
+    useState<string>('');
+  const [collectionNames, setCollectionNames] = useState<string[]>([]);
   const [properties, setProperties] = useState<NFTPropertyT[]>([
     {
       id: 0,
@@ -41,6 +50,26 @@ const CreateDraftNFTHome: React.FC = () => {
       value: '',
     },
   ]);
+
+  const { createDraftNFT } = useNFTHook();
+  const { userCollection } = useCollectionHook();
+
+  const [values, handleChange] = useForm({
+    name: '',
+    amount: '',
+    royalty: '',
+    description: '',
+  });
+
+  useEffect(() => {
+    if (userCollection.length > 0) {
+      const collectionNames = userCollection.map(
+        (collection) => collection.name
+      );
+      setCollectionNames(collectionNames);
+      setSelectedCollectionName(collectionNames[0]);
+    }
+  }, []);
 
   const toggleGuide = () => {
     setOpen((open) => !open);
@@ -73,6 +102,40 @@ const CreateDraftNFTHome: React.FC = () => {
     [properties]
   );
 
+  const handleSelectCollection = (value: string, index: number) => {
+    setSelectedCollectionName(value);
+    console.log({ index, value, jdjfd: userCollection[index] });
+
+    setSelectedCollectionAddress(userCollection[index].collectionAddress);
+  };
+
+  const handleCreateDraftNFT = async () => {
+    // const mediaUrl = await pinFileToIPFS([media]);
+    const x = 'https://';
+
+    if (x) {
+      console.log({
+        properties: JSON.stringify(properties),
+        collection: selectedCollectionAddress,
+        media: x,
+        name: values.name,
+        royalty: values.royalty,
+        amount: values.amount,
+        description: values.description,
+      });
+
+      await createDraftNFT({
+        properties: JSON.stringify(properties),
+        collection: selectedCollectionAddress,
+        media: x,
+        name: values.name,
+        royalty: values.royalty,
+        amount: values.amount,
+        description: values.description,
+      });
+    }
+  };
+
   return (
     <DutchC.CreateWrapper>
       <DutchC.CreateDraftNFTWrapper open={open ? 1 : 0}>
@@ -88,10 +151,10 @@ const CreateDraftNFTHome: React.FC = () => {
             <DutchC.CreateDraftNFTCollectionSelectWrapper>
               <Dropdown
                 label="Collection"
-                value=""
-                options={[]}
+                value={selectedCollectionName}
+                options={collectionNames}
                 position="BL"
-                onSelect={() => {}}
+                onSelect={handleSelectCollection}
               />
             </DutchC.CreateDraftNFTCollectionSelectWrapper>
 
@@ -106,14 +169,24 @@ const CreateDraftNFTHome: React.FC = () => {
                 </DutchC.CreateDraftNFTMediaUploadLabel>
 
                 <DutchC.CreateDraftNFTMediaUpload>
-                  <MediaUpload variant="default" />
+                  <MediaUpload
+                    variant="default"
+                    setImageUrl={setMedia}
+                    imageUrl={media}
+                    name="media"
+                  />
                 </DutchC.CreateDraftNFTMediaUpload>
               </DutchC.CreateDraftNFTMediaUploadWrapper>
 
               {/* Detail Edit */}
               <DutchC.CreateDraftNFTContentMainMiddle>
                 {/* Name */}
-                <TextInput label="Name" />
+                <TextInput
+                  label="Name"
+                  onChange={handleChange}
+                  value={values.name}
+                  name="name"
+                />
                 {/* Amount */}
                 <TextInput
                   type="number"
@@ -121,6 +194,9 @@ const CreateDraftNFTHome: React.FC = () => {
                   helper="Max: 100,000"
                   min={1}
                   max={100000}
+                  onChange={handleChange}
+                  value={values.amount}
+                  name="amount"
                 />
                 {/* Royalty (%) */}
                 <TextInput
@@ -129,6 +205,9 @@ const CreateDraftNFTHome: React.FC = () => {
                   helper="Max: 10"
                   min={1}
                   max={10}
+                  onChange={handleChange}
+                  value={values.royalty}
+                  name="royalty"
                 />
 
                 {/* Properties */}
@@ -155,13 +234,21 @@ const CreateDraftNFTHome: React.FC = () => {
 
                 {/* Actions */}
                 <DutchC.CreateDraftNFTActions>
-                  <Button>Save Draft</Button>
+                  <Button type="button" onClick={handleCreateDraftNFT}>
+                    Save Draft
+                  </Button>
                   <OutlineButton>Cancel</OutlineButton>
                 </DutchC.CreateDraftNFTActions>
               </DutchC.CreateDraftNFTContentMainMiddle>
 
               {/* Description */}
-              <TextArea label="Description" placeholder="Describe your NFT" />
+              <TextArea
+                label="Description"
+                placeholder="Describe your NFT"
+                onChange={handleChange}
+                value={values.description}
+                name="description"
+              />
             </DutchC.CreateDraftNFTContentMain>
           </DutchC.CreateDraftNFTContentBody>
         </DutchC.CreateDraftNFTContent>

@@ -16,7 +16,7 @@ interface DropdownProps {
   options: string[];
   position: DropdownPositionVariants;
   label?: string;
-  onSelect: (value: string) => void;
+  onSelect: (value: string, index: number) => void;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -39,8 +39,8 @@ const Dropdown: React.FC<DropdownProps> = ({
   }, []);
 
   const handleClickOption = useCallback(
-    (value: string) => {
-      onSelect(value);
+    (value: string, index: number) => {
+      onSelect(value, index);
     },
     [onSelect]
   );
@@ -63,10 +63,10 @@ const Dropdown: React.FC<DropdownProps> = ({
         {/* dropdown options */}
         {open && (
           <DutchC.DropdownList position={position}>
-            {options.map((option) => (
+            {options.map((option, index) => (
               <DutchC.DropdownListItem
                 key={option}
-                onClick={() => handleClickOption(option)}
+                onClick={() => handleClickOption(option, index)}
               >
                 {option}
               </DutchC.DropdownListItem>
