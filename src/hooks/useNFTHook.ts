@@ -20,7 +20,7 @@ const useNFTHook = () => {
         owner: accountInfo?.accInfo.owner,
       });
       if (data.data) {
-        alert("Draft saved successfully");
+        alert('Draft saved successfully');
       }
       console.log({ response, data });
     } catch (error) {

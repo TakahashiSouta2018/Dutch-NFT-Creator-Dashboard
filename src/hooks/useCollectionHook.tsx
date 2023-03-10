@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 
 const useCollectionHook = () => {
-  
   const loopringService = new LoopringService();
   const [userCollection, setUserCollection] = useState<CollectionI[]>([]);
 

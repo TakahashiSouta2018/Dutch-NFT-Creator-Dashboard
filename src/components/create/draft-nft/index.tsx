@@ -38,8 +38,10 @@ const CreateDraftNFTHome: React.FC = () => {
   const [open, setOpen] = useState(true);
   const [counter, setCounter] = useState(1);
   const [media, setMedia] = useState<string>('');
-  const [selectedCollectionAddress, setSelectedCollectionAddress] = useState<string>('');
-  const [selectedCollectionName, setSelectedCollectionName] = useState<string>('');
+  const [selectedCollectionAddress, setSelectedCollectionAddress] =
+    useState<string>('');
+  const [selectedCollectionName, setSelectedCollectionName] =
+    useState<string>('');
   const [collectionNames, setCollectionNames] = useState<string[]>([]);
   const [properties, setProperties] = useState<NFTPropertyT[]>([
     {
@@ -61,7 +63,9 @@ const CreateDraftNFTHome: React.FC = () => {
 
   useEffect(() => {
     if (userCollection.length > 0) {
-      const collectionNames = userCollection.map(collection => collection.name);
+      const collectionNames = userCollection.map(
+        (collection) => collection.name
+      );
       setCollectionNames(collectionNames);
       setSelectedCollectionName(collectionNames[0]);
     }
@@ -99,15 +103,15 @@ const CreateDraftNFTHome: React.FC = () => {
   );
 
   const handleSelectCollection = (value: string, index: number) => {
-    setSelectedCollectionName(value)
+    setSelectedCollectionName(value);
     console.log({ index, value, jdjfd: userCollection[index] });
-    
-    setSelectedCollectionAddress(userCollection[index].collectionAddress)
+
+    setSelectedCollectionAddress(userCollection[index].collectionAddress);
   };
 
   const handleCreateDraftNFT = async () => {
     // const mediaUrl = await pinFileToIPFS([media]);
-    const x = "https://";
+    const x = 'https://';
 
     if (x) {
       console.log({
@@ -118,8 +122,8 @@ const CreateDraftNFTHome: React.FC = () => {
         royalty: values.royalty,
         amount: values.amount,
         description: values.description,
-  });
-      
+      });
+
       await createDraftNFT({
         properties: JSON.stringify(properties),
         collection: selectedCollectionAddress,
@@ -129,11 +133,8 @@ const CreateDraftNFTHome: React.FC = () => {
         amount: values.amount,
         description: values.description,
       });
-      
     }
   };
-
-  
 
   return (
     <DutchC.CreateWrapper>
