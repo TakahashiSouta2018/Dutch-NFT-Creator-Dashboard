@@ -49,7 +49,7 @@ const MultiMediaUpload: React.FC<MultiMediaUploadProps> = () => {
                   src={url}
                   width={140}
                   height={140}
-                  className="aspect-square border border-black/10 rounded"
+                  className="aspect-square border border-black/10 rounded dark:border-white/10"
                 />
               ))}
             {/* additional image */}
@@ -59,7 +59,7 @@ const MultiMediaUpload: React.FC<MultiMediaUploadProps> = () => {
                 src={imageUrls[imageUrls.length - 1]}
                 width={140}
                 height={140}
-                className="aspect-square border border-black/10 rounded"
+                className="aspect-square border border-black/10 rounded dark:border-white/10"
               />
               {/* backdrop */}
               {imageUrls.length > 10 && (

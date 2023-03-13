@@ -7,15 +7,14 @@ import { Button, OutlineButton } from '@/common';
 import * as DutchC from './styles';
 
 // icons
-import { ICSV } from '../svg';
+import { ICSV, ICSVGreen } from '../svg';
 
 interface CSVUploadProps {}
 
 const CSVUpload: React.FC<CSVUploadProps> = () => {
   const { theme } = useTheme();
   const hiddenFileInput = useRef<HTMLInputElement>(null);
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [selectedCSV, setSelectedCSV] = useState<File | null>(null);
 
   const handleOpen = () => {
     if (hiddenFileInput) {
@@ -24,19 +23,13 @@ const CSVUpload: React.FC<CSVUploadProps> = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedImage(e.target.files ? e.target.files[0] : null);
+    setSelectedCSV(e.target.files ? e.target.files[0] : null);
   };
 
-  useEffect(() => {
-    if (selectedImage) {
-      setImageUrl(URL.createObjectURL(selectedImage));
-    }
-  }, [selectedImage]);
-
   return (
-    <DutchC.MultiUploadWrapper>
+    <DutchC.CSVUploadWrapper>
       {/* if files does not exist */}
-      {!imageUrl && (
+      {!selectedCSV ? (
         <>
           <ICSV />
           <span className="mt-2 dark:text-white/70">Dimention 1:1</span>
@@ -47,9 +40,27 @@ const CSVUpload: React.FC<CSVUploadProps> = () => {
             Upload CSV
           </OutlineButton>
         </>
+      ) : (
+        <>
+          <DutchC.CSVUploadInner>
+            <ICSVGreen />
+            <DutchC.CSVUploadFileName>
+              {selectedCSV.name}
+            </DutchC.CSVUploadFileName>
+          </DutchC.CSVUploadInner>
+
+          {/* actions */}
+          <DutchC.CSVUploadActions>
+            <DutchC.CSVUploadMetaLengthLabel>
+              43 metadata detected
+            </DutchC.CSVUploadMetaLengthLabel>
+
+            <Button size="small" onClick={handleOpen}>
+              Re-Upload
+            </Button>
+          </DutchC.CSVUploadActions>
+        </>
       )}
-      {/* show files & actions */}
-      {imageUrl && <></>}
       {/* hidden input */}
       <input
         ref={hiddenFileInput}
@@ -57,9 +68,8 @@ const CSVUpload: React.FC<CSVUploadProps> = () => {
         style={{ display: 'none' }}
         onChange={handleChange}
         accept=".csv"
-        multiple
       />
-    </DutchC.MultiUploadWrapper>
+    </DutchC.CSVUploadWrapper>
   );
 };
 
