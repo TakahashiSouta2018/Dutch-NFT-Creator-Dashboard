@@ -12,6 +12,7 @@ import {
   CollectionObjectI,
   LooseObjectI,
   MintNFTPostDataI,
+  UserCollectionI,
 } from '@/types';
 import { validateMetadata } from '@/lib/metadata';
 import { pinJSONToIPFS } from './pinata';
@@ -93,7 +94,7 @@ export class LoopringService {
           name: collectionobj.name,
           tileUri: collectionobj.tileUri,
           description: collectionobj.description,
-          owner: collectionobj.owner,
+          owner: accountInfo.accInfo.owner,
           avatar: collectionobj.avatar,
           banner: collectionobj.banner,
           nftFactory:
@@ -111,15 +112,33 @@ export class LoopringService {
     }
   }
 
-  async getCollectionMeta(accountInfo: AccountInfoI, nftTokenAddress: string) {
+  async getUserCollection({
+    accountInfo,
+    tokenAddress = undefined,
+    offset = undefined,
+    limit = undefined,
+    isMintable,
+  }: UserCollectionI) {
     const collectionRes = await this.userAPI.getUserOwenCollection(
       {
         owner: accountInfo.accInfo.owner,
-        tokenAddress: nftTokenAddress,
-        isMintable: true,
+        tokenAddress,
+        isMintable,
+        offset,
+        limit,
       },
       accountInfo.apiKey
     );
+
+    return collectionRes;
+  }
+
+  async getCollectionMeta(accountInfo: AccountInfoI, tokenAddress: string) {
+    const collectionRes = await this.getUserCollection({
+      accountInfo,
+      tokenAddress,
+      isMintable: true,
+    });
 
     if (
       (collectionRes &&
@@ -237,7 +256,7 @@ export class LoopringService {
       };
 
       const result = await axios.post(
-        'https://api3.loopring.io/api/v3/nft/mint',
+        `${process.env.NEXT_PUBLIC_LOOPRING_API_URL}/nft/mint`,
         { ...postData },
         { headers }
       );

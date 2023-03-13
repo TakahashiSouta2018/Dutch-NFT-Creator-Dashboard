@@ -1,7 +1,10 @@
-export function getTimestampDaysLater(days: number, date: Date = new Date()) {
+export const getTimestampDaysLater = (
+  days: number,
+  date: Date = new Date()
+) => {
   const ts = Math.round(date.getTime() / 1000) + days * 86400;
   return ts;
-}
+};
 
 export const TOKEN_INFO = {
   tokenMap: {

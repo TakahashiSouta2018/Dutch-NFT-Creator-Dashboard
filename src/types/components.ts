@@ -77,9 +77,27 @@ export interface CollectionObjectI {
   name: string;
   tileUri: string;
   description: string;
-  owner: string;
   avatar: string;
   banner: string;
+}
+
+export interface DraftNFTI {
+  name: string;
+  owner: string;
+  collection: string;
+  description: string;
+  properties: string;
+  royalty: string;
+  amount: string;
+  media: string;
+}
+
+export interface UserCollectionI {
+  accountInfo: AccountInfoI;
+  offset?: number;
+  limit?: number;
+  tokenAddress?: string;
+  isMintable?: boolean;
 }
 
 export interface FeeI {
@@ -150,4 +168,43 @@ export interface MintNFTPostDataI {
   };
   royaltyAddress: string;
   royaltyPercentage: number;
+}
+
+export interface CollectionI {
+  id: number;
+  owner: string;
+  name: string;
+  contractAddress: string;
+  collectionAddress: string;
+  baseUri: string;
+  nftFactory: string;
+  description: string;
+  avatar: string;
+  banner: string;
+  thumbnail: string;
+  tileUri: string;
+  cached: {
+    avatar: string;
+    banner: string;
+    tileUri: string;
+    thumbnail: string;
+  };
+  deployStatus: string;
+  nftType: string;
+  times: {
+    createdAt: number;
+    updatedAt: number;
+  };
+  extra: {
+    properties: {
+      isLegacy: boolean;
+      isPublic: boolean;
+      isCounterFactualNFT: boolean;
+      isMintable: boolean;
+      isEditable: boolean;
+      isDeletable: boolean;
+    };
+    mintChannel: string;
+  };
+  extends: Record<string, unknown>;
 }

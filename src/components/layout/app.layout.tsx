@@ -1,3 +1,4 @@
+import useCollectionHook from '@/hooks/useCollectionHook';
 import useConnectHook from '@/hooks/useConnectHook';
 import React from 'react';
 
@@ -12,6 +13,7 @@ interface AppLayoutProps {
 
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   useConnectHook();
+  useCollectionHook();
 
   return (
     <DutchC.AppWrapper>
