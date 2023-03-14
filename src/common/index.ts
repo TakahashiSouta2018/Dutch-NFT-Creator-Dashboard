@@ -7,3 +7,4 @@ export * from './Tab';
 export * from './Dropdown';
 export * from './Upload';
 export * from './Table';
+export * from './Modal';

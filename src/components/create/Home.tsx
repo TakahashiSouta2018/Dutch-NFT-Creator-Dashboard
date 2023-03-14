@@ -4,7 +4,14 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
 // components
-import { Dropdown, Button, SearchInput } from '@/common';
+import {
+  Dropdown,
+  Button,
+  SearchInput,
+  Modal,
+  ModalHead,
+  ModalBody,
+} from '@/common';
 import { Guide } from '@/components/shared';
 import * as DutchC from './styles';
 import Breadcrumb from './Breadcrumb';
@@ -32,6 +39,7 @@ const CreateHome: React.FC = () => {
   const { theme } = useTheme();
   const [collection, setCollection] = useState(options[0]);
   const [open, setOpen] = useState(true);
+  const [openMintModal, setOpenMintModal] = useState(false);
   const [draftNFTs, setDraftNFTs] = useState<NFTT[]>([
     {
       id: 1,
@@ -81,6 +89,12 @@ const CreateHome: React.FC = () => {
 
   return (
     <DutchC.CreateWrapper>
+      {/* modals */}
+      {/* --- NFT mint modal */}
+      <Modal>
+        <ModalHead title="Mint Fee" />
+      </Modal>
+
       <DutchC.CreateContentWrapper open={open ? 1 : 0}>
         <DutchC.CreateContent>
           <Breadcrumb />

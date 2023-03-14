@@ -1,5 +1,5 @@
 import React from 'react';
-import SolidIcons from '@heroicons/react/24/solid';
+import SolidIcons, { XMarkIcon } from '@heroicons/react/24/solid';
 import OutlineIcons from '@heroicons/react/24/outline';
 
 // type
@@ -237,6 +237,18 @@ export const ICheckCircle: React.FC<IconProps> = ({
   );
 };
 
+export const IXMark: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.XMarkIcon className={`${sizes[size]} ${colors[color]}`} />
+  ) : (
+    <SolidIcons.XMarkIcon className={`${sizes[size]} ${colors[color]}`} />
+  );
+};
+
 export const icons = {
   bell: IBell,
   wallet: IWallet,
@@ -254,6 +266,7 @@ export const icons = {
   photo: IPhoto,
   'minus-circle': IMinusCircle,
   'check-circle': ICheckCircle,
+  close: XMarkIcon,
 };
 
 export type IconType = keyof typeof icons;
