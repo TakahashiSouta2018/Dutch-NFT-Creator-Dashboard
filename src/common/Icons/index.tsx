@@ -225,6 +225,18 @@ export const IMinusCircle: React.FC<IconProps> = ({
   );
 };
 
+export const ICheckCircle: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.CheckCircleIcon className={`${sizes[size]} ${colors[color]}`} />
+  ) : (
+    <SolidIcons.CheckCircleIcon className={`${sizes[size]} ${colors[color]}`} />
+  );
+};
+
 export const icons = {
   bell: IBell,
   wallet: IWallet,
@@ -241,6 +253,7 @@ export const icons = {
   'chevron-down': IChevronDown,
   photo: IPhoto,
   'minus-circle': IMinusCircle,
+  'check-circle': ICheckCircle,
 };
 
 export type IconType = keyof typeof icons;

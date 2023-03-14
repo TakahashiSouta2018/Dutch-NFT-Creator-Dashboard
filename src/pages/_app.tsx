@@ -10,11 +10,13 @@ const GlobalStyle = createGlobalStyle`
   :root {
     --active-color: black;
     --breadcrumb-color: rgba(0, 0, 0, 0.6);
+    --border-color: rgba(0, 0, 0, .7);
   }
 
   [class="dark"] {
     --active-color: white;
     --breadcrumb-color: rgba(255, 255, 255, 0.6);
+    --border-color: rgba(255, 255, 255, .7);
   }
 `;
 
