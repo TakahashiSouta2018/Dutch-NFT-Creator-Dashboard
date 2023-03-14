@@ -72,8 +72,25 @@ export const CreateBulkMintContentNFTPreviewWrapper = styled.div.attrs({
     'flex grow items-center justify-center border border-black/10 rounded-lg text-sm text-black/70 dark:text-white/70 dark:border-white/10',
 })``;
 
+export const CreateBulkMintContentNFTPreviewInner = styled.div.attrs({
+  className: 'relative w-full h-full overflow-x-auto',
+})``;
+
 export const CreateBulkMintContentActions = styled.div.attrs({
   className: 'inline-flex items-center space-x-2',
+})``;
+
+// --- NFT preview
+export const CreateBulkMintPreviewMedia = styled.div.attrs({
+  className: 'flex items-center space-x-2',
+})``;
+
+export const CreateBulkMintPreviewMediaLabel = styled.span.attrs({
+  className: 'text-sm text-black font-medium dark:text0-white',
+})``;
+
+export const CreateBulkMintPreviewName = styled.span.attrs({
+  className: 'text-sm text-black dark:text-white',
 })``;
 
 // --- Guide Info
