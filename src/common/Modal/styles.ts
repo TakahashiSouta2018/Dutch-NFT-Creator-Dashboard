@@ -15,7 +15,8 @@ export const ModalInner = styled.div.attrs({
 
 // --- Modal Head
 export const ModalHeadWrapper = styled.div.attrs({
-  className: 'flex items-center justify-between px-6 h-14',
+  className:
+    'flex items-center justify-between px-6 h-14 border border-b-black/10',
 })``;
 
 export const ModalTitle = styled.h3.attrs({

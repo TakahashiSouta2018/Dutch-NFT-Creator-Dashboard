@@ -11,6 +11,7 @@ import {
   Modal,
   ModalHead,
   ModalBody,
+  Stepper,
 } from '@/common';
 import { Guide } from '@/components/shared';
 import * as DutchC from './styles';
@@ -61,6 +62,24 @@ const CreateHome: React.FC = () => {
     },
   ]);
 
+  const steps = [
+    {
+      id: 1,
+      title: 'Mint Fee',
+      active: true,
+    },
+    {
+      id: 2,
+      title: 'Wallet Signature',
+      active: false,
+    },
+    {
+      id: 3,
+      title: 'Minting',
+      active: false,
+    },
+  ];
+
   const onCollectionSelect = (value: string) => {
     setCollection(value);
   };
@@ -93,6 +112,7 @@ const CreateHome: React.FC = () => {
       {/* --- NFT mint modal */}
       <Modal>
         <ModalHead title="Mint Fee" />
+        <Stepper steps={steps}></Stepper>
       </Modal>
 
       <DutchC.CreateContentWrapper open={open ? 1 : 0}>
