@@ -6,7 +6,7 @@ import { construcMetadata } from '@/lib/metadata';
 import { LoopringService } from '@/lib/LoopringService';
 import { useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
-import ConnectWallet from '@/components/shared/connectWallet';
+import ConnectWallet from '@/components/shared/connect-wallet';
 import { AppLayout } from '@/components';
 
 const FolderUpload = () => {

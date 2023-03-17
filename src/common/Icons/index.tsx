@@ -1,5 +1,5 @@
 import React from 'react';
-import SolidIcons, { XMarkIcon } from '@heroicons/react/24/solid';
+import SolidIcons from '@heroicons/react/24/solid';
 import OutlineIcons from '@heroicons/react/24/outline';
 
 // type
@@ -25,6 +25,11 @@ const colors = {
   'dark-red': 'text-dark-red',
 };
 
+const bgs = {
+  red: 'bg-red-500',
+  green: 'bg-green-500',
+};
+
 export const ISearch: React.FC<IconProps> = ({
   variant = 'solid',
   size = 'medium',
@@ -45,7 +50,7 @@ export const IBell: React.FC<IconProps> = ({
   return variant === 'solid' ? (
     <SolidIcons.BellIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
-    <SolidIcons.BellIcon className={`${sizes[size]} ${colors[color]}`} />
+    <OutlineIcons.BellIcon className={`${sizes[size]} ${colors[color]}`} />
   );
 };
 
@@ -58,6 +63,17 @@ export const IWallet: React.FC<IconProps> = ({
     <SolidIcons.WalletIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
     <OutlineIcons.WalletIcon className={`${sizes[size]} ${colors[color]}`} />
+  );
+};
+
+export const IBigWallet: React.FC<IconProps> = ({
+  variant = 'solid',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.WalletIcon className={`${colors[color]}`} />
+  ) : (
+    <OutlineIcons.WalletIcon className={`${colors[color]}`} />
   );
 };
 
@@ -249,9 +265,26 @@ export const IXMark: React.FC<IconProps> = ({
   );
 };
 
+export const IExclamationCircle: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'dark-red',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.ExclamationCircleIcon
+      className={`${sizes[size]} ${colors[color]} text-dark-red`}
+    />
+  ) : (
+    <SolidIcons.ExclamationCircleIcon
+      className={`${sizes[size]} ${colors[color]} text-dark-red`}
+    />
+  );
+};
+
 export const icons = {
   bell: IBell,
   wallet: IWallet,
+  'big-wallet': IBigWallet,
   user: IUser,
   calendar: ICalendar,
   moon: IMoon,
@@ -266,7 +299,8 @@ export const icons = {
   photo: IPhoto,
   'minus-circle': IMinusCircle,
   'check-circle': ICheckCircle,
-  close: XMarkIcon,
+  close: IXMark,
+  'exclamation-circle': IExclamationCircle,
 };
 
 export type IconType = keyof typeof icons;

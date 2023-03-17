@@ -13,6 +13,7 @@ type StepsProps = {
 export const Stepper: React.FC<StepsProps> = ({ steps }) => {
   return (
     <DutchC.StepsWrapper>
+      <DutchC.StepsStripe />
       {steps.map((step) => {
         return (
           <DutchC.StepContainer key={step.id}>

@@ -4,21 +4,14 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
 // components
-import {
-  Dropdown,
-  Button,
-  SearchInput,
-  Modal,
-  ModalHead,
-  ModalBody,
-  Stepper,
-} from '@/common';
+import { Dropdown, Button, SearchInput } from '@/common';
 import { Guide } from '@/components/shared';
 import * as DutchC from './styles';
 import Breadcrumb from './Breadcrumb';
 
 // icons
 import * as Icons from '@/common/Icons';
+import MintFeeModal from '../shared/modals/mint-fee-modal';
 
 // types
 type NFTT = {
@@ -62,24 +55,6 @@ const CreateHome: React.FC = () => {
     },
   ]);
 
-  const steps = [
-    {
-      id: 1,
-      title: 'Mint Fee',
-      active: true,
-    },
-    {
-      id: 2,
-      title: 'Wallet Signature',
-      active: false,
-    },
-    {
-      id: 3,
-      title: 'Minting',
-      active: false,
-    },
-  ];
-
   const onCollectionSelect = (value: string) => {
     setCollection(value);
   };
@@ -106,15 +81,15 @@ const CreateHome: React.FC = () => {
     setOpen((open) => !open);
   };
 
+  const handleClose = () => {
+    setOpenMintModal(false);
+  };
+
   return (
     <DutchC.CreateWrapper>
       {/* modals */}
       {/* --- NFT mint modal */}
-      <Modal>
-        <ModalHead title="Mint Fee" />
-        <Stepper steps={steps}></Stepper>
-      </Modal>
-
+      {openMintModal && <MintFeeModal eth={0} onClose={handleClose} />}
       <DutchC.CreateContentWrapper open={open ? 1 : 0}>
         <DutchC.CreateContent>
           <Breadcrumb />
@@ -159,7 +134,9 @@ const CreateHome: React.FC = () => {
             {/* If some draft nfts are avaiable to show */}
             <DutchC.CreateContentTools>
               <SearchInput />
-              <Button>Mint Selected NFTs</Button>
+              <Button onClick={() => setOpenMintModal(true)}>
+                Mint Selected NFTs
+              </Button>
               <Button>Mint all NFTs</Button>
             </DutchC.CreateContentTools>
             <DutchC.CreateContentDraftNFTs>

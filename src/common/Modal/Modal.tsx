@@ -11,6 +11,15 @@ interface ModalProps {
 
 interface ModalHeadProps {
   title: string;
+  onClose: () => void;
+}
+
+interface ModalBodyProps {
+  children: React.ReactNode;
+}
+
+interface ModalFooterProps {
+  children: React.ReactNode;
 }
 
 export const Modal: React.FC<ModalProps> = ({ children }) => {
@@ -21,15 +30,15 @@ export const Modal: React.FC<ModalProps> = ({ children }) => {
   );
 };
 
-export const ModalHead: React.FC<ModalHeadProps> = ({ title }) => {
+export const ModalHead: React.FC<ModalHeadProps> = ({ title, onClose }) => {
   return (
     <DutchC.ModalHeadWrapper>
       <DutchC.ModalTitle>{title}</DutchC.ModalTitle>
-      <IconButton icon="close" />
+      <IconButton icon="close" onClick={onClose} />
     </DutchC.ModalHeadWrapper>
   );
 };
 
-export const ModalBody: React.FC = () => {
-  return <></>;
+export const ModalBody: React.FC<ModalBodyProps> = ({ children }) => {
+  return <DutchC.ModalBodyWrapper>{children}</DutchC.ModalBodyWrapper>;
 };
