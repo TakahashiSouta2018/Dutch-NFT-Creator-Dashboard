@@ -11,7 +11,7 @@ interface ModalProps {
 
 interface ModalHeadProps {
   title: string;
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 interface ModalBodyProps {
@@ -30,7 +30,10 @@ export const Modal: React.FC<ModalProps> = ({ children }) => {
   );
 };
 
-export const ModalHead: React.FC<ModalHeadProps> = ({ title, onClose }) => {
+export const ModalHead: React.FC<ModalHeadProps> = ({
+  title,
+  onClose = () => {},
+}) => {
   return (
     <DutchC.ModalHeadWrapper>
       <DutchC.ModalTitle>{title}</DutchC.ModalTitle>

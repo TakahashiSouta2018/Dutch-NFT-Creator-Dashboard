@@ -33,21 +33,17 @@ const MintFeeModal: React.FC<MintFeeModalProps> = ({ eth, onClose }) => {
         <Stepper steps={steps}></Stepper>
         <DutchC.ContentWrapper>
           <DutchC.Content>
-            <DutchC.ContentNormalText>
-              Mint fee per NFT
-            </DutchC.ContentNormalText>
+            <DutchC.TextNormal>Mint fee per NFT</DutchC.TextNormal>
             <DutchC.ContentPrice>
-              <DutchC.ContentNormalText>0.0003 ETH</DutchC.ContentNormalText>
-              <DutchC.ContentNormalText>$0.28</DutchC.ContentNormalText>
+              <DutchC.TextNormal>0.0003 ETH</DutchC.TextNormal>
+              <DutchC.TextNormal>$0.28</DutchC.TextNormal>
             </DutchC.ContentPrice>
           </DutchC.Content>
           <DutchC.Content>
-            <DutchC.ContentNormalText>
-              Total (Minting 2 NFTs)
-            </DutchC.ContentNormalText>
+            <DutchC.TextNormal>Total (Minting 2 NFTs)</DutchC.TextNormal>
             <DutchC.ContentPrice>
-              <DutchC.ContentNormalText>0.0006 ETH</DutchC.ContentNormalText>
-              <DutchC.ContentNormalText>$0.56</DutchC.ContentNormalText>
+              <DutchC.TextNormal>0.0006 ETH</DutchC.TextNormal>
+              <DutchC.TextNormal>$0.56</DutchC.TextNormal>
             </DutchC.ContentPrice>
           </DutchC.Content>
         </DutchC.ContentWrapper>
@@ -59,13 +55,13 @@ const MintFeeModal: React.FC<MintFeeModalProps> = ({ eth, onClose }) => {
             <IconButton icon="exclamation-circle" />
           </DutchC.ContentWalletAbsoluteIcon>
           <DutchC.ContentDepositTitleWrapper>
-            <DutchC.ContentBoldText>
+            <DutchC.TextBold>
               {eth} ETH{' '}
-              <DutchC.ContentDepositFundText>
+              <DutchC.TextContentDepositFund>
                 Deposite Funds
-              </DutchC.ContentDepositFundText>{' '}
-            </DutchC.ContentBoldText>
-            <DutchC.ContentThinText>Wallet Balance</DutchC.ContentThinText>
+              </DutchC.TextContentDepositFund>{' '}
+            </DutchC.TextBold>
+            <DutchC.TextThin>Wallet Balance</DutchC.TextThin>
           </DutchC.ContentDepositTitleWrapper>
           <DutchC.ContentButtonsWrapper>
             <OutlineButton>Cancel</OutlineButton>

@@ -27,7 +27,3 @@ export const ModalTitle = styled.h3.attrs({
 export const ModalBodyWrapper = styled.div.attrs({
   className: 'mx-6 mb-6',
 })``;
-
-export const ModalFooterWrapper = styled.div.attrs({
-  className: 'mx-7 mb-6',
-})``;

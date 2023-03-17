@@ -32,16 +32,16 @@ export const ContentWalletAbsoluteIcon = styled.div.attrs({
   className: 'absolute -left-1 -top-4',
 })``;
 
-export const ContentDepositFundText = styled.span.attrs({
+export const TextContentDepositFund = styled.span.attrs({
   className: 'font-bold text-black/90 underline ml-2 cursor-pointer',
 })``;
 
-export const ContentBoldText = styled.div.attrs({
+export const TextBold = styled.div.attrs({
   className: 'font-bold text-black/90',
 })``;
 
-export const ContentNormalText = styled.span.attrs({})``;
+export const TextNormal = styled.span.attrs({})``;
 
-export const ContentThinText = styled.div.attrs({
+export const TextThin = styled.div.attrs({
   className: 'text-normal text-black/70',
 })``;
