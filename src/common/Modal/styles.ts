@@ -25,5 +25,5 @@ export const ModalTitle = styled.h3.attrs({
 })``;
 
 export const ModalBodyWrapper = styled.div.attrs({
-  className: 'mx-6 mb-6',
+  className: 'mx-6 my-6',
 })``;

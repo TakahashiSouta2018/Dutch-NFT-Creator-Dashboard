@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const LoginWrapper = styled.div.attrs({
-  className: 'flex flex-col gap-4 my-6',
+  className: 'flex flex-col gap-4',
 })``;
 
 export const AccountWrapper = styled.div.attrs({
@@ -13,11 +13,11 @@ export const Account = styled.div.attrs({
 })``;
 
 export const ConnectMetaMaskWrapper = styled.div.attrs({
-  className: 'flex flex-col gap-3 items-center my-16',
+  className: 'flex flex-col gap-3 items-center my-10',
 })``;
 
 export const ConnectionErrorWrapper = styled.div.attrs({
-  className: 'flex flex-col gap-3 items-center mt-6',
+  className: 'flex flex-col gap-3 items-center',
 })``;
 
 export const TextNormal = styled.div.attrs({})``;

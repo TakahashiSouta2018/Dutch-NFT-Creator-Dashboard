@@ -11,7 +11,7 @@ import * as DutchC from './style';
 const LoginHome = (): JSX.Element => {
   const [close, setClose] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [connectionError, setConnectionError] = useState(true);
+  const [connectionError, setConnectionError] = useState(false);
   const { connectAccount, disconnectAccount } = useWalletHook();
 
   console.log(loading);
