@@ -43,9 +43,9 @@ const FundMethod: React.FC<FundMethodProps> = ({
           <DutchC.TextDepositSmall>{description}</DutchC.TextDepositSmall>
         </DutchC.DepositFundMethod>
         {showCard && type === 'card' && (
-          <div className="absolute right-0 top-0">
+          <DutchC.IconCheck>
             <Icons.ICheckCircle size="large" />
-          </div>
+          </DutchC.IconCheck>
         )}
       </DutchC.DepositFundMethodHead>
       {showCard && type === 'card' && (

@@ -25,7 +25,7 @@ const transActions = [
     id: '02',
     img: LycheeIcon,
     title: 'Lychee',
-    status: 2,
+    status: 1,
   },
 ];
 
@@ -57,11 +57,15 @@ const ContentWalletSignature: React.FC<ContentWalletSignatureProps> = ({
       <TransactionList transActions={transActions} />
       <DutchC.CancelButtionWrapper>
         <Button
-          leftIcon={activeStep === 2 ? undefined : 'close'}
+          leftIcon={
+            activeStep === 2 && isFinished(transActions) ? undefined : 'close'
+          }
           disabled={activeStep === 2 ? false : true}
           onClick={onClose}
         >
-          {activeStep === 2 ? 'Done' : 'Cancel Minting'}
+          {activeStep === 2 && isFinished(transActions)
+            ? 'Done'
+            : 'Cancel Minting'}
         </Button>
       </DutchC.CancelButtionWrapper>
     </DutchC.WalletSignatureWrapper>
@@ -70,8 +74,8 @@ const ContentWalletSignature: React.FC<ContentWalletSignatureProps> = ({
 
 export function isFinished(transActions: TransactionType[]) {
   return (
-    transActions.filter((action) => action.status === 3).length ===
-    transActions.length
+    transActions.filter((action) => action.status === 2 || action.status === 3)
+      .length === transActions.length
   );
 }
 

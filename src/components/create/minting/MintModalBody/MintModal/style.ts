@@ -27,7 +27,7 @@ export const DepositWalletIcon = styled.div.attrs({
 })``;
 
 export const DepositCheckIcon = styled.div.attrs({
-  className: 'absolute left-2 -top-1 rounded-full',
+  className: 'absolute left-2 -top-1 rounded-full bg-white rounded-full',
 })``;
 
 export const DepositTitleCol = styled.div.attrs({
@@ -67,5 +67,5 @@ export const TextUnderlined = styled.span.attrs({
 })``;
 
 export const TextThin = styled.span.attrs({
-  className: 'text-sm text-black/70 dark:text-white/70',
+  className: 'text-sm text-black/70 dark:text-white',
 })``;
