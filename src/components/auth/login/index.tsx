@@ -37,7 +37,10 @@ const LoginHome = (): JSX.Element => {
 
   return (
     <Modal>
-      <ModalHead title="Connect a Wallet" onClose={() => setClose(true)} />
+      <ModalHead
+        title={connectionError ? 'Connection Error' : 'Connect a Wallet'}
+        onClose={() => setClose(true)}
+      />
       <ModalBody>
         {connectionError ? (
           <ConnectionError />

@@ -10,7 +10,9 @@ const RegisterHome = () => {
   if (!showVerifyModal)
     return (
       <Modal>
-        <ModalHead title="Register" />
+        <ModalHead
+          title={showVerifyModal ? 'Email Verification' : 'Register'}
+        />
         <ModalBody>
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-4">
