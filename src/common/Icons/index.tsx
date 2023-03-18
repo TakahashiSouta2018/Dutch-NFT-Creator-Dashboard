@@ -22,6 +22,7 @@ const colors = {
   'white-gray': 'text-white/60',
   orange: 'text-primary-orange',
   'accent-red': 'text-accent-red',
+  'accent-green': 'text-accent-green',
   'dark-red': 'text-dark-red',
 };
 
@@ -247,9 +248,13 @@ export const ICheckCircle: React.FC<IconProps> = ({
   color = 'black',
 }) => {
   return variant === 'solid' ? (
-    <SolidIcons.CheckCircleIcon className={`${sizes[size]} ${colors[color]}`} />
+    <SolidIcons.CheckCircleIcon
+      className={`${sizes[size]} ${colors[color]} `}
+    />
   ) : (
-    <SolidIcons.CheckCircleIcon className={`${sizes[size]} ${colors[color]}`} />
+    <SolidIcons.CheckCircleIcon
+      className={`${sizes[size]} ${colors[color]} `}
+    />
   );
 };
 
@@ -268,23 +273,50 @@ export const IXMark: React.FC<IconProps> = ({
 export const IExclamationCircle: React.FC<IconProps> = ({
   variant = 'solid',
   size = 'medium',
-  color = 'dark-red',
+  color = 'black',
 }) => {
   return variant === 'solid' ? (
     <SolidIcons.ExclamationCircleIcon
-      className={`${sizes[size]} ${colors[color]} text-dark-red`}
+      className={`${sizes[size]} ${colors[color]}`}
     />
   ) : (
     <SolidIcons.ExclamationCircleIcon
-      className={`${sizes[size]} ${colors[color]} text-dark-red`}
+      className={`${sizes[size]} ${colors[color]}`}
     />
+  );
+};
+
+export const IArrowSmallLeft: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.ArrowSmallLeftIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <SolidIcons.ArrowSmallLeftIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
+export const IArrowRight: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.ArrowRightIcon className={`${sizes[size]} ${colors[color]}`} />
+  ) : (
+    <SolidIcons.ArrowRightIcon className={`${sizes[size]} ${colors[color]}`} />
   );
 };
 
 export const icons = {
   bell: IBell,
   wallet: IWallet,
-  'big-wallet': IBigWallet,
   user: IUser,
   calendar: ICalendar,
   moon: IMoon,
@@ -301,6 +333,8 @@ export const icons = {
   'check-circle': ICheckCircle,
   close: IXMark,
   'exclamation-circle': IExclamationCircle,
+  'left-arrow': IArrowSmallLeft,
+  'right-arrow': IArrowRight,
 };
 
 export type IconType = keyof typeof icons;

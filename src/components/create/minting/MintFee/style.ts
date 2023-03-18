@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
+// --------------- MintFee ----------------//
 export const ContentWrapper = styled.div.attrs({
-  className: 'flex flex-col divide-y',
+  className: 'flex flex-col divide-y my-6 border border-black/10 rounded-lg',
 })``;
 
 export const Content = styled.div.attrs({
-  className: 'flex justify-between py-4 px-6 border',
+  className: 'flex justify-between px-6 py-4',
 })``;
 
 export const ContentPrice = styled.div.attrs({
@@ -25,12 +26,18 @@ export const ContentButtonsWrapper = styled.div.attrs({
 })``;
 
 export const ContentWalletIcon = styled.div.attrs({
-  className: 'absolute -left-3 -top-2',
+  className: 'absolute left-0 top-0',
 })``;
 
 export const ContentWalletAbsoluteIcon = styled.div.attrs({
-  className: 'absolute -left-1 -top-4',
+  className: 'absolute left-2 -top-1 rounded-full',
 })``;
+
+export const DepositFundWrapper = styled.div.attrs({
+  className: 'flex flex-col gap-4',
+})``;
+
+//------------------ Custom Text ---------------------//
 
 export const TextContentDepositFund = styled.span.attrs({
   className: 'font-bold text-black/90 underline ml-2 cursor-pointer',

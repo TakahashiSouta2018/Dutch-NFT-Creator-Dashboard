@@ -11,7 +11,7 @@ import Breadcrumb from './Breadcrumb';
 
 // icons
 import * as Icons from '@/common/Icons';
-import MintFeeModal from '../shared/modals/mint-fee-modal';
+import MintingModal from './minting';
 
 // types
 type NFTT = {
@@ -85,11 +85,17 @@ const CreateHome: React.FC = () => {
     setOpenMintModal(false);
   };
 
+  const handleBack = () => {
+    setOpenMintModal(false);
+  };
+
   return (
     <DutchC.CreateWrapper>
       {/* modals */}
       {/* --- NFT mint modal */}
-      {openMintModal && <MintFeeModal eth={0} onClose={handleClose} />}
+      {openMintModal && (
+        <MintingModal onClose={handleClose} onBack={handleBack} />
+      )}
       <DutchC.CreateContentWrapper open={open ? 1 : 0}>
         <DutchC.CreateContent>
           <Breadcrumb />
@@ -107,7 +113,7 @@ const CreateHome: React.FC = () => {
                   value={collection}
                   onSelect={onCollectionSelect}
                   options={options}
-                  position="TL"
+                  position="BL"
                   label="Collection"
                 />
               </DutchC.CreateContentCollection>

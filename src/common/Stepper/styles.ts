@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StepsWrapper = styled.div.attrs<{ className: string }>({
-  className: 'my-7 flex mx-6 justify-between relative',
+  className: 'flex mx-6 justify-between relative',
 })``;
 
 export const StepsStripe = styled.div.attrs({
@@ -19,7 +19,7 @@ export const StepActive = styled.div.attrs<{ className: string }>({
 
 export const StepNonActive = styled.div.attrs<{ className: string }>({
   className:
-    'text-medium text-black text-sm p-1 border border-black/10 bg-white/10 rounded-full w-8',
+    'text-medium text-black text-sm p-1 border border-black/10 bg-white rounded-full w-8',
 })``;
 export const StepActiveTitle = styled.p.attrs<{ className: string }>({
   className: ' text-black',
