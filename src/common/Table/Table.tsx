@@ -61,6 +61,17 @@ export const TD: React.FC<TDProps> = ({
   );
 };
 
+export const TResizableHeader: React.FC<TDProps> = ({
+  children,
+  className,
+}) => {
+  return (
+    <DutchC.TResizableHeader className={className}>
+      {children}
+    </DutchC.TResizableHeader>
+  );
+};
+
 export const TR: React.FC<TRProps> = ({
   children,
   className,

@@ -142,3 +142,13 @@ export const DraftNFTSelectedMark = styled.div.attrs({
 export const GuideInfoIconWrapper = styled.div.attrs({
   className: 'absolute top-4 right-6 cursor-pointer',
 })``;
+
+// --- Minting Modal
+export const MintingFeeContent = styled.div.attrs({
+  className:
+    'flex justify-between border border-b-black/10 items-center bg-white text-black px-6 py-4 text-[16px] leading-[150%] rounded-lg ',
+});
+export const MintingFeeContentText = styled.div.attrs({
+  className:
+    'flex justify-between border border-b-black/10 items-center text-black px-6 py-4 text-[16px] leading-[150%] rounded-lg ',
+});

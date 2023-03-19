@@ -26,5 +26,14 @@ export const TRWrapper = styled.tr.attrs<{ className: string }>({
 
 // --- TD
 export const TDWrapper = styled.td.attrs<{ className: string }>({
-  className: 'px-4 py-2',
+  className: 'px-4 py-2 resize-x',
+})``;
+
+// --- TD
+export const TResizableHeader = styled.textarea.attrs<{
+  className: string;
+}>({
+  className:
+    'resize-x outline-none flex items-center min-w-full text-decoration-none',
+  rows: 1,
 })``;

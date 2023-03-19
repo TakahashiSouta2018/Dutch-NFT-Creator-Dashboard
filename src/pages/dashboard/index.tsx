@@ -1,8 +1,12 @@
 import React from 'react';
 
 // components
-import { AppLayout } from '@/components';
+import { AppLayout, DashboardSubNav } from '@/components';
 
 export default function Dashboard() {
-  return <AppLayout>Dashboard</AppLayout>;
+  return (
+    <AppLayout>
+      <DashboardSubNav />
+    </AppLayout>
+  );
 }

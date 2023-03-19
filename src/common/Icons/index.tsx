@@ -1,5 +1,5 @@
 import React from 'react';
-import SolidIcons, { XMarkIcon } from '@heroicons/react/24/solid';
+import SolidIcons from '@heroicons/react/24/solid';
 import OutlineIcons from '@heroicons/react/24/outline';
 
 // type
@@ -22,7 +22,13 @@ const colors = {
   'white-gray': 'text-white/60',
   orange: 'text-primary-orange',
   'accent-red': 'text-accent-red',
+  'accent-green': 'text-accent-green',
   'dark-red': 'text-dark-red',
+};
+
+const bgs = {
+  red: 'bg-red-500',
+  green: 'bg-green-500',
 };
 
 export const ISearch: React.FC<IconProps> = ({
@@ -45,7 +51,7 @@ export const IBell: React.FC<IconProps> = ({
   return variant === 'solid' ? (
     <SolidIcons.BellIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
-    <SolidIcons.BellIcon className={`${sizes[size]} ${colors[color]}`} />
+    <OutlineIcons.BellIcon className={`${sizes[size]} ${colors[color]}`} />
   );
 };
 
@@ -58,6 +64,17 @@ export const IWallet: React.FC<IconProps> = ({
     <SolidIcons.WalletIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
     <OutlineIcons.WalletIcon className={`${sizes[size]} ${colors[color]}`} />
+  );
+};
+
+export const IBigWallet: React.FC<IconProps> = ({
+  variant = 'solid',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.WalletIcon className={`${colors[color]}`} />
+  ) : (
+    <OutlineIcons.WalletIcon className={`${colors[color]}`} />
   );
 };
 
@@ -231,9 +248,13 @@ export const ICheckCircle: React.FC<IconProps> = ({
   color = 'black',
 }) => {
   return variant === 'solid' ? (
-    <SolidIcons.CheckCircleIcon className={`${sizes[size]} ${colors[color]}`} />
+    <SolidIcons.CheckCircleIcon
+      className={`${sizes[size]} ${colors[color]} `}
+    />
   ) : (
-    <SolidIcons.CheckCircleIcon className={`${sizes[size]} ${colors[color]}`} />
+    <SolidIcons.CheckCircleIcon
+      className={`${sizes[size]} ${colors[color]} `}
+    />
   );
 };
 
@@ -246,6 +267,50 @@ export const IXMark: React.FC<IconProps> = ({
     <SolidIcons.XMarkIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
     <SolidIcons.XMarkIcon className={`${sizes[size]} ${colors[color]}`} />
+  );
+};
+
+export const IExclamationCircle: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.ExclamationCircleIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <SolidIcons.ExclamationCircleIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
+export const IArrowSmallLeft: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.ArrowSmallLeftIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <SolidIcons.ArrowSmallLeftIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
+export const IArrowRight: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.ArrowRightIcon className={`${sizes[size]} ${colors[color]}`} />
+  ) : (
+    <SolidIcons.ArrowRightIcon className={`${sizes[size]} ${colors[color]}`} />
   );
 };
 
@@ -266,7 +331,10 @@ export const icons = {
   photo: IPhoto,
   'minus-circle': IMinusCircle,
   'check-circle': ICheckCircle,
-  close: XMarkIcon,
+  close: IXMark,
+  'exclamation-circle': IExclamationCircle,
+  'left-arrow': IArrowSmallLeft,
+  'right-arrow': IArrowRight,
 };
 
 export type IconType = keyof typeof icons;
