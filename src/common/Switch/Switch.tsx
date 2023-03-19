@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { useTheme } from 'next-themes';
 
-//styles
 import * as DutchC from './styles';
 
-//icons
 import { icons, IconType } from '../Icons';
 
 interface SwitchButtonProps {
