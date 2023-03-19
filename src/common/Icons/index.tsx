@@ -314,6 +314,32 @@ export const IArrowRight: React.FC<IconProps> = ({
   );
 };
 
+export const IBars3: React.FC<IconProps> = ({
+  variant = 'outline',
+  size = 'medium',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.Bars3Icon className={`${sizes[size]} ${colors[color]}`} />
+  ) : (
+    <OutlineIcons.Bars3Icon className={`${sizes[size]} ${colors[color]}`} />
+  );
+};
+
+export const ISquares2x2: React.FC<IconProps> = ({
+  variant = 'outline',
+  size = 'medium',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.Squares2X2Icon className={`${sizes[size]} ${colors[color]}`} />
+  ) : (
+    <OutlineIcons.Squares2X2Icon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
 export const icons = {
   bell: IBell,
   wallet: IWallet,
@@ -331,6 +357,8 @@ export const icons = {
   photo: IPhoto,
   'minus-circle': IMinusCircle,
   'check-circle': ICheckCircle,
+  bars3: IBars3,
+  squares2X2: ISquares2x2,
   close: IXMark,
   'exclamation-circle': IExclamationCircle,
   'left-arrow': IArrowSmallLeft,
