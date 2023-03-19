@@ -9,9 +9,11 @@ import {
 } from '@loopring-web/loopring-sdk';
 import {
   AccountInfoI,
+  CollectionNFTI,
   CollectionObjectI,
   LooseObjectI,
   MintNFTPostDataI,
+  NFTI,
   UserCollectionI,
 } from '@/types';
 import { validateMetadata } from '@/lib/metadata';
@@ -131,6 +133,59 @@ export class LoopringService {
     );
 
     return collectionRes;
+  }
+
+  async getUserNFTCollection({
+    accountInfo,
+    tokensAddress,
+    offset,
+    limit,
+  }: CollectionNFTI) {
+    try {
+      const headers = {
+        'X-API-KEY': accountInfo.apiKey,
+      };
+
+      const res = await axios.get(
+        `${
+          process.env.NEXT_PUBLIC_LOOPRING_API_URL
+        }/user/nft/balances?accountId=${accountInfo.accInfo.accountId.toString()}&tokenAddrs=${tokensAddress.join(
+          ','
+        )}&offset=${offset}&limit=${limit}`,
+        { headers }
+      );
+
+      if (res.status === 200) {
+        return { totalNFT: Number(res.data.totalNum), nfts: res.data.data  as NFTI[]};
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getInfoForNFTTokens(nftDatas: string[]) {
+    const response = await this.nftAPI.getInfoForNFTTokens({
+      nftDatas,
+    });
+
+    return response;
+  }
+
+  async ipfsNftIDToCid(nftID: string) {
+    const response = await this.nftAPI.ipfsNftIDToCid(nftID);
+
+    return response;
+  }
+
+  async getContractNFTMeta(tokenAddress: string, nftId: string, nftType: string) {
+     const response = await this.nftAPI.getContractNFTMeta({
+        web3: connectProvides.usedWeb3 as unknown as Web3,
+        tokenAddress,
+        nftId,
+        nftType: nftType as unknown as sdk.NFTType
+      });
+    return response;
   }
 
   async getCollectionMeta(accountInfo: AccountInfoI, tokenAddress: string) {

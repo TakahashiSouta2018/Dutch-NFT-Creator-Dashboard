@@ -8,6 +8,7 @@ import { useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
 import ConnectWallet from '@/components/shared/connectWallet';
 import { AppLayout } from '@/components';
+import { sleep } from '@loopring-web/loopring-sdk';
 
 const FolderUpload = () => {
   const [selectedImageFolder, setSelectedImageFolder] =
@@ -61,6 +62,8 @@ const FolderUpload = () => {
     }
 
     const selectedImageFolderArr = Array.from(selectedImageFolder);
+
+    console.log({ selectedImageFolderArr });
 
     if (selectedImageFolderArr.length !== selectedCSVFileContent.length) {
       return alert('Uploaded image not equal to the CSV metadata');
@@ -117,6 +120,7 @@ const FolderUpload = () => {
         });
 
         console.log({ res });
+        await sleep(1000);
       }
 
       // await Promise.all(

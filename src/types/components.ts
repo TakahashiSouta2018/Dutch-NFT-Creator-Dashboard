@@ -99,6 +99,12 @@ export interface UserCollectionI {
   tokenAddress?: string;
   isMintable?: boolean;
 }
+export interface CollectionNFTI {
+  accountInfo: AccountInfoI;
+  offset: number;
+  limit: number;
+  tokensAddress: string[];
+}
 
 export interface FeeI {
   raw_data: unknown;
