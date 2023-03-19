@@ -1,4 +1,5 @@
 import * as sdk from '@loopring-web/loopring-sdk';
+import { StaticImageData } from 'next/image';
 
 /**
  * Button
@@ -24,6 +25,7 @@ export type IconVariants = {
     | 'dark-gray'
     | 'white-gray'
     | 'accent-red'
+    | 'accent-green'
     | 'dark-red';
 };
 
@@ -212,4 +214,17 @@ export interface CollectionI {
     mintChannel: string;
   };
   extends: Record<string, unknown>;
+}
+
+export interface StepType {
+  id: number;
+  title: string;
+  active: boolean;
+}
+
+export interface TransactionType {
+  id: string;
+  img: StaticImageData;
+  title: string;
+  status: number;
 }

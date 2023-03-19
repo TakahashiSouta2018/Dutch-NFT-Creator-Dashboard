@@ -1,1 +1,1 @@
-export { Table, TBody, THead, TD, TR } from './Table';
+export { Table, TBody, THead, TD, TR, TResizableHeader } from './Table';

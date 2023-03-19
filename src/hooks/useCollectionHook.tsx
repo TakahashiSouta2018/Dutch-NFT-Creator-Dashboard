@@ -25,7 +25,7 @@ const useCollectionHook = () => {
         console.log(error);
       }
     })();
-  }, [accountInfo]);
+  });
 
   const createCollection = async (collectionObject: CollectionObjectI) => {
     const imagesUrl = await pinFileToIPFS([
