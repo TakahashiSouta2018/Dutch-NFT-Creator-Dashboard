@@ -6,7 +6,7 @@ import {
   TabContainer,
   TabGroup,
   Tab,
-  Button,
+  OutlineButton,
   IconButton,
   SearchInput,
 } from '@/common';
@@ -52,8 +52,10 @@ const wideFilters: WIDEFILTERTYPE[][] = [
 
 const NFTManagement: React.FC = () => {
   const { theme } = useTheme();
+  const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [currentWideFilter, setCurrentWideFilter] = useState<WIDEFILTER>('ALL');
+  const [isSync, setSync] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -62,6 +64,9 @@ const NFTManagement: React.FC = () => {
   if (!mounted) {
     return null;
   }
+  const toggleGuide = () => {
+    setOpen((open) => !open);
+  };
 
   return (
     <DutchC.NFTManagementWrapper>
@@ -94,7 +99,9 @@ const NFTManagement: React.FC = () => {
                 ))}
               </TabContainer>
               {/* Sync Action */}
-              <Button leftIcon="arrow-down-on-square">Small Sync NFTs</Button>
+              <OutlineButton leftIcon="arrow-down-on-square" color="black">
+                Sync NFTs
+              </OutlineButton>
             </DutchC.NFTManagementTopTool>
             {/* Sub Toolbar */}
             <DutchC.NFTManagementSubTool>
@@ -111,7 +118,15 @@ const NFTManagement: React.FC = () => {
         </DutchC.NFTManagementContent>
       </DutchC.NFTManagementContentWrapper>
 
-      <Guide open={true} />
+      <DutchC.GuideInfoIconWrapper onClick={toggleGuide}>
+        <Icons.IInformationCircle
+          variant="solid"
+          size="large"
+          color={theme === 'light' ? 'black' : 'white'}
+        />
+      </DutchC.GuideInfoIconWrapper>
+
+      <Guide open={open} />
     </DutchC.NFTManagementWrapper>
   );
 };

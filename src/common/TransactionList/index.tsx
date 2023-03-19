@@ -14,8 +14,8 @@ const TransactionList: React.FC<TransactionListType> = ({ transActions }) => {
       {transActions.map((action: TransactionType) => (
         <DutchC.ListElementWrapper key={action.id}>
           <DutchC.ActionInfoWrapper>
-            <DutchC.TextSmall>{action.id}</DutchC.TextSmall>
-            <Image src={action.img} alt="img" />
+            <DutchC.ActionInfoNo>{action.id}</DutchC.ActionInfoNo>
+            <Image src={action.img} alt="img" width={40} />
             <DutchC.TextSmall>{action.title}</DutchC.TextSmall>
           </DutchC.ActionInfoWrapper>
           {action.status === 0 && (

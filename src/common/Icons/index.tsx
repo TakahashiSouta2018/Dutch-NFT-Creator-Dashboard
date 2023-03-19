@@ -173,7 +173,7 @@ export const IArrowDownOnSquare: React.FC<IconProps> = ({
 }) => {
   return variant === 'solid' ? (
     <SolidIcons.ArrowDownOnSquareIcon
-      className={`${sizes[size]} ${colors[color]}`}
+      className={`${sizes[size]} !${colors[color]}`}
     />
   ) : (
     <SolidIcons.ArrowDownOnSquareIcon

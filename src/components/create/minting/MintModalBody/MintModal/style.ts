@@ -5,7 +5,8 @@ export const MintFeeWrapper = styled.div.attrs({
 })``;
 
 export const MintContentWrapper = styled.div.attrs({
-  className: 'divide-y py-2 border border-black/10 rounded-lg',
+  className:
+    'divide-y divide-white/10 py-2 border border-black/10 dark:border-white/10 rounded-lg',
 })``;
 
 // ------------- MintFee ---------------- //

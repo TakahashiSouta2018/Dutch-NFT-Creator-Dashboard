@@ -2,6 +2,7 @@ import React from 'react';
 import * as DutchC from './style';
 import * as Icons from '@/common';
 import { Button, OutlineButton } from '@/common';
+import { useTheme } from 'next-themes';
 
 interface ContentMintFeeProps {
   isDepositFund: boolean;
@@ -31,6 +32,7 @@ const ContentMintFee: React.FC<ContentMintFeeProps> = ({
   onClose,
   balance,
 }): JSX.Element => {
+  const { theme } = useTheme();
   return (
     <DutchC.MintFeeWrapper>
       <DutchC.MintContentWrapper>
@@ -48,7 +50,10 @@ const ContentMintFee: React.FC<ContentMintFeeProps> = ({
       </DutchC.MintContentWrapper>
       <DutchC.DepositRow>
         <DutchC.DepositWalletIcon>
-          <Icons.IWallet size="large" />
+          <Icons.IWallet
+            size="large"
+            color={theme === 'dark' ? 'white-gray' : 'black'}
+          />
         </DutchC.DepositWalletIcon>
         <DutchC.DepositCheckIcon>
           {balance ? (

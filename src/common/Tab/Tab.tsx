@@ -3,6 +3,8 @@ import React from 'react';
 // component
 import * as DutchC from './styles';
 
+type WIDEFILTER = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE' | 'BANK0X';
+
 interface TabProps {
   children: React.ReactNode;
   active?: boolean;

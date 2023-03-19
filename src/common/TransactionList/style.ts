@@ -10,14 +10,18 @@ export const ListElementWrapper = styled.div.attrs({
 })``;
 
 export const ActionInfoWrapper = styled.div.attrs({
-  className: 'flex gap-4 align-middle items-center',
+  className: 'flex gap-4 items-center',
 })``;
 
-export const TextSmall = styled.span.attrs({
+export const ActionInfoNo = styled.div.attrs({
+  className: 'w-3 text-sm font-medium',
+})``;
+
+export const TextSmall = styled.div.attrs({
   className: 'text-sm font-medium',
 })``;
 
-export const StatusQueued = styled.span.attrs({
+export const StatusQueued = styled.div.attrs({
   className: 'text-sm font-bold text-black/50',
 })``;
 
@@ -25,10 +29,10 @@ export const StatusMinting = styled.div.attrs({
   className: 'text-sm font-bold text-primary-orange relative',
 })``;
 
-export const StatusSuccess = styled.span.attrs({
+export const StatusSuccess = styled.div.attrs({
   className: 'text-sm font-bold text-accent-green',
 })``;
 
-export const StatusFailed = styled.span.attrs({
+export const StatusFailed = styled.div.attrs({
   className: 'text-sm font-bold text-accent-red',
 })``;
