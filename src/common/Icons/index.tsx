@@ -249,6 +249,34 @@ export const IXMark: React.FC<IconProps> = ({
   );
 };
 
+export const IBars3: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.Bars3Icon className={`${sizes[size]} ${colors[color]}`} />
+  ) : (
+    <SolidIcons.Bars3Icon className={`${sizes[size]} ${colors[color]}`} />
+  );
+};
+
+export const ISquares2x2: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <OutlineIcons.Squares2X2Icon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.Squares2X2Icon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
 export const icons = {
   bell: IBell,
   wallet: IWallet,
@@ -267,6 +295,8 @@ export const icons = {
   'minus-circle': IMinusCircle,
   'check-circle': ICheckCircle,
   close: XMarkIcon,
+  bars3: IBars3,
+  squares2X2: ISquares2x2,
 };
 
 export type IconType = keyof typeof icons;

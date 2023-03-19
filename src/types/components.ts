@@ -27,6 +27,11 @@ export type IconVariants = {
     | 'dark-red';
 };
 
+export type SwitchButtonVariants = {
+  bgColor?: string;
+  size?: string;
+};
+
 /**
  * Input
  */
