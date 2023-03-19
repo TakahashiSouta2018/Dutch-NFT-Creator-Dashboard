@@ -14,6 +14,7 @@ import {
   TBody,
   TR,
   TD,
+  TResizableHeader,
 } from '@/common';
 import { Guide } from '@/components/shared';
 import * as DutchC from './styles';

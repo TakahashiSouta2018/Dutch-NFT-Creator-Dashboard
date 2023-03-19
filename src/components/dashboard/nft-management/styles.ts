@@ -4,7 +4,11 @@ import styled from 'styled-components';
 
 // components
 export const NFTManagementWrapper = styled.div.attrs({
-  className: 'relative flex px-6 py-4',
+  className: 'relative flex px-6 py-4 overflow-hidden',
+})``;
+
+export const GuideInfoIconWrapper = styled.div.attrs({
+  className: 'absolute right-6 top-4',
 })``;
 
 // --- Main Content

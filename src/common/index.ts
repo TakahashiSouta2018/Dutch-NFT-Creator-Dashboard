@@ -9,3 +9,4 @@ export * from './Upload';
 export * from './Table';
 export * from './Modal';
 export * from './Switch';
+export * from './Stepper';

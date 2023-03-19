@@ -69,7 +69,7 @@ const CreateDraftNFTHome: React.FC = () => {
       setCollectionNames(collectionNames);
       setSelectedCollectionName(collectionNames[0]);
     }
-  }, []);
+  }, [userCollection]);
 
   const toggleGuide = () => {
     setOpen((open) => !open);

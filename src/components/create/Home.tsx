@@ -4,20 +4,14 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
 // components
-import {
-  Dropdown,
-  Button,
-  SearchInput,
-  Modal,
-  ModalHead,
-  ModalBody,
-} from '@/common';
+import { Dropdown, Button, SearchInput } from '@/common';
 import { Guide } from '@/components/shared';
 import * as DutchC from './styles';
 import Breadcrumb from './Breadcrumb';
 
 // icons
 import * as Icons from '@/common/Icons';
+import MintingModal from './minting';
 
 // types
 type NFTT = {
@@ -87,14 +81,21 @@ const CreateHome: React.FC = () => {
     setOpen((open) => !open);
   };
 
+  const handleClose = () => {
+    setOpenMintModal(false);
+  };
+
+  const handleBack = () => {
+    setOpenMintModal(false);
+  };
+
   return (
     <DutchC.CreateWrapper>
       {/* modals */}
       {/* --- NFT mint modal */}
-      <Modal>
-        <ModalHead title="Mint Fee" />
-      </Modal>
-
+      {openMintModal && (
+        <MintingModal onClose={handleClose} onBack={handleBack} />
+      )}
       <DutchC.CreateContentWrapper open={open ? 1 : 0}>
         <DutchC.CreateContent>
           <Breadcrumb />
@@ -112,7 +113,7 @@ const CreateHome: React.FC = () => {
                   value={collection}
                   onSelect={onCollectionSelect}
                   options={options}
-                  position="TL"
+                  position="BL"
                   label="Collection"
                 />
               </DutchC.CreateContentCollection>
@@ -139,7 +140,9 @@ const CreateHome: React.FC = () => {
             {/* If some draft nfts are avaiable to show */}
             <DutchC.CreateContentTools>
               <SearchInput />
-              <Button>Mint Selected NFTs</Button>
+              <Button onClick={() => setOpenMintModal(true)}>
+                Mint Selected NFTs
+              </Button>
               <Button>Mint all NFTs</Button>
             </DutchC.CreateContentTools>
             <DutchC.CreateContentDraftNFTs>

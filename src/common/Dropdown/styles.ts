@@ -13,7 +13,7 @@ type DropdownInnerProps = {
 // components
 // --- Dropdown(default)
 export const DropdownWrapper = styled.div.attrs({
-  className: 'flex flex-col w-full gap-1 cursor-pointer',
+  className: 'flex flex-col w-full gap-1 cursor-pointer z-40',
 })``;
 
 export const DropdownLabel = styled.label.attrs({
