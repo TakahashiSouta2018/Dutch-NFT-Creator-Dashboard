@@ -15,6 +15,7 @@ import * as DutchC from './styles';
 
 // icons
 import * as Icons from '@/common/Icons';
+import SortSelect from '@/common/Input/SortSelect';
 
 type WIDEFILTER = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE' | 'BANK0X';
 
@@ -91,6 +92,10 @@ const NFTManagement: React.FC = () => {
                       <Tab
                         key={tab.slug}
                         active={tab.slug === currentWideFilter}
+                        onClick={(slug) => {
+                          setCurrentWideFilter(slug);
+                        }}
+                        slug={tab.slug}
                       >
                         {tab.label}
                       </Tab>
@@ -109,6 +114,7 @@ const NFTManagement: React.FC = () => {
               <DutchC.NFTManagementSubToolLeft>
                 <IconButton icon="funnel" rounded />
                 <SearchInput placeholder="NFT name or id" />
+                <SortSelect />
               </DutchC.NFTManagementSubToolLeft>
 
               {/* right */}

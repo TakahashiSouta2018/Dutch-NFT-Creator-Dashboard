@@ -8,7 +8,7 @@ export const NFTManagementWrapper = styled.div.attrs({
 })``;
 
 export const GuideInfoIconWrapper = styled.div.attrs({
-  className: 'absolute right-6 top-4',
+  className: 'absolute right-6 top-4 ',
 })``;
 
 // --- Main Content
