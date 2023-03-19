@@ -35,7 +35,6 @@ const ContentWalletSignature: React.FC<ContentWalletSignatureProps> = ({
   onClose,
 }): JSX.Element => {
   useEffect(() => {
-    console.log(isFinished(transActions));
     setTimeout(() => {
       setActiveStep(2);
     }, 3000);

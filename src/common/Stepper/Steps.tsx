@@ -26,7 +26,6 @@ export const Stepper: React.FC<StepperProps> = ({ activeStep }) => {
       <DutchC.StepsStripe />
 
       {steps.map((step, index) => {
-        console.log(activeStep);
         const isActive = index === activeStep;
 
         return (
