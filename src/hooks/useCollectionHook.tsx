@@ -10,7 +10,6 @@ const useCollectionHook = () => {
   const [userCollection, setUserCollection] = useState<CollectionI[]>([]);
   const [collectionNames, setCollectionNames] = useState<string[]>([]);
 
-
   const { accountInfo } = useAppSelector((state) => {
     const { accountInfo } = state.webAppReducer;
     return { accountInfo };
@@ -34,7 +33,6 @@ const useCollectionHook = () => {
       }
     })();
   }, [accountInfo]);
-
 
   const createCollection = async (collectionObject: CollectionObjectI) => {
     const imagesUrl = await pinFileToIPFS([
@@ -77,7 +75,12 @@ const useCollectionHook = () => {
     }
   };
 
-  return { userCollection, collectionNames, createCollection, getUserCollection };
+  return {
+    userCollection,
+    collectionNames,
+    createCollection,
+    getUserCollection,
+  };
 };
 
 export default useCollectionHook;

@@ -6,7 +6,9 @@ export default class DraftNFTService extends Service<any> {
     super('/nftManagement');
   }
 
-  public manageNFT(createNftManagement: Omit<CreateNftManagementI, 'id' | 'createdAt'>) {
+  public manageNFT(
+    createNftManagement: Omit<CreateNftManagementI, 'id' | 'createdAt'>
+  ) {
     return this.postRequest(``, { ...createNftManagement });
   }
 

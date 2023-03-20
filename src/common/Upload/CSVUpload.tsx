@@ -16,7 +16,10 @@ interface CSVUploadProps {
   setSelectedCSVFileContent: (value: CSVMetadataI[]) => void;
 }
 
-const CSVUpload: React.FC<CSVUploadProps> = ({ selectedCSVFileContent, setSelectedCSVFileContent }) => {
+const CSVUpload: React.FC<CSVUploadProps> = ({
+  selectedCSVFileContent,
+  setSelectedCSVFileContent,
+}) => {
   const { theme } = useTheme();
   const hiddenFileInput = useRef<HTMLInputElement>(null);
   const [selectedCSV, setSelectedCSV] = useState<File | null>(null);

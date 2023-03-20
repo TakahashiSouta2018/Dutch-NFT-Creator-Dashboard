@@ -51,7 +51,7 @@ const CreateDraftNFTHome: React.FC = () => {
       type: '',
       value: '',
     },
-  ]);  
+  ]);
 
   const [values, handleChange] = useForm({
     name: '',

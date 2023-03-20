@@ -72,7 +72,6 @@ const CreateBulkMintHome: React.FC = () => {
     CSVMetadataI[]
   >([]);
 
-
   useEffect(() => {
     if (userCollection.length > 0) {
       setSelectedCollectionName(collectionNames[0]);
@@ -88,7 +87,6 @@ const CreateBulkMintHome: React.FC = () => {
     setSelectedCollectionName(value);
     setSelectedCollectionAddress(userCollection[index].collectionAddress);
   };
-
 
   return (
     <DutchC.CreateWrapper>
@@ -141,7 +139,7 @@ const CreateBulkMintHome: React.FC = () => {
                     </p>
                   </DutchC.CreateBulkMintContentCSVUploadLabel>
 
-                  <CSVUpload 
+                  <CSVUpload
                     selectedCSVFileContent={selectedCSVFileContent}
                     setSelectedCSVFileContent={setSelectedCSVFileContent}
                   />

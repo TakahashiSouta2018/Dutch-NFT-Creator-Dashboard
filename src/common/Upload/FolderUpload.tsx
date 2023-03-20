@@ -15,11 +15,13 @@ interface FolderUploadProps {
   setSelectedImageFolder: (value: FileList | null) => void;
 }
 
-const FolderUpload: React.FC<FolderUploadProps> = ({ selectedImageFolder, setSelectedImageFolder }) => {
+const FolderUpload: React.FC<FolderUploadProps> = ({
+  selectedImageFolder,
+  setSelectedImageFolder,
+}) => {
   const { theme } = useTheme();
   const hiddenFileInput = useRef<HTMLInputElement>(null);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
-
 
   const handleOpen = () => {
     if (hiddenFileInput) {
@@ -42,16 +44,14 @@ const FolderUpload: React.FC<FolderUploadProps> = ({ selectedImageFolder, setSel
     });
 
     const urls: string[] = await Promise.all(
-      Array.from(files).map((file, index) =>
-        toBase64(file) as unknown as string
+      Array.from(files).map(
+        (file, index) => toBase64(file) as unknown as string
       )
     );
 
     setImageUrls(urls);
     setSelectedImageFolder(files);
   };
-
-  
 
   return (
     <DutchC.MultiUploadWrapper>
@@ -124,8 +124,6 @@ const FolderUpload: React.FC<FolderUploadProps> = ({ selectedImageFolder, setSel
       />
     </DutchC.MultiUploadWrapper>
   );
-
-
-}
+};
 
 export default FolderUpload;
