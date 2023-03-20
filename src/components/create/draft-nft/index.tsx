@@ -35,6 +35,9 @@ interface NFTPropertyI {
 
 const CreateDraftNFTHome: React.FC = () => {
   const { theme } = useTheme();
+  const { createDraftNFT } = useNFTHook();
+  const { userCollection, collectionNames } = useCollectionHook();
+
   const [open, setOpen] = useState(true);
   const [counter, setCounter] = useState(1);
   const [media, setMedia] = useState<string>('');
@@ -42,17 +45,13 @@ const CreateDraftNFTHome: React.FC = () => {
     useState<string>('');
   const [selectedCollectionName, setSelectedCollectionName] =
     useState<string>('');
-  const [collectionNames, setCollectionNames] = useState<string[]>([]);
   const [properties, setProperties] = useState<NFTPropertyT[]>([
     {
       id: 0,
       type: '',
       value: '',
     },
-  ]);
-
-  const { createDraftNFT } = useNFTHook();
-  const { userCollection } = useCollectionHook();
+  ]);  
 
   const [values, handleChange] = useForm({
     name: '',
@@ -63,11 +62,8 @@ const CreateDraftNFTHome: React.FC = () => {
 
   useEffect(() => {
     if (userCollection.length > 0) {
-      const collectionNames = userCollection.map(
-        (collection) => collection.name
-      );
-      setCollectionNames(collectionNames);
       setSelectedCollectionName(collectionNames[0]);
+      setSelectedCollectionAddress(userCollection[0].collectionAddress);
     }
   }, []);
 
@@ -104,8 +100,6 @@ const CreateDraftNFTHome: React.FC = () => {
 
   const handleSelectCollection = (value: string, index: number) => {
     setSelectedCollectionName(value);
-    console.log({ index, value, jdjfd: userCollection[index] });
-
     setSelectedCollectionAddress(userCollection[index].collectionAddress);
   };
 

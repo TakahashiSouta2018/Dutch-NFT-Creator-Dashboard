@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 
@@ -22,6 +22,9 @@ import Breadcrumb from '../Breadcrumb';
 
 // icons
 import * as Icons from '@/common/Icons';
+import useCollectionHook from '@/hooks/useCollectionHook';
+import FolderUpload from '@/common/Upload/FolderUpload';
+import { CSVMetadataI } from '@/types';
 
 const nfts = [
   {
@@ -55,12 +58,37 @@ const nfts = [
 ];
 
 const CreateBulkMintHome: React.FC = () => {
+  const { userCollection, collectionNames } = useCollectionHook();
   const { theme } = useTheme();
+
   const [open, setOpen] = useState(true);
+  const [selectedCollectionAddress, setSelectedCollectionAddress] =
+    useState<string>('');
+  const [selectedCollectionName, setSelectedCollectionName] =
+    useState<string>('');
+  const [selectedImageFolder, setSelectedImageFolder] =
+    useState<FileList | null>(null);
+  const [selectedCSVFileContent, setSelectedCSVFileContent] = useState<
+    CSVMetadataI[]
+  >([]);
+
+
+  useEffect(() => {
+    if (userCollection.length > 0) {
+      setSelectedCollectionName(collectionNames[0]);
+      setSelectedCollectionAddress(userCollection[0].collectionAddress);
+    }
+  }, []);
 
   const toggleGuide = () => {
     setOpen((open) => !open);
   };
+
+  const handleSelectCollection = (value: string, index: number) => {
+    setSelectedCollectionName(value);
+    setSelectedCollectionAddress(userCollection[index].collectionAddress);
+  };
+
 
   return (
     <DutchC.CreateWrapper>
@@ -75,10 +103,10 @@ const CreateBulkMintHome: React.FC = () => {
             <DutchC.CreateBulkMintCollectionSelectWrapper>
               <Dropdown
                 label="Collection"
-                value="🍎🍌🍍The Fruit Salad Game🍆🥦🥕"
-                options={['🍎🍌🍍The Fruit Salad Game🍆🥦🥕']}
+                value={selectedCollectionName}
+                options={collectionNames}
                 position="BL"
-                onSelect={() => {}}
+                onSelect={handleSelectCollection}
               />
             </DutchC.CreateBulkMintCollectionSelectWrapper>
 
@@ -93,7 +121,10 @@ const CreateBulkMintHome: React.FC = () => {
                     MP4, GLB, GLTF)
                   </DutchC.CreateBulkMintContentMultiMediaUploadLabel>
 
-                  <MultiMediaUpload />
+                  <FolderUpload
+                    setSelectedImageFolder={setSelectedImageFolder}
+                    selectedImageFolder={selectedImageFolder}
+                  />
                 </DutchC.CreateBulkMintContentMultiMediaUploadWrapper>
                 {/* CSV Upload */}
                 <DutchC.CreateBulkMintContentCSVUploadWrapper>
@@ -110,7 +141,10 @@ const CreateBulkMintHome: React.FC = () => {
                     </p>
                   </DutchC.CreateBulkMintContentCSVUploadLabel>
 
-                  <CSVUpload />
+                  <CSVUpload 
+                    selectedCSVFileContent={selectedCSVFileContent}
+                    setSelectedCSVFileContent={setSelectedCSVFileContent}
+                  />
                 </DutchC.CreateBulkMintContentCSVUploadWrapper>
               </DutchC.CreateBulkMintContentMainLeft>
               {/* right */}

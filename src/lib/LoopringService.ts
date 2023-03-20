@@ -156,7 +156,10 @@ export class LoopringService {
       );
 
       if (res.status === 200) {
-        return { totalNFT: Number(res.data.totalNum), nfts: res.data.data  as NFTI[]};
+        return {
+          totalNFT: Number(res.data.totalNum),
+          nfts: res.data.data as NFTI[],
+        };
       }
       return null;
     } catch (error) {
@@ -178,13 +181,17 @@ export class LoopringService {
     return response;
   }
 
-  async getContractNFTMeta(tokenAddress: string, nftId: string, nftType: string) {
-     const response = await this.nftAPI.getContractNFTMeta({
-        web3: connectProvides.usedWeb3 as unknown as Web3,
-        tokenAddress,
-        nftId,
-        nftType: nftType as unknown as sdk.NFTType
-      });
+  async getContractNFTMeta(
+    tokenAddress: string,
+    nftId: string,
+    nftType: string
+  ) {
+    const response = await this.nftAPI.getContractNFTMeta({
+      web3: connectProvides.usedWeb3 as unknown as Web3,
+      tokenAddress,
+      nftId,
+      nftType: nftType as unknown as sdk.NFTType,
+    });
     return response;
   }
 

@@ -1,6 +1,6 @@
 import { LoopringService } from '@/lib/LoopringService';
 import { useAppSelector } from '@/redux/store';
-import DraftNFTService from '@/services/DraftNFTService';
+import DraftNFTService from '@/services/DraftNFTService.service';
 import { DraftNFTI } from '@/types';
 import { shallowEqual } from 'react-redux';
 

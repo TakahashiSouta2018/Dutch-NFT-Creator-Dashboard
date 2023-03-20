@@ -72,3 +72,13 @@ export interface NFTI {
   preference: Preference;
   collectionInfo: NFTCollectionInfo;
 }
+
+export interface CreateNftManagementI {
+  id: string;
+  collection: string;
+  owner: string;
+  accountId: string;
+  nftId: string;
+  nftData: string;
+  createdAt?: Date | string;
+}
