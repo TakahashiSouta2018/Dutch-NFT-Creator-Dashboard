@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface CardShowProps {
+  showCard?: boolean;
+}
+
 export const DepositFundContentCard = styled.div.attrs({
   className:
     'flex gap-4 p-2 border rounded-lg border-black/10 relative cursor-pointer',
@@ -11,8 +15,13 @@ export const DepostFundRightArrow = styled.div.attrs({
 
 export const DepositFundMethodWrapper = styled.div.attrs({
   className:
-    'flex flex-col gap-4 p-4 border border-black/10 rounded-lg cursor-pointer dark:bg-white/10',
-})``;
+    'flex flex-col gap-4 p-4 border border-black/10 dark:border-white/10 rounded-lg cursor-pointer',
+})`
+  ${(p: CardShowProps) =>
+    p.showCard
+      ? 'background-color: rgba(0, 0, 0, 0.1)'
+      : 'background-color: white'}
+`;
 
 export const DepositFundMethodHead = styled.div.attrs({
   className: 'flex gap-4 relative',

@@ -5,7 +5,8 @@ export const StepsWrapper = styled.div.attrs<{ className: string }>({
 })``;
 
 export const StepsStripe = styled.div.attrs({
-  className: 'absolute w-[90%] z-0 border h-0 border-black/10 top-3.5 mx-4',
+  className:
+    'absolute w-[90%] z-0 border h-0 border-black/10 dark:border-white/10 top-3.5 mx-4',
 })``;
 
 export const StepContainer = styled.div.attrs<{ className: string }>({
@@ -22,9 +23,9 @@ export const StepNonActive = styled.div.attrs<{ className: string }>({
     'text-medium text-black text-sm p-1 border border-black/10 bg-white rounded-full w-8',
 })``;
 export const StepActiveTitle = styled.p.attrs<{ className: string }>({
-  className: ' text-black',
+  className: ' text-black dark:text-white',
 })``;
 
 export const StepNonActiveTitle = styled.p.attrs<{ className: string }>({
-  className: ' text-black/70',
+  className: ' text-black/70 dark:text-white/70',
 })``;

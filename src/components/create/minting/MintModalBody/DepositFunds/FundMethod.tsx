@@ -27,13 +27,7 @@ const FundMethod: React.FC<FundMethodProps> = ({
   onBalance,
 }) => {
   return (
-    <DutchC.DepositFundMethodWrapper
-      style={
-        showCard
-          ? { backgroundColor: 'rgba(0, 0, 0, 0.1)' }
-          : { backgroundColor: 'white' }
-      }
-    >
+    <DutchC.DepositFundMethodWrapper showCard={showCard}>
       <DutchC.DepositFundMethodHead onClick={onCard}>
         <div>
           <Image src={icon} alt={title} width={24} height={24} />
