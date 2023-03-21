@@ -7,6 +7,7 @@ import LoadingIcon from '@/assets/loading.png';
 import LycheeIcon from '@/assets/Lychee.gif';
 import MilkIcon from '@/assets/Milk.gif';
 import { TransactionType } from '@/types';
+import MintingButton from './MintingButton';
 
 interface ContentWalletSignatureProps {
   setActiveStep: (id: number) => void;
@@ -55,17 +56,11 @@ const ContentWalletSignature: React.FC<ContentWalletSignatureProps> = ({
       )}
       <TransactionList transActions={transActions} />
       <DutchC.CancelButtionWrapper>
-        <Button
-          leftIcon={
-            activeStep === 2 && isFinished(transActions) ? undefined : 'close'
-          }
-          disabled={activeStep === 2 ? false : true}
-          onClick={onClose}
-        >
-          {activeStep === 2 && isFinished(transActions)
-            ? 'Done'
-            : 'Cancel Minting'}
-        </Button>
+        <MintingButton
+          activeStep={activeStep}
+          isFinished={isFinished(transActions)}
+          onClose={onClose}
+        />
       </DutchC.CancelButtionWrapper>
     </DutchC.WalletSignatureWrapper>
   );

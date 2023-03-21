@@ -1,7 +1,7 @@
 import React from 'react';
 import { Stepper } from '@/common';
-import ContentMintFee from './Content_MintFee';
-import ContentMinting from './Content_Minting';
+import ContentMintFee from './ContentMintFee';
+import ContentMinting from './ContentMinting';
 
 interface MintModalProps {
   isDepositFund: boolean;
@@ -11,7 +11,7 @@ interface MintModalProps {
   setActiveStep: (id: number) => void;
   balance: boolean;
 }
-const MintModal: React.FC<MintModalProps> = ({
+const Minting: React.FC<MintModalProps> = ({
   isDepositFund,
   activeStep,
   setDepositFund,
@@ -42,4 +42,4 @@ const MintModal: React.FC<MintModalProps> = ({
     </div>
   );
 };
-export default MintModal;
+export default Minting;

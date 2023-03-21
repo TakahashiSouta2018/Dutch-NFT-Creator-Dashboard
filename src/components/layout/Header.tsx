@@ -1,7 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
-
+import LoginHome from '../auth/login';
+import RegisterHome from '../auth/register';
 // components
 import { SearchInput, IconButton, Badge, NavLink } from '@/common';
 import * as DutchC from './styles';
@@ -36,12 +37,22 @@ const Header: React.FC = () => {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [connectWallet, setConnectWallet] = useState(false);
+  const [isRegister, setRegister] = useState(false);
 
   const PAGE_PATH = router.asPath.split('/')[1] ?? '';
 
   const toggleTheme = useCallback(() => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   }, [setTheme, theme]);
+
+  const handleLogin = useCallback(() => {
+    setConnectWallet(true);
+  }, [setConnectWallet]);
+
+  const handleRegister = useCallback(() => {
+    setRegister(true);
+  }, [setRegister]);
 
   useEffect(() => {
     setMounted(true);
@@ -53,6 +64,21 @@ const Header: React.FC = () => {
 
   return (
     <DutchC.HeaderWrapper>
+      {connectWallet && (
+        <LoginHome
+          onClose={() => {
+            setConnectWallet(false);
+          }}
+        />
+      )}
+      {isRegister && (
+        <RegisterHome
+          onClose={() => {
+            setRegister(false);
+          }}
+        />
+      )}
+
       <DutchC.HeaderInner>
         <DutchC.Logo
           src={`/images/${theme === 'light' ? 'logo.svg' : 'logo-dark.svg'}`}
@@ -88,8 +114,8 @@ const Header: React.FC = () => {
             onClick={toggleTheme}
           />
           <IconButton icon="bell" />
-          <IconButton icon="wallet" />
-          <IconButton icon="user" />
+          <IconButton icon="wallet" onClick={handleLogin} />
+          <IconButton icon="user" onClick={handleRegister} />
         </DutchC.RightActions>
       </DutchC.HeaderInner>
     </DutchC.HeaderWrapper>

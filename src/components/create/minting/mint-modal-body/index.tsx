@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ModalBody } from '@/common';
-import DepositFunds from './DepositFunds';
-import MintModal from './MintModal';
+import DepositFunds from './deposit-funds';
+import Minting from './minting';
 
 interface MintModalBodyProps {
   isDepositFund: boolean;
@@ -30,7 +30,7 @@ const MintModalBody: React.FC<MintModalBodyProps> = ({
           }}
         />
       ) : (
-        <MintModal
+        <Minting
           isDepositFund={isDepositFund}
           activeStep={activeStep}
           setDepositFund={setDepositFund}

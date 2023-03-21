@@ -23,23 +23,20 @@ const LoginOptions = [
   },
 ];
 
-const LoginHome = (): JSX.Element => {
-  const [close, setClose] = useState(false);
+interface LoginHomeProps {
+  onClose?: () => void;
+}
+
+const LoginHome: React.FC<LoginHomeProps> = ({ onClose }): JSX.Element => {
   const [loading, setLoading] = useState(false);
   const [connectionError, setConnectionError] = useState(false);
   const { connectAccount } = useWalletHook();
-
-  useEffect(() => {
-    setTimeout(() => {
-      setConnectionError(true);
-    }, 3000);
-  });
 
   return (
     <Modal>
       <ModalHead
         title={connectionError ? 'Connection Error' : 'Connect a Wallet'}
-        onClose={() => setClose(true)}
+        onClose={onClose}
       />
       <ModalBody>
         {connectionError ? (

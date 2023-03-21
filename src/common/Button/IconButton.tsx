@@ -25,10 +25,18 @@ const IconButton: React.FC<IconButtonProps> = ({
   return (
     <DutchC.IconButtonWrapper
       rounded={rounded ? 1 : 0}
-      onMouseDown={() => setIsPressed(true)}
-      onMouseUp={() => setIsPressed(false)}
-      onTouchStart={() => setIsPressed(true)}
-      onTouchEnd={() => setIsPressed(false)}
+      // onMouseDown={() => {
+      //   setIsPressed(true);
+      // }}
+      onMouseUp={() => {
+        setIsPressed(false);
+      }}
+      onTouchStart={() => {
+        setIsPressed(true);
+      }}
+      onTouchEnd={() => {
+        setIsPressed(false);
+      }}
       onClick={onClick}
     >
       <Icon

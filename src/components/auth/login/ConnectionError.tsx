@@ -7,7 +7,6 @@ import ConnectionErrorIcon from '@/assets/connection_error.png';
 const ConnectionError: React.FC = () => {
   return (
     <Modal>
-      <ModalHead title="Connect a Wallet" />
       <ModalBody>
         <DutchC.ConnectionErrorWrapper>
           <Image src={ConnectionErrorIcon} alt="connect error" />

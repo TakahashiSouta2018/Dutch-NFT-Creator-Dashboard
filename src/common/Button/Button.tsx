@@ -29,13 +29,13 @@ const Button: React.FC<ButtonProps> = ({
   const RightIcon = rightIcon ? icons[rightIcon] : null;
 
   return (
-    <DutchC.ButtonWrapper size={size} {...rest}>
+    <DutchC.ButtonWrapper className={className} size={size} {...rest}>
       {/* left icon */}
       {LeftIcon && (
         <LeftIcon
           variant="solid"
           size={size === 'large' ? 'medium' : 'small'}
-          color="white"
+          color="accent-red"
         />
       )}
 

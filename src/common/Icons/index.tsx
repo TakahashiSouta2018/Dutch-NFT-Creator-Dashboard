@@ -86,7 +86,7 @@ export const IUser: React.FC<IconProps> = ({
   return variant === 'solid' ? (
     <SolidIcons.UserIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
-    <SolidIcons.UserIcon className={`${sizes[size]} ${colors[color]}`} />
+    <OutlineIcons.UserIcon className={`${sizes[size]} ${colors[color]}`} />
   );
 };
 
@@ -98,7 +98,7 @@ export const ICalendar: React.FC<IconProps> = ({
   return variant === 'solid' ? (
     <SolidIcons.CalendarIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
-    <SolidIcons.CalendarIcon className={`${sizes[size]} ${colors[color]}`} />
+    <OutlineIcons.CalendarIcon className={`${sizes[size]} ${colors[color]}`} />
   );
 };
 
@@ -110,7 +110,7 @@ export const IMoon: React.FC<IconProps> = ({
   return variant === 'solid' ? (
     <SolidIcons.MoonIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
-    <SolidIcons.MoonIcon className={`${sizes[size]} ${colors[color]}`} />
+    <OutlineIcons.MoonIcon className={`${sizes[size]} ${colors[color]}`} />
   );
 };
 
@@ -122,7 +122,7 @@ export const ISun: React.FC<IconProps> = ({
   return variant === 'solid' ? (
     <SolidIcons.SunIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
-    <SolidIcons.SunIcon className={`${sizes[size]} ${colors[color]}`} />
+    <OutlineIcons.SunIcon className={`${sizes[size]} ${colors[color]}`} />
   );
 };
 
@@ -134,7 +134,9 @@ export const IPlayCircle: React.FC<IconProps> = ({
   return variant === 'solid' ? (
     <SolidIcons.PlayCircleIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
-    <SolidIcons.PlayCircleIcon className={`${sizes[size]} ${colors[color]}`} />
+    <OutlineIcons.PlayCircleIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
   );
 };
 
@@ -148,7 +150,7 @@ export const IInformationCircle: React.FC<IconProps> = ({
       className={`${sizes[size]} ${colors[color]}`}
     />
   ) : (
-    <SolidIcons.InformationCircleIcon
+    <OutlineIcons.InformationCircleIcon
       className={`${sizes[size]} ${colors[color]}`}
     />
   );
@@ -162,7 +164,7 @@ export const IHome: React.FC<IconProps> = ({
   return variant === 'solid' ? (
     <SolidIcons.HomeIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
-    <SolidIcons.HomeIcon className={`${sizes[size]} ${colors[color]}`} />
+    <OutlineIcons.HomeIcon className={`${sizes[size]} ${colors[color]}`} />
   );
 };
 
@@ -176,7 +178,7 @@ export const IArrowDownOnSquare: React.FC<IconProps> = ({
       className={`${sizes[size]} !${colors[color]}`}
     />
   ) : (
-    <SolidIcons.ArrowDownOnSquareIcon
+    <OutlineIcons.ArrowDownOnSquareIcon
       className={`${sizes[size]} ${colors[color]}`}
     />
   );
@@ -190,7 +192,7 @@ export const IFunnel: React.FC<IconProps> = ({
   return variant === 'solid' ? (
     <SolidIcons.FunnelIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
-    <SolidIcons.FunnelIcon className={`${sizes[size]} ${colors[color]}`} />
+    <OutlineIcons.FunnelIcon className={`${sizes[size]} ${colors[color]}`} />
   );
 };
 
@@ -202,7 +204,9 @@ export const IChevronDown: React.FC<IconProps> = ({
   return variant === 'solid' ? (
     <SolidIcons.ChevronDownIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
-    <SolidIcons.ChevronDownIcon className={`${sizes[size]} ${colors[color]}`} />
+    <OutlineIcons.ChevronDownIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
   );
 };
 
@@ -214,7 +218,7 @@ export const IChevronUp: React.FC<IconProps> = ({
   return variant === 'solid' ? (
     <SolidIcons.ChevronUpIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
-    <SolidIcons.ChevronUpIcon className={`${sizes[size]} ${colors[color]}`} />
+    <OutlineIcons.ChevronUpIcon className={`${sizes[size]} ${colors[color]}`} />
   );
 };
 
@@ -226,7 +230,7 @@ export const IPhoto: React.FC<IconProps> = ({
   return variant === 'solid' ? (
     <SolidIcons.PhotoIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
-    <SolidIcons.PhotoIcon className={`${sizes[size]} ${colors[color]}`} />
+    <OutlineIcons.PhotoIcon className={`${sizes[size]} ${colors[color]}`} />
   );
 };
 
@@ -238,7 +242,9 @@ export const IMinusCircle: React.FC<IconProps> = ({
   return variant === 'solid' ? (
     <SolidIcons.MinusCircleIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
-    <SolidIcons.MinusCircleIcon className={`${sizes[size]} ${colors[color]}`} />
+    <OutlineIcons.MinusCircleIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
   );
 };
 
@@ -252,7 +258,7 @@ export const ICheckCircle: React.FC<IconProps> = ({
       className={`${sizes[size]} ${colors[color]} `}
     />
   ) : (
-    <SolidIcons.CheckCircleIcon
+    <OutlineIcons.CheckCircleIcon
       className={`${sizes[size]} ${colors[color]} `}
     />
   );
@@ -264,9 +270,11 @@ export const IXMark: React.FC<IconProps> = ({
   color = 'black',
 }) => {
   return variant === 'solid' ? (
-    <SolidIcons.XMarkIcon className={`${sizes[size]} ${colors[color]}`} />
+    <SolidIcons.XMarkIcon
+      className={`${sizes[size]} ${colors[color]} p-0.5 rounded-full bg-white`}
+    />
   ) : (
-    <SolidIcons.XMarkIcon className={`${sizes[size]} ${colors[color]}`} />
+    <OutlineIcons.XMarkIcon className={`${sizes[size]} ${colors[color]}`} />
   );
 };
 
@@ -280,8 +288,8 @@ export const IExclamationCircle: React.FC<IconProps> = ({
       className={`${sizes[size]} ${colors[color]}`}
     />
   ) : (
-    <SolidIcons.ExclamationCircleIcon
-      className={`${sizes[size]} ${colors[color]}`}
+    <OutlineIcons.ExclamationCircleIcon
+      className={`${sizes[size]} ${colors[color]} border-none `}
     />
   );
 };
@@ -296,7 +304,7 @@ export const IArrowSmallLeft: React.FC<IconProps> = ({
       className={`${sizes[size]} ${colors[color]}`}
     />
   ) : (
-    <SolidIcons.ArrowSmallLeftIcon
+    <OutlineIcons.ArrowSmallLeftIcon
       className={`${sizes[size]} ${colors[color]}`}
     />
   );
@@ -310,7 +318,9 @@ export const IArrowRight: React.FC<IconProps> = ({
   return variant === 'solid' ? (
     <SolidIcons.ArrowRightIcon className={`${sizes[size]} ${colors[color]}`} />
   ) : (
-    <SolidIcons.ArrowRightIcon className={`${sizes[size]} ${colors[color]}`} />
+    <OutlineIcons.ArrowRightIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
   );
 };
 

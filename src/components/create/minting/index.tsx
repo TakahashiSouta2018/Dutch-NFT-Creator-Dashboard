@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 import { Modal } from '@/common';
-import MintModalHead from './MintModalHead';
-import MintModalBody from './MintModalBody';
+import MintModalHead from './mint-modal-head';
+import MintModalBody from './mint-modal-body';
 
 interface MintingModalProps {
   onClose: () => void;

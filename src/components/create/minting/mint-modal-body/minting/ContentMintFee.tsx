@@ -1,8 +1,11 @@
 import React from 'react';
+import Image from 'next/image';
 import * as DutchC from './style';
 import * as Icons from '@/common';
 import { Button, OutlineButton } from '@/common';
 import { useTheme } from 'next-themes';
+import ExclamationIcon from '@/assets/exclamation.svg';
+import CheckIcon from '@/assets/check.svg';
 
 interface ContentMintFeeProps {
   isDepositFund: boolean;
@@ -57,9 +60,9 @@ const ContentMintFee: React.FC<ContentMintFeeProps> = ({
         </DutchC.DepositWalletIcon>
         <DutchC.DepositCheckIcon>
           {balance ? (
-            <Icons.ICheckCircle color="accent-green" variant="solid" />
+            <Image src={CheckIcon} alt="check" />
           ) : (
-            <Icons.IExclamationCircle color="accent-red" />
+            <Image src={ExclamationIcon} alt="exclamation" />
           )}
         </DutchC.DepositCheckIcon>
         <DutchC.DepositTitleCol>
@@ -78,7 +81,6 @@ const ContentMintFee: React.FC<ContentMintFeeProps> = ({
         <DutchC.ButtonRow>
           <OutlineButton onClick={onClose}>Cancel</OutlineButton>
           <Button
-            className="bg-black/30 text-white"
             onClick={() => {
               setActiveStep(1);
             }}

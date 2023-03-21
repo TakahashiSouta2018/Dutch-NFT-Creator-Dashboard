@@ -32,8 +32,8 @@ export const Modal: React.FC<ModalProps> = ({ children }) => {
 export const ModalHead: React.FC<ModalHeadProps> = ({
   icon,
   title,
-  onClose = () => {},
-  onBack = () => {},
+  onClose,
+  onBack,
 }) => {
   return (
     <DutchC.ModalHeadWrapper>

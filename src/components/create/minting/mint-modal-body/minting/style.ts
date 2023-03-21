@@ -20,7 +20,7 @@ export const PriceRow = styled.div.attrs({
 })``;
 
 export const DepositRow = styled.div.attrs({
-  className: 'flex justify-between relative pl-6',
+  className: 'flex justify-between relative pl-7',
 })``;
 
 export const DepositWalletIcon = styled.div.attrs({
@@ -28,7 +28,7 @@ export const DepositWalletIcon = styled.div.attrs({
 })``;
 
 export const DepositCheckIcon = styled.div.attrs({
-  className: 'absolute left-2 -top-1 rounded-full bg-white rounded-full',
+  className: 'absolute left-2 -top-2',
 })``;
 
 export const DepositTitleCol = styled.div.attrs({
@@ -61,6 +61,10 @@ export const TextNormal = styled.div.attrs({
 
 export const TextBold = styled.span.attrs({
   className: 'font-bold text-sm text-black/90 dark:text-white/90',
+})``;
+
+export const TextButtonBold = styled.span.attrs({
+  className: 'font-bold text-white',
 })``;
 
 export const TextUnderlined = styled.span.attrs({
