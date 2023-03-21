@@ -123,7 +123,6 @@ const NFTManagement: React.FC = () => {
           </DutchC.NFTManagementContentBody>
         </DutchC.NFTManagementContent>
       </DutchC.NFTManagementContentWrapper>
-      
 
       <DutchC.GuideInfoIconWrapper onClick={toggleGuide}>
         <Icons.IInformationCircle
