@@ -16,6 +16,7 @@ import * as DutchC from './styles';
 // icons
 import * as Icons from '@/common/Icons';
 import SortSelect from '@/common/Input/SortSelect';
+import SideFilter from '@/components/shared/SideFilter';
 
 type WIDEFILTER = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE' | 'BANK0X';
 
@@ -54,6 +55,7 @@ const wideFilters: WIDEFILTERTYPE[][] = [
 const NFTManagement: React.FC = () => {
   const { theme } = useTheme();
   const [open, setOpen] = useState(false);
+  const [openFilter, setOpenFilter] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [currentWideFilter, setCurrentWideFilter] = useState<WIDEFILTER>('ALL');
   const [isSync, setSync] = useState(false);
@@ -67,6 +69,10 @@ const NFTManagement: React.FC = () => {
   }
   const toggleGuide = () => {
     setOpen((open) => !open);
+  };
+
+  const toggleFilter = () => {
+    setOpenFilter(!openFilter);
   };
 
   return (
@@ -112,7 +118,14 @@ const NFTManagement: React.FC = () => {
             <DutchC.NFTManagementSubTool>
               {/* left */}
               <DutchC.NFTManagementSubToolLeft>
-                <IconButton icon="funnel" rounded />
+                <SideFilter
+                  openFilter={openFilter}
+                  onFilter={() => {
+                    setOpenFilter(false);
+                  }}
+                />
+
+                <IconButton icon="funnel" rounded onClick={toggleFilter} />
                 <SearchInput placeholder="NFT name or id" />
                 <SortSelect />
               </DutchC.NFTManagementSubToolLeft>

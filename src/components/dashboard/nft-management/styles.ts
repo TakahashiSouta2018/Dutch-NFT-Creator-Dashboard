@@ -13,7 +13,7 @@ export const GuideInfoIconWrapper = styled.div.attrs({
 
 // --- Main Content
 export const NFTManagementContentWrapper = styled.div.attrs({
-  className: 'flex w-full grow',
+  className: 'flex flex-col w-full grow',
 })``;
 
 export const NFTManagementContent = styled.div.attrs({
@@ -41,7 +41,7 @@ export const NFTManagementSubTool = styled.div.attrs({
 })``;
 
 export const NFTManagementSubToolLeft = styled.div.attrs({
-  className: 'flex items-center space-x-2',
+  className: 'flex space-x-2 items-start',
 })``;
 
 export const NFTManagementSubToolRight = styled.div.attrs({
