@@ -229,4 +229,15 @@ export interface TransactionType {
   status: number;
 }
 
+export interface nftListType {
+  sr?: string;
+  burned?: boolean;
+  name: string;
+  collection: string;
+  selected: boolean;
+  mintCount: number;
+  img?: string;
+  nftId: string;
+}
+
 export type PositionType = 'TL' | 'TR' | 'BL' | 'BR';

@@ -5,16 +5,16 @@ import * as DutchC from './styles';
 
 interface NFTCollectionCardProps {
   id: string;
-  title: string;
-  image: string;
+  name: string;
+  img: string;
   amount: number;
   onClick?: () => void;
 }
 
 const NFTCollectionCard: React.FC<NFTCollectionCardProps> = ({
   id,
-  title,
-  image,
+  name,
+  img,
   amount = 0,
   onClick,
 }) => {
@@ -23,8 +23,8 @@ const NFTCollectionCard: React.FC<NFTCollectionCardProps> = ({
   return (
     <DutchC.NFTCollectionCard onClick={onClick}>
       <Image
-        src={image}
-        alt={image}
+        src={img}
+        alt={img}
         width={230}
         height={230}
         className="aspect-square w-full"
@@ -32,7 +32,7 @@ const NFTCollectionCard: React.FC<NFTCollectionCardProps> = ({
       <DutchC.NFTFooter>
         <DutchC.NFTDetail>
           {/* <DutchC.NFTTitleWrapper> */}
-          <DutchC.NFTTitle>{title}</DutchC.NFTTitle>
+          <DutchC.NFTTitle>{name}</DutchC.NFTTitle>
           {/* </DutchC.NFTTitleWrapper> */}
           <DutchC.NFTDescription>{amount} items</DutchC.NFTDescription>
         </DutchC.NFTDetail>

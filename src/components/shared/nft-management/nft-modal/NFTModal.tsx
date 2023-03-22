@@ -13,10 +13,13 @@ import {
 import { IconButton } from '@/common';
 import * as DutchC from './styles';
 import NFTList from '../NFTList';
+import { nftListType } from '@/types';
 
 interface NFTModalProp {
   onClose: () => void;
+  onSynced: () => void;
   syncModal: boolean;
+  lists: nftListType[];
 }
 
 interface SwitchProps {
@@ -55,7 +58,12 @@ export const NFTListSwitch: React.FC<SwitchProps> = ({
   );
 };
 
-const NFTModal: React.FC<NFTModalProp> = ({ onClose, syncModal }) => {
+const NFTModal: React.FC<NFTModalProp> = ({
+  onClose,
+  onSynced,
+  syncModal,
+  lists,
+}) => {
   const [selected, setSelected] = useState(true);
 
   return (
@@ -81,7 +89,7 @@ const NFTModal: React.FC<NFTModalProp> = ({ onClose, syncModal }) => {
             }}
           />
           <SearchInput placeholder="NFT name or id" />
-          <NFTList selected={!selected} />
+          <NFTList selected={!selected} lists={lists} />
           <DutchC.NFTModalFooterWrapper>
             <OutlineButton
               onClick={(e) => {
@@ -91,7 +99,15 @@ const NFTModal: React.FC<NFTModalProp> = ({ onClose, syncModal }) => {
             >
               Cancel
             </OutlineButton>
-            <Button>Sync NFTs</Button>
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                onSynced();
+                onClose();
+              }}
+            >
+              Sync NFTs
+            </Button>
           </DutchC.NFTModalFooterWrapper>
         </DutchC.NFTModalBodyInner>
       </ModalBody>

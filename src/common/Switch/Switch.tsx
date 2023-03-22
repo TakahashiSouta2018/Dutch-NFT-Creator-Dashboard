@@ -18,6 +18,7 @@ interface SwitchProps {
   rightIcon: IconType;
   btnSize?: 'small' | 'medium' | 'large' | 'xlarge';
   iconSize?: 'small' | 'medium' | 'large' | 'xlarge';
+  onSwitch: (status: number) => void;
 }
 
 const btnSizes = {
@@ -71,6 +72,7 @@ const Switch: React.FC<SwitchProps> = ({
   rightIcon,
   btnSize = 'medium',
   iconSize = 'medium',
+  onSwitch,
 }) => {
   const [status, setStatus] = useState<IconType>(leftIcon);
 
@@ -81,14 +83,20 @@ const Switch: React.FC<SwitchProps> = ({
         iconSize={iconSize}
         btnSize={btnSize}
         selected={status == leftIcon ? true : false}
-        onClick={() => setStatus(leftIcon)}
+        onClick={() => {
+          setStatus(leftIcon);
+          onSwitch(0);
+        }}
       />
       <SwitchButton
         icon={rightIcon}
         iconSize={iconSize}
         btnSize={btnSize}
         selected={status == rightIcon ? true : false}
-        onClick={() => setStatus(rightIcon)}
+        onClick={() => {
+          setStatus(rightIcon);
+          onSwitch(1);
+        }}
       />
     </DutchC.SwitchWrapper>
   );

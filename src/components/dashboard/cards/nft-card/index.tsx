@@ -4,27 +4,21 @@ import { useTheme } from 'next-themes';
 import * as Icons from '@/common/Icons';
 import CopyNFTId from '../../copy-nft-id';
 import ShortcutContextMenu from '../../../shared/shortcut-context-menu';
-
+import { nftListType } from '@/types';
 import * as DutchC from './styles';
 
-interface NFTCardProps {
-  id: string;
+type NFTCardProps = nftListType & {
   type: 'collections' | 'archives' | 'bank0x';
-  title: string;
-  image: string;
-  unit: string;
-  description: string;
-  selected: boolean;
   onSelect: () => void;
-}
+};
 
 const NFTCard: React.FC<NFTCardProps> = ({
-  id,
+  nftId,
   type,
-  title,
-  image,
-  unit,
-  description,
+  name,
+  img,
+  mintCount,
+  collection,
   selected = false,
   onSelect,
 }) => {
@@ -41,7 +35,7 @@ const NFTCard: React.FC<NFTCardProps> = ({
           color={theme === 'light' ? 'black' : 'white'}
           size="large"
         ></Icons.IEye>
-        {unit}
+        {mintCount}/1000
       </DutchC.NFTUnitBadge>
       <DutchC.NFTSelectedMark>
         {selected && (
@@ -51,23 +45,25 @@ const NFTCard: React.FC<NFTCardProps> = ({
           />
         )}
       </DutchC.NFTSelectedMark>
-      <Image
-        src={image}
-        alt={image}
-        width={230}
-        height={230}
-        className="aspect-square w-full"
-      />
+      {img && (
+        <Image
+          src={img}
+          alt={img}
+          width={230}
+          height={230}
+          className="aspect-square w-full"
+        />
+      )}
       <DutchC.NFTFooter>
         <DutchC.NFTDetail>
           <DutchC.NFTTitleWrapper>
-            <DutchC.NFTTitle>{title}</DutchC.NFTTitle>
+            <DutchC.NFTTitle>{name}</DutchC.NFTTitle>
             {type === 'bank0x' && (
               <Icons.ICheckBadge variant="solid" color="orange" size="medium" />
             )}
           </DutchC.NFTTitleWrapper>
-          <DutchC.NFTDescription>{description}</DutchC.NFTDescription>
-          <CopyNFTId id={id} type="short" />
+          <DutchC.NFTDescription>{collection}</DutchC.NFTDescription>
+          <CopyNFTId id={nftId} type="short" />
         </DutchC.NFTDetail>
         {type !== 'collections' && (
           <ShortcutContextMenu

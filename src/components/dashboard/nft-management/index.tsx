@@ -10,6 +10,7 @@ import {
   IconButton,
   SearchInput,
   Button,
+  Switch,
 } from '@/common';
 import { Guide } from '@/components/shared';
 import * as DutchC from './styles';
@@ -18,8 +19,7 @@ import * as DutchC from './styles';
 import * as Icons from '@/common/Icons';
 import SortSelect from '@/common/Input/SortSelect';
 import { SideFilter } from '@/components/shared/nft-management';
-import { SyncNFTs } from './nft-management-all';
-import { NFTModal } from '@/components/shared/nft-management/nft-modal';
+import NFTAll from './nft-all';
 
 type WIDEFILTER = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE' | 'BANK0X';
 
@@ -62,6 +62,7 @@ const NFTManagement: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const [currentWideFilter, setCurrentWideFilter] = useState<WIDEFILTER>('ALL');
   const [bgWhite, setBgWhite] = useState(false);
+  const [switchStatus, setSwitchStatus] = useState(0);
 
   useEffect(() => {
     setMounted(true);
@@ -129,7 +130,7 @@ const NFTManagement: React.FC = () => {
                 />
                 <DutchC.FlexCol className="w-full gap-4">
                   <DutchC.FlexRow className="justify-between">
-                    <DutchC.FlexRow className="gap-2 self-stretch">
+                    <DutchC.FlexRow className="gap-2 self-stretch items-center">
                       <IconButton
                         icon="funnel"
                         rounded
@@ -137,6 +138,13 @@ const NFTManagement: React.FC = () => {
                       />
                       <SearchInput placeholder="NFT name or id" />
                       <SortSelect />
+                      <Switch
+                        leftIcon="squares2X2"
+                        rightIcon="bars3"
+                        onSwitch={(status: number) => {
+                          setSwitchStatus(status);
+                        }}
+                      />
                     </DutchC.FlexRow>
                     <DutchC.FlexRow className="gap-2">
                       <div
@@ -155,7 +163,7 @@ const NFTManagement: React.FC = () => {
                       <Button className="bg-black/90">Add to List</Button>
                     </DutchC.FlexRow>
                   </DutchC.FlexRow>
-                  <SyncNFTs />
+                  <NFTAll />
                 </DutchC.FlexCol>
               </DutchC.NFTManagementSubToolLeft>
 
