@@ -15,7 +15,7 @@ import * as DutchC from './styles';
 import NFTList from '../NFTList';
 
 interface NFTModalProp {
-  onSyncModal: () => void;
+  onClose: () => void;
   syncModal: boolean;
 }
 
@@ -27,7 +27,7 @@ interface SwitchProps {
 
 export const NFTCollectionSelect: React.FC = () => {
   return (
-    <div className="flex flex-col gap-1 w-1/2">
+    <div className="flex flex-col gap-1 w-1/2 text-black">
       <p className="text-sm text-black/70">Collection</p>
       <select className="py-2 px-2 rounded-lg focus:outline-none border border-black/10">
         <option value="fruit">🍎🍌🍍The Fruit Salad Game🍆🥦🥕</option>
@@ -45,24 +45,24 @@ export const NFTListSwitch: React.FC<SwitchProps> = ({
     <TabContainer>
       <TabGroup>
         <Tab active={selected} slug="ALL" onClick={onAll}>
-          All{`(93)`}
+          All{`(5)`}
         </Tab>
         <Tab active={!selected} slug="ALL" onClick={onSelected}>
-          Selected{`(5)`}
+          Selected{`(3)`}
         </Tab>
       </TabGroup>
     </TabContainer>
   );
 };
 
-const NFTModal: React.FC<NFTModalProp> = ({ onSyncModal, syncModal }) => {
+const NFTModal: React.FC<NFTModalProp> = ({ onClose, syncModal }) => {
   const [selected, setSelected] = useState(true);
 
   return (
     <Modal className={`!max-w-4xl transition-all ease-in-out duration-300`}>
-      <ModalHead title="Sync NFTs" onClose={onSyncModal}>
+      <ModalHead title="Sync NFTs" onClose={onClose}>
         <DutchC.NFTWalletAddress>
-          <IconButton icon="wallet" />
+          <IconButton icon="document" />
           <p className="text-sm text-black/70">
             0xa613c0e37979f1a3bf9e96c9a42ef7b9e6392025
           </p>
@@ -83,7 +83,14 @@ const NFTModal: React.FC<NFTModalProp> = ({ onSyncModal, syncModal }) => {
           <SearchInput placeholder="NFT name or id" />
           <NFTList selected={!selected} />
           <DutchC.NFTModalFooterWrapper>
-            <OutlineButton onClick={onSyncModal}>Cancel</OutlineButton>
+            <OutlineButton
+              onClick={(e) => {
+                e.stopPropagation();
+                onClose();
+              }}
+            >
+              Cancel
+            </OutlineButton>
             <Button>Sync NFTs</Button>
           </DutchC.NFTModalFooterWrapper>
         </DutchC.NFTModalBodyInner>

@@ -61,7 +61,6 @@ const NFTManagement: React.FC = () => {
   const [openFilter, setOpenFilter] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [currentWideFilter, setCurrentWideFilter] = useState<WIDEFILTER>('ALL');
-  const [isSyncModal, setSyncModal] = useState(false);
   const [bgWhite, setBgWhite] = useState(false);
 
   useEffect(() => {
@@ -156,23 +155,11 @@ const NFTManagement: React.FC = () => {
                       <Button className="bg-black/90">Add to List</Button>
                     </DutchC.FlexRow>
                   </DutchC.FlexRow>
-                  <SyncNFTs
-                    onSyncNFTTable={() => {
-                      setSyncModal(true);
-                    }}
-                  />
+                  <SyncNFTs />
                 </DutchC.FlexCol>
               </DutchC.NFTManagementSubToolLeft>
 
               {/* sync_nft_table */}
-              {isSyncModal && (
-                <NFTModal
-                  onSyncModal={() => {
-                    setSyncModal(false);
-                  }}
-                  syncModal={isSyncModal}
-                />
-              )}
             </DutchC.NFTManagementSubTool>
           </DutchC.NFTManagementContentBody>
         </DutchC.NFTManagementContent>

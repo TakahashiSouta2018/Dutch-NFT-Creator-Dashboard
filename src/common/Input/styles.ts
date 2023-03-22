@@ -46,7 +46,7 @@ export const InputHelper = styled.label.attrs({
 
 // --- Search Input
 export const SearchInputWrapper = styled.div.attrs({
-  className: 'relative w-full',
+  className: 'relative w-full text-black',
 })``;
 
 export const SearchInput = styled.input.attrs({

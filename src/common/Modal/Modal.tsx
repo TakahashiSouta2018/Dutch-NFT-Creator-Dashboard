@@ -45,7 +45,13 @@ export const ModalHead: React.FC<ModalHeadProps> = ({
         <DutchC.ModalTitle>{title}</DutchC.ModalTitle>
         {children}
       </DutchC.ModalTitleWrapper>
-      <IconButton icon="close" onClick={onClose} />
+      <IconButton
+        icon="close"
+        onClick={(e: React.SyntheticEvent) => {
+          e.stopPropagation();
+          onClose && onClose();
+        }}
+      />
     </DutchC.ModalHeadWrapper>
   );
 };

@@ -10,7 +10,7 @@ import { icons, IconType } from '../Icons';
 interface IconButtonProps {
   icon: IconType;
   rounded?: boolean;
-  onClick?: () => void;
+  onClick?: (e: React.SyntheticEvent) => void;
 }
 
 const IconButton: React.FC<IconButtonProps> = ({
