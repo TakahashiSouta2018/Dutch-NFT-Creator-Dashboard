@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import * as DutchC from './style';
+import * as DutchC from './styles';
 import * as Icons from '@/common';
 import { Button, OutlineButton } from '@/common';
 import { useTheme } from 'next-themes';

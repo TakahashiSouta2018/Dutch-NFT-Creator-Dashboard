@@ -3,6 +3,11 @@ import styled from 'styled-components';
 // types
 
 // components
+
+export const NFTWrapper = styled.div.attrs({
+  className: 'flex fle-col',
+})``;
+
 export const NFTManagementWrapper = styled.div.attrs({
   className: 'relative flex px-6 py-4 overflow-hidden',
 })``;
@@ -37,11 +42,11 @@ export const NFTManagementTopTool = styled.div.attrs({
 })``;
 
 export const NFTManagementSubTool = styled.div.attrs({
-  className: 'flex items-center justify-between py-4',
+  className: 'flex items-start justify-between py-4',
 })``;
 
 export const NFTManagementSubToolLeft = styled.div.attrs({
-  className: 'flex space-x-2 items-start',
+  className: 'flex space-x-2 items-start w-full',
 })``;
 
 export const NFTManagementSubToolRight = styled.div.attrs({
@@ -51,3 +56,13 @@ export const NFTManagementSubToolRight = styled.div.attrs({
 export const NFTManagementDot = styled.div.attrs({
   className: 'w-[5px] h-[5px] inline-flex rounded-full bg-black/60',
 })``;
+
+export const FlexRow = styled.div.attrs<{ className: string }>({
+  className: 'flex',
+})``;
+
+export const FlexCol = styled.div.attrs<{ className: string }>({
+  className: 'flex flex-col',
+})``;
+
+

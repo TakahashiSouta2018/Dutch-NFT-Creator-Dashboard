@@ -9,6 +9,7 @@ import {
   OutlineButton,
   IconButton,
   SearchInput,
+  Button,
 } from '@/common';
 import { Guide } from '@/components/shared';
 import * as DutchC from './styles';
@@ -16,7 +17,9 @@ import * as DutchC from './styles';
 // icons
 import * as Icons from '@/common/Icons';
 import SortSelect from '@/common/Input/SortSelect';
-import SideFilter from '@/components/shared/SideFilter';
+import { SideFilter } from '@/components/shared/nft-management';
+import { SyncNFTs } from './nft-management-all';
+import { NFTModal } from '@/components/shared/nft-management/nft-modal';
 
 type WIDEFILTER = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE' | 'BANK0X';
 
@@ -58,7 +61,8 @@ const NFTManagement: React.FC = () => {
   const [openFilter, setOpenFilter] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [currentWideFilter, setCurrentWideFilter] = useState<WIDEFILTER>('ALL');
-  const [isSync, setSync] = useState(false);
+  const [isSyncModal, setSyncModal] = useState(false);
+  const [bgWhite, setBgWhite] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -124,14 +128,51 @@ const NFTManagement: React.FC = () => {
                     setOpenFilter(false);
                   }}
                 />
-
-                <IconButton icon="funnel" rounded onClick={toggleFilter} />
-                <SearchInput placeholder="NFT name or id" />
-                <SortSelect />
+                <DutchC.FlexCol className="w-full gap-4">
+                  <DutchC.FlexRow className="justify-between">
+                    <DutchC.FlexRow className="gap-2 self-stretch">
+                      <IconButton
+                        icon="funnel"
+                        rounded
+                        onClick={toggleFilter}
+                      />
+                      <SearchInput placeholder="NFT name or id" />
+                      <SortSelect />
+                    </DutchC.FlexRow>
+                    <DutchC.FlexRow className="gap-2">
+                      <div
+                        className="p-2 border border-black/90 rounded-lg cursor-pointer hover:bg-black hover:text-white"
+                        onMouseEnter={() => {
+                          setBgWhite(true);
+                        }}
+                        onMouseLeave={() => {
+                          setBgWhite(false);
+                        }}
+                      >
+                        <Icons.IEllipsisHorizontal
+                          color={bgWhite ? 'white' : 'black'}
+                        />
+                      </div>
+                      <Button className="bg-black/90">Add to List</Button>
+                    </DutchC.FlexRow>
+                  </DutchC.FlexRow>
+                  <SyncNFTs
+                    onSyncNFTTable={() => {
+                      setSyncModal(true);
+                    }}
+                  />
+                </DutchC.FlexCol>
               </DutchC.NFTManagementSubToolLeft>
 
-              {/* right */}
-              <DutchC.NFTManagementSubToolRight></DutchC.NFTManagementSubToolRight>
+              {/* sync_nft_table */}
+              {isSyncModal && (
+                <NFTModal
+                  onSyncModal={() => {
+                    setSyncModal(false);
+                  }}
+                  syncModal={isSyncModal}
+                />
+              )}
             </DutchC.NFTManagementSubTool>
           </DutchC.NFTManagementContentBody>
         </DutchC.NFTManagementContent>

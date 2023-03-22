@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import * as DutchC from './style';
+import * as DutchC from './styles';
 import Image from 'next/image';
 import TransactionList from '@/common/TransactionList';
 import { Button } from '@/common';

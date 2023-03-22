@@ -1,6 +1,6 @@
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
-import * as DutchC from './style';
+import * as DutchC from './styles';
 import { IconButton } from '@/common';
 
 interface CardProps {

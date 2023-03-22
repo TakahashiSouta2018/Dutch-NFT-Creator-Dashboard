@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import * as DutchC from './style';
+import * as DutchC from './styles';
 
 import FundMethod from './FundMethod';
 

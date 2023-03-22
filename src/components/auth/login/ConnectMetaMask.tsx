@@ -1,5 +1,5 @@
 import React from 'react';
-import * as DutchC from './style';
+import * as DutchC from './styles';
 import LoadingIcon from '@/assets/loading.png';
 import Image from 'next/image';
 

@@ -3,7 +3,7 @@ import Image, { StaticImageData } from 'next/image';
 import WyreIcon from '@/assets/wyre.svg';
 import RampIcon from '@/assets/ramp.svg';
 
-import * as DutchC from './style';
+import * as DutchC from './styles';
 import * as Icons from '@/common/Icons';
 import DepositContentCard from './Card';
 

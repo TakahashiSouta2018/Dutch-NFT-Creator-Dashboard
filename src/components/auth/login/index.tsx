@@ -6,7 +6,7 @@ import { Button } from '@/common';
 import ConnectMetaMask from './ConnectMetaMask';
 import ConnectionError from './ConnectionError';
 
-import * as DutchC from './style';
+import * as DutchC from './styles';
 
 const LoginOptions = [
   {

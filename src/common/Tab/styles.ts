@@ -8,7 +8,7 @@ interface TabWrapperProps {
 // components
 // --- Tab Container
 export const TabContainerWrapper = styled.div.attrs({
-  className: 'flex items-center border border-black/10 rounded-lg',
+  className: 'flex items-center ',
 })`
   & > * + * {
     &::before {
@@ -25,7 +25,8 @@ export const TabContainerWrapper = styled.div.attrs({
 
 // --- Tab Group
 export const TabGroupWrapper = styled.div.attrs({
-  className: 'relative flex items-center gap-1',
+  className:
+    'relative flex items-center gap-1 border border-black/10 rounded-lg',
 })``;
 
 // --- Tab

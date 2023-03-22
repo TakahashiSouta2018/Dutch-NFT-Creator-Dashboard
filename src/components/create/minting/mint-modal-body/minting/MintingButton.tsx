@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@/common';
-import * as DutchC from './style';
+import * as DutchC from './styles';
 
 interface MintingButtonProps {
   activeStep: number;

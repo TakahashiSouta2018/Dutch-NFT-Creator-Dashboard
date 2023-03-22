@@ -8,6 +8,7 @@ import * as DutchC from './styles';
 // types
 interface ModalProps {
   children: React.ReactNode;
+  className?: string;
 }
 
 interface ModalHeadProps {
@@ -15,16 +16,17 @@ interface ModalHeadProps {
   title: string;
   onClose?: () => void;
   onBack?: () => void;
+  children?: React.ReactNode;
 }
 
 interface ModalBodyProps {
   children: React.ReactNode;
 }
 
-export const Modal: React.FC<ModalProps> = ({ children }) => {
+export const Modal: React.FC<ModalProps> = ({ children, className }) => {
   return (
     <DutchC.ModalWrapper>
-      <DutchC.ModalInner>{children}</DutchC.ModalInner>
+      <DutchC.ModalInner className={className}>{children}</DutchC.ModalInner>
     </DutchC.ModalWrapper>
   );
 };
@@ -34,12 +36,14 @@ export const ModalHead: React.FC<ModalHeadProps> = ({
   title,
   onClose,
   onBack,
+  children,
 }) => {
   return (
     <DutchC.ModalHeadWrapper>
       <DutchC.ModalTitleWrapper>
         {!!icon && <IconButton icon={icon} onClick={onBack} />}
         <DutchC.ModalTitle>{title}</DutchC.ModalTitle>
+        {children}
       </DutchC.ModalTitleWrapper>
       <IconButton icon="close" onClick={onClose} />
     </DutchC.ModalHeadWrapper>

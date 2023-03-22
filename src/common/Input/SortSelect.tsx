@@ -26,7 +26,7 @@ const SortSelect: React.FC = () => {
           id="states"
           className="bg-white font-medium pr-2 cursor-pointer"
         >
-          <option selected>Recently Added</option>
+          <option>Recently Added</option>
           {sortList.map((item) => (
             <option key={item.name} value={item.value}>
               {item.name}

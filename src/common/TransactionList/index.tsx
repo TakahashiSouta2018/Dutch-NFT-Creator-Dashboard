@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { TransactionType } from '@/types';
-import * as DutchC from './style';
+import * as DutchC from './styles';
 import MintingLoaderIcon from '@/assets/minting_loader.svg';
 
 interface TransactionListType {

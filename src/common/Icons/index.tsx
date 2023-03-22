@@ -26,11 +26,6 @@ const colors = {
   'dark-red': 'text-dark-red',
 };
 
-const bgs = {
-  red: 'bg-red-500',
-  green: 'bg-green-500',
-};
-
 export const ISearch: React.FC<IconProps> = ({
   variant = 'solid',
   size = 'medium',
@@ -179,7 +174,7 @@ export const IArrowDownOnSquare: React.FC<IconProps> = ({
     />
   ) : (
     <OutlineIcons.ArrowDownOnSquareIcon
-      className={`${sizes[size]} ${colors[color]}`}
+      className={`${sizes[size]} !${colors[color]}`}
     />
   );
 };
@@ -255,7 +250,7 @@ export const ICheckCircle: React.FC<IconProps> = ({
 }) => {
   return variant === 'solid' ? (
     <SolidIcons.CheckCircleIcon
-      className={`${sizes[size]} ${colors[color]} `}
+      className={`${sizes[size]} ${colors[color]} mx-auto`}
     />
   ) : (
     <OutlineIcons.CheckCircleIcon
@@ -350,6 +345,22 @@ export const ISquares2x2: React.FC<IconProps> = ({
   );
 };
 
+export const IEllipsisHorizontal: React.FC<IconProps> = ({
+  variant = 'outline',
+  size = 'medium',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.EllipsisHorizontalIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.EllipsisHorizontalIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
 export const icons = {
   bell: IBell,
   wallet: IWallet,
@@ -373,6 +384,7 @@ export const icons = {
   'exclamation-circle': IExclamationCircle,
   'left-arrow': IArrowSmallLeft,
   'right-arrow': IArrowRight,
+  'ellipsis-horizontal': IEllipsisHorizontal,
 };
 
 export type IconType = keyof typeof icons;
