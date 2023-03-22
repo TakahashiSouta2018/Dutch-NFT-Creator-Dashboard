@@ -228,3 +228,5 @@ export interface TransactionType {
   title: string;
   status: number;
 }
+
+export type PositionType = 'TL' | 'TR' | 'BL' | 'BR';

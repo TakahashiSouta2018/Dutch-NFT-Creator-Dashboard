@@ -1,6 +1,7 @@
 import React from 'react';
 import SolidIcons from '@heroicons/react/24/solid';
 import OutlineIcons from '@heroicons/react/24/outline';
+import SolidIcons20 from '@heroicons/react/20/solid';
 
 // type
 import { IconVariants } from '@/types';
@@ -350,6 +351,62 @@ export const ISquares2x2: React.FC<IconProps> = ({
   );
 };
 
+export const IEye: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.EyeIcon className={`${sizes[size]} ${colors[color]}`} />
+  ) : (
+    <OutlineIcons.EyeIcon className={`${sizes[size]} ${colors[color]}`} />
+  );
+};
+
+export const IDocument: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.DocumentIcon className={`${sizes[size]} ${colors[color]}`} />
+  ) : (
+    <OutlineIcons.DocumentIcon className={`${sizes[size]} ${colors[color]}`} />
+  );
+};
+
+export const ICheckBadge: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons20.CheckBadgeIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.CheckBadgeIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
+export const IEllipsisHorizontal: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons20.EllipsisHorizontalIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.EllipsisHorizontalIcon
+      className={`${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
 export const icons = {
   bell: IBell,
   wallet: IWallet,
@@ -373,6 +430,10 @@ export const icons = {
   'exclamation-circle': IExclamationCircle,
   'left-arrow': IArrowSmallLeft,
   'right-arrow': IArrowRight,
+  eye: IEye,
+  document: IDocument,
+  checkbadge: ICheckBadge,
+  ellipsishorizontal: IEllipsisHorizontal,
 };
 
 export type IconType = keyof typeof icons;
