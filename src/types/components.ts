@@ -229,13 +229,14 @@ export interface TransactionType {
   status: number;
 }
 
-export interface nftListType {
+export interface NFTListType {
   sr?: string;
   burned?: boolean;
   name: string;
   collection: string;
   selected: boolean;
   mintCount: number;
+  availableCount?: number;
   img?: string;
   nftId: string;
 }

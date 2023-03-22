@@ -13,13 +13,13 @@ import {
 import { IconButton } from '@/common';
 import * as DutchC from './styles';
 import NFTList from '../NFTList';
-import { nftListType } from '@/types';
+import { NFTListType } from '@/types';
 
 interface NFTModalProp {
   onClose: () => void;
   onSynced: () => void;
   syncModal: boolean;
-  lists: nftListType[];
+  lists: NFTListType[];
 }
 
 interface SwitchProps {

@@ -51,3 +51,28 @@ export const TextEllipsis = styled.div.attrs<{ className: string }>({
   className:
     'w-[10vw] whitespace-nowrap  overflow-hidden overflow-ellipsis font-normal text-sm text-black/70',
 })``;
+
+export const IconRound = styled.div.attrs<{ className: string }>({
+  className: 'mx-auto border rounded-full w-4 h-4 border-black/70',
+})``;
+
+export const NFTIdWrapper = styled.div.attrs<{ className: string }>({
+  className: 'flex items-center gap-1 px-2 border border-black/10 rounded-md',
+})``;
+
+export const FlexRowBetween = styled.div.attrs<{ className: string }>({
+  className: 'flex justify-between',
+})``;
+
+export const NFTSyncWrapper = styled.div.attrs({
+  className:
+    'flex gap-5 rounded-lg bg-black p-6 w-full text-white cursor-pointer',
+})``;
+
+export const FlexCol = styled.div.attrs<{ className: string }>({
+  className: 'flex flex-col',
+})``;
+
+export const TextXL = styled.div.attrs<{ className: string }>({
+  className: 'font-bold text-xl',
+})``;

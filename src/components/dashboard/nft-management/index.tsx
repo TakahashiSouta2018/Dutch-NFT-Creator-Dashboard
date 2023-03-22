@@ -13,13 +13,15 @@ import {
   Switch,
 } from '@/common';
 import { Guide } from '@/components/shared';
-import * as DutchC from './styles';
+import SyncNFTs from '@/components/shared/nft-management/SyncNFTs';
+import SortSelect from '@/common/Input/SortSelect';
+import { SideFilter } from '@/components/shared/nft-management';
+import NFTTabSwitch from './nft-tab-switch';
 
 // icons
 import * as Icons from '@/common/Icons';
-import SortSelect from '@/common/Input/SortSelect';
-import { SideFilter } from '@/components/shared/nft-management';
-import NFTAll from './nft-all';
+
+import * as DutchC from './styles';
 
 type WIDEFILTER = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE' | 'BANK0X';
 
@@ -27,6 +29,64 @@ type WIDEFILTERTYPE = {
   label: string;
   slug: WIDEFILTER;
 };
+
+const nftList = [
+  {
+    sr: '001',
+    name: 'Red Onion',
+    collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
+    availableCount: 29,
+    mintCount: 1000,
+    burned: false,
+    nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c0b8',
+    selected: true,
+    img: '/images/rice.webp',
+  },
+  {
+    sr: '002',
+    name: 'Red Onion',
+    collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
+    availableCount: 29,
+    mintCount: 100,
+    burned: false,
+    nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c0b9',
+    selected: true,
+    img: '/images/rice.webp',
+  },
+  {
+    sr: '003',
+    name: 'Red Onion',
+    collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
+    availableCount: 29,
+    mintCount: 1000,
+    burned: false,
+    nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c010',
+    selected: true,
+    img: '/images/rice.webp',
+  },
+  {
+    sr: '004',
+    name: 'Red Onion',
+    collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
+    availableCount: 29,
+    mintCount: 10000,
+    burned: false,
+    nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c011',
+    selected: false,
+    img: '/images/rice.webp',
+  },
+  {
+    sr: '005',
+    name: 'Red Onion',
+    collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
+    availableCount: 29,
+    mintCount: 100,
+    burned: false,
+    nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c012',
+    selected: false,
+    img: '/images/rice.webp',
+  },
+];
 
 const wideFilters: WIDEFILTERTYPE[][] = [
   [
@@ -62,7 +122,9 @@ const NFTManagement: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const [currentWideFilter, setCurrentWideFilter] = useState<WIDEFILTER>('ALL');
   const [bgWhite, setBgWhite] = useState(false);
-  const [switchStatus, setSwitchStatus] = useState(0);
+  const [tableListSwtich, setTableListSwitch] = useState(0);
+  const [isSynced, setSynced] = useState(false);
+  const [showSyncModal, setShowSyncModal] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -142,7 +204,7 @@ const NFTManagement: React.FC = () => {
                         leftIcon="squares2X2"
                         rightIcon="bars3"
                         onSwitch={(status: number) => {
-                          setSwitchStatus(status);
+                          setTableListSwitch(status);
                         }}
                       />
                     </DutchC.FlexRow>
@@ -163,7 +225,25 @@ const NFTManagement: React.FC = () => {
                       <Button className="bg-black/90">Add to List</Button>
                     </DutchC.FlexRow>
                   </DutchC.FlexRow>
-                  <NFTAll />
+
+                  {isSynced ? (
+                    <NFTTabSwitch
+                      currentTab={currentWideFilter}
+                      tableListSwtich={tableListSwtich}
+                      nftList={nftList}
+                    />
+                  ) : (
+                    <SyncNFTs
+                      setSynced={(flag) => {
+                        setSynced(flag);
+                      }}
+                      showSyncModal={showSyncModal}
+                      setShowSyncModal={(flag) => {
+                        setShowSyncModal(flag);
+                      }}
+                      nftList={nftList}
+                    />
+                  )}
                 </DutchC.FlexCol>
               </DutchC.NFTManagementSubToolLeft>
 

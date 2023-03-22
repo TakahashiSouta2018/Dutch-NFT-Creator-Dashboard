@@ -4,11 +4,11 @@ import { useTheme } from 'next-themes';
 import * as Icons from '@/common/Icons';
 import CopyNFTId from '../../copy-nft-id';
 import ShortcutContextMenu from '../../../shared/shortcut-context-menu';
-import { nftListType } from '@/types';
+import { NFTListType } from '@/types';
 import * as DutchC from './styles';
 
-type NFTCardProps = nftListType & {
-  type: 'collections' | 'archives' | 'bank0x';
+type NFTCardProps = NFTListType & {
+  type: 'all' | 'collections' | 'archives' | 'bank0x';
   onSelect: () => void;
 };
 
@@ -18,6 +18,7 @@ const NFTCard: React.FC<NFTCardProps> = ({
   name,
   img,
   mintCount,
+  availableCount,
   collection,
   selected = false,
   onSelect,
@@ -35,7 +36,7 @@ const NFTCard: React.FC<NFTCardProps> = ({
           color={theme === 'light' ? 'black' : 'white'}
           size="large"
         ></Icons.IEye>
-        {mintCount}/1000
+        {`${availableCount}/${mintCount}`}
       </DutchC.NFTUnitBadge>
       <DutchC.NFTSelectedMark>
         {selected && (

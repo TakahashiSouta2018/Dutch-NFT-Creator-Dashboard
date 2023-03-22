@@ -1,15 +1,16 @@
 import React, { useState, useCallback } from 'react';
 import * as DutchC from './styles';
 import NFTCard from '../../cards/nft-card';
-import { nftListType } from '@/types';
+import { NFTListType } from '@/types';
 
 const NFTBank0x = () => {
-  const [NFTs, setNFTs] = useState<nftListType[]>([
+  const [NFTs, setNFTs] = useState<NFTListType[]>([
     {
       sr: '001',
       name: 'Red Onion',
       collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
-      mintCount: 29,
+      availableCount: 29,
+      mintCount: 1000,
       burned: false,
       nftId:
         '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c0b8',
@@ -20,7 +21,8 @@ const NFTBank0x = () => {
       sr: '002',
       name: 'Red Onion',
       collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
-      mintCount: 29,
+      availableCount: 29,
+      mintCount: 100,
       burned: false,
       nftId:
         '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c0b9',
