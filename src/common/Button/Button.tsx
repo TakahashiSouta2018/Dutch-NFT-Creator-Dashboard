@@ -35,7 +35,7 @@ const Button: React.FC<ButtonProps> = ({
         <LeftIcon
           variant="solid"
           size={size === 'large' ? 'medium' : 'small'}
-          color="accent-red"
+          color="black"
         />
       )}
 

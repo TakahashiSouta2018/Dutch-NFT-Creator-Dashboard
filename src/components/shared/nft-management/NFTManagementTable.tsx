@@ -69,7 +69,7 @@ const NFTManagementTable: React.FC<TableProps> = ({
                     <IconButton icon="document" />
                     <DutchC.TextEllipsis>{list.nftId}</DutchC.TextEllipsis>
                   </DutchC.NFTIdWrapper>
-                  <IconButton icon="ellipsishorizontal" />
+                  <IconButton icon="ellipsis-horizontal" />
                 </DutchC.FlexRowBetween>
               </TD>
             </TR>

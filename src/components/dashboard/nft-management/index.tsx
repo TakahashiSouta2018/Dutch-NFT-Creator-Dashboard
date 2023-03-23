@@ -22,6 +22,7 @@ import NFTTabSwitch from './nft-tab-switch';
 import * as Icons from '@/common/Icons';
 
 import * as DutchC from './styles';
+import ShortcutContextMenu from '@/components/shared/shortcut-context-menu';
 
 type WIDEFILTER = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE' | 'BANK0X';
 
@@ -121,7 +122,6 @@ const NFTManagement: React.FC = () => {
   const [openFilter, setOpenFilter] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [currentWideFilter, setCurrentWideFilter] = useState<WIDEFILTER>('ALL');
-  const [bgWhite, setBgWhite] = useState(false);
   const [tableListSwtich, setTableListSwitch] = useState(0);
   const [isSynced, setSynced] = useState(false);
   const [showSyncModal, setShowSyncModal] = useState(false);
@@ -181,25 +181,22 @@ const NFTManagement: React.FC = () => {
               </OutlineButton>
             </DutchC.NFTManagementTopTool>
             {/* Sub Toolbar */}
-            <DutchC.NFTManagementSubTool>
-              {/* left */}
-              <DutchC.NFTManagementSubToolLeft>
-                <SideFilter
-                  openFilter={openFilter}
-                  onFilter={() => {
-                    setOpenFilter(false);
-                  }}
-                />
-                <DutchC.FlexCol className="w-full gap-4">
-                  <DutchC.FlexRow className="justify-between">
-                    <DutchC.FlexRow className="gap-2 self-stretch items-center">
-                      <IconButton
-                        icon="funnel"
-                        rounded
-                        onClick={toggleFilter}
-                      />
-                      <SearchInput placeholder="NFT name or id" />
-                      <SortSelect />
+            {/* left */}
+            <DutchC.NFTManagementContentBodyInner>
+              <SideFilter
+                openFilter={openFilter}
+                onFilter={() => {
+                  setOpenFilter(false);
+                }}
+              />
+              <DutchC.NFTManagementContentBodyInnerContainer>
+                <DutchC.NFTManagementSubTool>
+                  <DutchC.NFTManagementSubToolLeft>
+                    <IconButton icon="funnel" rounded onClick={toggleFilter} />
+                    <SearchInput placeholder="NFT name or id" />
+                    <SortSelect />
+                    {(currentWideFilter === 'ALL' ||
+                      currentWideFilter === 'LIST') && (
                       <Switch
                         leftIcon="squares2X2"
                         rightIcon="bars3"
@@ -207,48 +204,61 @@ const NFTManagement: React.FC = () => {
                           setTableListSwitch(status);
                         }}
                       />
-                    </DutchC.FlexRow>
-                    <DutchC.FlexRow className="gap-2">
-                      <div
-                        className="p-2 border border-black/90 rounded-lg cursor-pointer hover:bg-black hover:text-white"
-                        onMouseEnter={() => {
-                          setBgWhite(true);
-                        }}
-                        onMouseLeave={() => {
-                          setBgWhite(false);
-                        }}
+                    )}
+                  </DutchC.NFTManagementSubToolLeft>
+                  <DutchC.NFTManagementSubToolRight>
+                    {(currentWideFilter === 'ALL' ||
+                      currentWideFilter === 'ARCHIVE') && (
+                      <ShortcutContextMenu
+                        position="BR"
+                        options={[
+                          'Find Holders',
+                          'Show Sales',
+                          'Move to Achieves',
+                        ]}
+                      />
+                    )}
+
+                    {(currentWideFilter === 'ALL' ||
+                      currentWideFilter === 'LIST' ||
+                      currentWideFilter === 'ARCHIVE') && (
+                      <Button
+                        className="bg-black/90"
+                        disabled={isSynced ? false : true}
+                        leftIcon={
+                          currentWideFilter === 'ARCHIVE' ? undefined : 'plus'
+                        }
                       >
-                        <Icons.IEllipsisHorizontal
-                          color={bgWhite ? 'white' : 'black'}
-                        />
-                      </div>
-                      <Button className="bg-black/90">Add to List</Button>
-                    </DutchC.FlexRow>
-                  </DutchC.FlexRow>
+                        {currentWideFilter === 'ARCHIVE'
+                          ? 'Recover'
+                          : 'Add to List'}
+                      </Button>
+                    )}
+                  </DutchC.NFTManagementSubToolRight>
+                </DutchC.NFTManagementSubTool>
 
-                  {isSynced ? (
-                    <NFTTabSwitch
-                      currentTab={currentWideFilter}
-                      tableListSwtich={tableListSwtich}
-                      nftList={nftList}
-                    />
-                  ) : (
-                    <SyncNFTs
-                      setSynced={(flag) => {
-                        setSynced(flag);
-                      }}
-                      showSyncModal={showSyncModal}
-                      setShowSyncModal={(flag) => {
-                        setShowSyncModal(flag);
-                      }}
-                      nftList={nftList}
-                    />
-                  )}
-                </DutchC.FlexCol>
-              </DutchC.NFTManagementSubToolLeft>
+                {isSynced ? (
+                  <NFTTabSwitch
+                    currentTab={currentWideFilter}
+                    tableListSwtich={tableListSwtich}
+                    nftList={nftList}
+                  />
+                ) : (
+                  <SyncNFTs
+                    setSynced={(flag) => {
+                      setSynced(flag);
+                    }}
+                    showSyncModal={showSyncModal}
+                    setShowSyncModal={(flag) => {
+                      setShowSyncModal(flag);
+                    }}
+                    nftList={nftList}
+                  />
+                )}
+              </DutchC.NFTManagementContentBodyInnerContainer>
+            </DutchC.NFTManagementContentBodyInner>
 
-              {/* sync_nft_table */}
-            </DutchC.NFTManagementSubTool>
+            {/* sync_nft_table */}
           </DutchC.NFTManagementContentBody>
         </DutchC.NFTManagementContent>
       </DutchC.NFTManagementContentWrapper>

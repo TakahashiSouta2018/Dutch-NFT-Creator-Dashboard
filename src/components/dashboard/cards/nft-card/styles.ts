@@ -6,7 +6,7 @@ interface NFTCardProps {
 
 export const NFTCard = styled.div.attrs({
   className:
-    'relative flex flex-col bg-white border border-black/10 hover:border-black/70 active:border-2/70 shadow-sm hover:shadow-lg active:shadow-sm rounded-lg dark:bg-dark-surface dark:border-white/10 cursor-pointer transition',
+    'relative flex flex-col items-center bg-white border border-black/10 hover:border-black/70 active:border-2/70 shadow-sm hover:shadow-lg active:shadow-sm rounded-lg dark:bg-dark-surface dark:border-white/10 cursor-pointer transition',
 })`
   ${(p: NFTCardProps) =>
     p.selected ? 'box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.06) !important;' : ''}

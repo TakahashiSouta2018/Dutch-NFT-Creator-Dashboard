@@ -41,16 +41,24 @@ export const NFTManagementTopTool = styled.div.attrs({
   className: 'flex items-center justify-between pb-4 border-b border-black/10',
 })``;
 
-export const NFTManagementSubTool = styled.div.attrs({
-  className: 'flex items-start justify-between py-4',
-})``;
-
-export const NFTManagementSubToolLeft = styled.div.attrs({
+export const NFTManagementContentBodyInner = styled.div.attrs({
   className: 'flex space-x-2 items-start w-full',
 })``;
 
+export const NFTManagementContentBodyInnerContainer = styled.div.attrs({
+  className: 'flex flex-col w-full gap-4',
+})``;
+
+export const NFTManagementSubTool = styled.div.attrs({
+  className: 'flex justify-between py-4',
+})``;
+
+export const NFTManagementSubToolLeft = styled.div.attrs({
+  className: 'flex gap-2 self-stretch items-center',
+})``;
+
 export const NFTManagementSubToolRight = styled.div.attrs({
-  className: 'flex items-center space-x-2',
+  className: 'flex gap-2',
 })``;
 
 export const NFTManagementDot = styled.div.attrs({
@@ -58,11 +66,9 @@ export const NFTManagementDot = styled.div.attrs({
 })``;
 
 export const FlexRow = styled.div.attrs<{ className: string }>({
-  className: 'flex',
+  className: 'flex ',
 })``;
 
 export const FlexCol = styled.div.attrs<{ className: string }>({
   className: 'flex flex-col',
 })``;
-
-

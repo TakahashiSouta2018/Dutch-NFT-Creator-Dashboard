@@ -3,6 +3,7 @@ import React from 'react';
 
 import NFTAll from '../nft-all';
 import NFTCollections from '../nft-collections';
+import NFTLists from '../nft-list';
 import NFTArchives from '../nft-archives';
 import NFTBank0x from '../nft-bank0x';
 
@@ -22,15 +23,13 @@ const NFTTabSwitch: React.FC<SwitchProps> = ({
       case 'ALL':
         return <NFTAll tableListSwtich={tableListSwtich} nftList={nftList} />;
       case 'LIST':
-        return <div>LIST</div>;
+        return <NFTLists tableListSwtich={tableListSwtich} nftList={nftList} />;
       case 'COLLECTION':
         return <NFTCollections />;
       case 'ARCHIVE':
         return <NFTArchives />;
       case 'BANK0X':
         return <NFTBank0x />;
-      default:
-        return <NFTAll tableListSwtich={tableListSwtich} nftList={nftList} />;
     }
   };
   return <div>{tabSwitch(currentTab)}</div>;

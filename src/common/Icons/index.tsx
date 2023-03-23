@@ -402,6 +402,18 @@ export const IEllipsisHorizontal: React.FC<IconProps> = ({
   );
 };
 
+export const IPlus: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons20.PlusIcon className={`${sizes[size]} ${colors[color]}`} />
+  ) : (
+    <OutlineIcons.PlusIcon className={`${sizes[size]} ${colors[color]}`} />
+  );
+};
+
 export const icons = {
   bell: IBell,
   wallet: IWallet,
@@ -427,8 +439,9 @@ export const icons = {
   'right-arrow': IArrowRight,
   eye: IEye,
   document: IDocument,
-  checkbadge: ICheckBadge,
-  ellipsishorizontal: IEllipsisHorizontal,
+  'check-badge': ICheckBadge,
+  'ellipsis-horizontal': IEllipsisHorizontal,
+  plus: IPlus,
 };
 
 export type IconType = keyof typeof icons;

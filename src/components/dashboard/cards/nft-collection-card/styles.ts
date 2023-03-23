@@ -6,7 +6,7 @@ interface NFTCollectionCardProps {
 
 export const NFTCollectionCard = styled.div.attrs({
   className:
-    'relative flex flex-col bg-white border border-black/10 hover:border-black/70 active:border-2/70 shadow-sm hover:shadow-lg active:shadow-sm rounded-lg dark:bg-dark-surface dark:border-white/10 cursor-pointer transition',
+    'relative flex flex-col items-center bg-white border border-black/10 hover:border-black/70 active:border-2/70 shadow-sm hover:shadow-lg active:shadow-sm rounded-lg dark:bg-dark-surface dark:border-white/10 cursor-pointer transition',
 })``;
 
 export const NFTFooter = styled.div.attrs({

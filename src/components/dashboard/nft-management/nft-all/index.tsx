@@ -1,11 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import * as DutchC from './styles';
-import * as Icons from '@/common';
-import { NFTModal } from '@/components/shared/nft-management/nft-modal';
 import { NFTListType } from '@/types';
 import NFTAllByCard from './NFTAllByCard';
 import NFTAllByTable from './NFTALLByTable';
-import SyncNFTs from '@/components/shared/nft-management/SyncNFTs';
 
 interface NFTAllProps {
   tableListSwtich: number;
@@ -16,7 +12,6 @@ const NFTAll: React.FC<NFTAllProps> = ({
   tableListSwtich,
   nftList,
 }): JSX.Element => {
-
   const [NFTs, setNFTs] = useState<NFTListType[]>(nftList);
   const onNFTSelect = useCallback(
     (nftId: string) => {

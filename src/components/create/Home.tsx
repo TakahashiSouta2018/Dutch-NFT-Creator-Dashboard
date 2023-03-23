@@ -200,7 +200,7 @@ const DraftNFT: React.FC<DraftNFTProps> = ({
         alt="rice"
         width={230}
         height={230}
-        className="aspect-square w-full"
+        className="aspect-square w-60 h-60"
       />
       {/* detail */}
       <DutchC.DraftNFTDetail>

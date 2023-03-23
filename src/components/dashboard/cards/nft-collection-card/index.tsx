@@ -27,7 +27,7 @@ const NFTCollectionCard: React.FC<NFTCollectionCardProps> = ({
         alt={img}
         width={230}
         height={230}
-        className="aspect-square w-full"
+        className="aspect-square w-60 h-60"
       />
       <DutchC.NFTFooter>
         <DutchC.NFTDetail>
