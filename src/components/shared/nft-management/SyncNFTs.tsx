@@ -34,7 +34,6 @@ const SyncNFTs: React.FC<ShowSyncModalProps> = ({
           onClose={() => {
             setShowSyncModal(false);
           }}
-          syncModal={showSyncModal}
           onSynced={() => {
             setSynced(true);
           }}

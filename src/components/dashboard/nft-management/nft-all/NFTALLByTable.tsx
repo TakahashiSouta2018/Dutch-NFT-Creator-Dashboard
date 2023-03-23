@@ -1,7 +1,7 @@
 import React from 'react';
 import * as DutchC from './styles';
 import { NFTListType } from '@/types';
-import NFTManagementTable from '@/components/shared/nft-management/NFTManagementTable';
+import NFTManagementTable from '@/components/dashboard/nft-management/nft-all/NFTManagementAllTable';
 
 interface NFTAllByTableProps {
   NFTs: NFTListType[];

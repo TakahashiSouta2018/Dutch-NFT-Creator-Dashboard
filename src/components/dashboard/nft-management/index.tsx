@@ -17,6 +17,7 @@ import SyncNFTs from '@/components/shared/nft-management/SyncNFTs';
 import SortSelect from '@/common/Input/SortSelect';
 import { SideFilter } from '@/components/shared/nft-management';
 import NFTTabSwitch from './nft-tab-switch';
+import { NFTModal } from '@/components/shared/nft-management/nft-modal';
 
 // icons
 import * as Icons from '@/common/Icons';
@@ -125,6 +126,7 @@ const NFTManagement: React.FC = () => {
   const [tableListSwtich, setTableListSwitch] = useState(0);
   const [isSynced, setSynced] = useState(false);
   const [showSyncModal, setShowSyncModal] = useState(false);
+  const [showCreateListModal, setShowCreatListModal] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -226,16 +228,31 @@ const NFTManagement: React.FC = () => {
                         className="bg-black/90"
                         disabled={isSynced ? false : true}
                         leftIcon={
-                          currentWideFilter === 'ARCHIVE' ? undefined : 'plus'
+                          currentWideFilter === 'LIST' ? 'plus' : undefined
                         }
+                        onClick={() => {
+                          setShowCreatListModal(true);
+                        }}
                       >
                         {currentWideFilter === 'ARCHIVE'
                           ? 'Recover'
+                          : currentWideFilter === 'LIST'
+                          ? 'Create a List'
                           : 'Add to List'}
                       </Button>
                     )}
                   </DutchC.NFTManagementSubToolRight>
                 </DutchC.NFTManagementSubTool>
+
+                {showCreateListModal && currentWideFilter === 'LIST' && (
+                  <NFTModal
+                    onClose={() => {
+                      setShowCreatListModal(false);
+                    }}
+                    lists={nftList}
+                    currentTab={currentWideFilter}
+                  />
+                )}
 
                 {isSynced ? (
                   <NFTTabSwitch

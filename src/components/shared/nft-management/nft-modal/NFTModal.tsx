@@ -9,6 +9,7 @@ import {
   Tab,
   TabContainer,
   TabGroup,
+  TextInput,
 } from '@/common';
 import { IconButton } from '@/common';
 import * as DutchC from './styles';
@@ -17,9 +18,9 @@ import { NFTListType } from '@/types';
 
 interface NFTModalProp {
   onClose: () => void;
-  onSynced: () => void;
-  syncModal: boolean;
+  onSynced?: () => void;
   lists: NFTListType[];
+  currentTab?: 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE' | 'BANK0X';
 }
 
 interface SwitchProps {
@@ -61,8 +62,8 @@ export const NFTListSwitch: React.FC<SwitchProps> = ({
 const NFTModal: React.FC<NFTModalProp> = ({
   onClose,
   onSynced,
-  syncModal,
   lists,
+  currentTab,
 }) => {
   const [selected, setSelected] = useState(true);
 
@@ -78,7 +79,15 @@ const NFTModal: React.FC<NFTModalProp> = ({
       </ModalHead>
       <ModalBody>
         <DutchC.NFTModalBodyInner>
-          <NFTCollectionSelect />
+          <div className="flex gap-6 justify-between">
+            {currentTab === 'LIST' && (
+              <div className="w-1/2">
+                <p>List Name</p>
+                <TextInput />
+              </div>
+            )}
+            <NFTCollectionSelect />
+          </div>
           <NFTListSwitch
             selected={selected}
             onAll={() => {
@@ -102,7 +111,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
             <Button
               onClick={(e) => {
                 e.stopPropagation();
-                onSynced();
+                onSynced && onSynced();
                 onClose();
               }}
             >

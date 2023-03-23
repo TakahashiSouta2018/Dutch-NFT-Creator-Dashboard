@@ -2,7 +2,7 @@ import { Table, THead, TBody, TR, TD } from '@/common';
 import { NFTListType } from '@/types';
 import { IconButton } from '@/common';
 
-import * as DutchC from './styles';
+import * as DutchC from '../../../shared/nft-management/styles';
 import * as Icons from '@/common';
 import Image from 'next/image';
 
