@@ -251,6 +251,7 @@ const NFTManagement: React.FC = () => {
                     }}
                     lists={nftList}
                     currentTab={currentWideFilter}
+                    showSyncModal={showCreateListModal}
                   />
                 )}
 

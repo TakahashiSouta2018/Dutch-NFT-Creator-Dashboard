@@ -21,6 +21,7 @@ interface NFTModalProp {
   onSynced?: () => void;
   lists: NFTListType[];
   currentTab?: 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE' | 'BANK0X';
+  showSyncModal: boolean;
 }
 
 interface SwitchProps {
@@ -64,11 +65,12 @@ const NFTModal: React.FC<NFTModalProp> = ({
   onSynced,
   lists,
   currentTab,
+  showSyncModal,
 }) => {
   const [selected, setSelected] = useState(true);
 
   return (
-    <Modal className={`!max-w-4xl transition-all ease-in-out duration-300`}>
+    <Modal isOpen={showSyncModal}>
       <ModalHead title="Sync NFTs" onClose={onClose}>
         <DutchC.NFTWalletAddress>
           <IconButton icon="document" />

@@ -38,6 +38,7 @@ const SyncNFTs: React.FC<ShowSyncModalProps> = ({
             setSynced(true);
           }}
           lists={nftList}
+          showSyncModal={showSyncModal}
         />
       )}
     </DutchC.NFTSyncWrapper>

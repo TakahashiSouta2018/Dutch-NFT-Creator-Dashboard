@@ -8,7 +8,7 @@ import * as DutchC from './styles';
 // types
 interface ModalProps {
   children: React.ReactNode;
-  className?: string;
+  isOpen?: boolean;
 }
 
 interface ModalHeadProps {
@@ -23,10 +23,16 @@ interface ModalBodyProps {
   children: React.ReactNode;
 }
 
-export const Modal: React.FC<ModalProps> = ({ children, className }) => {
+export const Modal: React.FC<ModalProps> = ({ children, isOpen }) => {
   return (
     <DutchC.ModalWrapper>
-      <DutchC.ModalInner className={className}>{children}</DutchC.ModalInner>
+      <DutchC.ModalInner
+        className={`!max-w-4xl absolute transition-all left-1/2 -translate-x-1/2 transform ease-in-out duration-300 ${
+          isOpen ? ' top-1/2 -translate-y-1/2' : 'top-0 -translate-y-full'
+        }`}
+      >
+        {children}
+      </DutchC.ModalInner>
     </DutchC.ModalWrapper>
   );
 };

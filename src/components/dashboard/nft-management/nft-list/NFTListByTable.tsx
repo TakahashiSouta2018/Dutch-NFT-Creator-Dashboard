@@ -38,10 +38,7 @@ const multiNFTs = [
   },
 ];
 
-const NFTListByTable: React.FC<NFTListByTableProps> = ({
-  NFTs,
-  onNFTSelect,
-}): JSX.Element => {
+const NFTListByTable: React.FC<NFTListByTableProps> = (): JSX.Element => {
   return <NFTListTable nftMultiList={multiNFTs} />;
 };
 
