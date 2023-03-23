@@ -33,7 +33,7 @@ const NFTLists: React.FC<NFTListProps> = ({
 
   if (tableListSwtich)
     return <NFTListByTable NFTs={NFTs} onNFTSelect={onNFTSelect} />;
-  else return <NFTListByCard NFTs={NFTs} onNFTSelect={onNFTSelect} />;
+  else return <NFTListByCard />;
 };
 
 export default NFTLists;

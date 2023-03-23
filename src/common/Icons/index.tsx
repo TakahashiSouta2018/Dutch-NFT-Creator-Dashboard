@@ -408,9 +408,13 @@ export const IPlus: React.FC<IconProps> = ({
   color = 'black',
 }) => {
   return variant === 'solid' ? (
-    <SolidIcons20.PlusIcon className={`${sizes[size]} ${colors[color]}`} />
+    <SolidIcons20.PlusIcon
+      className={`${sizes[size]} ${colors[color]} text-white`}
+    />
   ) : (
-    <OutlineIcons.PlusIcon className={`${sizes[size]} ${colors[color]}`} />
+    <OutlineIcons.PlusIcon
+      className={`${sizes[size]} ${colors[color]} text-white`}
+    />
   );
 };
 

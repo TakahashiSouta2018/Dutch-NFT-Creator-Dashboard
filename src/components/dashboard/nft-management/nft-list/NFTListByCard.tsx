@@ -1,27 +1,49 @@
 import React from 'react';
-import * as DutchC from './styles';
-import { NFTListType } from '@/types';
-import NFTCard from '../../cards/nft-card';
-interface NFTListByCardProps {
-  NFTs: NFTListType[];
-  onNFTSelect: (nftId: string) => void;
-}
+import NFTMultiCard from '../../cards/nft-multi-card';
 
-const NFTListByCard: React.FC<NFTListByCardProps> = ({
-  NFTs,
-  onNFTSelect,
-}): JSX.Element => {
+const multiCard = [
+  {
+    name: 'Harvest Req.',
+    collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
+    imageUrls: [
+      '/images/rice.webp',
+      '/images/rice.webp',
+      '/images/rice.webp',
+      '/images/rice.webp',
+      '/images/rice.webp',
+      '/images/rice.webp',
+    ],
+  },
+  {
+    name: 'Something else list name',
+    collection: 'Just another collection',
+    imageUrls: [
+      '/images/rice.webp',
+      '/images/rice.webp',
+      '/images/rice.webp',
+      '/images/rice.webp',
+    ],
+  },
+  {
+    name: 'Out of names',
+    collection: '🍎 Just not red apples',
+    imageUrls: ['/images/rice.webp', '/images/rice.webp', '/images/rice.webp'],
+  },
+];
+
+const NFTListByCard: React.FC = (): JSX.Element => {
   return (
-    <DutchC.NFTCardWrapper>
-      {NFTs.map((nft) => (
-        <NFTCard
-          key={nft.nftId}
-          onSelect={() => onNFTSelect(nft.nftId)}
-          type="all"
-          {...nft}
+    <div className="grid grid-cols-5 gap-3">
+      {multiCard.map((card, i) => (
+        <NFTMultiCard
+          key={i}
+          imageUrls={card.imageUrls}
+          name={card.name}
+          collection={card.collection}
+          className="grid-cols-2"
         />
       ))}
-    </DutchC.NFTCardWrapper>
+    </div>
   );
 };
 
