@@ -23,11 +23,11 @@ const TransactionList: React.FC<TransactionListType> = ({ transActions }) => {
           )}
           {action.status === 1 && (
             <DutchC.StatusMinting>
-              <Image
+              {/* <Image
                 src={MintingLoaderIcon}
                 alt="load"
                 className="absolute -left-5"
-              />
+              /> */}
               Minting
             </DutchC.StatusMinting>
           )}

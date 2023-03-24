@@ -2,6 +2,11 @@ import React from 'react';
 import SolidIcons from '@heroicons/react/24/solid';
 import OutlineIcons from '@heroicons/react/24/outline';
 import SolidIcons20 from '@heroicons/react/20/solid';
+import CardIcon from '../../assets/card.svg';
+import ExchangeIcon from '../../assets/exchange.svg';
+import FriendsIcon from '../../assets/friends.svg';
+import RampIcon from '../../assets/ramp.svg';
+import WyreIcon from '../../assets/wyre.svg';
 
 // type
 import { IconVariants } from '@/types';
@@ -510,6 +515,38 @@ export const IPlus: React.FC<IconProps> = ({
       className={`${className} ${sizes[size]} ${colors[color]} text-white`}
     />
   );
+};
+
+// ------------ Custom SVGs --------------- //
+
+export const ICustomCard: React.FC<{ currentColor: string }> = ({
+  currentColor,
+}) => {
+  return <CardIcon currentColor={currentColor} />;
+};
+
+export const ICustomExchange: React.FC<{ currentColor: string }> = ({
+  currentColor,
+}) => {
+  return <ExchangeIcon currentColor={currentColor} />;
+};
+
+export const ICustomFriends: React.FC<{ currentColor: string }> = ({
+  currentColor,
+}) => {
+  return <FriendsIcon currentColor={currentColor} />;
+};
+
+export const ICustomRamp: React.FC<{ currentColor: string }> = ({
+  currentColor,
+}) => {
+  return <RampIcon currentColor={currentColor} />;
+};
+
+export const ICustomWyre: React.FC<{ currentColor: string }> = ({
+  currentColor,
+}) => {
+  return <WyreIcon currentColor={currentColor} />;
 };
 
 export const icons = {

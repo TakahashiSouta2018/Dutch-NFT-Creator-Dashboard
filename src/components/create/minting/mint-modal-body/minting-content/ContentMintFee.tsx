@@ -4,8 +4,8 @@ import * as DutchC from './styles';
 import * as Icons from '@/common';
 import { Button, OutlineButton } from '@/common';
 import { useTheme } from 'next-themes';
-import ExclamationIcon from '@/assets/exclamation.svg';
-import CheckIcon from '@/assets/check.svg';
+import CheckIcon from '@/assets/check.png';
+import ExclamationIcon from '@/assets/exclamation.png';
 
 interface ContentMintFeeProps {
   isDepositFund: boolean;
