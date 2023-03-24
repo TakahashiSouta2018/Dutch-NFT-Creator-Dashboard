@@ -41,9 +41,15 @@ const SideFilter: React.FC<SideFilterProps> = ({
         </DutchC.FilterInner>
 
         <DutchC.FilterRow>
-          <TextInput placeholder="25" />
+          <TextInput
+            placeholder="25"
+            className="dark:bg-white dark:text-black dark:placeholder:text-black  dark:accent-white"
+          />
           <DutchC.TextBold>to</DutchC.TextBold>
-          <TextInput placeholder="30" />
+          <TextInput
+            placeholder="30"
+            className="dark:bg-white dark:text-black dark:placeholder:text-black  dark:accent-white"
+          />
         </DutchC.FilterRow>
       </DutchC.FilterCollectionsWrapper>
 
@@ -58,7 +64,12 @@ const SideFilter: React.FC<SideFilterProps> = ({
         <DutchC.FilterCol>
           {collections.map((item) => (
             <DutchC.FilterRow className="px-2 py-1" key={item}>
-              <TextInput type="checkbox" />
+              <TextInput
+                type="checkbox"
+                className={
+                  'dark:bg-white dark:text-black/100 dark:placeholder:text-black dark:border-black dark:accent-white'
+                }
+              />
               <DutchC.TextEllipsis>{item}</DutchC.TextEllipsis>
             </DutchC.FilterRow>
           ))}
@@ -71,11 +82,21 @@ const SideFilter: React.FC<SideFilterProps> = ({
           <DutchC.TextBold>Color</DutchC.TextBold>
           <Icons.IChevronUp />
         </DutchC.FilterInner>
-        <SearchInput placeholder="Search" />
+        <SearchInput
+          placeholder="Search"
+          className={
+            'dark:bg-white dark:text-black/100 dark:placeholder:text-black dark:border-black dark:accent-white'
+          }
+        />
         <DutchC.FilterCol>
           {colors.map((color) => (
             <DutchC.FilterRow className="px-2 py-1" key={color}>
-              <TextInput type="checkbox" />
+              <TextInput
+                type="checkbox"
+                className={
+                  'dark:bg-white dark:text-black/100 dark:placeholder:text-black dark:border-black dark:accent-white'
+                }
+              />
               <DutchC.TextBold className="overflow-hidden ">
                 {color}
               </DutchC.TextBold>
