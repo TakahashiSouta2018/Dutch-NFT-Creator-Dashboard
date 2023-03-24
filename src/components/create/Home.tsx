@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
@@ -12,52 +12,50 @@ import Breadcrumb from './Breadcrumb';
 // icons
 import * as Icons from '@/common/Icons';
 import MintingModal from './minting';
+import useCollectionHook from '@/hooks/useCollectionHook';
+import useNFTHook from '@/hooks/useNFTHook';
+import { DraftNFTResponseI } from '@/types';
+import { LoopringService } from '@/lib/LoopringService';
+import { useAppSelector } from '@/redux/store';
+import { shallowEqual } from 'react-redux';
 
-// types
-type NFTT = {
-  id: number;
-  title: string;
-  image: string;
-  unit: number;
-  description: string;
-  selected: boolean;
-};
 
-type DraftNFTProps = NFTT & {
+type DraftNFTProps = DraftNFTResponseI & {
   onSelect: () => void;
 };
 
-const options = ['Option A', 'Option B', 'Option C'];
-
 const CreateHome: React.FC = () => {
   const { theme } = useTheme();
-  const [collection, setCollection] = useState(options[0]);
+  const { userCollection, collectionNames } = useCollectionHook();
+  const { getCollectionDraftNFT } = useNFTHook();
+
+  const loopringService = new LoopringService();
+
+  const [selectedCollectionAddress, setSelectedCollectionAddress] =
+    useState<string>('');
+  const [selectedCollectionName, setSelectedCollectionName] =
+    useState<string>('');
+
   const [open, setOpen] = useState(true);
   const [openMintModal, setOpenMintModal] = useState(false);
-  const [draftNFTs, setDraftNFTs] = useState<NFTT[]>([
-    {
-      id: 1,
-      title: 'Green Grapes',
-      image: '/images/rice.webp',
-      unit: 1000,
-      description:
-        'Green Olive🫒 1/1,000 Olive trees are special in the Holy Land. The olive branch is universally regarded as a symbol of peace.',
-      selected: false,
-    },
-    {
-      id: 2,
-      title: 'Green Grapes Test',
-      image: '/images/rice.webp',
-      unit: 1000,
-      description:
-        'Green Olive🫒 1/1,000 Olive trees are special in the Holy Land. The olive branch is universally regarded as a symbol of peace.',
-      selected: false,
-    },
-  ]);
+  const [draftNFTs, setDraftNFTs] = useState<DraftNFTResponseI[]>([]);
 
-  const onCollectionSelect = (value: string) => {
-    setCollection(value);
-  };
+  const { accountInfo } = useAppSelector((state) => {
+    const { accountInfo } = state.webAppReducer;
+    return { accountInfo };
+  }, shallowEqual);
+
+
+  useEffect(() => {
+    (async () => {
+      if (selectedCollectionAddress) {
+        const nft = await getCollectionDraftNFT(selectedCollectionAddress);
+        if (nft) {
+          setDraftNFTs(nft)
+        }
+      }
+    })();
+  }, [selectedCollectionAddress]);
 
   const onNFTSelect = useCallback(
     (id: number) => {
@@ -89,6 +87,36 @@ const CreateHome: React.FC = () => {
     setOpenMintModal(false);
   };
 
+  const handleMintSelectedNft = async () => {
+    if (!accountInfo) return alert('wallet not connect');
+
+    const selectedNftsTokenAddress = draftNFTs
+      .filter(draftNFT => draftNFT.selected)
+      .map(draftNFT => draftNFT.collection)
+
+    const fees = [];
+    let totalFeeAmount = 0;
+
+    for (const tokenAddress of selectedNftsTokenAddress) {
+      const collectionMeta = await loopringService.getCollectionMeta(accountInfo, tokenAddress)
+      if (!collectionMeta) return;
+
+      const fee = await loopringService.getNFTOffchainFeeAmt(accountInfo, collectionMeta);
+
+      const feeAmount = fee.fees['ETH'].fee;
+      totalFeeAmount += Number(feeAmount);
+      fees.push(feeAmount);
+
+    }
+    
+    setOpenMintModal(true);
+  };
+
+  const handleSelectCollection = (value: string, index: number) => {
+    setSelectedCollectionName(value);
+    setSelectedCollectionAddress(userCollection[index].collectionAddress);
+  };
+
   return (
     <DutchC.CreateWrapper>
       {/* modals */}
@@ -110,11 +138,11 @@ const CreateHome: React.FC = () => {
               </DutchC.CreateContentSubTitle>
               <DutchC.CreateContentCollection>
                 <Dropdown
-                  value={collection}
-                  onSelect={onCollectionSelect}
-                  options={options}
-                  position="BL"
                   label="Collection"
+                  value={selectedCollectionName}
+                  options={collectionNames}
+                  position="BL"
+                  onSelect={handleSelectCollection}
                 />
               </DutchC.CreateContentCollection>
             </DutchC.CreateContentLeft>
@@ -140,7 +168,7 @@ const CreateHome: React.FC = () => {
             {/* If some draft nfts are avaiable to show */}
             <DutchC.CreateContentTools>
               <SearchInput />
-              <Button onClick={() => setOpenMintModal(true)}>
+              <Button onClick={handleMintSelectedNft}>
                 Mint Selected NFTs
               </Button>
               <Button>Mint all NFTs</Button>
@@ -172,19 +200,22 @@ const CreateHome: React.FC = () => {
 };
 
 const DraftNFT: React.FC<DraftNFTProps> = ({
-  title,
-  image,
-  unit,
+  id,
+  name,
+  media,
+  amount,
   description,
   selected,
   onSelect,
 }) => {
   const { theme } = useTheme();
+  const { deleteDraftNFT } = useNFTHook();
+
 
   return (
     <DutchC.DraftNFTCard selected={selected ? 1 : 0} onClick={onSelect}>
       {/* unit */}
-      <DutchC.DraftNFTUnitBadge>{unit}</DutchC.DraftNFTUnitBadge>
+      <DutchC.DraftNFTUnitBadge>{amount}</DutchC.DraftNFTUnitBadge>
       {/* selected mark */}
       {selected && (
         <DutchC.DraftNFTSelectedMark>
@@ -196,7 +227,7 @@ const DraftNFT: React.FC<DraftNFTProps> = ({
       )}
       {/* image */}
       <Image
-        src={image}
+        src={media}
         alt="rice"
         width={230}
         height={230}
@@ -204,13 +235,13 @@ const DraftNFT: React.FC<DraftNFTProps> = ({
       />
       {/* detail */}
       <DutchC.DraftNFTDetail>
-        <DutchC.DraftNFTTitle>{title}</DutchC.DraftNFTTitle>
+        <DutchC.DraftNFTTitle>{name}</DutchC.DraftNFTTitle>
         <DutchC.DraftNFTDescription>{description}</DutchC.DraftNFTDescription>
       </DutchC.DraftNFTDetail>
       {/* actions */}
       <DutchC.DraftNFTActions>
         <DutchC.DraftNFTEdit>Edit</DutchC.DraftNFTEdit>
-        <DutchC.DraftNFTDelete>Delete</DutchC.DraftNFTDelete>
+        <DutchC.DraftNFTDelete onClick={() => deleteDraftNFT(id)}>Delete</DutchC.DraftNFTDelete>
       </DutchC.DraftNFTActions>
     </DutchC.DraftNFTCard>
   );

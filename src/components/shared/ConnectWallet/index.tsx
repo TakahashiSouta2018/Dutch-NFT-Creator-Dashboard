@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { Modal, ModalHead, ModalBody } from '@/common';
 import useWalletHook from '@/hooks/useWalletHook';
 import { ConnectorNames } from '@loopring-web/loopring-sdk';
@@ -26,7 +25,7 @@ const LoginOptions = [
   },
 ];
 
-const LoginHome = (): JSX.Element => {
+const ConnectWallet = (): JSX.Element => {
   const { connectAccount } = useWalletHook();
   const dispatch = useAppDispatch();
 
@@ -34,6 +33,10 @@ const LoginHome = (): JSX.Element => {
     const { connectionError, isConnectionLoading, isConnectionModalOpen } = state.webAppReducer;
     return { connectionError, isConnectionLoading, isConnectionModalOpen };
   }, shallowEqual);
+
+  const closeConnectionModal = () => {
+    dispatch(setIsConnectionModalOpen(false))
+  }
 
   let renderContent = <></>;
 
@@ -61,7 +64,7 @@ const LoginHome = (): JSX.Element => {
         })}
       </DutchC.LoginWrapper>
     )
-  }
+  }  
 
   return (
     <>
@@ -69,7 +72,7 @@ const LoginHome = (): JSX.Element => {
         <Modal>
           <ModalHead
             title={connectionError ? 'Connection Error' : 'Connect a Wallet'}
-            onClose={() => dispatch(setIsConnectionModalOpen(true))}
+            onClose={closeConnectionModal}
           />
           <ModalBody>
             {renderContent}
@@ -80,4 +83,4 @@ const LoginHome = (): JSX.Element => {
   );
 };
 
-export default LoginHome;
+export default ConnectWallet;

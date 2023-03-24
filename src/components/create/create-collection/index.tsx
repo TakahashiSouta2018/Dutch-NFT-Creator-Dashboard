@@ -31,12 +31,14 @@ const CreateCollectionHome: React.FC = () => {
   };
 
   const handleCreateCollection = async () => {
+    const mediaUrl = 'https://res.cloudinary.com/ddo5l4trk/image/upload/v1669027512/samples/ecommerce/leather-bag-gray.jpg';
+
     await createCollection({
       name: values.name,
       description: values.description,
-      tileUri,
-      avatar,
-      banner,
+      tileUri: mediaUrl,
+      avatar: mediaUrl,
+      banner: mediaUrl,
     });
   };
 

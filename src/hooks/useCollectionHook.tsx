@@ -32,7 +32,7 @@ const useCollectionHook = () => {
         console.log(error);
       }
     })();
-  });
+  },[]);
 
   const createCollection = async (collectionObject: CollectionObjectI) => {
     const imagesUrl = await pinFileToIPFS([
@@ -51,9 +51,6 @@ const useCollectionHook = () => {
       banner: `ipfs://${imagesUrl[1]}`,
       tileUri: `ipfs://${imagesUrl[2]}`,
     });
-
-    console.log({ res });
-
     if (res) alert('collection created successfully');
   };
 
@@ -61,15 +58,14 @@ const useCollectionHook = () => {
     try {
       if (!accountInfo) return alert('Account not connected');
 
-      const x = await loopringService.getUserCollection({
+      const data = await loopringService.getUserCollection({
         accountInfo,
         offset,
         limit,
         isMintable: true,
       });
 
-      console.log(x);
-      return x;
+      return data;
     } catch (error) {
       console.log(error);
     }

@@ -322,9 +322,6 @@ export class LoopringService {
         { ...postData },
         { headers }
       );
-
-      console.log({ result: result.data });
-
       return result.data;
     } catch (error) {
       console.log(error);

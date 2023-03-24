@@ -4,8 +4,8 @@ import Image from 'next/image';
 import TransactionList from '@/common/TransactionList';
 import { Button } from '@/common';
 import LoadingIcon from '@/assets/loading.png';
-import LycheeIcon from '@/assets/Lychee.gif';
-import MilkIcon from '@/assets/Milk.gif';
+import LycheeIcon from '@/assets/lychee.gif';
+import MilkIcon from '@/assets/milk.gif';
 import { TransactionType } from '@/types';
 
 interface ContentWalletSignatureProps {

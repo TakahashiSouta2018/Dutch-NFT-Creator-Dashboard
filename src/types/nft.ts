@@ -82,3 +82,22 @@ export interface CreateNftManagementI {
   nftData: string;
   createdAt?: Date | string;
 }
+
+export interface DraftNFTResponseI {
+  id: number;
+  collection: string;
+  owner: string;
+  media: string;
+  name: string;
+  description: string;
+  amount: string;
+  royalty: string;
+  properties: string;
+  createdAt: Date;
+  selected?: boolean;
+}
+
+export interface DeleteDraftNFTRequestI {
+  id: number;
+  ownerAddress: string
+}

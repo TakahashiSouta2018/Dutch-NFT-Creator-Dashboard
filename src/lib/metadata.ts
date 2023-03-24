@@ -49,11 +49,9 @@ export const construcMetadata = ({
   collectionMetadata,
   mintChannel = 'Loopring',
 }: ConstrucMetadataI): NftDataI[] => {
-  console.log({ csvFileContents });
 
   return imageNames.map((imageName, index) => {
     const csvFileContent = csvFileContents[index];
-    console.log({ csvFileContent });
 
     const splitProperties = csvFileContent.properties.split(',');
 

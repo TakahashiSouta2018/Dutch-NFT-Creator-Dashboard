@@ -8,6 +8,9 @@ import * as DutchC from './styles';
 
 // types
 import { Menu } from '@/types';
+import { useAppDispatch } from '@/redux/store';
+import { setIsConnectionModalOpen } from '@/ducks';
+import ConnectWallet from '../shared/ConnectWallet';
 
 const menus: Menu[] = [
   {
@@ -37,11 +40,17 @@ const Header: React.FC = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
+  const dispatch = useAppDispatch();
+
   const PAGE_PATH = router.asPath.split('/')[1] ?? '';
 
   const toggleTheme = useCallback(() => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   }, [setTheme, theme]);
+
+  const openConnectionModal = () => {
+    dispatch(setIsConnectionModalOpen(true))
+  }
 
   useEffect(() => {
     setMounted(true);
@@ -88,10 +97,11 @@ const Header: React.FC = () => {
             onClick={toggleTheme}
           />
           <IconButton icon="bell" />
-          <IconButton icon="wallet" />
+          <IconButton icon="wallet" onClick={openConnectionModal} />
           <IconButton icon="user" />
         </DutchC.RightActions>
       </DutchC.HeaderInner>
+      <ConnectWallet />
     </DutchC.HeaderWrapper>
   );
 };

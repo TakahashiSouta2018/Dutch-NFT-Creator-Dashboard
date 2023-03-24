@@ -19,6 +19,7 @@ import * as Icons from '@/common/Icons';
 import useNFTHook from '@/hooks/useNFTHook';
 import { useForm } from '@/hooks/useForm';
 import useCollectionHook from '@/hooks/useCollectionHook';
+import { pinFileToIPFS } from '@/lib/pinata';
 
 // types
 type NFTPropertyT = {
@@ -105,29 +106,20 @@ const CreateDraftNFTHome: React.FC = () => {
 
   const handleCreateDraftNFT = async () => {
     // const mediaUrl = await pinFileToIPFS([media]);
-    const x = 'https://';
+    const mediaUrl = 'https://res.cloudinary.com/ddo5l4trk/image/upload/v1669027512/samples/ecommerce/leather-bag-gray.jpg';
 
-    if (x) {
-      console.log({
-        properties: JSON.stringify(properties),
-        collection: selectedCollectionAddress,
-        media: x,
-        name: values.name,
-        royalty: values.royalty,
-        amount: values.amount,
-        description: values.description,
-      });
-
+    if (mediaUrl) {
       await createDraftNFT({
         properties: JSON.stringify(properties),
         collection: selectedCollectionAddress,
-        media: x,
+        media: String(mediaUrl),
         name: values.name,
         royalty: values.royalty,
         amount: values.amount,
         description: values.description,
       });
     }
+    else alert('Unable to pin media')
   };
 
   return (
