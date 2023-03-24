@@ -9,14 +9,14 @@ import * as DutchC from './styles';
 // types
 interface ModalProps {
   children: React.ReactNode;
-  isOpen: boolean;
+  isOpen?: boolean;
   className?: string;
 }
 
 interface ModalHeadProps {
   icon?: IconType;
   title: string;
-  onClose: () => void;
+  onClose?: () => void;
   onBack?: () => void;
   children?: React.ReactNode;
 }
@@ -27,7 +27,7 @@ interface ModalBodyProps {
 
 export const Modal: React.FC<ModalProps> = ({
   children,
-  isOpen,
+  isOpen = false,
   className,
 }) => {
   return (
@@ -58,13 +58,7 @@ export const ModalHead: React.FC<ModalHeadProps> = ({
         <DutchC.ModalTitle>{title}</DutchC.ModalTitle>
         {children}
       </DutchC.ModalTitleWrapper>
-      <IconButton
-        icon="close"
-        onClick={(e: React.SyntheticEvent) => {
-          e.stopPropagation();
-          onClose();
-        }}
-      />
+      <IconButton icon="close" onClick={onClose} />
     </DutchC.ModalHeadWrapper>
   );
 };
