@@ -19,7 +19,7 @@ const NFTList: React.FC<NFTListProps> = ({ selected, lists, currentTab }) => {
     tmpLists = lists.filter((list) => list.selected);
   } else tmpLists = lists;
   return (
-    <Table className="dark:text-white border rounded-xl">
+    <Table className="dark:text-white text-black border rounded-xl">
       <THead className="border-orange bg-black/5 dark:bg-white/5">
         <TR>
           <TD>

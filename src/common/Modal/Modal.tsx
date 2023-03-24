@@ -16,7 +16,7 @@ interface ModalProps {
 interface ModalHeadProps {
   icon?: IconType;
   title: string;
-  onClose?: () => void;
+  onClose?: (e: any) => void;
   onBack?: () => void;
   children?: React.ReactNode;
 }
