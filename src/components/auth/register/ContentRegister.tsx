@@ -3,7 +3,7 @@ import { TextInput } from '@/common';
 import { Button, OutlineButton } from '@/common';
 
 interface ContentRegisterProps {
-  onClose: () => void;
+  onClose?: () => void;
   onVerification: () => void;
 }
 

@@ -70,7 +70,13 @@ const useConnectHelper = ({
       }
     );
     return () => subscription.unsubscribe();
-  }, [subject]);
+  }, [
+    subject,
+    handleConnect,
+    handleAccountDisconnect,
+    handleError,
+    handleProcessing,
+  ]);
 };
 
 export default useConnectHelper;

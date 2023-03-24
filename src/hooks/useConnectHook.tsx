@@ -2,7 +2,7 @@ import { setAccountInfo, setIsConnected } from '@/ducks';
 import { LoopringService } from '@/lib/LoopringService';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { ChainId } from '@loopring-web/loopring-sdk';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { shallowEqual } from 'react-redux';
 import useConnectHelper, {
   handleConnectI,
@@ -15,7 +15,7 @@ const useConnectHook = () => {
     account: string;
     chainId: ChainId | 'unknown';
   }>({ account: '', chainId: 'unknown' });
-  const loopringService = new LoopringService();
+  const loopringService = useMemo(() => new LoopringService(), []);
   const dispatch = useAppDispatch();
 
   const { walletType, accountInfo } = useAppSelector((state) => {
@@ -51,7 +51,7 @@ const useConnectHook = () => {
         console.log(error);
       }
     })();
-  }, [connectionInfo.account, connectionInfo.chainId]);
+  }, [connectionInfo, dispatch, accountInfo, loopringService, walletType]);
 
   useEffect(() => {
     (async () => {
@@ -67,11 +67,9 @@ const useConnectHook = () => {
           dispatch(setAccountInfo(null));
           dispatch(setIsConnected(false));
         }
-      } catch (error: any) {
-        console.log(error);
-      }
+      } catch (error: any) {}
     })();
-  }, [connectionInfo.account, connectionInfo.chainId]);
+  }, [accountInfo?.accInfo?.owner, connectionInfo, dispatch]);
 
   useConnectHelper({
     handleAccountDisconnect: () => {

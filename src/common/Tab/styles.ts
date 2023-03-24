@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 // types
 interface TabWrapperProps {
-  active?: number;
+  active?: boolean;
   theme: string;
 }
 

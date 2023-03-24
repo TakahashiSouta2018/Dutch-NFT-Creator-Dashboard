@@ -13,12 +13,17 @@ interface TabProps {
   slug: WIDEFILTER;
 }
 
-const Tab: React.FC<TabProps> = ({ children, active, onClick, slug }) => {
+const Tab: React.FC<TabProps> = ({
+  children,
+  active = false,
+  onClick,
+  slug,
+}) => {
   const { theme } = useTheme();
 
   return (
     <DutchC.TabWrapper
-      active={active ? 1 : 0}
+      active={active ? true : false}
       onClick={() => {
         onClick(slug);
       }}
