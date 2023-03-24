@@ -8,9 +8,10 @@ import * as Icons from '@/common';
 interface NFTListProps {
   selected: boolean;
   lists: NFTListType[];
+  currentTab?: string;
 }
 
-const NFTList: React.FC<NFTListProps> = ({ selected, lists }) => {
+const NFTList: React.FC<NFTListProps> = ({ selected, lists, currentTab }) => {
   let tmpLists = [];
   if (selected) {
     tmpLists = lists.filter((list) => list.selected);
@@ -22,11 +23,11 @@ const NFTList: React.FC<NFTListProps> = ({ selected, lists }) => {
           <TD>
             <DutchC.IconRound />
           </TD>
-          <TD>Sr</TD>
+          {currentTab !== 'LIST' && <TD>Sr</TD>}
           <TD>Name</TD>
           {selected && <TD>Collection</TD>}
           <TD>Mint Count</TD>
-          <TD>Burned</TD>
+          {currentTab !== 'LIST' && <TD>Burned</TD>}
           <TD>NFT id</TD>
         </TR>
       </THead>
@@ -41,7 +42,7 @@ const NFTList: React.FC<NFTListProps> = ({ selected, lists }) => {
                   <DutchC.IconRound />
                 )}
               </TD>
-              <TD>{list.sr}</TD>
+              {currentTab !== 'LIST' && <TD>{list.sr}</TD>}
               <TD>{list.name}</TD>
               {selected && (
                 <TD>
@@ -49,7 +50,7 @@ const NFTList: React.FC<NFTListProps> = ({ selected, lists }) => {
                 </TD>
               )}
               <TD>{list.mintCount}</TD>
-              <TD>{list.burned ? 'Yes' : 'No'}</TD>
+              {currentTab !== 'LIST' && <TD>{list.burned ? 'Yes' : 'No'}</TD>}
               <TD>
                 <DutchC.NFTIdWrapper>
                   <IconButton icon="document" />

@@ -20,7 +20,7 @@ export const ShortcutContextMenuButton = styled.div.attrs<{
 
 export const ShortcutContextMenuList = styled.a.attrs({
   className:
-    'absolute w-[180px] text-white text-sm p-1 flex flex-col items-center justify-center border rounded-lg shadow-sm bg-black/70 backdrop-blur',
+    'absolute w-[180px] text-white text-sm p-1 flex z-10 flex-col items-center justify-center border rounded-lg shadow-sm bg-black/70 backdrop-blur',
 })`
   ${(p: { position: PositionType }) => {
     switch (p.position) {

@@ -34,7 +34,7 @@ const NFTListTable: React.FC<{ nftMultiList: NFTMultiCard[] }> = ({
                     <NFTMultiCard
                       key={i}
                       imageUrls={list.imageUrls}
-                      className="grid-cols-4 !p-0"
+                      className="grid-cols-4 justify-end !p-0"
                     />
                   </div>
                 </DutchC.NFTListTableName>

@@ -100,7 +100,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
             }}
           />
           <SearchInput placeholder="NFT name or id" />
-          <NFTList selected={!selected} lists={lists} />
+          <NFTList selected={!selected} lists={lists} currentTab={currentTab} />
           <DutchC.NFTModalFooterWrapper>
             <OutlineButton
               onClick={(e) => {
@@ -117,7 +117,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
                 onClose();
               }}
             >
-              Sync NFTs
+              {currentTab === 'LIST' ? 'Save Changes' : 'Sync NFTs'}
             </Button>
           </DutchC.NFTModalFooterWrapper>
         </DutchC.NFTModalBodyInner>

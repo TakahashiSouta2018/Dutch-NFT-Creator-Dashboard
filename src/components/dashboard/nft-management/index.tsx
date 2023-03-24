@@ -168,6 +168,8 @@ const NFTManagement: React.FC = () => {
                         active={tab.slug === currentWideFilter}
                         onClick={(slug) => {
                           setCurrentWideFilter(slug);
+                          setTableListSwitch(0);
+                          setShowSyncModal(false);
                         }}
                         slug={tab.slug}
                       >
@@ -244,7 +246,7 @@ const NFTManagement: React.FC = () => {
                   </DutchC.NFTManagementSubToolRight>
                 </DutchC.NFTManagementSubTool>
 
-                {showCreateListModal && currentWideFilter === 'LIST' && (
+                {currentWideFilter === 'LIST' && (
                   <NFTModal
                     onClose={() => {
                       setShowCreatListModal(false);

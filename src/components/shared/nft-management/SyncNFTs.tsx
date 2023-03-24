@@ -29,7 +29,7 @@ const SyncNFTs: React.FC<ShowSyncModalProps> = ({
         <DutchC.TextXL>Sync NFTs</DutchC.TextXL>
         <p>You can sync your collections and NFTs to your DUTCH0x database.</p>
       </DutchC.FlexCol>
-      {showSyncModal && (
+      {
         <NFTModal
           onClose={() => {
             setShowSyncModal(false);
@@ -40,7 +40,7 @@ const SyncNFTs: React.FC<ShowSyncModalProps> = ({
           lists={nftList}
           showSyncModal={showSyncModal}
         />
-      )}
+      }
     </DutchC.NFTSyncWrapper>
   );
 };

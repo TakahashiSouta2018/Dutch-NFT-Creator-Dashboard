@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 
 // components
 import { IconButton } from '../Button';
@@ -25,11 +26,11 @@ interface ModalBodyProps {
 
 export const Modal: React.FC<ModalProps> = ({ children, isOpen }) => {
   return (
-    <DutchC.ModalWrapper>
+    <DutchC.ModalWrapper className={clsx(isOpen ? 'visible' : ' invisible')}>
       <DutchC.ModalInner
-        className={`!max-w-4xl absolute transition-all left-1/2 -translate-x-1/2 transform ease-in-out duration-300 ${
-          isOpen ? ' top-1/2 -translate-y-1/2' : 'top-0 -translate-y-full'
-        }`}
+        className={clsx(
+          isOpen ? 'top-1/2 -translate-y-1/2 ' : 'top-0 -translate-y-full'
+        )}
       >
         {children}
       </DutchC.ModalInner>
