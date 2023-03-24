@@ -8,7 +8,7 @@ type WIDEFILTER = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE' | 'BANK0X';
 
 interface TabProps {
   children: React.ReactNode;
-  active?: boolean;
+  active: boolean;
   onClick: (slug: WIDEFILTER) => void;
   slug: WIDEFILTER;
 }
