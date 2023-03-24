@@ -42,9 +42,9 @@ export const NFTListSwitch: React.FC<SwitchProps> = ({
         <Tab active={selected} slug="ALL" onClick={onAll}>
           All{`(5)`}
         </Tab>
-        <Tab active={!selected} slug="ALL" onClick={onSelected}>
+        {/* <Tab active={!selected} slug="ALL" onClick={onSelected}>
           Selected{`(3)`}
-        </Tab>
+        </Tab> */}
       </TabGroup>
     </TabContainer>
   );
