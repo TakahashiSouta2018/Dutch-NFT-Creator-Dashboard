@@ -14,11 +14,11 @@ import {
   TBody,
   TR,
   TD,
-  TResizableHeader,
 } from '@/common';
 import { Guide } from '@/components/shared';
 import * as DutchC from './styles';
 import Breadcrumb from '../Breadcrumb';
+import MintingModal from '../minting';
 
 // icons
 import * as Icons from '@/common/Icons';
@@ -58,8 +58,14 @@ const CreateBulkMintHome: React.FC = () => {
   const { theme } = useTheme();
   const [open, setOpen] = useState(true);
 
+  const [isMinting, setMinting] = useState(false);
+
   const toggleGuide = () => {
     setOpen((open) => !open);
+  };
+
+  const handleClose = () => {
+    setMinting(false);
   };
 
   return (
@@ -172,13 +178,25 @@ const CreateBulkMintHome: React.FC = () => {
 
             {/* Actions */}
             <DutchC.CreateBulkMintContentActions>
-              <Button>Mint all NFTs</Button>
+              <Button
+                onClick={() => {
+                  setMinting(true);
+                }}
+              >
+                Mint all NFTs
+              </Button>
               <Button>Save to Drafts</Button>
               <OutlineButton>Cancel</OutlineButton>
             </DutchC.CreateBulkMintContentActions>
           </DutchC.CreateBulkMintContentBody>
         </DutchC.CreateBulkMintContent>
       </DutchC.CreateBulkMintWrapper>
+
+      <MintingModal
+        onClose={handleClose}
+        openModal={isMinting}
+        className="!max-w-xl"
+      />
 
       <DutchC.GuideInfoIconWrapper onClick={toggleGuide}>
         <Icons.IInformationCircle

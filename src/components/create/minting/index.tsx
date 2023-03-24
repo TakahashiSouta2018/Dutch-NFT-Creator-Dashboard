@@ -6,23 +6,30 @@ import MintModalBody from './mint-modal-body';
 
 interface MintingModalProps {
   onClose: () => void;
-  onBack: () => void;
+  openModal: boolean;
+  className?: string;
 }
 
 const MintingModal: React.FC<MintingModalProps> = ({
   onClose,
-  onBack,
+  openModal,
+  className,
 }): JSX.Element => {
   const [isDepositFund, setDepositFund] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
 
+  const onCloseModal = () => {
+    setActiveStep(0);
+    onClose();
+  };
+
   return (
-    <Modal>
+    <Modal isOpen={openModal} className={className}>
       <MintModalHead
         isDepositFund={isDepositFund}
         activeStep={activeStep}
-        onClose={onClose}
-        onBack={onBack}
+        onClose={onCloseModal}
+        onBack={onCloseModal}
       />
       <MintModalBody
         isDepositFund={isDepositFund}
@@ -33,7 +40,7 @@ const MintingModal: React.FC<MintingModalProps> = ({
         setActiveStep={(step: number) => {
           setActiveStep(step);
         }}
-        onClose={onClose}
+        onClose={onCloseModal}
       />
     </Modal>
   );

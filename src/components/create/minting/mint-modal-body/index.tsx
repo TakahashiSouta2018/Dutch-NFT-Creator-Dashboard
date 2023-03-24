@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ModalBody } from '@/common';
 import DepositFunds from './deposit-funds';
-import Minting from './minting';
+import Minting from './minting-content';
 
 interface MintModalBodyProps {
   isDepositFund: boolean;

@@ -77,7 +77,7 @@ export const CreateBulkMintContentNFTPreviewInner = styled.div.attrs({
 })``;
 
 export const CreateBulkMintContentActions = styled.div.attrs({
-  className: 'inline-flex items-center space-x-2',
+  className: 'inline-flex items-center space-x-4',
 })``;
 
 // --- NFT preview

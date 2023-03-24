@@ -85,17 +85,16 @@ const CreateHome: React.FC = () => {
     setOpenMintModal(false);
   };
 
-  const handleBack = () => {
-    setOpenMintModal(false);
-  };
-
   return (
     <DutchC.CreateWrapper>
       {/* modals */}
       {/* --- NFT mint modal */}
-      {openMintModal && (
-        <MintingModal onClose={handleClose} onBack={handleBack} />
-      )}
+      <MintingModal
+        onClose={handleClose}
+        openModal={openMintModal}
+        className="max-w-xl"
+      />
+
       <DutchC.CreateContentWrapper open={open ? 1 : 0}>
         <DutchC.CreateContent>
           <Breadcrumb />
