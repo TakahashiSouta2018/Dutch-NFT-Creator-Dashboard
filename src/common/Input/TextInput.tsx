@@ -25,15 +25,19 @@ const TextInput: React.FC<InputProps> = ({
   const { disabled, required } = rest;
 
   return (
-    <DutchC.InputWrapper disabled={disabled ? 1 : 0}>
+    <DutchC.InputWrapper disabled={disabled ? 1 : 0} className={className}>
       {label && (
         <DutchC.InputLabel>
           {label}
           {required && '*'}
         </DutchC.InputLabel>
       )}
-      <DutchC.InputInner>
-        <DutchC.Input {...rest} hasIcon={!!Icon ? 1 : 0} />
+      <DutchC.InputInner className={className}>
+        <DutchC.Input
+          className={className}
+          {...rest}
+          hasIcon={!!Icon ? 1 : 0}
+        />
 
         {Icon && (
           <DutchC.InputIconWrapper>
