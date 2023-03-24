@@ -10,9 +10,10 @@ interface NFTMultiCard {
   imageUrls: string[];
 }
 
-const NFTListTable: React.FC<{ nftMultiList: NFTMultiCard[] }> = ({
-  nftMultiList,
-}): JSX.Element => {
+const NFTListTable: React.FC<{
+  nftMultiList: NFTMultiCard[];
+  onShowListModal: () => void;
+}> = ({ nftMultiList, onShowListModal }): JSX.Element => {
   return (
     <Table>
       <THead>
@@ -26,7 +27,7 @@ const NFTListTable: React.FC<{ nftMultiList: NFTMultiCard[] }> = ({
       <TBody>
         {nftMultiList.map((list, i) => {
           return (
-            <TR key={i} className="cursor-pointer">
+            <TR key={i} className="cursor-pointer" onClick={onShowListModal}>
               <TD>
                 <DutchC.NFTListTableName>
                   <div>{list.name}</div>
@@ -35,6 +36,7 @@ const NFTListTable: React.FC<{ nftMultiList: NFTMultiCard[] }> = ({
                       key={i}
                       imageUrls={list.imageUrls}
                       className="grid-cols-4 justify-end !p-0"
+                      onShowListModal={onShowListModal}
                     />
                   </div>
                 </DutchC.NFTListTableName>

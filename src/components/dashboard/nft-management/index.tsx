@@ -204,6 +204,7 @@ const NFTManagement: React.FC = () => {
                       <Switch
                         leftIcon="squares2X2"
                         rightIcon="bars3"
+                        currentSwitch={tableListSwtich}
                         onSwitch={(status: number) => {
                           setTableListSwitch(status);
                         }}
@@ -262,6 +263,9 @@ const NFTManagement: React.FC = () => {
                     currentTab={currentWideFilter}
                     tableListSwtich={tableListSwtich}
                     nftList={nftList}
+                    onShowListModal={() => {
+                      setShowCreatListModal(true);
+                    }}
                   />
                 ) : (
                   <SyncNFTs

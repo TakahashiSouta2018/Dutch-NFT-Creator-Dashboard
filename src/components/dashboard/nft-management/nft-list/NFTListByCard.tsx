@@ -31,7 +31,13 @@ const multiCard = [
   },
 ];
 
-const NFTListByCard: React.FC = (): JSX.Element => {
+interface NFTListByCardProps {
+  onShowListModal: () => void;
+}
+
+const NFTListByCard: React.FC<NFTListByCardProps> = ({
+  onShowListModal,
+}): JSX.Element => {
   return (
     <div className="grid grid-cols-5 gap-3">
       {multiCard.map((card, i) => (
@@ -41,6 +47,7 @@ const NFTListByCard: React.FC = (): JSX.Element => {
           name={card.name}
           collection={card.collection}
           className="grid-cols-2"
+          onShowListModal={onShowListModal}
         />
       ))}
     </div>

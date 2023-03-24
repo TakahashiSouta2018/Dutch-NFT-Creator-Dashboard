@@ -6,6 +6,7 @@ import NFTListTable from './NFTListTable';
 interface NFTListByTableProps {
   NFTs: NFTListType[];
   onNFTSelect: (nftId: string) => void;
+  onShowListModal: () => void;
 }
 
 const multiNFTs = [
@@ -38,8 +39,12 @@ const multiNFTs = [
   },
 ];
 
-const NFTListByTable: React.FC<NFTListByTableProps> = (): JSX.Element => {
-  return <NFTListTable nftMultiList={multiNFTs} />;
+const NFTListByTable: React.FC<NFTListByTableProps> = ({
+  onShowListModal,
+}): JSX.Element => {
+  return (
+    <NFTListTable nftMultiList={multiNFTs} onShowListModal={onShowListModal} />
+  );
 };
 
 export default NFTListByTable;

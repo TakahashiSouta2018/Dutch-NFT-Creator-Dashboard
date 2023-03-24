@@ -7,6 +7,7 @@ interface MultiCardProps {
   collection?: string;
   imageUrls: string[];
   className: string;
+  onShowListModal: () => void;
 }
 
 const NFTMultiCard: React.FC<MultiCardProps> = ({
@@ -14,9 +15,10 @@ const NFTMultiCard: React.FC<MultiCardProps> = ({
   collection,
   imageUrls,
   className,
+  onShowListModal,
 }) => {
   return (
-    <DutchC.MultiUploadWrapper>
+    <DutchC.MultiUploadWrapper onClick={onShowListModal}>
       <DutchC.MultiUploadInner className={className}>
         {imageUrls
           .slice(0, Math.min(imageUrls.length, 4) - 1)

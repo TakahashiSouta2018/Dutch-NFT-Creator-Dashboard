@@ -6,11 +6,13 @@ import NFTListByTable from './NFTListByTable';
 interface NFTListProps {
   tableListSwtich: number;
   nftList: NFTListType[];
+  onShowListModal: () => void;
 }
 
 const NFTLists: React.FC<NFTListProps> = ({
   tableListSwtich,
   nftList,
+  onShowListModal,
 }): JSX.Element => {
   const [NFTs, setNFTs] = useState<NFTListType[]>(nftList);
   const onNFTSelect = useCallback(
@@ -32,8 +34,14 @@ const NFTLists: React.FC<NFTListProps> = ({
   );
 
   if (tableListSwtich)
-    return <NFTListByTable NFTs={NFTs} onNFTSelect={onNFTSelect} />;
-  else return <NFTListByCard />;
+    return (
+      <NFTListByTable
+        NFTs={NFTs}
+        onNFTSelect={onNFTSelect}
+        onShowListModal={onShowListModal}
+      />
+    );
+  else return <NFTListByCard onShowListModal={onShowListModal} />;
 };
 
 export default NFTLists;

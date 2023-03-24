@@ -11,19 +11,27 @@ interface SwitchProps {
   currentTab: string;
   tableListSwtich: number;
   nftList: NFTListType[];
+  onShowListModal: () => void;
 }
 
 const NFTTabSwitch: React.FC<SwitchProps> = ({
   currentTab,
   tableListSwtich,
   nftList,
+  onShowListModal,
 }): JSX.Element => {
   const tabSwitch = (currentTab: string) => {
     switch (currentTab) {
       case 'ALL':
         return <NFTAll tableListSwtich={tableListSwtich} nftList={nftList} />;
       case 'LIST':
-        return <NFTLists tableListSwtich={tableListSwtich} nftList={nftList} />;
+        return (
+          <NFTLists
+            tableListSwtich={tableListSwtich}
+            nftList={nftList}
+            onShowListModal={onShowListModal}
+          />
+        );
       case 'COLLECTION':
         return <NFTCollections />;
       case 'ARCHIVE':
