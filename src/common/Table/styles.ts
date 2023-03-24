@@ -3,9 +3,13 @@ import styled from 'styled-components';
 // types
 
 // components
+export const TableWrapper = styled.div.attrs<{ className: string }>({
+  className: 'w-full text-sm flex',
+})``;
+
 // --- Table
-export const TableWrapper = styled.table.attrs<{ className: string }>({
-  className: 'w-full text-sm text-left text-black',
+export const TableContentWrapper = styled.table.attrs<{ className: string }>({
+  className: 'w-full text-sm text-left',
 })``;
 
 // --- THead

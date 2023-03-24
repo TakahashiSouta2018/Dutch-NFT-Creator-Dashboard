@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { Table, TBody, THead, TR, TD, IconButton } from '@/common';
+
+import CopyNFTId from '@/components/dashboard/copy-nft-id';
+import * as Icons from '@/common';
+
 import * as DutchC from './styles';
 import { NFTListType } from '@/types';
-
-import * as Icons from '@/common';
 
 interface NFTListProps {
   selected: boolean;
@@ -17,8 +19,8 @@ const NFTList: React.FC<NFTListProps> = ({ selected, lists, currentTab }) => {
     tmpLists = lists.filter((list) => list.selected);
   } else tmpLists = lists;
   return (
-    <Table>
-      <THead>
+    <Table className="dark:text-white border rounded-xl">
+      <THead className="border-orange bg-black/5 dark:bg-white/5">
         <TR>
           <TD>
             <DutchC.IconRound />
@@ -37,7 +39,11 @@ const NFTList: React.FC<NFTListProps> = ({ selected, lists, currentTab }) => {
             <TR key={list.sr}>
               <TD>
                 {list.selected ? (
-                  <Icons.ICheckCircle color="orange" size="large" />
+                  <Icons.ICheckCircle
+                    variant="solid"
+                    color="orange"
+                    size="large"
+                  />
                 ) : (
                   <DutchC.IconRound />
                 )}
@@ -52,10 +58,10 @@ const NFTList: React.FC<NFTListProps> = ({ selected, lists, currentTab }) => {
               <TD>{list.mintCount}</TD>
               {currentTab !== 'LIST' && <TD>{list.burned ? 'Yes' : 'No'}</TD>}
               <TD>
-                <DutchC.NFTIdWrapper>
-                  <IconButton icon="document" />
-                  <DutchC.TextEllipsis>{list.nftId}</DutchC.TextEllipsis>
-                </DutchC.NFTIdWrapper>
+                <CopyNFTId
+                  type="long"
+                  id={'0xa613c0e37979f1a3bf9e96c9a42ef7b9e6392025'}
+                />
               </TD>
             </TR>
           );

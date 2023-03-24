@@ -16,8 +16,10 @@ export const Table: React.FC<TableProps> = ({
   ...rest
 }) => {
   return (
-    <DutchC.TableWrapper className={className} {...rest}>
-      {children}
+    <DutchC.TableWrapper className={className}>
+      <DutchC.TableContentWrapper {...rest}>
+        {children}
+      </DutchC.TableContentWrapper>
     </DutchC.TableWrapper>
   );
 };

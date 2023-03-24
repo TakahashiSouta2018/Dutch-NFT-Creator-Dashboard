@@ -52,11 +52,13 @@ const NFTMultiCard: React.FC<MultiCardProps> = ({
       {name && collection && (
         <DutchC.MultiUploadLastMediaContentWrapper>
           <DutchC.MultiUploadLastMediaContentInner>
-            <p className="text-md font-bold text-black">{name}</p>
-            <div className="text-sm text-black ">
-              <div className="">{collection}</div>
+            <div className="text-black text-base font-bold truncate max-w-full dark:text-white/50">
+              {name}
             </div>
-            <p className="tex-xs font-medium bg-black/10 p-1 rounded-md text-black/50 w-16">
+            <div className="text-sm text-black truncate max-w-full dark:text-white/50">
+              {collection}
+            </div>
+            <p className="text-sm font-semibold bg-black/10 p-1 rounded-md text-black/50 w-fit">
               {imageUrls.length} NFTs
             </p>
           </DutchC.MultiUploadLastMediaContentInner>

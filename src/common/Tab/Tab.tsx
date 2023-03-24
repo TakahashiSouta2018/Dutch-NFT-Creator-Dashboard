@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTheme } from 'next-themes';
 
 // component
 import * as DutchC from './styles';
@@ -13,12 +14,15 @@ interface TabProps {
 }
 
 const Tab: React.FC<TabProps> = ({ children, active, onClick, slug }) => {
+  const { theme } = useTheme();
+
   return (
     <DutchC.TabWrapper
       active={active ? 1 : 0}
       onClick={() => {
         onClick(slug);
       }}
+      theme={theme}
     >
       {children}
     </DutchC.TabWrapper>

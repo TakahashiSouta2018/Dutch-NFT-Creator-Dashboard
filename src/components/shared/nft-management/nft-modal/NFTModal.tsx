@@ -10,6 +10,7 @@ import {
   TabContainer,
   TabGroup,
   TextInput,
+  Dropdown,
 } from '@/common';
 import { IconButton } from '@/common';
 import * as DutchC from './styles';
@@ -30,17 +31,6 @@ interface SwitchProps {
   onSelected: () => void;
 }
 
-export const NFTCollectionSelect: React.FC = () => {
-  return (
-    <div className="flex flex-col gap-1 w-1/2 text-black">
-      <p className="text-sm text-black/70">Collection</p>
-      <select className="py-2 px-2 rounded-lg focus:outline-none border border-black/10">
-        <option value="fruit">🍎🍌🍍The Fruit Salad Game🍆🥦🥕</option>
-      </select>
-    </div>
-  );
-};
-
 export const NFTListSwitch: React.FC<SwitchProps> = ({
   selected,
   onAll,
@@ -59,6 +49,11 @@ export const NFTListSwitch: React.FC<SwitchProps> = ({
     </TabContainer>
   );
 };
+const options = [
+  'A 🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
+  'B 🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
+  'C 🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
+];
 
 const NFTModal: React.FC<NFTModalProp> = ({
   onClose,
@@ -68,13 +63,18 @@ const NFTModal: React.FC<NFTModalProp> = ({
   showSyncModal,
 }) => {
   const [selected, setSelected] = useState(true);
+  const [collection, setCollection] = useState(options[0]);
+
+  const onCollectionSelect = (value: string) => {
+    setCollection(value);
+  };
 
   return (
     <Modal isOpen={showSyncModal}>
       <ModalHead title="Sync NFTs" onClose={onClose}>
         <DutchC.NFTWalletAddress>
           <IconButton icon="document" />
-          <p className="text-sm text-black/70">
+          <p className="text-sm text-black/70 dark:text-white">
             0xa613c0e37979f1a3bf9e96c9a42ef7b9e6392025
           </p>
         </DutchC.NFTWalletAddress>
@@ -88,7 +88,15 @@ const NFTModal: React.FC<NFTModalProp> = ({
                 <TextInput />
               </div>
             )}
-            <NFTCollectionSelect />
+            <div className="w-1/2 z-10">
+              <Dropdown
+                value={collection}
+                onSelect={onCollectionSelect}
+                options={options}
+                position="BL"
+                label="Collection"
+              />
+            </div>
           </div>
           <NFTListSwitch
             selected={selected}

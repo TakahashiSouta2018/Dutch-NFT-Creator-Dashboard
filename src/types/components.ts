@@ -15,6 +15,7 @@ export type IconButtonVariants = {};
  * Icon
  */
 export type IconVariants = {
+  className?: string;
   variant?: 'solid' | 'outline';
   size?: 'small' | 'medium' | 'large' | 'xlarge';
   color?:
@@ -27,11 +28,6 @@ export type IconVariants = {
     | 'accent-red'
     | 'accent-green'
     | 'dark-red';
-};
-
-export type SwitchButtonVariants = {
-  bgColor?: string;
-  size?: string;
 };
 
 /**

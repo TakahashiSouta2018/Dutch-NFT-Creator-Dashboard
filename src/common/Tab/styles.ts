@@ -3,6 +3,7 @@ import styled from 'styled-components';
 // types
 interface TabWrapperProps {
   active?: number;
+  theme: string;
 }
 
 // components
@@ -26,13 +27,13 @@ export const TabContainerWrapper = styled.div.attrs({
 // --- Tab Group
 export const TabGroupWrapper = styled.div.attrs({
   className:
-    'relative flex items-center gap-1 border border-black/10 rounded-lg',
+    'relative flex items-center gap-1 border border-black/10 rounded-lg dark:border-white/10 ',
 })``;
 
 // --- Tab
 export const TabWrapper = styled.div.attrs({
   className:
-    'inline-flex items-center justify-center h-10 rounded-lg px-6 text-black whitespace-nowrap cursor-pointer transition hover:bg-black/10',
+    'inline-flex items-center justify-center h-10 rounded-lg px-6 whitespace-nowrap cursor-pointer transition text-black hover:bg-black/10 dark:text-white hover:bg-white/10',
 })`
   ${(p: TabWrapperProps) =>
     p.active

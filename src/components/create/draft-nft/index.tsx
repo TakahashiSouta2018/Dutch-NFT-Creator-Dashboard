@@ -11,7 +11,7 @@ import {
   OutlineButton,
 } from '@/common';
 import { Guide } from '@/components/shared';
-import Breadcrumb from '../Breadcrumb';
+import Breadcrumb from '../../shared/Breadcrumb';
 import * as DutchC from './styles';
 
 // icons

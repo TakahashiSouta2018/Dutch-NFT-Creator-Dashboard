@@ -5,7 +5,7 @@ import { useTheme } from 'next-themes';
 import { MediaUpload, TextInput, TextArea, Button } from '@/common';
 import { Guide } from '@/components/shared';
 import * as DutchC from './styles';
-import Breadcrumb from '../Breadcrumb';
+import Breadcrumb from '../../shared/Breadcrumb';
 
 // icons
 import * as Icons from '@/common/Icons';

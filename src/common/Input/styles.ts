@@ -51,7 +51,7 @@ export const SearchInputWrapper = styled.div.attrs({
 
 export const SearchInput = styled.input.attrs({
   className:
-    'outline-none inline-flex items-center justify-center h-9.5 border border-black/10 rounded-lg px-10 text-sm peer hover:border-black placeholder:text-black/70 focus:border-black dark:border-white/10 dark:bg-dark-surface dark:placeholder:text-white/70 transition',
+    'outline-none inline-flex items-center justify-center h-9.5 border border-black/10 rounded-lg px-10 text-sm peer hover:border-black placeholder:text-black/70 focus:border-black dark:border-white/10 dark:text-white/70 dark:bg-dark-surface dark:placeholder:text-white/70 transition',
 })`
   ${(p: SearchInputProps) => !p.isShortCut && 'padding-right: 10px;'}
 `;
