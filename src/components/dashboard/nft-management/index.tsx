@@ -12,7 +12,7 @@ import {
   Button,
   Switch,
 } from '@/common';
-import { Guide } from '@/components/shared';
+import { Guide, Breadcrumb } from '@/components/shared';
 import SyncNFTs from '@/components/shared/nft-management/SyncNFTs';
 import SortSelect from '@/common/Input/SortSelect';
 import { SideFilter } from '@/components/shared/nft-management';
@@ -147,13 +147,7 @@ const NFTManagement: React.FC = () => {
     <DutchC.NFTManagementWrapper>
       <DutchC.NFTManagementContentWrapper>
         <DutchC.NFTManagementContent>
-          <DutchC.NFTManagementContentHeader>
-            <Icons.IHome variant="solid" size="medium" color="dark-gray" />
-            <DutchC.NFTManagementDot />
-            <DutchC.NFTManagementContentHeaderLabel>
-              NFT Management
-            </DutchC.NFTManagementContentHeaderLabel>
-          </DutchC.NFTManagementContentHeader>
+          <Breadcrumb />
 
           <DutchC.NFTManagementContentBody>
             {/* Top Toolbar */}
@@ -228,7 +222,7 @@ const NFTManagement: React.FC = () => {
                       currentWideFilter === 'LIST' ||
                       currentWideFilter === 'ARCHIVE') && (
                       <Button
-                        className="bg-black/90"
+                        className="bg-black/90 text-opacity-100 text-bold"
                         disabled={isSynced ? false : true}
                         leftIcon={
                           currentWideFilter === 'LIST' ? 'plus' : undefined

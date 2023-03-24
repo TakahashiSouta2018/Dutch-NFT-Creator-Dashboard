@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import Image from 'next/image';
 import { Modal, ModalHead, ModalBody } from '@/common';
 import useWalletHook from '@/hooks/useWalletHook';
 import { ConnectorNames } from '@loopring-web/loopring-sdk';
@@ -52,7 +53,7 @@ const LoginHome: React.FC<LoginHomeProps> = ({ onClose }): JSX.Element => {
                     <button
                       onClick={() => connectAccount(ConnectorNames.MetaMask)}
                     >
-                      <img src={option.imgUrl} alt="MetaMask" height="36" />
+                      <Image src={option.imgUrl} alt="MetaMask" height="36" />
                     </button>
                     <DutchC.TextNormal>{option.name}</DutchC.TextNormal>
                   </DutchC.Account>

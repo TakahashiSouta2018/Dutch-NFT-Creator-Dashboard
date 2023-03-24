@@ -11,6 +11,7 @@ type LinkProps = LinkWrapperProps & {
   href: string;
   children: React.ReactNode;
   size?: LinkSizes;
+  active: boolean;
 };
 
 const Link: React.FC<LinkProps> = ({

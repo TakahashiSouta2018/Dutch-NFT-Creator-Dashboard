@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import useWalletHook from '@/hooks/useWalletHook';
 import { ConnectorNames } from '@loopring-web/loopring-sdk';
 
@@ -10,28 +11,28 @@ const ConnectWallet = () => {
         style={{ display: 'flex', flexDirection: 'column', marginTop: '5rem' }}
       >
         <button onClick={() => connectAccount(ConnectorNames.MetaMask)}>
-          <img
+          <Image
             src="https://static.loopring.io/assets/svg/meta-mask.svg"
             alt="MetaMask"
             height="36"
           />
         </button>
         <button onClick={() => connectAccount(ConnectorNames.WalletConnect)}>
-          <img
+          <Image
             src="https://static.loopring.io/assets/svg/wallet-connect.svg"
             alt="walletConnect"
             height="36"
           />
         </button>
         <button onClick={() => connectAccount(ConnectorNames.Coinbase)}>
-          <img
+          <Image
             src="https://static.loopring.io/assets/svg/coinbase-wallet.svg"
             alt="Coinbase"
             height="36"
           />
         </button>
         <button onClick={() => connectAccount(ConnectorNames.Gamestop)}>
-          <img
+          <Image
             src="https://static.loopring.io/assets/svg/gs.svg"
             alt="Gamestop"
             height="36"

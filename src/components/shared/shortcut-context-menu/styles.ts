@@ -10,7 +10,7 @@ export const ShortcutContextMenuButton = styled.div.attrs<{
   className: string;
 }>({
   className:
-    'bottom-0 right-0 w-9 h-9 px-3 py-1 flex items-center justify-center border rounded-lg hover:bg-black/20 rounded-md backdrop-blur',
+    'bottom-0 right-0 w-9 h-9 px-3 py-1 flex items-center justify-center border dark:border-white/10 rounded-lg hover:bg-black/20 rounded-md backdrop-blur',
 })`
   ${(p: { isOpen: boolean }) =>
     p.isOpen === true ? ' background: black!important' : ''};

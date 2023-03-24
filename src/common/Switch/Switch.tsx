@@ -40,16 +40,9 @@ const SwitchButton: React.FC<SwitchButtonProps> = ({
   const Icon = icons[icon];
   return (
     <DutchC.SwitchButtonWrapper
-      className={`${btnSizes[btnSize]} opacity-90`}
-      bgColor={
-        selected
-          ? theme === 'dark'
-            ? 'white'
-            : 'black'
-          : theme === 'light'
-          ? 'white'
-          : 'black'
-      }
+      className={`${btnSizes[btnSize]} opacity-90 ${
+        selected ? 'bg-black dark:bg-white' : 'bg-transparent'
+      }`}
       onClick={onClick}
     >
       <Icon

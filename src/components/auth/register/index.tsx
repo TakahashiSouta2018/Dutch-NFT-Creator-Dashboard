@@ -4,7 +4,7 @@ import Verification from './ContentVerification';
 import Register from './ContentRegister';
 
 interface RegisterHomeProps {
-  onClose: () => void;
+  onClose?: () => void;
 }
 
 const RegisterHome: React.FC<RegisterHomeProps> = ({

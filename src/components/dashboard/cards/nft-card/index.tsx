@@ -30,7 +30,7 @@ const NFTCard: React.FC<NFTCardProps> = ({
   ];
 
   return (
-    <DutchC.NFTCard selected={selected} onClick={onSelect}>
+    <DutchC.NFTCard selected={selected} onClick={onSelect} theme={theme}>
       <DutchC.NFTUnitBadge theme={theme}>
         <Icons.IEye
           color={theme === 'light' ? 'black' : 'white'}

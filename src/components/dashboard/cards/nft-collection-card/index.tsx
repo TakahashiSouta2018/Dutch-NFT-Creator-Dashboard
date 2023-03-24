@@ -21,7 +21,7 @@ const NFTCollectionCard: React.FC<NFTCollectionCardProps> = ({
   const { theme } = useTheme();
 
   return (
-    <DutchC.NFTCollectionCard onClick={onClick}>
+    <DutchC.NFTCollectionCard onClick={onClick} theme={theme}>
       <Image
         src={img}
         alt={img}

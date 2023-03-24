@@ -4,7 +4,7 @@ import { LinkSizes } from '@/types';
 
 // types
 export type LinkWrapperProps = {
-  active: number;
+  active: boolean;
 };
 
 // components

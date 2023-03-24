@@ -5,9 +5,8 @@ import { useTheme } from 'next-themes';
 
 // components
 import { Dropdown, Button, SearchInput } from '@/common';
-import { Guide } from '@/components/shared';
+import { Guide, Breadcrumb } from '@/components/shared';
 import * as DutchC from './styles';
-import Breadcrumb from './Breadcrumb';
 
 // icons
 import * as Icons from '@/common/Icons';

@@ -44,7 +44,7 @@ const DashboardSubNav: React.FC = () => {
         <Link
           key={nav.slug}
           href={nav.path}
-          active={PAGE_PATH === nav.slug ? 1 : 0}
+          active={PAGE_PATH === nav.slug ? true : false}
           size="small"
         >
           {nav.name}
