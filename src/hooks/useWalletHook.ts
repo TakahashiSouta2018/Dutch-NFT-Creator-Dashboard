@@ -1,4 +1,9 @@
-import { setIsConnected, setIsConnectionLoading, setIsConnectionModalOpen, setWalletType } from '@/ducks';
+import {
+  setIsConnected,
+  setIsConnectionLoading,
+  setIsConnectionModalOpen,
+  setWalletType,
+} from '@/ducks';
 import { useAppDispatch } from '@/redux/store';
 import { ConnectorNames } from '@loopring-web/loopring-sdk';
 import { connectProvides, walletServices } from '@loopring-web/web3-provider';

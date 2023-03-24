@@ -99,5 +99,5 @@ export interface DraftNFTResponseI {
 
 export interface DeleteDraftNFTRequestI {
   id: number;
-  ownerAddress: string
+  ownerAddress: string;
 }

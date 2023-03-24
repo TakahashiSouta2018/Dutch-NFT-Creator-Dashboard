@@ -19,7 +19,6 @@ import { LoopringService } from '@/lib/LoopringService';
 import { useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
 
-
 type DraftNFTProps = DraftNFTResponseI & {
   onSelect: () => void;
 };
@@ -45,13 +44,12 @@ const CreateHome: React.FC = () => {
     return { accountInfo };
   }, shallowEqual);
 
-
   useEffect(() => {
     (async () => {
       if (selectedCollectionAddress) {
         const nft = await getCollectionDraftNFT(selectedCollectionAddress);
         if (nft) {
-          setDraftNFTs(nft)
+          setDraftNFTs(nft);
         }
       }
     })();
@@ -91,24 +89,29 @@ const CreateHome: React.FC = () => {
     if (!accountInfo) return alert('wallet not connect');
 
     const selectedNftsTokenAddress = draftNFTs
-      .filter(draftNFT => draftNFT.selected)
-      .map(draftNFT => draftNFT.collection)
+      .filter((draftNFT) => draftNFT.selected)
+      .map((draftNFT) => draftNFT.collection);
 
     const fees = [];
     let totalFeeAmount = 0;
 
     for (const tokenAddress of selectedNftsTokenAddress) {
-      const collectionMeta = await loopringService.getCollectionMeta(accountInfo, tokenAddress)
+      const collectionMeta = await loopringService.getCollectionMeta(
+        accountInfo,
+        tokenAddress
+      );
       if (!collectionMeta) return;
 
-      const fee = await loopringService.getNFTOffchainFeeAmt(accountInfo, collectionMeta);
+      const fee = await loopringService.getNFTOffchainFeeAmt(
+        accountInfo,
+        collectionMeta
+      );
 
       const feeAmount = fee.fees['ETH'].fee;
       totalFeeAmount += Number(feeAmount);
       fees.push(feeAmount);
-
     }
-    
+
     setOpenMintModal(true);
   };
 
@@ -211,7 +214,6 @@ const DraftNFT: React.FC<DraftNFTProps> = ({
   const { theme } = useTheme();
   const { deleteDraftNFT } = useNFTHook();
 
-
   return (
     <DutchC.DraftNFTCard selected={selected ? 1 : 0} onClick={onSelect}>
       {/* unit */}
@@ -241,7 +243,9 @@ const DraftNFT: React.FC<DraftNFTProps> = ({
       {/* actions */}
       <DutchC.DraftNFTActions>
         <DutchC.DraftNFTEdit>Edit</DutchC.DraftNFTEdit>
-        <DutchC.DraftNFTDelete onClick={() => deleteDraftNFT(id)}>Delete</DutchC.DraftNFTDelete>
+        <DutchC.DraftNFTDelete onClick={() => deleteDraftNFT(id)}>
+          Delete
+        </DutchC.DraftNFTDelete>
       </DutchC.DraftNFTActions>
     </DutchC.DraftNFTCard>
   );

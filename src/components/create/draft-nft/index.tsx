@@ -106,7 +106,8 @@ const CreateDraftNFTHome: React.FC = () => {
 
   const handleCreateDraftNFT = async () => {
     // const mediaUrl = await pinFileToIPFS([media]);
-    const mediaUrl = 'https://res.cloudinary.com/ddo5l4trk/image/upload/v1669027512/samples/ecommerce/leather-bag-gray.jpg';
+    const mediaUrl =
+      'https://res.cloudinary.com/ddo5l4trk/image/upload/v1669027512/samples/ecommerce/leather-bag-gray.jpg';
 
     if (mediaUrl) {
       await createDraftNFT({
@@ -118,8 +119,7 @@ const CreateDraftNFTHome: React.FC = () => {
         amount: values.amount,
         description: values.description,
       });
-    }
-    else alert('Unable to pin media')
+    } else alert('Unable to pin media');
   };
 
   return (

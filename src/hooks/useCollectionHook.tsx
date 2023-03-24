@@ -32,7 +32,7 @@ const useCollectionHook = () => {
         console.log(error);
       }
     })();
-  },[]);
+  }, []);
 
   const createCollection = async (collectionObject: CollectionObjectI) => {
     const imagesUrl = await pinFileToIPFS([

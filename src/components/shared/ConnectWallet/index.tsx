@@ -29,14 +29,16 @@ const ConnectWallet = (): JSX.Element => {
   const { connectAccount } = useWalletHook();
   const dispatch = useAppDispatch();
 
-  const { connectionError, isConnectionLoading, isConnectionModalOpen } = useAppSelector((state) => {
-    const { connectionError, isConnectionLoading, isConnectionModalOpen } = state.webAppReducer;
-    return { connectionError, isConnectionLoading, isConnectionModalOpen };
-  }, shallowEqual);
+  const { connectionError, isConnectionLoading, isConnectionModalOpen } =
+    useAppSelector((state) => {
+      const { connectionError, isConnectionLoading, isConnectionModalOpen } =
+        state.webAppReducer;
+      return { connectionError, isConnectionLoading, isConnectionModalOpen };
+    }, shallowEqual);
 
   const closeConnectionModal = () => {
-    dispatch(setIsConnectionModalOpen(false))
-  }
+    dispatch(setIsConnectionModalOpen(false));
+  };
 
   let renderContent = <></>;
 
@@ -49,9 +51,7 @@ const ConnectWallet = (): JSX.Element => {
           return (
             <DutchC.AccountWrapper key={i}>
               <DutchC.Account>
-                <button
-                  onClick={() => connectAccount(option.name)}
-                >
+                <button onClick={() => connectAccount(option.name)}>
                   <img src={option.imgUrl} alt={`${option.name}`} height="36" />
                 </button>
                 <DutchC.TextNormal>{option.name}</DutchC.TextNormal>
@@ -63,8 +63,8 @@ const ConnectWallet = (): JSX.Element => {
           );
         })}
       </DutchC.LoginWrapper>
-    )
-  }  
+    );
+  }
 
   return (
     <>
@@ -74,9 +74,7 @@ const ConnectWallet = (): JSX.Element => {
             title={connectionError ? 'Connection Error' : 'Connect a Wallet'}
             onClose={closeConnectionModal}
           />
-          <ModalBody>
-            {renderContent}
-          </ModalBody>
+          <ModalBody>{renderContent}</ModalBody>
         </Modal>
       )}
     </>

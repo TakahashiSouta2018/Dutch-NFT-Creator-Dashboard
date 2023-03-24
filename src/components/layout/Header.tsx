@@ -49,8 +49,8 @@ const Header: React.FC = () => {
   }, [setTheme, theme]);
 
   const openConnectionModal = () => {
-    dispatch(setIsConnectionModalOpen(true))
-  }
+    dispatch(setIsConnectionModalOpen(true));
+  };
 
   useEffect(() => {
     setMounted(true);

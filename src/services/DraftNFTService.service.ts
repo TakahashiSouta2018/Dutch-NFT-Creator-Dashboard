@@ -1,7 +1,6 @@
 import { DeleteDraftNFTRequestI, DraftNFTI } from '@/types';
 import Service from '.';
 
-
 export default class DraftNFTService extends Service<any> {
   constructor() {
     super('/draftNFT');
@@ -12,10 +11,13 @@ export default class DraftNFTService extends Service<any> {
   }
 
   public deleteDraftNFT(reqData: DeleteDraftNFTRequestI) {
-    return this.postRequest(`deleteDraftNft`, {...reqData});
+    return this.postRequest(`deleteDraftNft`, { ...reqData });
   }
 
-  public getCollectionDraftNFT(collectionAddress: string, ownerAddress: string) {
+  public getCollectionDraftNFT(
+    collectionAddress: string,
+    ownerAddress: string
+  ) {
     return this.getRequest(`draftNft/${ownerAddress}/${collectionAddress}`);
   }
 

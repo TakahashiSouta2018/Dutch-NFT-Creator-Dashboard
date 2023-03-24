@@ -20,13 +20,12 @@ const useNFTHook = () => {
       const { response, data } = await draftNFTService.createDraftNFT({
         ...draftNFT,
         owner: accountInfo?.accInfo.owner,
-      });      
+      });
       if (data.data) {
         alert('Draft saved successfully');
-        router.push('/create')
-
-      }else {
-        alert("Error occured saving nft")
+        router.push('/create');
+      } else {
+        alert('Error occured saving nft');
       }
     } catch (error) {
       console.log(error);
@@ -36,13 +35,15 @@ const useNFTHook = () => {
   const deleteDraftNFT = async (id: number) => {
     try {
       if (!accountInfo) return alert('Account not connected');
-      const { response, data } = await draftNFTService.deleteDraftNFT({id, ownerAddress: accountInfo?.accInfo.owner});      
+      const { response, data } = await draftNFTService.deleteDraftNFT({
+        id,
+        ownerAddress: accountInfo?.accInfo.owner,
+      });
       if (data.data) {
         alert('Draft deleted successfully');
-        router.push('/create')
-
-      }else {
-        alert("Error occured saving nft")
+        router.push('/create');
+      } else {
+        alert('Error occured saving nft');
       }
     } catch (error) {
       console.log(error);
@@ -52,7 +53,10 @@ const useNFTHook = () => {
   const getCollectionDraftNFT = async (collectionAddress: string) => {
     try {
       if (!accountInfo) return alert('Account not connected');
-      const { response, data } = await draftNFTService.getCollectionDraftNFT(collectionAddress, accountInfo?.accInfo.owner);
+      const { response, data } = await draftNFTService.getCollectionDraftNFT(
+        collectionAddress,
+        accountInfo?.accInfo.owner
+      );
       if (data.data) {
         return data.data.nft;
       }

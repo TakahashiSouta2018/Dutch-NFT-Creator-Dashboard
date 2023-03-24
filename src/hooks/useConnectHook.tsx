@@ -1,4 +1,10 @@
-import { setAccountInfo, setConnectionError, setIsConnected, setIsConnectionLoading, setIsConnectionModalOpen } from '@/ducks';
+import {
+  setAccountInfo,
+  setConnectionError,
+  setIsConnected,
+  setIsConnectionLoading,
+  setIsConnectionModalOpen,
+} from '@/ducks';
 import { LoopringService } from '@/lib/LoopringService';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { ChainId } from '@loopring-web/loopring-sdk';
