@@ -64,20 +64,18 @@ const Header: React.FC = () => {
 
   return (
     <DutchC.HeaderWrapper>
-      {connectWallet && (
-        <LoginHome
-          onClose={() => {
-            setConnectWallet(false);
-          }}
-        />
-      )}
-      {isRegister && (
-        <RegisterHome
-          onClose={() => {
-            setRegister(false);
-          }}
-        />
-      )}
+      <LoginHome
+        onClose={() => {
+          setConnectWallet(false);
+        }}
+        connectWallet={connectWallet}
+      />
+      <RegisterHome
+        onClose={() => {
+          setRegister(false);
+        }}
+        isRegister={isRegister}
+      />
 
       <DutchC.HeaderInner>
         <DutchC.Logo
