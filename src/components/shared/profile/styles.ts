@@ -15,3 +15,21 @@ export const ProfileCardWrapper = styled.div.attrs({
 export const ProfileCardTitle = styled.div.attrs({
   className: 'text-black font-bold text-xl self-stretch',
 })``;
+
+// ------------------ Social Icons -------------------- //
+
+export const ProfileSocialIconWrapper = styled.div.attrs({
+  className: 'flex flex-col gap-1',
+})``;
+
+export const ProfileSocialIconInner = styled.div.attrs({
+  className: 'border border-black/10 rounded-md w-full flex',
+})``;
+
+export const ProfileSocialIconContent = styled.div.attrs({
+  className: 'bg-black/10 p-2 flex gap-2',
+})``;
+
+export const SocialLinkText = styled.a.attrs({
+  className: 'text-sm text-black',
+})``;

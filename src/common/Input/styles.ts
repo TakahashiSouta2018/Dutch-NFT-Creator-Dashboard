@@ -36,8 +36,8 @@ export const InputIconWrapper = styled.div.attrs<{ className: string }>({
     'absolute top-0 right-0 bottom-0 w-10 h-full inline-flex items-center justify-center',
 })``;
 
-export const InputLabel = styled.label.attrs({
-  className: 'text-sm whitespace-nowrap text-black dark:text-white',
+export const InputLabel = styled.label.attrs<{ className: string }>({
+  className: 'text-sm text-black dark:text-white',
 })``;
 
 export const InputHelper = styled.label.attrs({

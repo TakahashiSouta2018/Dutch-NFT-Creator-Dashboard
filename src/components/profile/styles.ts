@@ -5,5 +5,5 @@ export const ProfileWrapper = styled.div.attrs({
 })``;
 
 export const ProfileInner = styled.div.attrs({
-  className: 'flex flex-col gap-4',
+  className: 'flex flex-col gap-4 w-2/3',
 })``;
