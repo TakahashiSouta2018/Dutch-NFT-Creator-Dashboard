@@ -12,7 +12,7 @@ type CreateCollectionMediaUploadItemProps = {
 
 // components
 export const CreateWrapper = styled.div.attrs({
-  className: 'relative flex px-6 py-4 mt-16 overflow-x-hidden',
+  className: 'relative flex px-6 mt-16 overflow-x-hidden',
 })``;
 // --- Main Content
 export const CreateCollectionWrapper = styled.div.attrs({
@@ -23,7 +23,7 @@ export const CreateCollectionWrapper = styled.div.attrs({
 `;
 
 export const CreateCollectionContent = styled.div.attrs({
-  className: 'flex flex-col w-full space-y-4',
+  className: 'flex flex-col w-full',
 })``;
 
 export const CreateCollectionContentBody = styled.div.attrs({

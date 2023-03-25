@@ -9,7 +9,7 @@ export const NFTWrapper = styled.div.attrs({
 })``;
 
 export const NFTManagementWrapper = styled.div.attrs({
-  className: 'relative flex px-6 py-4 overflow-hidden',
+  className: 'relative flex px-6 overflow-hidden',
 })``;
 
 export const GuideInfoIconWrapper = styled.div.attrs({
@@ -22,7 +22,7 @@ export const NFTManagementContentWrapper = styled.div.attrs({
 })``;
 
 export const NFTManagementContent = styled.div.attrs({
-  className: 'flex flex-col w-full space-y-4',
+  className: 'flex flex-col w-full',
 })``;
 
 export const NFTManagementContentBody = styled.div.attrs({

@@ -15,7 +15,9 @@ const ProfileContent: React.FC = () => {
     <DutchC.ProfileWrapper>
       <DutchC.ProfileInner>
         <ProfileCardTemplate title="Profile Setting">
-          <div></div>
+          <div className="flex gap-4">
+
+          </div>
         </ProfileCardTemplate>
         <ProfileCardTemplate title="Connect Your Socials">
           <div></div>

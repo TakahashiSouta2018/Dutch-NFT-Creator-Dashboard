@@ -7,7 +7,7 @@ type CreateDraftNFTWrapperProps = {
 
 // components
 export const CreateWrapper = styled.div.attrs({
-  className: 'relative flex px-6 py-4 mt-16 overflow-x-hidden',
+  className: 'relative flex px-6  mt-16 overflow-x-hidden',
 })``;
 
 export const CreateDraftNFTWrapper = styled.div.attrs({
@@ -18,7 +18,7 @@ export const CreateDraftNFTWrapper = styled.div.attrs({
 `;
 
 export const CreateDraftNFTContent = styled.div.attrs({
-  className: 'flex flex-col w-full space-y-4',
+  className: 'flex flex-col w-full',
 })``;
 
 export const CreateDraftNFTContentBody = styled.div.attrs({
