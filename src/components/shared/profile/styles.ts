@@ -9,7 +9,7 @@ export const ProfileActionsRight = styled.div.attrs({
 })``;
 
 export const ProfileCardWrapper = styled.div.attrs({
-  className: 'p-6 border border-black/10 rounded-lg flex flex-col gap-6',
+  className: 'flex-grow p-6 border border-black/10 rounded-lg flex flex-col gap-6',
 })``;
 
 export const ProfileCardTitle = styled.div.attrs({

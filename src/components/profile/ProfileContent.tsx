@@ -3,7 +3,7 @@ import Image from 'next/image';
 import AvatarIcon from '@/assets/avatar.png';
 import ProfileCardTemplate from '../shared/profile/ProfileCardTemplate';
 import ProfileActions from '../shared/profile/ProfileActions';
-import { TextInput } from '@/common';
+import { Button, OutlineButton, TextInput } from '@/common';
 import { InputLabel } from '@/common/Input/styles';
 import CheckIcon from '@/assets/check.png';
 import ProfileSocialIcon from '../shared/profile/ProfileSocialIcon';
@@ -14,10 +14,11 @@ import RedditIcon from '@/assets/social_reddit.png';
 import InstagramIcon from '@/assets/social_instagram.png';
 import TwitterIcon from '@/assets/social_twitter.png';
 import TiktokIcon from '@/assets/social_tiktok.png';
-
-
-import * as DutchC from './styles';
 import ProfileEmailNotification from '../shared/profile/ProfileEmailNotification';
+
+import * as Icons from '@/common/Icons';
+import * as DutchC from './styles';
+import WalletLine from '../shared/profile/WalletLine';
 
 const timeOptions = [
   {
@@ -31,31 +32,31 @@ const ProfileContent: React.FC = () => {
     <DutchC.ProfileWrapper>
       <DutchC.ProfileInner>
         <ProfileCardTemplate title="Profile Setting">
-          <div className="flex gap-4">
+          <DutchC.ProfileSettingWrapper>
             <Image src={AvatarIcon} alt="avatar" />
-            <div className="flex flex-col gap-4 !text-black">
-              <div className="relative">
+            <DutchC.ProfileSettingInner>
+              <DutchC.ProfileSettingInnerLine>
                 <InputLabel>Display Name</InputLabel>
                 <TextInput value="tirthtrivedi.eth"></TextInput>
                 <Image
                   src={CheckIcon}
                   alt="check"
-                  className="absolute right-3 top-1/2 -translate-y-1/2"
+                  className="absolute right-3 top-1/2"
                 />
-              </div>
-              <div className="relative">
+              </DutchC.ProfileSettingInnerLine>
+              <DutchC.ProfileSettingInnerLine>
                 <InputLabel>Email ID</InputLabel>
                 <TextInput value="tirthtrivedi17@gmail.com"></TextInput>
-              </div>
-              <div className="relative">
+              </DutchC.ProfileSettingInnerLine>
+              <DutchC.ProfileSettingInnerLine>
                 <InputLabel>Timezone</InputLabel>
                 <Select options={timeOptions} />
-              </div>
-            </div>
-          </div>
+              </DutchC.ProfileSettingInnerLine>
+            </DutchC.ProfileSettingInner>
+          </DutchC.ProfileSettingWrapper>
         </ProfileCardTemplate>
         <ProfileCardTemplate title="Connect Your Socials">
-          <div className="flex flex-col gap-4">
+          <DutchC.ProfileSettingInner>
             <ProfileSocialIcon
               title="Twitter"
               icon={TwitterIcon}
@@ -81,19 +82,65 @@ const ProfileContent: React.FC = () => {
               icon={RedditIcon}
               link="https://www.reddit.com/user"
             />
-          </div>
+          </DutchC.ProfileSettingInner>
         </ProfileCardTemplate>
         <ProfileCardTemplate title="Email Notification Settings">
-          <div className="flex flex-col divide-y">
+          <DutchC.ProfileNotificationWrapper>
             <ProfileEmailNotification />
             <ProfileEmailNotification />
             <ProfileEmailNotification />
             <ProfileEmailNotification />
-          </div>
+          </DutchC.ProfileNotificationWrapper>
         </ProfileCardTemplate>
         <ProfileActions />
       </DutchC.ProfileInner>
-
+      <ProfileCardTemplate title="Wallet">
+        <DutchC.WalletWrapper>
+          <DutchC.WalletInfo>
+            <WalletLine>
+              <InputLabel className=" font-bold text-black/90">
+                trivedi.eth
+              </InputLabel>
+              <InputLabel className="font-bold text-black/90">
+                0.000245 ETH
+              </InputLabel>
+            </WalletLine>
+            <WalletLine>
+              <div className="flex gap-1 items-center">
+                <InputLabel className="font-medium text-black/50 text-sm">
+                  0x31...6c0b8
+                </InputLabel>
+                <Icons.IDocument />
+              </div>
+              <InputLabel className="font-medium text-black/50 text-sm">
+                $ 2.33 USD
+              </InputLabel>
+            </WalletLine>
+          </DutchC.WalletInfo>
+          <DutchC.WalletFund>
+            <WalletLine>
+              <InputLabel className="font-medium text-black/50 text-sm">
+                Ethereum L1
+              </InputLabel>
+              <InputLabel className="font-bold text-black/90 text-sm">
+                0.00043 ETH
+              </InputLabel>
+            </WalletLine>
+            <WalletLine>
+              <InputLabel className="font-medium text-black/50 text-sm">
+                Loopring L2
+              </InputLabel>
+              <InputLabel className="font-bold text-black/90 text-sm">
+                0.00043 ETH
+              </InputLabel>
+            </WalletLine>
+          </DutchC.WalletFund>
+          <DutchC.WalletActions>
+            <Button className="mb-7">Add Funds</Button>
+            <OutlineButton className="mt-7">Logout</OutlineButton>
+          </DutchC.WalletActions>
+        </DutchC.WalletWrapper>
+      </ProfileCardTemplate>
     </DutchC.ProfileWrapper>
   );
 };

@@ -29,7 +29,7 @@ const OutlineButton: React.FC<OutlineButtonButtonProps> = ({
   const RightIcon = rightIcon ? icons[rightIcon] : null;
 
   return (
-    <DutchC.OutlineButtonWrapper size={size} {...rest}>
+    <DutchC.OutlineButtonWrapper size={size} {...rest} className={className}>
       {/* left icon */}
       {LeftIcon && (
         <LeftIcon
