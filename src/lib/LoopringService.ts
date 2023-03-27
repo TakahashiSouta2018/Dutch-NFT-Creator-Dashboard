@@ -181,6 +181,15 @@ export class LoopringService {
     return response;
   }
 
+  async getLayer2Balance(accountInfo: AccountInfoI) {
+    const { userBalances } = await this.userAPI.getUserBalances(
+      { accountId: accountInfo.accInfo.accountId, tokens: "" },
+      accountInfo.apiKey
+    );
+
+    return userBalances;
+  }
+
   async getContractNFTMeta(
     tokenAddress: string,
     nftId: string,
@@ -235,96 +244,92 @@ export class LoopringService {
   }
 
   async mintNFT(params: MintNFTI) {
-    try {
-      const {
-        metadata,
-        accountInfo,
-        nftTokenAddress,
-        royaltyPercentage,
-        amount,
-        walletType,
-      } = params;
-      const isMetadataValid = validateMetadata(metadata);
-      const collectionMeta = await this.getCollectionMeta(
-        accountInfo,
-        nftTokenAddress
-      );
+    const {
+      metadata,
+      accountInfo,
+      nftTokenAddress,
+      royaltyPercentage,
+      amount,
+      walletType,
+    } = params;
+    const isMetadataValid = validateMetadata(metadata);
+    const collectionMeta = await this.getCollectionMeta(
+      accountInfo,
+      nftTokenAddress
+    );
 
-      if (!isMetadataValid) return alert('Invalid Metadata');
-      if (!collectionMeta) return;
+    if (!isMetadataValid) return console.log('Invalid Metadata');
+    if (!collectionMeta) return;
 
-      const fee = await this.getNFTOffchainFeeAmt(accountInfo, collectionMeta);
+    const fee = await this.getNFTOffchainFeeAmt(accountInfo, collectionMeta);
 
-      const metadataCID = await pinJSONToIPFS(metadata);
+    const metadataCID = await pinJSONToIPFS(metadata);
 
-      const { exchangeInfo } = await this.exchangeAPI.getExchangeInfo();
+    const { exchangeInfo } = await this.exchangeAPI.getExchangeInfo();
 
-      const counterFactualNftInfo: NFTCounterFactualInfo = {
-        nftOwner: accountInfo.accInfo.owner,
-        nftFactory:
-          collectionMeta.nftFactory ??
-          sdk.NFTFactory_Collection[
-            Number(process.env.NEXT_PUBLIC_CHAIN_ID) as ChainId
-          ],
-        nftBaseUri: collectionMeta.baseUri,
-      };
+    const counterFactualNftInfo: NFTCounterFactualInfo = {
+      nftOwner: accountInfo.accInfo.owner,
+      nftFactory:
+        collectionMeta.nftFactory ??
+        sdk.NFTFactory_Collection[
+          Number(process.env.NEXT_PUBLIC_CHAIN_ID) as ChainId
+        ],
+      nftBaseUri: collectionMeta.baseUri,
+    };
 
-      const storageId = await this.userAPI.getNextStorageId(
-        {
-          accountId: accountInfo.accInfo.accountId,
-          sellTokenId: TOKEN_INFO.tokenMap['ETH'].tokenId,
-        },
-        accountInfo.apiKey
-      );
+    const storageId = await this.userAPI.getNextStorageId(
+      {
+        accountId: accountInfo.accInfo.accountId,
+        sellTokenId: TOKEN_INFO.tokenMap['ETH'].tokenId,
+      },
+      accountInfo.apiKey
+    );
 
-      const nftId = this.nftAPI.ipfsCid0ToNftID(metadataCID);
+    const nftId = this.nftAPI.ipfsCid0ToNftID(metadataCID);
 
-      const request = {
-        maxFee: {
-          tokenId: TOKEN_INFO.tokenMap['ETH'].tokenId,
-          amount: fee.fees['ETH'].fee,
-        },
-        exchange: exchangeInfo.exchangeAddress,
-        minterId: accountInfo.accInfo.accountId,
-        minterAddress: accountInfo.accInfo.owner,
-        toAccountId: accountInfo.accInfo.accountId,
-        toAddress: accountInfo.accInfo.owner,
-        tokenAddress: collectionMeta.contractAddress,
-        validUntil: getTimestampDaysLater(30),
-        storageId: storageId.offchainId,
-        counterFactualNftInfo,
-        forceToMint: false,
-        royaltyPercentage,
-        nftType: 0, // ERC1155
-        nftId,
-        amount,
-      };
+    const request = {
+      maxFee: {
+        tokenId: TOKEN_INFO.tokenMap['ETH'].tokenId,
+        amount: fee.fees['ETH'].fee,
+      },
+      exchange: exchangeInfo.exchangeAddress,
+      minterId: accountInfo.accInfo.accountId,
+      minterAddress: accountInfo.accInfo.owner,
+      toAccountId: accountInfo.accInfo.accountId,
+      toAddress: accountInfo.accInfo.owner,
+      tokenAddress: collectionMeta.contractAddress,
+      validUntil: getTimestampDaysLater(30),
+      storageId: storageId.offchainId,
+      counterFactualNftInfo,
+      forceToMint: false,
+      royaltyPercentage,
+      nftType: 0, // ERC1155
+      nftId,
+      amount,
+    };
 
-      const eddsaSignature = sdk.get_EddsaSig_NFT_Mint(
-        //@ts-ignore
-        { ...request },
-        accountInfo.eddsaKey.sk
-      );
+    const eddsaSignature = sdk.get_EddsaSig_NFT_Mint(
+      //@ts-ignore
+      { ...request },
+      accountInfo.eddsaKey.sk
+    );
 
-      const postData: MintNFTPostDataI = {
-        ...request,
-        creatorFeeBips: 0,
-        eddsaSignature: eddsaSignature.result,
-        royaltyAddress: collectionMeta.contractAddress,
-      };
+    const postData: MintNFTPostDataI = {
+      ...request,
+      creatorFeeBips: 0,
+      eddsaSignature: eddsaSignature.result,
+      royaltyAddress: collectionMeta.contractAddress,
+    };
 
-      const headers = {
-        'X-API-KEY': accountInfo.apiKey,
-      };
+    const headers = {
+      'X-API-KEY': accountInfo.apiKey,
+    };
 
-      const result = await axios.post(
-        `${process.env.NEXT_PUBLIC_LOOPRING_API_URL}/nft/mint`,
-        { ...postData },
-        { headers }
-      );
-      return result.data;
-    } catch (error) {
-      console.log(error);
-    }
+    const result = await axios.post(
+      `${process.env.NEXT_PUBLIC_LOOPRING_API_URL}/nft/mint`,
+      { ...postData },
+      { headers }
+    );
+    return result.data;
   }
 }

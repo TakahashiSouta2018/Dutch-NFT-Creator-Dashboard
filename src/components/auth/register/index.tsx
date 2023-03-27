@@ -1,44 +1,39 @@
 import React from 'react';
 import { Modal, ModalHead, ModalBody } from '@/common';
-import { Button, OutlineButton } from '@/common';
-import { TextInput } from '@/common';
-import VerifyModal from './Verify';
+import Verification from './ContentVerification';
+import Register from './ContentRegister';
 
-const RegisterHome = () => {
-  const [showVerifyModal, setShowVerifyModal] = React.useState(false);
+interface RegisterHomeProps {
+  onClose?: () => void;
+  isOpen: boolean;
+}
 
-  if (!showVerifyModal)
-    return (
-      <Modal>
-        <ModalHead
-          title={showVerifyModal ? 'Email Verification' : 'Register'}
-        />
-        <ModalBody>
-          <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-4">
-              <TextInput
-                type="email"
-                label="Email"
-                helper="All the transactional emails will be sent to the email you enter."
-                required
-              />
-              <TextInput label="Creator Name" />
-            </div>
-            <div className="flex justify-end gap-4">
-              <OutlineButton>Cancel</OutlineButton>
-              <Button
-                onClick={() => {
-                  setShowVerifyModal(true);
-                }}
-              >
-                Verify Email
-              </Button>
-            </div>
-          </div>
-        </ModalBody>
-      </Modal>
-    );
-  else return <VerifyModal />;
+const RegisterHome: React.FC<RegisterHomeProps> = ({
+  onClose,
+  isOpen
+}): JSX.Element => {
+  const [showVerification, setShowVerification] = React.useState(false);
+
+  return (
+    <Modal isOpen={isOpen}>
+      <ModalHead
+        title={showVerification ? 'Email Verification' : 'Register'}
+        onClose={onClose}
+      />
+      <ModalBody>
+        {showVerification ? (
+          <Verification />
+        ) : (
+          <Register
+            onClose={onClose}
+            onVerification={() => {
+              setShowVerification(true);
+            }}
+          />
+        )}
+      </ModalBody>
+    </Modal>
+  );
 };
 
 export default RegisterHome;

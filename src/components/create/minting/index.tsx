@@ -1,39 +1,33 @@
 import React, { useState } from 'react';
 
 import { Modal } from '@/common';
-import MintModalHead from './MintModalHead';
-import MintModalBody from './MintModalBody';
+import MintModalHead from './mint-modal-head';
+import MintModalBody from './mint-modal-body';
+import { useAppSelector } from '@/redux/store';
+import { shallowEqual } from 'react-redux';
 
 interface MintingModalProps {
-  onClose: () => void;
-  onBack: () => void;
+  className?: string;
 }
 
-const MintingModal: React.FC<MintingModalProps> = ({
-  onClose,
-  onBack,
-}): JSX.Element => {
+const MintingModal: React.FC<MintingModalProps> = ({ className }): JSX.Element => {
   const [isDepositFund, setDepositFund] = useState(false);
-  const [activeStep, setActiveStep] = useState(0);
+
+  const { mintModal } = useAppSelector((state) => {
+    const { mintModal } = state.createPageReducer;
+    return { mintModal };
+  }, shallowEqual);
 
   return (
-    <Modal>
+    <Modal isOpen={mintModal.isOpen} className={className}>
       <MintModalHead
         isDepositFund={isDepositFund}
-        activeStep={activeStep}
-        onClose={onClose}
-        onBack={onBack}
       />
       <MintModalBody
         isDepositFund={isDepositFund}
-        activeStep={activeStep}
         setDepositFund={() => {
           setDepositFund(!isDepositFund);
         }}
-        setActiveStep={(step: number) => {
-          setActiveStep(step);
-        }}
-        onClose={onClose}
       />
     </Modal>
   );

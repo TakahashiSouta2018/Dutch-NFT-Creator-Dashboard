@@ -14,24 +14,24 @@ type InputWrapperProps = {
 
 // components
 // --- Text Input
-export const InputWrapper = styled.div.attrs({
+export const InputWrapper = styled.div.attrs<{ className: string }>({
   className: 'flex flex-col space-y-1',
 })`
   ${(p: InputWrapperProps) => (p.disabled ? 'opacity: .3;' : '')}
 `;
 
-export const Input = styled.input.attrs({
+export const Input = styled.input.attrs<{ className: string }>({
   className:
-    'outline-none w-full inline-flex items-center justify-center h-9.5 border border-black/10 hover:border-black rounded-lg px-3 text-sm peer placeholder:text-black/70 focus:border-black dark:border-white/10 dark:bg-dark-surface dark:placeholder:text-white/70 transition disabled:pointer-events-none',
+    'outline-none w-full inline-flex items-center justify-center h-9.5 border border-black/10 hover:border-black rounded-lg px-3 text-sm peer placeholder:text-black/70 focus:border-black dark:border-white/10 dark:bg-white-surface dark:placeholder:text-white/70 transition disabled:pointer-events-none',
 })`
   ${(p: InputProps) => (p.hasIcon ? 'padding-right: 40px;' : '')}
 `;
 
-export const InputInner = styled.div.attrs({
+export const InputInner = styled.div.attrs<{ className: string }>({
   className: 'relative',
 })``;
 
-export const InputIconWrapper = styled.div.attrs({
+export const InputIconWrapper = styled.div.attrs<{ className: string }>({
   className:
     'absolute top-0 right-0 bottom-0 w-10 h-full inline-flex items-center justify-center',
 })``;
@@ -45,13 +45,13 @@ export const InputHelper = styled.label.attrs({
 })``;
 
 // --- Search Input
-export const SearchInputWrapper = styled.div.attrs({
-  className: 'relative w-full',
+export const SearchInputWrapper = styled.div.attrs<{ className: string }>({
+  className: 'relative w-full text-black',
 })``;
 
-export const SearchInput = styled.input.attrs({
+export const SearchInput = styled.input.attrs<{ className: string }>({
   className:
-    'outline-none w-full inline-flex items-center justify-center h-9.5 border border-black/10 rounded-lg px-10 text-sm peer hover:border-black placeholder:text-black/70 focus:border-black dark:border-white/10 dark:bg-dark-surface dark:placeholder:text-white/70 transition',
+    'outline-none inline-flex items-center justify-center h-9.5 border border-black/10 rounded-lg px-10 text-sm peer hover:border-black placeholder:text-black/70 focus:border-black dark:border-white/10 dark:text-white/70 dark:bg-dark-surface dark:placeholder:text-white/70 transition',
 })`
   ${(p: SearchInputProps) => !p.isShortCut && 'padding-right: 10px;'}
 `;

@@ -14,17 +14,18 @@ import {
   TBody,
   TR,
   TD,
-  TResizableHeader,
 } from '@/common';
 import { Guide } from '@/components/shared';
 import * as DutchC from './styles';
-import Breadcrumb from '../Breadcrumb';
+import Breadcrumb from '../../shared/Breadcrumb';
+import MintingModal from '../minting';
 
 // icons
 import * as Icons from '@/common/Icons';
 import useCollectionHook from '@/hooks/useCollectionHook';
 import FolderUpload from '@/common/Upload/FolderUpload';
 import { CSVMetadataI } from '@/types';
+import CollectionDropdown from '@/common/Dropdown/CollectionDropdown';
 
 const nfts = [
   {
@@ -58,13 +59,10 @@ const nfts = [
 ];
 
 const CreateBulkMintHome: React.FC = () => {
-  const { userCollection, collectionNames } = useCollectionHook();
   const { theme } = useTheme();
 
   const [open, setOpen] = useState(true);
   const [selectedCollectionAddress, setSelectedCollectionAddress] =
-    useState<string>('');
-  const [selectedCollectionName, setSelectedCollectionName] =
     useState<string>('');
   const [selectedImageFolder, setSelectedImageFolder] =
     useState<FileList | null>(null);
@@ -72,20 +70,14 @@ const CreateBulkMintHome: React.FC = () => {
     CSVMetadataI[]
   >([]);
 
-  useEffect(() => {
-    if (userCollection.length > 0) {
-      setSelectedCollectionName(collectionNames[0]);
-      setSelectedCollectionAddress(userCollection[0].collectionAddress);
-    }
-  }, []);
+  const [isMinting, setMinting] = useState(false);
 
   const toggleGuide = () => {
     setOpen((open) => !open);
   };
 
-  const handleSelectCollection = (value: string, index: number) => {
-    setSelectedCollectionName(value);
-    setSelectedCollectionAddress(userCollection[index].collectionAddress);
+  const handleClose = () => {
+    setMinting(false);
   };
 
   return (
@@ -99,12 +91,9 @@ const CreateBulkMintHome: React.FC = () => {
 
             {/* Collection Selector */}
             <DutchC.CreateBulkMintCollectionSelectWrapper>
-              <Dropdown
-                label="Collection"
-                value={selectedCollectionName}
-                options={collectionNames}
-                position="BL"
-                onSelect={handleSelectCollection}
+              <CollectionDropdown
+                selectedCollectionAddress={selectedCollectionAddress}
+                setSelectedCollectionAddress={setSelectedCollectionAddress}
               />
             </DutchC.CreateBulkMintCollectionSelectWrapper>
 
@@ -204,13 +193,25 @@ const CreateBulkMintHome: React.FC = () => {
 
             {/* Actions */}
             <DutchC.CreateBulkMintContentActions>
-              <Button>Mint all NFTs</Button>
+              <Button
+                onClick={() => {
+                  setMinting(true);
+                }}
+              >
+                Mint all NFTs
+              </Button>
               <Button>Save to Drafts</Button>
               <OutlineButton>Cancel</OutlineButton>
             </DutchC.CreateBulkMintContentActions>
           </DutchC.CreateBulkMintContentBody>
         </DutchC.CreateBulkMintContent>
       </DutchC.CreateBulkMintWrapper>
+
+      <MintingModal
+        onClose={handleClose}
+        openModal={isMinting}
+        className="!max-w-xl"
+      />
 
       <DutchC.GuideInfoIconWrapper onClick={toggleGuide}>
         <Icons.IInformationCircle

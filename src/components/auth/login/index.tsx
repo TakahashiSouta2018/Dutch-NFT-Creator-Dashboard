@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import Image from 'next/image';
 import { Modal, ModalHead, ModalBody } from '@/common';
 import useWalletHook from '@/hooks/useWalletHook';
 import { ConnectorNames } from '@loopring-web/loopring-sdk';
@@ -6,10 +7,7 @@ import { Button } from '@/common';
 import ConnectMetaMask from './ConnectMetaMask';
 import ConnectionError from './ConnectionError';
 
-import * as DutchC from './style';
-import { shallowEqual } from 'react-redux';
-import { useAppDispatch, useAppSelector } from '@/redux/store';
-import { setIsConnectionModalOpen } from '@/ducks';
+import * as DutchC from './styles';
 
 const LoginOptions = [
   {
@@ -26,55 +24,53 @@ const LoginOptions = [
   },
 ];
 
-const LoginHome = (): JSX.Element => {
+interface LoginHomeProps {
+  onClose?: () => void;
+}
+
+const LoginHome: React.FC<LoginHomeProps> = ({ onClose }): JSX.Element => {
+  const [loading, setLoading] = useState(false);
+  const [connectionError, setConnectionError] = useState(false);
   const { connectAccount } = useWalletHook();
-  const dispatch = useAppDispatch();
-
-  const { connectionError, isConnectionLoading, isConnectionModalOpen } =
-    useAppSelector((state) => {
-      const { connectionError, isConnectionLoading, isConnectionModalOpen } =
-        state.webAppReducer;
-      return { connectionError, isConnectionLoading, isConnectionModalOpen };
-    }, shallowEqual);
-
-  let renderContent = <></>;
-
-  if (connectionError) renderContent = <ConnectionError />;
-  else if (isConnectionLoading) renderContent = <ConnectMetaMask />;
-  else {
-    renderContent = (
-      <DutchC.LoginWrapper>
-        {LoginOptions.map((option, i) => {
-          return (
-            <DutchC.AccountWrapper key={i}>
-              <DutchC.Account>
-                <button onClick={() => connectAccount(option.name)}>
-                  <img src={option.imgUrl} alt={`${option.name}`} height="36" />
-                </button>
-                <DutchC.TextNormal>{option.name}</DutchC.TextNormal>
-              </DutchC.Account>
-              <Button onClick={() => connectAccount(option.name)}>
-                Connect
-              </Button>
-            </DutchC.AccountWrapper>
-          );
-        })}
-      </DutchC.LoginWrapper>
-    );
-  }
 
   return (
-    <>
-      {isConnectionModalOpen && (
-        <Modal>
-          <ModalHead
-            title={connectionError ? 'Connection Error' : 'Connect a Wallet'}
-            onClose={() => dispatch(setIsConnectionModalOpen(true))}
-          />
-          <ModalBody>{renderContent}</ModalBody>
-        </Modal>
-      )}
-    </>
+    <Modal>
+      <ModalHead
+        title={connectionError ? 'Connection Error' : 'Connect a Wallet'}
+        onClose={onClose}
+      />
+      <ModalBody>
+        {connectionError ? (
+          <ConnectionError />
+        ) : loading ? (
+          <ConnectMetaMask />
+        ) : (
+          <DutchC.LoginWrapper>
+            {LoginOptions.map((option, i) => {
+              return (
+                <DutchC.AccountWrapper key={i}>
+                  <DutchC.Account>
+                    <button
+                      onClick={() => connectAccount(ConnectorNames.MetaMask)}
+                    >
+                      <Image src={option.imgUrl} alt="MetaMask" height="36" width="36" />
+                    </button>
+                    <DutchC.TextNormal>{option.name}</DutchC.TextNormal>
+                  </DutchC.Account>
+                  <Button
+                    onClick={() => {
+                      setLoading(true);
+                    }}
+                  >
+                    Connect
+                  </Button>
+                </DutchC.AccountWrapper>
+              );
+            })}
+          </DutchC.LoginWrapper>
+        )}
+      </ModalBody>
+    </Modal>
   );
 };
 

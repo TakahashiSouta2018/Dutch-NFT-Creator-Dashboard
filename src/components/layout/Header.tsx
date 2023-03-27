@@ -1,7 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
-
+import LoginHome from '../auth/login';
+import RegisterHome from '../auth/register';
 // components
 import { SearchInput, IconButton, Badge, NavLink } from '@/common';
 import * as DutchC from './styles';
@@ -39,6 +40,7 @@ const Header: React.FC = () => {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isRegister, setRegister] = useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -52,6 +54,10 @@ const Header: React.FC = () => {
     dispatch(setIsConnectionModalOpen(true));
   };
 
+  const handleRegister = useCallback(() => {
+    setRegister(true);
+  }, [setRegister]);
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -62,6 +68,13 @@ const Header: React.FC = () => {
 
   return (
     <DutchC.HeaderWrapper>
+      <RegisterHome
+        isOpen={isRegister}
+        onClose={() => {
+          setRegister(false);
+        }}
+      />
+
       <DutchC.HeaderInner>
         <DutchC.Logo
           src={`/images/${theme === 'light' ? 'logo.svg' : 'logo-dark.svg'}`}
@@ -75,7 +88,7 @@ const Header: React.FC = () => {
             <NavLink
               key={menu.slug}
               href={menu.path}
-              active={PAGE_PATH === menu.slug ? 1 : 0}
+              active={PAGE_PATH === menu.slug ? true : false}
             >
               {menu.name}
               {menu.slug === 'marketplace' && (
@@ -98,7 +111,7 @@ const Header: React.FC = () => {
           />
           <IconButton icon="bell" />
           <IconButton icon="wallet" onClick={openConnectionModal} />
-          <IconButton icon="user" />
+          <IconButton icon="user" onClick={handleRegister} />
         </DutchC.RightActions>
       </DutchC.HeaderInner>
       <ConnectWallet />

@@ -9,13 +9,21 @@ import {
   OutlineButton,
   IconButton,
   SearchInput,
+  Button,
+  Switch,
 } from '@/common';
-import { Guide } from '@/components/shared';
-import * as DutchC from './styles';
+import { Guide, Breadcrumb } from '@/components/shared';
+import SyncNFTs from '@/components/shared/nft-management/SyncNFTs';
+import SortSelect from '@/common/Input/SortSelect';
+import { SideFilter } from '@/components/shared/nft-management';
+import NFTTabSwitch from './nft-tab-switch';
+import { NFTModal } from '@/components/shared/nft-management/nft-modal';
 
 // icons
 import * as Icons from '@/common/Icons';
-import SortSelect from '@/common/Input/SortSelect';
+
+import * as DutchC from './styles';
+import ShortcutContextMenu from '@/components/shared/shortcut-context-menu';
 
 type WIDEFILTER = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE' | 'BANK0X';
 
@@ -23,6 +31,64 @@ type WIDEFILTERTYPE = {
   label: string;
   slug: WIDEFILTER;
 };
+
+const nftList = [
+  {
+    sr: '001',
+    name: 'Red Onion',
+    collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
+    availableCount: 29,
+    mintCount: 1000,
+    burned: false,
+    nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c0b8',
+    selected: true,
+    img: '/images/rice.webp',
+  },
+  {
+    sr: '002',
+    name: 'Red Onion',
+    collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
+    availableCount: 29,
+    mintCount: 100,
+    burned: false,
+    nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c0b9',
+    selected: true,
+    img: '/images/rice.webp',
+  },
+  {
+    sr: '003',
+    name: 'Red Onion',
+    collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
+    availableCount: 29,
+    mintCount: 1000,
+    burned: false,
+    nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c010',
+    selected: true,
+    img: '/images/rice.webp',
+  },
+  {
+    sr: '004',
+    name: 'Red Onion',
+    collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
+    availableCount: 29,
+    mintCount: 10000,
+    burned: false,
+    nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c011',
+    selected: false,
+    img: '/images/rice.webp',
+  },
+  {
+    sr: '005',
+    name: 'Red Onion',
+    collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
+    availableCount: 29,
+    mintCount: 100,
+    burned: false,
+    nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c012',
+    selected: false,
+    img: '/images/rice.webp',
+  },
+];
 
 const wideFilters: WIDEFILTERTYPE[][] = [
   [
@@ -54,9 +120,13 @@ const wideFilters: WIDEFILTERTYPE[][] = [
 const NFTManagement: React.FC = () => {
   const { theme } = useTheme();
   const [open, setOpen] = useState(false);
+  const [openFilter, setOpenFilter] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [currentWideFilter, setCurrentWideFilter] = useState<WIDEFILTER>('ALL');
-  const [isSync, setSync] = useState(false);
+  const [tableListSwtich, setTableListSwitch] = useState(0);
+  const [isSynced, setSynced] = useState(false);
+  const [showSyncModal, setShowSyncModal] = useState(false);
+  const [showCreateListModal, setShowCreatListModal] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -69,17 +139,15 @@ const NFTManagement: React.FC = () => {
     setOpen((open) => !open);
   };
 
+  const toggleFilter = () => {
+    setOpenFilter(!openFilter);
+  };
+
   return (
     <DutchC.NFTManagementWrapper>
       <DutchC.NFTManagementContentWrapper>
         <DutchC.NFTManagementContent>
-          <DutchC.NFTManagementContentHeader>
-            <Icons.IHome variant="solid" size="medium" color="dark-gray" />
-            <DutchC.NFTManagementDot />
-            <DutchC.NFTManagementContentHeaderLabel>
-              NFT Management
-            </DutchC.NFTManagementContentHeaderLabel>
-          </DutchC.NFTManagementContentHeader>
+          <Breadcrumb />
 
           <DutchC.NFTManagementContentBody>
             {/* Top Toolbar */}
@@ -94,6 +162,8 @@ const NFTManagement: React.FC = () => {
                         active={tab.slug === currentWideFilter}
                         onClick={(slug) => {
                           setCurrentWideFilter(slug);
+                          setTableListSwitch(0);
+                          setShowSyncModal(false);
                         }}
                         slug={tab.slug}
                       >
@@ -109,17 +179,104 @@ const NFTManagement: React.FC = () => {
               </OutlineButton>
             </DutchC.NFTManagementTopTool>
             {/* Sub Toolbar */}
-            <DutchC.NFTManagementSubTool>
-              {/* left */}
-              <DutchC.NFTManagementSubToolLeft>
-                <IconButton icon="funnel" rounded />
-                <SearchInput placeholder="NFT name or id" />
-                <SortSelect />
-              </DutchC.NFTManagementSubToolLeft>
+            {/* left */}
+            <DutchC.NFTManagementContentBodyInner>
+              <SideFilter
+                openFilter={openFilter}
+                onFilter={() => {
+                  setOpenFilter(false);
+                }}
+              />
+              <DutchC.NFTManagementContentBodyInnerContainer>
+                <DutchC.NFTManagementSubTool>
+                  <DutchC.NFTManagementSubToolLeft>
+                    <IconButton icon="funnel" rounded onClick={toggleFilter} />
+                    <SearchInput placeholder="NFT name or id" />
+                    <SortSelect />
+                    {(currentWideFilter === 'ALL' ||
+                      currentWideFilter === 'LIST') && (
+                      <Switch
+                        leftIcon="squares2X2"
+                        rightIcon="bars3"
+                        currentSwitch={tableListSwtich}
+                        onSwitch={(status: number) => {
+                          setTableListSwitch(status);
+                        }}
+                      />
+                    )}
+                  </DutchC.NFTManagementSubToolLeft>
+                  <DutchC.NFTManagementSubToolRight>
+                    {(currentWideFilter === 'ALL' ||
+                      currentWideFilter === 'ARCHIVE') && (
+                      <ShortcutContextMenu
+                        position="BR"
+                        options={[
+                          'Find Holders',
+                          'Show Sales',
+                          'Move to Achieves',
+                        ]}
+                      />
+                    )}
 
-              {/* right */}
-              <DutchC.NFTManagementSubToolRight></DutchC.NFTManagementSubToolRight>
-            </DutchC.NFTManagementSubTool>
+                    {(currentWideFilter === 'ALL' ||
+                      currentWideFilter === 'LIST' ||
+                      currentWideFilter === 'ARCHIVE') && (
+                      <Button
+                        className="bg-black/90 text-opacity-100 text-bold"
+                        disabled={isSynced ? false : true}
+                        leftIcon={
+                          currentWideFilter === 'LIST' ? 'plus' : undefined
+                        }
+                        onClick={() => {
+                          setShowCreatListModal(true);
+                        }}
+                      >
+                        {currentWideFilter === 'ARCHIVE'
+                          ? 'Recover'
+                          : currentWideFilter === 'LIST'
+                          ? 'Create a List'
+                          : 'Add to List'}
+                      </Button>
+                    )}
+                  </DutchC.NFTManagementSubToolRight>
+                </DutchC.NFTManagementSubTool>
+
+                {currentWideFilter === 'LIST' && (
+                  <NFTModal
+                    onClose={() => {
+                      setShowCreatListModal(false);
+                    }}
+                    lists={nftList}
+                    currentTab={currentWideFilter}
+                    showSyncModal={showCreateListModal}
+                  />
+                )}
+
+                {isSynced ? (
+                  <NFTTabSwitch
+                    currentTab={currentWideFilter}
+                    tableListSwtich={tableListSwtich}
+                    nftList={nftList}
+                    onShowListModal={() => {
+                      setShowCreatListModal(true);
+                    }}
+                  />
+                ) : (
+                  <SyncNFTs
+                    setSynced={(flag) => {
+                      setSynced(flag);
+                    }}
+                    showSyncModal={showSyncModal}
+                    setShowSyncModal={(flag) => {
+                      setShowSyncModal(flag);
+                    }}
+                    nftList={nftList}
+                  />
+                )}
+              </DutchC.NFTManagementContentBodyInnerContainer>
+            </DutchC.NFTManagementContentBodyInner>
+
+            {/* sync_nft_table */}
           </DutchC.NFTManagementContentBody>
         </DutchC.NFTManagementContent>
       </DutchC.NFTManagementContentWrapper>

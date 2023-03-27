@@ -101,3 +101,17 @@ export interface DeleteDraftNFTRequestI {
   id: number;
   ownerAddress: string;
 }
+
+export enum MintStatusEnum {
+  QUEUED = 'QUEUED',
+  MINTING = 'MINTING',
+  SUCCESS = 'SUCCESS',
+  FAILED = 'FAILED'
+}
+
+export interface MintingNftsI {
+  id: number;
+  media: string;
+  name: string;
+  status: MintStatusEnum;
+}

@@ -6,6 +6,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 import thunk from 'redux-thunk';
 import { combineReducers } from 'redux';
 import webAppReducer from '@/ducks';
+import createPageReducer from '@/components/create/ducks';
 
 const webAppPersistConfig = {
   key: 'webAppReducer',
@@ -13,8 +14,15 @@ const webAppPersistConfig = {
   // blacklist: ['isLoggedIn']
 };
 
+const createPagePersistConfig = {
+  key: 'createPageReducer',
+  storage: storageSession,
+  blacklist: ['draftNFTs', 'mintModal']
+};
+
 const rootReducer = combineReducers({
   webAppReducer: persistReducer(webAppPersistConfig, webAppReducer),
+  createPageReducer: persistReducer(createPagePersistConfig, createPageReducer),
 });
 
 const store = configureStore({

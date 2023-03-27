@@ -1,0 +1,607 @@
+[33mcommit 1a5b70b470501f1218cea1defceaa71cc4a548cb[m[33m ([m[1;36mHEAD -> [m[1;32mdev[m[33m)[m
+Merge: 4f0b042 df14524
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Wed Mar 22 20:21:54 2023 +0100
+
+    Merge branch 'dev' of github-dutch0x:DUTCH0x/creator-dashboard-frontend into dev
+
+[33mcommit 4f0b0422b168ae32314c409097946892ebdb5c50[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Wed Mar 22 20:21:44 2023 +0100
+
+    fix: nft-management NFT modal structure
+
+[33mcommit df14524f5d3b7e20bb8550d2e4e3117accae566a[m[33m ([m[1;31morigin/dev[m[33m)[m
+Merge: c10892c 8e4a823
+Author: Louis <120797393+badlouis@users.noreply.github.com>
+Date:   Wed Mar 22 20:57:57 2023 +0200
+
+    Merge pull request #34 from DUTCH0x/feat-issue-33-25
+    
+    feat: nft-bank0x, nft-collections, nft-archives
+
+[33mcommit c10892cc2a40db78d3b5383e84f80757a8918fda[m
+Merge: 024d9a7 5209d8d
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Wed Mar 22 19:47:04 2023 +0100
+
+    Merge branch 'dev' of github-dutch0x:DUTCH0x/creator-dashboard-frontend into dev
+
+[33mcommit 8e4a8234f506cbd86313dd86090ec02fda759ed3[m[33m ([m[1;31morigin/feat-issue-33-25[m[33m)[m
+Author: Louis <dreammyownfirm@gmail.com>
+Date:   Wed Mar 22 20:46:38 2023 +0200
+
+    feat: nft-bank0x, nft-collections, nft-archives
+
+[33mcommit 024d9a76440e03eee750d552e46df61accf216e2[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Wed Mar 22 19:40:13 2023 +0100
+
+    add: nft management table modal
+
+[33mcommit 5209d8d50d22654ae719b7ab318afeea3508cb24[m
+Merge: 19ad305 305f72c
+Author: Louis <120797393+badlouis@users.noreply.github.com>
+Date:   Wed Mar 22 08:04:27 2023 +0200
+
+    Merge pull request #29 from DUTCH0x/feature-nft-card
+    
+    Feature nft card
+
+[33mcommit 305f72c0b306a401b24ea7906aa0cee1e97150b4[m[33m ([m[1;31morigin/feature-nft-card[m[33m)[m
+Author: Louis <dreammyownfirm@gmail.com>
+Date:   Wed Mar 22 07:52:54 2023 +0200
+
+    feat: nft-card, nft-collection-card
+
+[33mcommit 9359c75296a7ad7ea4ed989efaa312d4ba2bad47[m
+Author: Louis <dreammyownfirm@gmail.com>
+Date:   Wed Mar 22 07:46:31 2023 +0200
+
+    feat:  copy-nft-id, shortcut-context-menu
+
+[33mcommit 40a7ff4dd6d441f68ef336a132f718ca1efefb97[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Tue Mar 21 16:35:07 2023 -0400
+
+    add: filter component in nft management
+
+[33mcommit 19ad30507c988ce86548ce6414146b6475e7e9a8[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Tue Mar 21 10:38:22 2023 +0100
+
+    fix: complete create and login/register
+
+[33mcommit b7c84fad2a918ae1299b4674b58f624384d9754f[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Tue Mar 21 10:37:17 2023 +0100
+
+    fix: login/register modals
+
+[33mcommit 4cb24b3ac1592cc545a057de4748c035c498d379[m
+Merge: eaff422 cda2b0f
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Mon Mar 20 00:48:57 2023 +0100
+
+    Merge branch 'dev' of github-dutch0x:DUTCH0x/creator-dashboard-frontend into dev
+
+[33mcommit eaff422f9a75f95130b5d24e8431949e77b279a5[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Sun Mar 19 18:22:06 2023 +0100
+
+    feat: Tab & SortSelect in nft-management
+
+[33mcommit cda2b0f655e15e36a8cc897c97e33a2638f6772e[m
+Merge: d5b0a9d 14376b6
+Author: Louis <120797393+badlouis@users.noreply.github.com>
+Date:   Sun Mar 19 19:04:23 2023 +0200
+
+    Merge pull request #24 from DUTCH0x/feature-issue-21
+    
+    Feature issue 21
+
+[33mcommit 14376b604c1d7bc4a003be3cdb219707bb0cbd95[m
+Merge: 659d5f2 a4da708
+Author: Louis <dreammyownfirm@gmail.com>
+Date:   Sun Mar 19 18:59:29 2023 +0200
+
+    Merge branch 'feature-issue-21' of github.com-dream:DUTCH0x/creator-dashboard-frontend into feature-issue-21
+
+[33mcommit 659d5f2026ba24814f0d38159798819317cb3851[m
+Author: Louis <dreammyownfirm@gmail.com>
+Date:   Sun Mar 19 18:58:21 2023 +0200
+
+    fix: switch component
+
+[33mcommit dfaf1e9df25ed25f7a99edb71b5a73f851dfd182[m
+Author: Louis <dreammyownfirm@gmail.com>
+Date:   Sun Mar 19 18:55:31 2023 +0200
+
+    Merge branch 'dev' of github.com-dream:DUTCH0x/creator-dashboard-frontend into feature-issue-21
+
+[33mcommit d5b0a9d2f281a86d7838e40baab7a5ff872d8cdd[m
+Merge: 554ecb8 a4da708
+Author: Louis <120797393+badlouis@users.noreply.github.com>
+Date:   Sun Mar 19 17:33:24 2023 +0200
+
+    Merge pull request #23 from DUTCH0x/feature-issue-21
+    
+    feat: add Switch component
+
+[33mcommit a4da70822f193a0144984b1e358c212a809642e8[m
+Merge: 318fc67 554ecb8
+Author: Louis <dreammyownfirm@gmail.com>
+Date:   Sun Mar 19 17:29:30 2023 +0200
+
+    Merge branch 'dev' of github.com-dream:DUTCH0x/creator-dashboard-frontend into feature-issue-21
+
+[33mcommit 318fc679938b4eca6528289ff030162a7dd59309[m
+Author: Louis <dreammyownfirm@gmail.com>
+Date:   Sun Mar 19 17:04:41 2023 +0200
+
+    feat: add Switch component
+
+[33mcommit 554ecb8ba8a9dd31ec21c6a67eead699a48afd8f[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Sun Mar 19 15:24:13 2023 +0100
+
+    fix: dark mode in Minting modals
+
+[33mcommit 3f22027a5fe9e4c42b6214f11333989c41af0223[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Sun Mar 19 05:58:00 2023 +0100
+
+    fix: warnings
+
+[33mcommit 610cd6899a86fb527ce04b13e0dc333d79129702[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Sat Mar 18 23:20:23 2023 +0100
+
+    fix: login & signup modal header
+
+[33mcommit b0174bee531c0cee556099ffe2d6d51b557b2c20[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Sat Mar 18 23:14:51 2023 +0100
+
+    fix: remove some unnecessary files
+
+[33mcommit 1b057d75632506e327be2c32a0748411b975c175[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Sat Mar 18 22:40:29 2023 +0100
+
+    fix: dashboard
+
+[33mcommit 62e5386384d2962877f82e6664e8a96703e0de36[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Fri Mar 17 19:10:49 2023 +0100
+
+    feat: add register
+
+[33mcommit 16f7c61726cc902e1960ac84be2639efbe0d282a[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Fri Mar 17 19:09:49 2023 +0100
+
+    feat: add login
+
+[33mcommit 4e93c2eb7a3609a15fc5b857c9bac3c10a1d2c60[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Fri Mar 17 16:59:25 2023 +0100
+
+    feat: add mint-fee-modal
+
+[33mcommit eb9a404fd570762219270e9aef3fca6460eeeefe[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Wed Mar 15 22:13:57 2023 +0100
+
+    feat: add stepper
+
+[33mcommit 1e25017f66876a3dab2cf1ec3e6313e37c3b1ed4[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Tue Mar 14 18:55:04 2023 +0100
+
+    fix: wip modal
+
+[33mcommit fb38060e07eaa11f75110e6e08e858b142da6dfd[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Tue Mar 14 17:15:32 2023 +0100
+
+    feat: add nft card
+
+[33mcommit 36520944ac3e2e9ccc5e6896fcefb3cae72e9fc0[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Tue Mar 14 15:18:25 2023 +0100
+
+    feat: add table component
+
+[33mcommit 4dc681b66f7544527c26dcefe34c328d6e8d3e08[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Mon Mar 13 18:14:47 2023 +0100
+
+    fix: smaill style issues on multi and implement csv functionality
+
+[33mcommit 98f0d2a448ac7ad788813d7c9c1077a066e761bc[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Mon Mar 13 17:50:14 2023 +0100
+
+    feat: add multi media component functionality
+
+[33mcommit ff41cd789a71436996edaf7573bcd898d1fce69e[m
+Merge: 46c2652 c244da8
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Mon Mar 13 10:24:53 2023 +0100
+
+    Merge branch 'dev' of github.com:DUTCH0x/creator-dashboard-frontend into dev
+
+[33mcommit 46c265273c0cf8c96976a71140bac574b6665f79[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Fri Mar 10 17:07:42 2023 +0100
+
+    feat: finish bulk mint basically
+
+[33mcommit c244da89f266fe2942759986f0bc9945994fc0bf[m
+Merge: e3836ab 3f90992
+Author: Peter Munachi <55113665+petermunachi@users.noreply.github.com>
+Date:   Fri Mar 10 13:48:21 2023 +0100
+
+    Merge pull request #16 from DUTCH0x/feature-issue-17-pm
+    
+    Feature issue 17 pm
+
+[33mcommit 3f90992cd9cbcb623031abf6edf7caae66f89166[m[33m ([m[1;31morigin/feature-issue-17-pm[m[33m)[m
+Author: Muna <alimunachipeter@gmail.com>
+Date:   Fri Mar 10 13:46:08 2023 +0100
+
+    feat: draft nft
+
+[33mcommit 859e59c25268dc1728bad780a0861b045dfc1ca5[m
+Author: Muna <alimunachipeter@gmail.com>
+Date:   Fri Mar 10 13:45:45 2023 +0100
+
+    feat: draft nft
+
+[33mcommit e3836abe54a4725088cb93486aeddb661bcdec8a[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Thu Mar 9 19:57:46 2023 +0100
+
+    feat: wip nft bulk mint
+
+[33mcommit 01bce4ed14a668e9586bf3672bacca50ac6408e3[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Thu Mar 9 19:06:10 2023 +0100
+
+    fix: implement upload media features(should fix for gif)
+
+[33mcommit 8856bf2c8fba2d630b5f0c5c910746329fb289e8[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Thu Mar 9 17:57:03 2023 +0100
+
+    feat: add outline button and something done in draft nft
+
+[33mcommit ee79b89938d7d3767b5864d70fa91cba159b936f[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Thu Mar 9 17:24:03 2023 +0100
+
+    fix: button style and add NFTProperty component
+
+[33mcommit 465fdb043246e5feb028ed9060435beb2676fb9b[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Wed Mar 8 17:56:57 2023 +0100
+
+    feat: wip draft nft
+
+[33mcommit b56d74187fba16f946d1ccdbf4fc531afeb39500[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Wed Mar 8 17:11:05 2023 +0100
+
+    fix: dark style over the components
+
+[33mcommit 3d6a73546531efcd45745d0eb967c618ee106072[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Wed Mar 8 15:47:59 2023 +0100
+
+    fix: revamp a with link component of next app in breadcrumb
+
+[33mcommit b55acd9960df14bad18393e44924fdd97e30292a[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Wed Mar 8 15:45:01 2023 +0100
+
+    feat: finish create collection page
+
+[33mcommit 41ed84ca77f53cfd4094f066167aba4d7c5dcce8[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Wed Mar 8 15:11:15 2023 +0100
+
+    fix: fix some style issues on text input  component
+
+[33mcommit 5674062856f2f98e12670d8dfe7994b44c8cbf17[m
+Merge: d84ed9b 1294a73
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Tue Mar 7 18:35:05 2023 +0100
+
+    Merge branch 'dev' of github.com:DUTCH0x/creator-dashboard-frontend into dev
+
+[33mcommit d84ed9bf725b0377680aaf8fbcf3227469e8fd2a[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Tue Mar 7 18:34:13 2023 +0100
+
+    fix: guide open prop of nft-management, should fix later
+
+[33mcommit 399bfcb87b515bfd953ab8384c8bc5103b0f87a1[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Tue Mar 7 18:32:39 2023 +0100
+
+    style: media upload component and create collection page
+
+[33mcommit e31645259cf891eed69d7ed1637f27f1665b7ebf[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Tue Mar 7 17:13:38 2023 +0100
+
+    fix: breadcrumb link style
+
+[33mcommit 0de4b4ef4f89132d9bc297ce1373d679803db04c[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Tue Mar 7 16:40:47 2023 +0100
+
+    fix: guide transition
+
+[33mcommit 1294a7385854bb97016ea9b416564b6184ce0e15[m
+Merge: b026c02 8fb237c
+Author: Peter Munachi <55113665+petermunachi@users.noreply.github.com>
+Date:   Tue Mar 7 12:26:26 2023 +0100
+
+    Merge pull request #15 from DUTCH0x/feature-issue-12-pm
+    
+    feat: bulk mintng
+
+[33mcommit 8fb237c694a0139f4e64d7ca992c61931ff710ac[m[33m ([m[1;31morigin/feature-issue-12-pm[m[33m)[m
+Author: Muna <alimunachipeter@gmail.com>
+Date:   Tue Mar 7 12:25:25 2023 +0100
+
+    feat: bulk mintng
+
+[33mcommit b026c022c4590a1722f6faece62fc87c36c0c22b[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Mon Mar 6 20:15:58 2023 +0100
+
+    feat: finish create home page
+
+[33mcommit 91dc3318b760a05ed32f1907b05be69efd833fcc[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Mon Mar 6 20:07:45 2023 +0100
+
+    feat: add dropdown component
+
+[33mcommit b5073f959157d29b33346e72d95025fa819413d4[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Mon Mar 6 15:32:20 2023 +0100
+
+    feat: add breadcrumb for create page
+
+[33mcommit b45711005d746c43a051fbed4d7e350ad03c6801[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Mon Mar 6 13:37:29 2023 +0100
+
+    fix: revamp guide component
+
+[33mcommit 6e660a99eb393d9b36efb60add537f71ede2da9c[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Mon Mar 6 10:38:09 2023 +0100
+
+    fix: quote issue
+
+[33mcommit 9e7d434ea72b873853edd089101fe1e9b950ed2e[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Mon Mar 6 10:37:06 2023 +0100
+
+    fix: redux provider wrapper issue
+
+[33mcommit 7e6dee03a6188f340464c3fff26a892693fe4785[m
+Merge: 7334be7 3585ee1
+Author: hardcommitoneself <104041595+hardcommitoneself@users.noreply.github.com>
+Date:   Mon Mar 6 10:22:41 2023 +0100
+
+    Merge pull request #14 from DUTCH0x/6-nft-management
+    
+    WIP: 6 nft management
+
+[33mcommit 3585ee1b5386bf471486779b3159973938130244[m[33m ([m[1;31morigin/6-nft-management[m[33m)[m
+Merge: 166b31e 7334be7
+Author: hardcommitoneself <104041595+hardcommitoneself@users.noreply.github.com>
+Date:   Mon Mar 6 10:22:32 2023 +0100
+
+    Merge branch 'dev' into 6-nft-management
+
+[33mcommit 166b31ef55498163e054906fb0fc1783dc44a632[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Mon Mar 6 10:04:26 2023 +0100
+
+    wip: NFT Management
+
+[33mcommit 7334be7e324f7417199fe092748b86dc4c187c9a[m
+Merge: 1403346 f81833d
+Author: Peter Munachi <55113665+petermunachi@users.noreply.github.com>
+Date:   Sun Mar 5 15:33:28 2023 +0100
+
+    Merge pull request #13 from DUTCH0x/feature-issue-12-pm
+    
+    feat: bulk minting
+
+[33mcommit f81833d5b799b5405a73bb3d87e969115f0ca432[m
+Author: Muna <alimunachipeter@gmail.com>
+Date:   Sun Mar 5 15:32:20 2023 +0100
+
+    feat: bulk minting
+
+[33mcommit 14033464cc156e955851899a48f0dc7b314ee253[m
+Merge: 9ca5b91 8ff56e3
+Author: Peter Munachi <55113665+petermunachi@users.noreply.github.com>
+Date:   Sun Mar 5 01:45:00 2023 +0100
+
+    Merge pull request #11 from DUTCH0x/feature-issue-10-pm
+    
+    feat: mint single nft
+
+[33mcommit 8ff56e3aeb195a1b7e4f13d6dc395ca8c6454b3f[m[33m ([m[1;31morigin/feature-issue-10-pm[m[33m)[m
+Author: Muna <alimunachipeter@gmail.com>
+Date:   Sun Mar 5 01:42:59 2023 +0100
+
+    feat: mint single nft
+
+[33mcommit 9ca5b9135825576d4811baeb07fdf1477de35c07[m[33m ([m[1;31morigin/master[m[33m)[m
+Merge: b7c7d51 03aa92e
+Author: Peter Munachi <55113665+petermunachi@users.noreply.github.com>
+Date:   Sat Mar 4 20:14:28 2023 +0100
+
+    Merge pull request #9 from DUTCH0x/feature-issue-1&8-pm
+    
+    feat: adding create collection and dev setup
+
+[33mcommit 03aa92e73a0168f470f524912001c08fe1124f8a[m[33m ([m[1;31morigin/feature-issue-1&8-pm[m[33m)[m
+Author: Muna <alimunachipeter@gmail.com>
+Date:   Sat Mar 4 20:10:20 2023 +0100
+
+    feat: adding create collection and dev setup
+
+[33mcommit 8b58e4e49a427feb6e76eaf6f1821c625d245e36[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Fri Mar 3 17:40:42 2023 +0100
+
+    wip: NFT management
+
+[33mcommit aad1bcd4e4d0965ff306c5bc97ba6fc2093b663f[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Fri Mar 3 17:40:26 2023 +0100
+
+    feat: add Button and fix some style issues on core components
+
+[33mcommit a9314215cdd44696c9b8e78b86bb2ba02a7610da[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Fri Mar 3 16:03:42 2023 +0100
+
+    feat: add Tab component and fix transition styles
+
+[33mcommit 494f96e66911289639c6bb9b1c6412ebb472c5d9[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Thu Mar 2 17:04:25 2023 +0100
+
+    feat: add NFT Management helper
+
+[33mcommit b74187e99c820470a4fb5cd44cc203fe7a159215[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Thu Mar 2 16:36:33 2023 +0100
+
+    fix: almost styles of prev components and pages for dark mode
+
+[33mcommit 3898fbbee08ba82a9632a643e210b3a511687b76[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Thu Mar 2 16:03:30 2023 +0100
+
+    fix: add onClick callback to IconButton
+
+[33mcommit 7fcf4ea2f661f82653a270470dacd9144cce4779[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Thu Mar 2 16:03:15 2023 +0100
+
+    feat: add darl/light funtionality
+
+[33mcommit b7c7d518981e489d852964ff35276b8ea6bf5310[m
+Merge: 1296244 2e34af1
+Author: hardcommitoneself <104041595+hardcommitoneself@users.noreply.github.com>
+Date:   Thu Mar 2 13:46:47 2023 +0100
+
+    Merge pull request #5 from DUTCH0x/4-complete-layout
+    
+    4 complete layout
+
+[33mcommit 2e34af14a1f92725f67d44e460caa40cc33df787[m[33m ([m[1;31morigin/4-complete-layout[m[33m)[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Wed Mar 1 17:50:09 2023 +0100
+
+    feat: add Link and SubNav bar
+
+[33mcommit 8bd6eed2089d58e94035f63c44bffb9bf23cd5a1[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Wed Mar 1 17:23:46 2023 +0100
+
+    fix: add NavLink and revamp the component
+
+[33mcommit 083ea49ab3f81c9eac02a3e86e719424f28dccfe[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Wed Mar 1 15:37:41 2023 +0100
+
+    feat: finish header
+
+[33mcommit cfc1eb4e8284fa8afa543bcf4fee186713bfaac0[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Wed Mar 1 15:36:58 2023 +0100
+
+    feat: add Badge and fix some style issues on other components
+
+[33mcommit 8c54517bc5b5835678d0551ec71690a49cb0dbbf[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Tue Feb 28 17:33:08 2023 +0100
+
+    feat: add IconButton and fix something
+
+[33mcommit a250b72bf41dd14c663059b4ad3028f9b2f1e88a[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Tue Feb 28 16:31:38 2023 +0100
+
+    feat: add search input and ISearch icon
+
+[33mcommit e2170598408bf5a0256f5428294ea8cf1eea417b[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Tue Feb 28 13:40:01 2023 +0100
+
+    wip: header and basic layout
+
+[33mcommit 548ce4cea3af2e7a39b16044cfb3f9de5a947067[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Tue Feb 28 13:30:25 2023 +0100
+
+    config: enable styled-components SWC transform
+
+[33mcommit beca7ee93f02e8cab34092213d6a0c8b351193ce[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Tue Feb 28 10:23:40 2023 +0100
+
+    fix: update entry point and set Satosh font as default
+
+[33mcommit 129624468dee2b8fc728c406cdb52ad93e1b55cd[m
+Merge: ba2b54e 09e1193
+Author: hardcommitoneself <104041595+hardcommitoneself@users.noreply.github.com>
+Date:   Mon Feb 27 10:57:06 2023 -0500
+
+    Merge pull request #3 from DUTCH0x/1-project-setup
+    
+    [Draft] 1 project setup
+
+[33mcommit 09e119379aa6c53079e64b1f42010a520cb9d8da[m[33m ([m[1;31morigin/1-project-setup[m[33m)[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Mon Feb 27 16:14:12 2023 +0100
+
+    feat: setup styled-components
+
+[33mcommit 47d6eddb14796d085e799af1941f25be848fe0ae[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Mon Feb 27 16:12:16 2023 +0100
+
+    feat: add satoshi font
+
+[33mcommit 3f2c30abf84cfbf35ae9075a4b83a3d7da6df2c6[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Mon Feb 27 16:09:39 2023 +0100
+
+    feat: setup tailwind css
+
+[33mcommit ba2b54e5a0ec5f315313acfeacbcf43f69fc6bbb[m
+Author: hardcommitoneself <104041595+hardcommitoneself@users.noreply.github.com>
+Date:   Mon Feb 27 15:48:21 2023 +0100
+
+    fix: updated readme
+
+[33mcommit 06305c802aea1c0aa0e2b2fbf3043b4282740169[m
+Author: hardcommitoneself <hardcommitoneself@gmail.com>
+Date:   Mon Feb 27 15:46:02 2023 +0100
+
+    init commit

@@ -1,4 +1,5 @@
 import { Modal, ModalHead, ModalBody } from '@/common';
+import Image from 'next/image';
 import useWalletHook from '@/hooks/useWalletHook';
 import { ConnectorNames } from '@loopring-web/loopring-sdk';
 import { Button } from '@/common';
@@ -42,6 +43,9 @@ const ConnectWallet = (): JSX.Element => {
 
   let renderContent = <></>;
 
+  console.log({ connectionError });
+  
+
   if (connectionError) renderContent = <ConnectionError />;
   else if (isConnectionLoading) renderContent = <ConnectMetaMask />;
   else {
@@ -52,7 +56,7 @@ const ConnectWallet = (): JSX.Element => {
             <DutchC.AccountWrapper key={i}>
               <DutchC.Account>
                 <button onClick={() => connectAccount(option.name)}>
-                  <img src={option.imgUrl} alt={`${option.name}`} height="36" />
+                  <Image src={option.imgUrl} alt="MetaMask" height="36" width="36" />
                 </button>
                 <DutchC.TextNormal>{option.name}</DutchC.TextNormal>
               </DutchC.Account>
@@ -68,15 +72,13 @@ const ConnectWallet = (): JSX.Element => {
 
   return (
     <>
-      {isConnectionModalOpen && (
-        <Modal>
-          <ModalHead
-            title={connectionError ? 'Connection Error' : 'Connect a Wallet'}
-            onClose={closeConnectionModal}
-          />
-          <ModalBody>{renderContent}</ModalBody>
-        </Modal>
-      )}
+      <Modal isOpen={isConnectionModalOpen}>
+        <ModalHead
+          title={connectionError ? 'Connection Error' : 'Connect a Wallet'}
+          onClose={closeConnectionModal}
+        />
+        <ModalBody>{renderContent}</ModalBody>
+      </Modal>
     </>
   );
 };

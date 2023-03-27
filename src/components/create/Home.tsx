@@ -5,19 +5,20 @@ import { useTheme } from 'next-themes';
 
 // components
 import { Dropdown, Button, SearchInput } from '@/common';
-import { Guide } from '@/components/shared';
+import { Guide, Breadcrumb } from '@/components/shared';
 import * as DutchC from './styles';
-import Breadcrumb from './Breadcrumb';
 
 // icons
 import * as Icons from '@/common/Icons';
 import MintingModal from './minting';
-import useCollectionHook from '@/hooks/useCollectionHook';
 import useNFTHook from '@/hooks/useNFTHook';
 import { DraftNFTResponseI } from '@/types';
-import { LoopringService } from '@/lib/LoopringService';
-import { useAppSelector } from '@/redux/store';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
+import CollectionDropdown from '@/common/Dropdown/CollectionDropdown';
+import { getIpfsHttpUrl } from '@/lib/pinata';
+import { setDraftNFTs, setMintModalIsOpen } from './ducks';
+import { useRouter } from 'next/router';
 
 type DraftNFTProps = DraftNFTResponseI & {
   onSelect: () => void;
@@ -25,108 +26,52 @@ type DraftNFTProps = DraftNFTResponseI & {
 
 const CreateHome: React.FC = () => {
   const { theme } = useTheme();
-  const { userCollection, collectionNames } = useCollectionHook();
   const { getCollectionDraftNFT } = useNFTHook();
-
-  const loopringService = new LoopringService();
 
   const [selectedCollectionAddress, setSelectedCollectionAddress] =
     useState<string>('');
-  const [selectedCollectionName, setSelectedCollectionName] =
-    useState<string>('');
-
   const [open, setOpen] = useState(true);
-  const [openMintModal, setOpenMintModal] = useState(false);
-  const [draftNFTs, setDraftNFTs] = useState<DraftNFTResponseI[]>([]);
 
-  const { accountInfo } = useAppSelector((state) => {
-    const { accountInfo } = state.webAppReducer;
-    return { accountInfo };
+  const { draftNFTs } = useAppSelector((state) => {
+    const { draftNFTs } = state.createPageReducer;
+    return { draftNFTs };
   }, shallowEqual);
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     (async () => {
       if (selectedCollectionAddress) {
         const nft = await getCollectionDraftNFT(selectedCollectionAddress);
         if (nft) {
-          setDraftNFTs(nft);
+          dispatch(setDraftNFTs(nft));
         }
       }
     })();
   }, [selectedCollectionAddress]);
 
-  const onNFTSelect = useCallback(
-    (id: number) => {
-      const index = draftNFTs.findIndex((nft) => nft.id === id);
-      const nft = draftNFTs.find((nft) => nft.id === id);
-      if (nft) {
-        setDraftNFTs([
-          ...draftNFTs.slice(0, index),
-          {
-            ...nft,
-            selected: !nft.selected,
-          },
-          ...draftNFTs.slice(index + 1),
-        ]);
+  const onNFTSelect = useCallback((id: number) => {
+    const updatedNfts = draftNFTs.map((draftNFT) => {
+      if (draftNFT.id === id) {
+        return { ...draftNFT, selected: !draftNFT.selected }
       }
-    },
-    [draftNFTs]
-  );
+      else return draftNFT;
+    })
+    dispatch(setDraftNFTs(updatedNfts));
+  }, [draftNFTs]);
 
   const toggleGuide = () => {
     setOpen((open) => !open);
   };
 
-  const handleClose = () => {
-    setOpenMintModal(false);
-  };
 
-  const handleBack = () => {
-    setOpenMintModal(false);
-  };
-
-  const handleMintSelectedNft = async () => {
-    if (!accountInfo) return alert('wallet not connect');
-
-    const selectedNftsTokenAddress = draftNFTs
-      .filter((draftNFT) => draftNFT.selected)
-      .map((draftNFT) => draftNFT.collection);
-
-    const fees = [];
-    let totalFeeAmount = 0;
-
-    for (const tokenAddress of selectedNftsTokenAddress) {
-      const collectionMeta = await loopringService.getCollectionMeta(
-        accountInfo,
-        tokenAddress
-      );
-      if (!collectionMeta) return;
-
-      const fee = await loopringService.getNFTOffchainFeeAmt(
-        accountInfo,
-        collectionMeta
-      );
-
-      const feeAmount = fee.fees['ETH'].fee;
-      totalFeeAmount += Number(feeAmount);
-      fees.push(feeAmount);
-    }
-
-    setOpenMintModal(true);
-  };
-
-  const handleSelectCollection = (value: string, index: number) => {
-    setSelectedCollectionName(value);
-    setSelectedCollectionAddress(userCollection[index].collectionAddress);
-  };
+  const isDraftNtSelected = draftNFTs.filter(draftNFT => draftNFT.selected).length > 0;
 
   return (
     <DutchC.CreateWrapper>
-      {/* modals */}
       {/* --- NFT mint modal */}
-      {openMintModal && (
-        <MintingModal onClose={handleClose} onBack={handleBack} />
-      )}
+      <MintingModal className="max-w-xl" />
+
       <DutchC.CreateContentWrapper open={open ? 1 : 0}>
         <DutchC.CreateContent>
           <Breadcrumb />
@@ -140,12 +85,9 @@ const CreateHome: React.FC = () => {
                 show here.
               </DutchC.CreateContentSubTitle>
               <DutchC.CreateContentCollection>
-                <Dropdown
-                  label="Collection"
-                  value={selectedCollectionName}
-                  options={collectionNames}
-                  position="BL"
-                  onSelect={handleSelectCollection}
+                <CollectionDropdown 
+                  selectedCollectionAddress={selectedCollectionAddress}
+                  setSelectedCollectionAddress={setSelectedCollectionAddress}
                 />
               </DutchC.CreateContentCollection>
             </DutchC.CreateContentLeft>
@@ -171,10 +113,10 @@ const CreateHome: React.FC = () => {
             {/* If some draft nfts are avaiable to show */}
             <DutchC.CreateContentTools>
               <SearchInput />
-              <Button onClick={handleMintSelectedNft}>
-                Mint Selected NFTs
-              </Button>
-              <Button>Mint all NFTs</Button>
+
+              {isDraftNtSelected && <Button onClick={() => dispatch(setMintModalIsOpen(true))}>Mint Selected NFTs</Button>}
+              {draftNFTs.length > 0 && <Button>Mint all NFTs</Button>}
+
             </DutchC.CreateContentTools>
             <DutchC.CreateContentDraftNFTs>
               {draftNFTs.map((nft) => (
@@ -211,8 +153,23 @@ const DraftNFT: React.FC<DraftNFTProps> = ({
   selected,
   onSelect,
 }) => {
+  const { push } = useRouter();
+
   const { theme } = useTheme();
   const { deleteDraftNFT } = useNFTHook();
+
+  const mediaUrl = getIpfsHttpUrl(media);
+
+  const handleDeleteNft = async (id: number) => {
+    const isDeleted = await deleteDraftNFT(id);
+
+    if (isDeleted) {
+      alert('Draft deleted successfully');
+      push('/create');
+    } else {
+      alert('Error occured saving nft');
+    }
+  }
 
   return (
     <DutchC.DraftNFTCard selected={selected ? 1 : 0} onClick={onSelect}>
@@ -229,11 +186,11 @@ const DraftNFT: React.FC<DraftNFTProps> = ({
       )}
       {/* image */}
       <Image
-        src={media}
+        src={mediaUrl}
         alt="rice"
         width={230}
         height={230}
-        className="aspect-square w-full"
+        className="aspect-square w-60 h-60"
       />
       {/* detail */}
       <DutchC.DraftNFTDetail>
@@ -243,7 +200,7 @@ const DraftNFT: React.FC<DraftNFTProps> = ({
       {/* actions */}
       <DutchC.DraftNFTActions>
         <DutchC.DraftNFTEdit>Edit</DutchC.DraftNFTEdit>
-        <DutchC.DraftNFTDelete onClick={() => deleteDraftNFT(id)}>
+        <DutchC.DraftNFTDelete onClick={() => handleDeleteNft(id)}>
           Delete
         </DutchC.DraftNFTDelete>
       </DutchC.DraftNFTActions>

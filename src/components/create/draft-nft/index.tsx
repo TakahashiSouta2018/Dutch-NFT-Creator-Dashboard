@@ -11,7 +11,7 @@ import {
   OutlineButton,
 } from '@/common';
 import { Guide } from '@/components/shared';
-import Breadcrumb from '../Breadcrumb';
+import Breadcrumb from '../../shared/Breadcrumb';
 import * as DutchC from './styles';
 
 // icons
@@ -20,10 +20,10 @@ import useNFTHook from '@/hooks/useNFTHook';
 import { useForm } from '@/hooks/useForm';
 import useCollectionHook from '@/hooks/useCollectionHook';
 import { pinFileToIPFS } from '@/lib/pinata';
+import CollectionDropdown from '@/common/Dropdown/CollectionDropdown';
 
 // types
 type NFTPropertyT = {
-  id: number;
   type: string;
   value: string;
 };
@@ -37,20 +37,18 @@ interface NFTPropertyI {
 const CreateDraftNFTHome: React.FC = () => {
   const { theme } = useTheme();
   const { createDraftNFT } = useNFTHook();
-  const { userCollection, collectionNames } = useCollectionHook();
 
   const [open, setOpen] = useState(true);
   const [counter, setCounter] = useState(1);
   const [media, setMedia] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedCollectionAddress, setSelectedCollectionAddress] =
     useState<string>('');
-  const [selectedCollectionName, setSelectedCollectionName] =
-    useState<string>('');
+
   const [properties, setProperties] = useState<NFTPropertyT[]>([
     {
-      id: 0,
-      type: '',
-      value: '',
+      type: 'Cloth',
+      value: 'jeans',
     },
   ]);
 
@@ -61,13 +59,6 @@ const CreateDraftNFTHome: React.FC = () => {
     description: '',
   });
 
-  useEffect(() => {
-    if (userCollection.length > 0) {
-      setSelectedCollectionName(collectionNames[0]);
-      setSelectedCollectionAddress(userCollection[0].collectionAddress);
-    }
-  }, [userCollection]);
-
   const toggleGuide = () => {
     setOpen((open) => !open);
   };
@@ -76,9 +67,8 @@ const CreateDraftNFTHome: React.FC = () => {
     setProperties((properties) => [
       ...properties,
       {
-        id: counter,
-        type: '',
-        value: '',
+        type: 'Cloth',
+        value: 'jeans',
       },
     ]);
 
@@ -86,9 +76,7 @@ const CreateDraftNFTHome: React.FC = () => {
   }, [counter]);
 
   const handleRemoveProperty = useCallback(
-    (id: number) => {
-      const index = properties.findIndex((property) => property.id === id);
-
+    (index: number) => {
       if (index >= 0) {
         setProperties((properties) => [
           ...properties.slice(0, index),
@@ -99,16 +87,10 @@ const CreateDraftNFTHome: React.FC = () => {
     [properties]
   );
 
-  const handleSelectCollection = (value: string, index: number) => {
-    setSelectedCollectionName(value);
-    setSelectedCollectionAddress(userCollection[index].collectionAddress);
-  };
-
   const handleCreateDraftNFT = async () => {
-    // const mediaUrl = await pinFileToIPFS([media]);
-    const mediaUrl =
-      'https://res.cloudinary.com/ddo5l4trk/image/upload/v1669027512/samples/ecommerce/leather-bag-gray.jpg';
-
+    setIsLoading(true);
+    const mediaUrl = await pinFileToIPFS([media]);
+   
     if (mediaUrl) {
       await createDraftNFT({
         properties: JSON.stringify(properties),
@@ -120,6 +102,8 @@ const CreateDraftNFTHome: React.FC = () => {
         description: values.description,
       });
     } else alert('Unable to pin media');
+
+    setIsLoading(false)
   };
 
   return (
@@ -135,12 +119,9 @@ const CreateDraftNFTHome: React.FC = () => {
 
             {/* Collection Selector */}
             <DutchC.CreateDraftNFTCollectionSelectWrapper>
-              <Dropdown
-                label="Collection"
-                value={selectedCollectionName}
-                options={collectionNames}
-                position="BL"
-                onSelect={handleSelectCollection}
+              <CollectionDropdown
+                selectedCollectionAddress={selectedCollectionAddress}
+                setSelectedCollectionAddress={setSelectedCollectionAddress}
               />
             </DutchC.CreateDraftNFTCollectionSelectWrapper>
 
@@ -203,10 +184,10 @@ const CreateDraftNFTHome: React.FC = () => {
                   </DutchC.CreateDraftNFTPropertiesLabel>
 
                   {/* list */}
-                  {properties.map((property) => (
+                  {properties.map((property, index) => (
                     <NFTProperty
-                      key={property.id}
-                      onRemove={() => handleRemoveProperty(property.id)}
+                      key={index}
+                      onRemove={() => handleRemoveProperty(index)}
                       {...property}
                     />
                   ))}
@@ -220,7 +201,7 @@ const CreateDraftNFTHome: React.FC = () => {
 
                 {/* Actions */}
                 <DutchC.CreateDraftNFTActions>
-                  <Button type="button" onClick={handleCreateDraftNFT}>
+                  <Button type="button" loading={isLoading} onClick={handleCreateDraftNFT}>
                     Save Draft
                   </Button>
                   <OutlineButton>Cancel</OutlineButton>

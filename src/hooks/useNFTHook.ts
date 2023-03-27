@@ -1,5 +1,6 @@
+import { setDraftNFTs, setMintModalActiveStep, setMintModalIsOpen } from '@/components/create/ducks';
 import { LoopringService } from '@/lib/LoopringService';
-import { useAppSelector } from '@/redux/store';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
 import DraftNFTService from '@/services/DraftNFTService.service';
 import { DraftNFTI } from '@/types';
 import { useRouter } from 'next/router';
@@ -7,6 +8,7 @@ import { shallowEqual } from 'react-redux';
 
 const useNFTHook = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const draftNFTService = new DraftNFTService();
 
   const { accountInfo } = useAppSelector((state) => {
@@ -39,12 +41,8 @@ const useNFTHook = () => {
         id,
         ownerAddress: accountInfo?.accInfo.owner,
       });
-      if (data.data) {
-        alert('Draft deleted successfully');
-        router.push('/create');
-      } else {
-        alert('Error occured saving nft');
-      }
+      if (data.data) return data.data
+      else return null;
     } catch (error) {
       console.log(error);
     }
@@ -66,7 +64,18 @@ const useNFTHook = () => {
     }
   };
 
-  return { createDraftNFT, getCollectionDraftNFT, deleteDraftNFT };
+  const onMintModalClose = async (collectionAddress: string) => {
+
+    const nft = await getCollectionDraftNFT(collectionAddress);
+    if (nft) {
+      dispatch(setDraftNFTs(nft));
+    }
+
+    dispatch(setMintModalActiveStep(0));
+    dispatch(setMintModalIsOpen(false));
+  };
+
+  return { createDraftNFT, getCollectionDraftNFT, deleteDraftNFT, onMintModalClose };
 };
 
 export default useNFTHook;

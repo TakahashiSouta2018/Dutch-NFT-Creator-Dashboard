@@ -1,40 +1,39 @@
 import React from 'react';
 import Image from 'next/image';
-import { TransactionType } from '@/types';
-import * as DutchC from './style';
-import MintingLoaderIcon from '@/assets/minting_loader.svg';
+import { MintStatusEnum } from '@/types';
+import * as DutchC from './styles';
+import { getIpfsHttpUrl } from '@/lib/pinata';
+import { useAppSelector } from '@/redux/store';
+import { shallowEqual } from 'react-redux';
 
-interface TransactionListType {
-  transActions: TransactionType[];
-}
+const TransactionList: React.FC = () => {
 
-const TransactionList: React.FC<TransactionListType> = ({ transActions }) => {
+  const { mintingNfts } = useAppSelector((state) => {
+    const { mintModal } = state.createPageReducer;
+    return { mintingNfts: mintModal.mintingNfts };
+  }, shallowEqual);  
+  
   return (
     <DutchC.TransListWrapper>
-      {transActions.map((action: TransactionType) => (
-        <DutchC.ListElementWrapper key={action.id}>
+      {mintingNfts.map((action, index) => (
+        <DutchC.ListElementWrapper key={index}>
           <DutchC.ActionInfoWrapper>
             <DutchC.ActionInfoNo>{action.id}</DutchC.ActionInfoNo>
-            <Image src={action.img} alt="img" width={40} />
-            <DutchC.TextSmall>{action.title}</DutchC.TextSmall>
+            <Image src={getIpfsHttpUrl(action.media)} alt="img" width={40} height={40} />
+            <DutchC.TextSmall>{action.name}</DutchC.TextSmall>
           </DutchC.ActionInfoWrapper>
-          {action.status === 0 && (
+          {action.status === MintStatusEnum.QUEUED && (
             <DutchC.StatusQueued>Queued</DutchC.StatusQueued>
           )}
-          {action.status === 1 && (
+          {action.status === MintStatusEnum.MINTING && (
             <DutchC.StatusMinting>
-              <Image
-                src={MintingLoaderIcon}
-                alt="load"
-                className="absolute -left-5"
-              />
               Minting
             </DutchC.StatusMinting>
           )}
-          {action.status === 2 && (
+          {action.status === MintStatusEnum.SUCCESS && (
             <DutchC.StatusSuccess>Success</DutchC.StatusSuccess>
           )}
-          {action.status === 3 && (
+          {action.status === MintStatusEnum.FAILED && (
             <DutchC.StatusFailed>Failed</DutchC.StatusFailed>
           )}
         </DutchC.ListElementWrapper>

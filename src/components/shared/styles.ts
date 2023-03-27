@@ -7,7 +7,8 @@ type GuideWrapperProps = {
 
 // components
 export const GuideWrapper = styled.div.attrs({
-  className: 'flex flex-col gap-8 py-9 ml-6 w-1/6 transition',
+  className:
+    'flex flex-col w-1/6 gap-8 py-9 ml-6 transition ease-in-out duration-300',
 })`
   ${(p: GuideWrapperProps) =>
     p.open ? '' : 'position: absolute; right: 0; transform: translateX(100%);'}

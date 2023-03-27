@@ -2,10 +2,12 @@ import { LoopringService } from '@/lib/LoopringService';
 import { pinFileToIPFS } from '@/lib/pinata';
 import { useAppSelector } from '@/redux/store';
 import { CollectionI, CollectionObjectI } from '@/types';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 
 const useCollectionHook = () => {
+  const { push } = useRouter();
   const loopringService = new LoopringService();
   const [userCollection, setUserCollection] = useState<CollectionI[]>([]);
   const [collectionNames, setCollectionNames] = useState<string[]>([]);
@@ -51,7 +53,11 @@ const useCollectionHook = () => {
       banner: `ipfs://${imagesUrl[1]}`,
       tileUri: `ipfs://${imagesUrl[2]}`,
     });
-    if (res) alert('collection created successfully');
+    if (res) {
+      alert('collection created successfully');
+      push('/create')
+    }
+    else alert('Unable to create collection')
   };
 
   const getUserCollection = async (offset: number, limit: number) => {
