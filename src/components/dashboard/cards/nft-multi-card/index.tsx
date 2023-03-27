@@ -1,6 +1,7 @@
 import * as DutchC from './styles';
 import Image from 'next/image';
 import ShortcutContextMenu from '@/components/shared/shortcut-context-menu';
+import { getIpfsHttpUrl } from '@/lib/pinata';
 
 interface MultiCardProps {
   name?: string;
@@ -26,7 +27,7 @@ const NFTMultiCard: React.FC<MultiCardProps> = ({
             <Image
               key={index}
               alt=""
-              src={url}
+              src={getIpfsHttpUrl(url)}
               width={140}
               height={140}
               className="aspect-square border border-black/10 rounded dark:border-white/10"
@@ -36,7 +37,7 @@ const NFTMultiCard: React.FC<MultiCardProps> = ({
         <DutchC.MultiUploadLastMediaWrapper>
           <Image
             alt=""
-            src={imageUrls[imageUrls.length - 1]}
+            src={getIpfsHttpUrl(imageUrls[imageUrls.length - 1])}
             width={140}
             height={140}
             className="aspect-square border border-black/10 rounded dark:border-white/10"

@@ -2,20 +2,20 @@ import React from 'react';
 import * as Icons from '@/common';
 import * as DutchC from './styles';
 import { NFTModal } from './nft-modal';
-import { NFTListType } from '@/types';
+import { NFTI, TabTypeT } from '@/types';
 
 interface ShowSyncModalProps {
   showSyncModal: boolean;
   setShowSyncModal: (flag: boolean) => void;
-  setSynced: (flag: boolean) => void;
-  nftList: NFTListType[];
+  nftList: NFTI[];
+  currentTab: TabTypeT;
 }
 
 const SyncNFTs: React.FC<ShowSyncModalProps> = ({
   showSyncModal,
   setShowSyncModal,
-  setSynced,
   nftList,
+  currentTab
 }) => {
   return (
     <DutchC.NFTSyncWrapper
@@ -34,10 +34,8 @@ const SyncNFTs: React.FC<ShowSyncModalProps> = ({
           onClose={() => {
             setShowSyncModal(false);
           }}
-          onSynced={() => {
-            setSynced(true);
-          }}
           lists={nftList}
+          currentTab={currentTab}
           showSyncModal={showSyncModal}
         />
       }

@@ -155,10 +155,24 @@ export class LoopringService {
         { headers }
       );
 
-      if (res.status === 200) {
+      if (res.status === 200 && res.data && res.data.data) {
+        const nfts = res.data.data as NFTI[];
+
+        const nftsWithMetadata = await Promise.all(
+          nfts.map(async (nft) => {
+            const cid = await this.ipfsNftIDToCid(nft.nftId);
+            const metadataRes = await axios.get(`https://ipfs.loopring.io/ipfs/${cid}`);
+            
+            if (metadataRes.status === 200 && metadataRes.data) {
+              return {...nft, metadata: metadataRes.data}
+            }
+            else return nft;
+          })
+        );
+
         return {
           totalNFT: Number(res.data.totalNum),
-          nfts: res.data.data as NFTI[],
+          nfts: nftsWithMetadata as NFTI[],
         };
       }
       return null;

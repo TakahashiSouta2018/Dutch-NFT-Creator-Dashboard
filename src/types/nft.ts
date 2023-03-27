@@ -1,3 +1,5 @@
+import { NftDataI } from ".";
+
 export interface Pending {
   withdraw: string;
   deposit: string;
@@ -71,15 +73,22 @@ export interface NFTI {
   royaltyPercentage: number;
   preference: Preference;
   collectionInfo: NFTCollectionInfo;
+  metadata: NftDataI
 }
 
 export interface CreateNftManagementI {
   id: string;
-  collection: string;
   owner: string;
   accountId: string;
+  name: string;
+  description: string;
+  collectionName: string;
+  collectionAddress: string;
+  amount: string;
+  image: string;
   nftId: string;
   nftData: string;
+  listName: string | null;
   createdAt?: Date | string;
 }
 
@@ -115,3 +124,16 @@ export interface MintingNftsI {
   name: string;
   status: MintStatusEnum;
 }
+
+export type TabTypeT = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE' | 'BANK0X';
+
+export interface UserListI {
+  listName: string;
+  collectionName: string;
+  collectionAddress: string;
+  imageUrls: string[];
+  nfts: CreateNftManagementI[];
+}
+
+
+

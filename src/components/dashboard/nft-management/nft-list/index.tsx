@@ -1,11 +1,12 @@
-import React, { useState, useCallback } from 'react';
-import { NFTListType } from '@/types';
+import React, { useState, useEffect } from 'react';
+import { NFTI, UserListI } from '@/types';
 import NFTListByCard from './NFTListByCard';
 import NFTListByTable from './NFTListByTable';
+import useNFTManagement from '@/hooks/useNFTManagement';
 
 interface NFTListProps {
   tableListSwtich: number;
-  nftList: NFTListType[];
+  nftList: NFTI[];
   onShowListModal: () => void;
 }
 
@@ -14,34 +15,34 @@ const NFTLists: React.FC<NFTListProps> = ({
   nftList,
   onShowListModal,
 }): JSX.Element => {
-  const [NFTs, setNFTs] = useState<NFTListType[]>(nftList);
-  const onNFTSelect = useCallback(
-    (nftId: string) => {
-      const index = NFTs.findIndex((nft) => nft.nftId === nftId);
-      const nft = NFTs.find((nft) => nft.nftId === nftId);
-      if (nft) {
-        setNFTs([
-          ...NFTs.slice(0, index),
-          {
-            ...nft,
-            selected: !nft.selected,
-          },
-          ...NFTs.slice(index + 1),
-        ]);
+
+  const { getUserNftList } = useNFTManagement();
+  const [NFTs, setNFTs] = useState<UserListI[]>([]);
+
+
+  useEffect(() => {
+    (async () => {
+      const lists = await getUserNftList();
+      if (lists) {
+        const userList = lists.map((list) => {
+          const imageUrls =  list.nfts.map(nft => nft.image);
+          return { ...list, imageUrls }
+        })
+
+        setNFTs(userList);
       }
-    },
-    [NFTs]
-  );
+    })();
+  }, []);
+
 
   if (tableListSwtich)
     return (
       <NFTListByTable
-        NFTs={NFTs}
-        onNFTSelect={onNFTSelect}
+        multiNFTs={NFTs}
         onShowListModal={onShowListModal}
       />
     );
-  else return <NFTListByCard onShowListModal={onShowListModal} />;
+  else return <NFTListByCard multiNFTs={NFTs} onShowListModal={onShowListModal} />;
 };
 
 export default NFTLists;

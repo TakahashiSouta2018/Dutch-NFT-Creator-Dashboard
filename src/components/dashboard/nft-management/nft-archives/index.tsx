@@ -1,12 +1,12 @@
 import React, { useState, useCallback } from 'react';
 
 import NFTCard from '../../cards/nft-card';
-import { NFTListType } from '@/types';
+import { NFTI } from '@/types';
 
 import * as DutchC from './styles';
 
 const NFTArchives = () => {
-  const [NFTs, setNFTs] = useState<NFTListType[]>([
+  const [NFTs, setNFTs] = useState<NFTI[]>([
     {
       sr: '001',
       name: 'Red Onion',
