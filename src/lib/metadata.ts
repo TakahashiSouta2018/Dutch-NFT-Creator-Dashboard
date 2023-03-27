@@ -58,21 +58,22 @@ export const handleNFTPropertiesFromFolder = (data: string) => {
     attributes.push({ trait_type: propertyKey, value: propertyValue });
   });
 
-  return {properties, attributes}
-}
+  return { properties, attributes };
+};
 
-export const handleNFTPropertiesAttributes = (properties: Record<string, string>) => {
+export const handleNFTPropertiesAttributes = (
+  properties: Record<string, string>
+) => {
   const attributes: AttributeI[] = [];
 
   for (const type in properties) {
     if (Object.prototype.hasOwnProperty.call(properties, type)) {
       const value = properties[type];
       attributes.push({ trait_type: type, value: value });
-      
     }
   }
   return attributes;
-}
+};
 
 export const construcMetadata = ({
   imageNames,
@@ -85,7 +86,9 @@ export const construcMetadata = ({
   return imageNames.map((imageName, index) => {
     const csvFileContent = csvFileContents[index];
 
-    const {properties, attributes} = handleNFTPropertiesFromFolder(csvFileContent.properties);
+    const { properties, attributes } = handleNFTPropertiesFromFolder(
+      csvFileContent.properties
+    );
 
     return {
       image: `ipfs://${folderCID}/${imageName}`,

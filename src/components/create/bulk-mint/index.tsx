@@ -31,7 +31,6 @@ import { useAppDispatch } from '@/redux/store';
 import { setMintModalIsOpen, setSelectedDraftNFTs } from '../ducks';
 import { handleNFTPropertiesFromFolder } from '@/lib/metadata';
 
-
 const CreateBulkMintHome: React.FC = () => {
   const dispatch = useAppDispatch();
 
@@ -53,10 +52,9 @@ const CreateBulkMintHome: React.FC = () => {
     setOpen((open) => !open);
   };
 
-
   const handleSaveToDraft = async () => {
     if (selectedCSVFileContent.length !== imageUrls.length) {
-      return alert("CSV content not equal to selected images folder");
+      return alert('CSV content not equal to selected images folder');
     }
 
     setIsSavingToDraft(true);
@@ -64,7 +62,9 @@ const CreateBulkMintHome: React.FC = () => {
     await Promise.all(
       selectedCSVFileContent.map(async (csvFileContent, index) => {
         const mediaUrl = await pinFileToIPFS([String(imageUrls[index])]);
-        const { properties } = handleNFTPropertiesFromFolder(csvFileContent.properties);
+        const { properties } = handleNFTPropertiesFromFolder(
+          csvFileContent.properties
+        );
 
         return await createDraftNFT({
           properties: JSON.stringify(properties),
@@ -75,20 +75,17 @@ const CreateBulkMintHome: React.FC = () => {
           amount: csvFileContent.amount,
           description: csvFileContent.description,
         });
-
       })
     );
 
-    alert("NFTs are saved to draft");
-    
-    setIsSavingToDraft(false);
+    alert('NFTs are saved to draft');
 
+    setIsSavingToDraft(false);
   };
 
   const handleMintNfts = async () => {
-
     if (selectedCSVFileContent.length !== imageUrls.length) {
-      return alert("CSV content not equal to selected images folder");
+      return alert('CSV content not equal to selected images folder');
     }
 
     setIsMintingNft(true);
@@ -96,7 +93,9 @@ const CreateBulkMintHome: React.FC = () => {
     const nfts = await Promise.all(
       selectedCSVFileContent.map(async (csvFileContent, index) => {
         const mediaUrl = await pinFileToIPFS([String(imageUrls[index])]);
-        const { properties } = handleNFTPropertiesFromFolder(csvFileContent.properties);
+        const { properties } = handleNFTPropertiesFromFolder(
+          csvFileContent.properties
+        );
 
         return {
           properties: JSON.stringify(properties),
@@ -107,14 +106,12 @@ const CreateBulkMintHome: React.FC = () => {
           amount: csvFileContent.amount,
           description: csvFileContent.description,
         };
-
       })
-    );    
+    );
 
-    dispatch(setSelectedDraftNFTs(nfts))
-    dispatch(setMintModalIsOpen(true))
+    dispatch(setSelectedDraftNFTs(nfts));
+    dispatch(setMintModalIsOpen(true));
     setIsMintingNft(false);
-
   };
 
   return (
@@ -192,37 +189,40 @@ const CreateBulkMintHome: React.FC = () => {
                         </TR>
                       </THead>
                       <TBody>
-                        {selectedCSVFileContent.length === imageUrls.length && selectedCSVFileContent.map((csvFileContent, index) => {
-                          return (
-                            <TR key={index}>
-                              <TD className="flex items-center space-x-2 text-sm text-black font-medium dark:text-white">
-                                <Image
-                                  src={imageUrls[index]}
-                                  alt=""
-                                  width={40}
-                                  height={40}
-                                  className="border border-black/10 rounded dark:border-white/10"
-                                />
-                                <span>{csvFileContent.name}</span>
-                              </TD>
-                              <TD className="text-sm text-black dark:text-white whitespace-nowrap">
-                                {csvFileContent.name}
-                              </TD>
-                              <TD className="text-sm text-black dark:text-white">
-                                {csvFileContent.amount}
-                              </TD>
-                              <TD className="text-sm text-black dark:text-white">
-                                {csvFileContent.royalties}
-                              </TD>
-                              <TD className="text-sm text-black dark:text-white max-w-[190px] truncate">
-                                {csvFileContent.description}
-                              </TD>
-                              <TD className="text-sm text-black dark:text-white max-w-[190px] truncate">
-                                {csvFileContent.properties}
-                              </TD>
-                            </TR>
-                          );
-                        })}
+                        {selectedCSVFileContent.length === imageUrls.length &&
+                          selectedCSVFileContent.map(
+                            (csvFileContent, index) => {
+                              return (
+                                <TR key={index}>
+                                  <TD className="flex items-center space-x-2 text-sm text-black font-medium dark:text-white">
+                                    <Image
+                                      src={imageUrls[index]}
+                                      alt=""
+                                      width={40}
+                                      height={40}
+                                      className="border border-black/10 rounded dark:border-white/10"
+                                    />
+                                    <span>{csvFileContent.name}</span>
+                                  </TD>
+                                  <TD className="text-sm text-black dark:text-white whitespace-nowrap">
+                                    {csvFileContent.name}
+                                  </TD>
+                                  <TD className="text-sm text-black dark:text-white">
+                                    {csvFileContent.amount}
+                                  </TD>
+                                  <TD className="text-sm text-black dark:text-white">
+                                    {csvFileContent.royalties}
+                                  </TD>
+                                  <TD className="text-sm text-black dark:text-white max-w-[190px] truncate">
+                                    {csvFileContent.description}
+                                  </TD>
+                                  <TD className="text-sm text-black dark:text-white max-w-[190px] truncate">
+                                    {csvFileContent.properties}
+                                  </TD>
+                                </TR>
+                              );
+                            }
+                          )}
                       </TBody>
                     </Table>
                   </DutchC.CreateBulkMintContentNFTPreviewInner>
@@ -235,7 +235,9 @@ const CreateBulkMintHome: React.FC = () => {
               <Button onClick={handleMintNfts} loading={isMintingNft}>
                 Mint all NFTs
               </Button>
-              <Button onClick={handleSaveToDraft} loading={isSavingToDraft}>Save to Drafts</Button>
+              <Button onClick={handleSaveToDraft} loading={isSavingToDraft}>
+                Save to Drafts
+              </Button>
               <OutlineButton>Cancel</OutlineButton>
             </DutchC.CreateBulkMintContentActions>
           </DutchC.CreateBulkMintContentBody>

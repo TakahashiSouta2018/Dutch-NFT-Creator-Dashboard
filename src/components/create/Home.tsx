@@ -17,7 +17,11 @@ import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
 import CollectionDropdown from '@/common/Dropdown/CollectionDropdown';
 import { getIpfsHttpUrl } from '@/lib/pinata';
-import { setDraftNFTs, setMintModalIsOpen, setSelectedDraftNFTs } from './ducks';
+import {
+  setDraftNFTs,
+  setMintModalIsOpen,
+  setSelectedDraftNFTs,
+} from './ducks';
 
 type DraftNFTProps = DraftNFTResponseI & {
   onSelect: () => void;
@@ -56,7 +60,9 @@ const CreateHome: React.FC = () => {
           return { ...draftNFT, selected: !draftNFT.selected };
         } else return draftNFT;
       });
-      const selectedNfts = updatedNfts.filter(updatedNft => updatedNft.selected);
+      const selectedNfts = updatedNfts.filter(
+        (updatedNft) => updatedNft.selected
+      );
       dispatch(setSelectedDraftNFTs(selectedNfts));
       dispatch(setDraftNFTs(updatedNfts));
     },
@@ -71,10 +77,10 @@ const CreateHome: React.FC = () => {
     const updatedNfts = draftNFTs.map((draftNFT) => {
       return { ...draftNFT, selected: true };
     });
-    
+
     dispatch(setSelectedDraftNFTs(updatedNfts));
     dispatch(setDraftNFTs(updatedNfts));
-    dispatch(setMintModalIsOpen(true))
+    dispatch(setMintModalIsOpen(true));
   };
 
   const isDraftNtSelected =
@@ -132,7 +138,9 @@ const CreateHome: React.FC = () => {
                   Mint Selected NFTs
                 </Button>
               )}
-              {draftNFTs.length > 0 && <Button onClick={handleMintAll}>Mint all NFTs</Button>}
+              {draftNFTs.length > 0 && (
+                <Button onClick={handleMintAll}>Mint all NFTs</Button>
+              )}
             </DutchC.CreateContentTools>
             <DutchC.CreateContentDraftNFTs>
               {draftNFTs.map((nft) => (

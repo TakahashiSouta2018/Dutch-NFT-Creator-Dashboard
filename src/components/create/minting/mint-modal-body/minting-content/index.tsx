@@ -47,7 +47,6 @@ const Minting: React.FC<MintModalPropsI> = ({
   const loopringService = new LoopringService();
   const dispatch = useAppDispatch();
 
-
   useEffect(() => {
     const nfts: MintingNftsI[] = selectedDraftNFTs.map((draftNFT, index) => ({
       id: index,

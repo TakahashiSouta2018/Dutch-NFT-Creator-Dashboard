@@ -70,7 +70,7 @@ const useNFTHook = () => {
 
     dispatch(setMintModalActiveStep(0));
     dispatch(setMintModalIsOpen(false));
-    dispatch(setSelectedDraftNFTs([]))
+    dispatch(setSelectedDraftNFTs([]));
   };
 
   return {

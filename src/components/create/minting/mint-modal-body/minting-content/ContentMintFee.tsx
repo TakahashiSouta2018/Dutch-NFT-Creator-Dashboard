@@ -56,7 +56,6 @@ const ContentMintFee: React.FC<ContentMintFeePropsI> = ({
     return { selectedDraftNFTs };
   }, shallowEqual);
 
-
   useEffect(() => {
     (async () => {
       if (!accountInfo) return alert('wallet not connect');

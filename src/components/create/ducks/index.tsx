@@ -41,7 +41,10 @@ export const createPageReducer: Slice<CreatePageReducerI> = createSlice({
     setDraftNFTs: (state, action: PayloadAction<DraftNFTResponseI[]>) => {
       state.draftNFTs = action.payload;
     },
-    setSelectedDraftNFTs: (state, action: PayloadAction<DraftNFTResponseI[]>) => {
+    setSelectedDraftNFTs: (
+      state,
+      action: PayloadAction<DraftNFTResponseI[]>
+    ) => {
       state.selectedDraftNFTs = action.payload;
     },
     setMintModalActiveStep: (state, action: PayloadAction<number>) => {
