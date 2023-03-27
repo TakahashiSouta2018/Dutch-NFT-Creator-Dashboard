@@ -12,7 +12,6 @@ const NFTAll: React.FC<NFTAllProps> = ({ tableListSwtich }): JSX.Element => {
   const { getAllNfts } = useNFTManagement();
   const [NFTs, setNFTs] = useState<CreateNftManagementI[]>([]);
 
-
   useEffect(() => {
     (async () => {
       const nfts = await getAllNfts();
@@ -21,7 +20,6 @@ const NFTAll: React.FC<NFTAllProps> = ({ tableListSwtich }): JSX.Element => {
       }
     })();
   }, []);
-
 
   const onNFTSelect = useCallback(
     (nftId: string) => {

@@ -10,10 +10,10 @@ import { useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
 import { getIpfsHttpUrl } from '@/lib/pinata';
 
-interface NFTCardProps extends CreateNftManagementI  {
+interface NFTCardProps extends CreateNftManagementI {
   type: 'all' | 'collections' | 'archives' | 'bank0x';
   onSelect: () => void;
-};
+}
 
 const NFTCard: React.FC<NFTCardProps> = ({
   nftId,
@@ -32,16 +32,23 @@ const NFTCard: React.FC<NFTCardProps> = ({
   }, shallowEqual);
 
   const isSelected = (nftId: string) => {
-    return selectedNFTs.filter(selectedNFT => selectedNFT.nftId === nftId).length > 0;
-  }
-  
+    return (
+      selectedNFTs.filter((selectedNFT) => selectedNFT.nftId === nftId).length >
+      0
+    );
+  };
+
   const ShortcutContextMenuItems = [
     ['Find Holders', 'Show Sales', 'Move to Archives'],
     ['Recover', 'Remove from DUTCH0x'],
   ];
 
   return (
-    <DutchC.NFTCard selected={isSelected(nftId)} onClick={onSelect} theme={theme}>
+    <DutchC.NFTCard
+      selected={isSelected(nftId)}
+      onClick={onSelect}
+      theme={theme}
+    >
       <DutchC.NFTUnitBadge theme={theme}>
         <Icons.IEye
           color={theme === 'light' ? 'black' : 'white'}
@@ -85,7 +92,7 @@ const NFTCard: React.FC<NFTCardProps> = ({
                 ? ShortcutContextMenuItems[0]
                 : ShortcutContextMenuItems[1]
             }
-            onSelect={() => { }}
+            onSelect={() => {}}
           />
         )}
       </DutchC.NFTFooter>

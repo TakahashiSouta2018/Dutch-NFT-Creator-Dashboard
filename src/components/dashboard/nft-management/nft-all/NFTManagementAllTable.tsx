@@ -18,15 +18,17 @@ const NFTManagementTable: React.FC<TableProps> = ({
   nftList,
   onClick,
 }): JSX.Element => {
-
   const { selectedNFTs } = useAppSelector((state) => {
     const { selectedNFTs } = state.dashboardPageReducer;
     return { selectedNFTs };
   }, shallowEqual);
 
   const isSelected = (nftId: string) => {
-    return selectedNFTs.filter(selectedNFT => selectedNFT.nftId === nftId).length > 0;
-  }
+    return (
+      selectedNFTs.filter((selectedNFT) => selectedNFT.nftId === nftId).length >
+      0
+    );
+  };
 
   return (
     <Table>
@@ -53,9 +55,9 @@ const NFTManagementTable: React.FC<TableProps> = ({
               style={
                 isSelected(list.nftId)
                   ? {
-                    border: '2px solid rgba(0, 0, 0, 0.3)',
-                    boxShadow: '0px 1px 10px rgba(0, 0, 0, 0.3)',
-                  }
+                      border: '2px solid rgba(0, 0, 0, 0.3)',
+                      boxShadow: '0px 1px 10px rgba(0, 0, 0, 0.3)',
+                    }
                   : {}
               }
             >
@@ -69,7 +71,12 @@ const NFTManagementTable: React.FC<TableProps> = ({
               <TD>
                 <div className="flex gap-2 items-center">
                   {list.image && (
-                    <Image src={getIpfsHttpUrl(list.image)} alt="img" width={30} height={30} />
+                    <Image
+                      src={getIpfsHttpUrl(list.image)}
+                      alt="img"
+                      width={30}
+                      height={30}
+                    />
                   )}
                   {list.name}
                 </div>

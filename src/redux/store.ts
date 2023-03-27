@@ -30,7 +30,10 @@ const dashboardPagePersistConfig = {
 const rootReducer = combineReducers({
   webAppReducer: persistReducer(webAppPersistConfig, webAppReducer),
   createPageReducer: persistReducer(createPagePersistConfig, createPageReducer),
-  dashboardPageReducer: persistReducer(dashboardPagePersistConfig, dashboardPageReducer),
+  dashboardPageReducer: persistReducer(
+    dashboardPagePersistConfig,
+    dashboardPageReducer
+  ),
 });
 
 const store = configureStore({

@@ -5,7 +5,6 @@ import { UserListI } from '@/types';
 import NFTMultiCard from '../../cards/nft-multi-card';
 import * as DutchC from './styles';
 
-
 const NFTListTable: React.FC<{
   nftMultiList: UserListI[];
   onShowListModal: () => void;

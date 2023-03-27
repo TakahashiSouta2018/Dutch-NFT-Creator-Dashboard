@@ -20,7 +20,10 @@ import CollectionDropdown from '@/common/Dropdown/CollectionDropdown';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
 import useNFTManagement from '@/hooks/useNFTManagement';
-import { setCollectionNfts, setSelectedNfts } from '@/components/dashboard/ducks';
+import {
+  setCollectionNfts,
+  setSelectedNfts,
+} from '@/components/dashboard/ducks';
 import { useRouter } from 'next/router';
 
 interface NFTModalProp {
@@ -67,8 +70,8 @@ const NFTModal: React.FC<NFTModalProp> = ({
 
   const [listName, setListName] = useState<string>('');
   const [selected, setSelected] = useState<boolean>(true);
-  const [selectedCollectionAddress, setSelectedCollectionAddress] = useState<string>('');
-
+  const [selectedCollectionAddress, setSelectedCollectionAddress] =
+    useState<string>('');
 
   const { accountInfo } = useAppSelector((state) => {
     const { accountInfo } = state.webAppReducer;
@@ -77,31 +80,26 @@ const NFTModal: React.FC<NFTModalProp> = ({
 
   const handleSubmitButtonClick = async () => {
     try {
-      if (currentTab === "LIST" && listName === "") return alert("Add a list name");
-      
-      if (currentTab === "ALL" || currentTab === "LIST") {
-        await syncNft(listName)
-      }
-    
-      dispatch(setSelectedNfts([]))
-      dispatch(setCollectionNfts([]))
-      
-      onClose()
-      push('/dashboard/nft-management');
+      if (currentTab === 'LIST' && listName === '')
+        return alert('Add a list name');
 
+      if (currentTab === 'ALL' || currentTab === 'LIST') {
+        await syncNft(listName);
+      }
+
+      dispatch(setSelectedNfts([]));
+      dispatch(setCollectionNfts([]));
+
+      onClose();
+      push('/dashboard/nft-management');
     } catch (error) {
       console.log(error);
     }
-
-  }
-
+  };
 
   return (
     <Modal isOpen={showSyncModal}>
-      <ModalHead
-        title="Sync NFTs"
-        onClose={onClose}
-      >
+      <ModalHead title="Sync NFTs" onClose={onClose}>
         <DutchC.NFTWalletAddress>
           <IconButton icon="document" />
           <p className="text-sm text-black/70 dark:text-white">
@@ -115,9 +113,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
             {currentTab === 'LIST' && (
               <div className="w-1/2">
                 <p>List Name</p>
-                <TextInput
-                  onChange={(e) => setListName(e.target.value)}
-                />
+                <TextInput onChange={(e) => setListName(e.target.value)} />
               </div>
             )}
             <div className="w-1/2 z-10">
@@ -147,9 +143,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
             >
               Cancel
             </OutlineButton>
-            <Button
-              onClick={handleSubmitButtonClick}
-            >
+            <Button onClick={handleSubmitButtonClick}>
               {currentTab === 'LIST' ? 'Save Changes' : 'Sync NFTs'}
             </Button>
           </DutchC.NFTModalFooterWrapper>

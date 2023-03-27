@@ -161,12 +161,13 @@ export class LoopringService {
         const nftsWithMetadata = await Promise.all(
           nfts.map(async (nft) => {
             const cid = await this.ipfsNftIDToCid(nft.nftId);
-            const metadataRes = await axios.get(`https://ipfs.loopring.io/ipfs/${cid}`);
-            
+            const metadataRes = await axios.get(
+              `https://ipfs.loopring.io/ipfs/${cid}`
+            );
+
             if (metadataRes.status === 200 && metadataRes.data) {
-              return {...nft, metadata: metadataRes.data}
-            }
-            else return nft;
+              return { ...nft, metadata: metadataRes.data };
+            } else return nft;
           })
         );
 

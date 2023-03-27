@@ -18,10 +18,7 @@ export default class NFTManagementService extends Service<any> {
     return this.postRequest(``, { ...createNftManagement });
   }
 
-  public getUserNftId(
-    ownerAddress: string,
-    nftId: string
-  ) {
+  public getUserNftId(ownerAddress: string, nftId: string) {
     return this.getRequest(`nft/${ownerAddress}/${nftId}`);
   }
 

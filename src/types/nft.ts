@@ -1,4 +1,4 @@
-import { NftDataI } from ".";
+import { NftDataI } from '.';
 
 export interface Pending {
   withdraw: string;
@@ -73,7 +73,7 @@ export interface NFTI {
   royaltyPercentage: number;
   preference: Preference;
   collectionInfo: NFTCollectionInfo;
-  metadata: NftDataI
+  metadata: NftDataI;
 }
 
 export interface CreateNftManagementI {
@@ -134,6 +134,3 @@ export interface UserListI {
   imageUrls: string[];
   nfts: CreateNftManagementI[];
 }
-
-
-

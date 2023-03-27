@@ -27,18 +27,20 @@ const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
   }, shallowEqual);
 
   const isSelected = (nftId: string) => {
-    return selectedNFTs.filter(selectedNFT => selectedNFT.nftId === nftId).length > 0;
-  }
+    return (
+      selectedNFTs.filter((selectedNFT) => selectedNFT.nftId === nftId).length >
+      0
+    );
+  };
 
   const handleSelectNft = async (list: NFTI) => {
-    const nft = await getUserNftId(list.nftId);    
-    if (nft && currentTab === "ALL") {
-      return alert("NFT already added to management");
+    const nft = await getUserNftId(list.nftId);
+    if (nft && currentTab === 'ALL') {
+      return alert('NFT already added to management');
     }
 
     dispatch(setSelectedNfts(list));
-  }
-  
+  };
 
   const selected = true;
   return (
@@ -74,15 +76,14 @@ const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
               {currentTab !== 'LIST' && <TD>{index}</TD>}
               <TD>{list?.metadata?.name}</TD>
               <TD>
-                <DutchC.TextEllipsis>{list?.collectionInfo?.name}</DutchC.TextEllipsis>
+                <DutchC.TextEllipsis>
+                  {list?.collectionInfo?.name}
+                </DutchC.TextEllipsis>
               </TD>
               <TD>{list.total}</TD>
               {currentTab !== 'LIST' && <TD>{list.locked ? 'Yes' : 'No'}</TD>}
               <TD>
-                <CopyNFTId
-                  type="long"
-                  id={list.nftId}
-                />
+                <CopyNFTId type="long" id={list.nftId} />
               </TD>
             </TR>
           );

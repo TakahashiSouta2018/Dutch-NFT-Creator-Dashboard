@@ -31,19 +31,18 @@ const useNFTManagement = () => {
           description: String(selectedNFT?.metadata?.description),
           nftData: selectedNFT.nftData,
           image: selectedNFT?.metadata?.image,
-          listName
-        }
+          listName,
+        };
         const { response, data } = await nftManagement.syncNFT({
           ...nft,
           owner: accountInfo?.accInfo.owner,
-          accountId: String(accountInfo?.accInfo.accountId)
+          accountId: String(accountInfo?.accInfo.accountId),
         });
 
         console.log({ response, data });
-        
+
         if (data && data.data) return data.data;
         else return null;
-
       })
     );
   };
@@ -51,7 +50,9 @@ const useNFTManagement = () => {
   const getAllNfts = async () => {
     try {
       if (!accountInfo) return alert('Account not connected');
-      const { response, data } = await nftManagement.getAllNFT(accountInfo?.accInfo.owner);
+      const { response, data } = await nftManagement.getAllNFT(
+        accountInfo?.accInfo.owner
+      );
       if (data && data.data) {
         return data.data.nfts;
       }
@@ -64,7 +65,9 @@ const useNFTManagement = () => {
   const getUserNftList = async () => {
     try {
       if (!accountInfo) return alert('Account not connected');
-      const { response, data } = await nftManagement.getUserNftList(accountInfo?.accInfo.owner);
+      const { response, data } = await nftManagement.getUserNftList(
+        accountInfo?.accInfo.owner
+      );
       if (data && data.data) {
         return data.data.nfts as UserListI[];
       }
@@ -77,10 +80,13 @@ const useNFTManagement = () => {
   const getUserNftId = async (nftId: string) => {
     try {
       if (!accountInfo) return alert('Account not connected');
-      const { response, data } = await nftManagement.getUserNftId(accountInfo?.accInfo.owner, nftId);
+      const { response, data } = await nftManagement.getUserNftId(
+        accountInfo?.accInfo.owner,
+        nftId
+      );
 
       console.log(data.data);
-      
+
       if (data && data.data && data.data.nfts.length > 0) {
         return data.data.nfts;
       }
@@ -90,12 +96,11 @@ const useNFTManagement = () => {
     }
   };
 
-
   return {
     syncNft,
     getAllNfts,
     getUserNftId,
-    getUserNftList
+    getUserNftList,
   };
 };
 

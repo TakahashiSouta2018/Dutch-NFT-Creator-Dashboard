@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 
 import { Dropdown } from '@/common';
 import useCollectionHook from '@/hooks/useCollectionHook';
-import { setCollectionNfts, setSelectedNfts } from '@/components/dashboard/ducks';
+import {
+  setCollectionNfts,
+  setSelectedNfts,
+} from '@/components/dashboard/ducks';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
 import { LoopringService } from '@/lib/LoopringService';
@@ -47,15 +50,15 @@ const CollectionDropdown: React.FC<CollectionDropdownI> = ({
           tokensAddress: [selectedCollectionAddress],
           offset: 0,
           limit: 50,
-        });        
+        });
 
-        if (nftsInfo && nftsInfo.nfts && nftsInfo.nfts.length > 0) dispatch(setCollectionNfts(nftsInfo.nfts));
-        else dispatch(setCollectionNfts([]))
+        if (nftsInfo && nftsInfo.nfts && nftsInfo.nfts.length > 0)
+          dispatch(setCollectionNfts(nftsInfo.nfts));
+        else dispatch(setCollectionNfts([]));
 
-        dispatch(setSelectedNfts([]))
+        dispatch(setSelectedNfts([]));
       }
-
-    })()
+    })();
   }, [selectedCollectionAddress]);
 
   const handleSelectCollection = (value: string, index: number) => {

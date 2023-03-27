@@ -275,7 +275,6 @@ const NFTManagement: React.FC = () => {
                   }}
                   nftList={collectionNfts}
                 />
-
               </DutchC.NFTManagementContentBodyInnerContainer>
             </DutchC.NFTManagementContentBodyInner>
 

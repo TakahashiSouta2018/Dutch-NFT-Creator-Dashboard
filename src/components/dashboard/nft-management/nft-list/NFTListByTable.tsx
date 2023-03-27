@@ -9,7 +9,7 @@ interface NFTListByTableProps {
 
 const NFTListByTable: React.FC<NFTListByTableProps> = ({
   onShowListModal,
-  multiNFTs
+  multiNFTs,
 }): JSX.Element => {
   return (
     <NFTListTable nftMultiList={multiNFTs} onShowListModal={onShowListModal} />
