@@ -1,4 +1,8 @@
-import { setDraftNFTs, setMintModalActiveStep, setMintModalIsOpen } from '@/components/create/ducks';
+import {
+  setDraftNFTs,
+  setMintModalActiveStep,
+  setMintModalIsOpen,
+} from '@/components/create/ducks';
 import { LoopringService } from '@/lib/LoopringService';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import DraftNFTService from '@/services/DraftNFTService.service';
@@ -41,7 +45,7 @@ const useNFTHook = () => {
         id,
         ownerAddress: accountInfo?.accInfo.owner,
       });
-      if (data.data) return data.data
+      if (data.data) return data.data;
       else return null;
     } catch (error) {
       console.log(error);
@@ -65,7 +69,6 @@ const useNFTHook = () => {
   };
 
   const onMintModalClose = async (collectionAddress: string) => {
-
     const nft = await getCollectionDraftNFT(collectionAddress);
     if (nft) {
       dispatch(setDraftNFTs(nft));
@@ -75,7 +78,12 @@ const useNFTHook = () => {
     dispatch(setMintModalIsOpen(false));
   };
 
-  return { createDraftNFT, getCollectionDraftNFT, deleteDraftNFT, onMintModalClose };
+  return {
+    createDraftNFT,
+    getCollectionDraftNFT,
+    deleteDraftNFT,
+    onMintModalClose,
+  };
 };
 
 export default useNFTHook;

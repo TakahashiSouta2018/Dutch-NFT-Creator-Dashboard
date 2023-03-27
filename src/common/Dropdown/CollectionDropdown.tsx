@@ -7,14 +7,16 @@ import useCollectionHook from '@/hooks/useCollectionHook';
 interface CollectionDropdownI {
   selectedCollectionAddress: string;
   setSelectedCollectionAddress: React.Dispatch<React.SetStateAction<string>>;
-};
+}
 
-const CollectionDropdown: React.FC<CollectionDropdownI> = ({ selectedCollectionAddress, setSelectedCollectionAddress }) => {
+const CollectionDropdown: React.FC<CollectionDropdownI> = ({
+  selectedCollectionAddress,
+  setSelectedCollectionAddress,
+}) => {
   const { userCollection, collectionNames } = useCollectionHook();
 
   const [selectedCollectionName, setSelectedCollectionName] =
     useState<string>('');
-
 
   useEffect(() => {
     if (userCollection.length > 0) {
@@ -27,7 +29,6 @@ const CollectionDropdown: React.FC<CollectionDropdownI> = ({ selectedCollectionA
     setSelectedCollectionName(value);
     setSelectedCollectionAddress(userCollection[index].collectionAddress);
   };
-
 
   return (
     <Dropdown

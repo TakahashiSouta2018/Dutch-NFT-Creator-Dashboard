@@ -90,7 +90,7 @@ const CreateDraftNFTHome: React.FC = () => {
   const handleCreateDraftNFT = async () => {
     setIsLoading(true);
     const mediaUrl = await pinFileToIPFS([media]);
-   
+
     if (mediaUrl) {
       await createDraftNFT({
         properties: JSON.stringify(properties),
@@ -103,7 +103,7 @@ const CreateDraftNFTHome: React.FC = () => {
       });
     } else alert('Unable to pin media');
 
-    setIsLoading(false)
+    setIsLoading(false);
   };
 
   return (
@@ -201,7 +201,11 @@ const CreateDraftNFTHome: React.FC = () => {
 
                 {/* Actions */}
                 <DutchC.CreateDraftNFTActions>
-                  <Button type="button" loading={isLoading} onClick={handleCreateDraftNFT}>
+                  <Button
+                    type="button"
+                    loading={isLoading}
+                    onClick={handleCreateDraftNFT}
+                  >
                     Save Draft
                   </Button>
                   <OutlineButton>Cancel</OutlineButton>

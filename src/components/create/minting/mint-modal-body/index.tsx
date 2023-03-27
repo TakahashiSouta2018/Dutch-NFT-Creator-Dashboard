@@ -12,7 +12,6 @@ const MintModalBody: React.FC<MintModalBodyProps> = ({
   isDepositFund,
   setDepositFund,
 }): JSX.Element => {
-
   return (
     <ModalBody>
       {isDepositFund ? (

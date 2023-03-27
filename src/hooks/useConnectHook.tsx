@@ -51,7 +51,7 @@ const useConnectHook = () => {
         );
         const userExist = accountDetails ? true : false;
 
-        dispatch(setConnectionError(false))
+        dispatch(setConnectionError(false));
         dispatch(setAccountInfo(accountDetails));
         dispatch(setIsConnected(userExist));
       } catch (error: any) {

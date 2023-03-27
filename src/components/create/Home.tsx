@@ -50,22 +50,24 @@ const CreateHome: React.FC = () => {
     })();
   }, [selectedCollectionAddress]);
 
-  const onNFTSelect = useCallback((id: number) => {
-    const updatedNfts = draftNFTs.map((draftNFT) => {
-      if (draftNFT.id === id) {
-        return { ...draftNFT, selected: !draftNFT.selected }
-      }
-      else return draftNFT;
-    })
-    dispatch(setDraftNFTs(updatedNfts));
-  }, [draftNFTs]);
+  const onNFTSelect = useCallback(
+    (id: number) => {
+      const updatedNfts = draftNFTs.map((draftNFT) => {
+        if (draftNFT.id === id) {
+          return { ...draftNFT, selected: !draftNFT.selected };
+        } else return draftNFT;
+      });
+      dispatch(setDraftNFTs(updatedNfts));
+    },
+    [draftNFTs]
+  );
 
   const toggleGuide = () => {
     setOpen((open) => !open);
   };
 
-
-  const isDraftNtSelected = draftNFTs.filter(draftNFT => draftNFT.selected).length > 0;
+  const isDraftNtSelected =
+    draftNFTs.filter((draftNFT) => draftNFT.selected).length > 0;
 
   return (
     <DutchC.CreateWrapper>
@@ -85,7 +87,7 @@ const CreateHome: React.FC = () => {
                 show here.
               </DutchC.CreateContentSubTitle>
               <DutchC.CreateContentCollection>
-                <CollectionDropdown 
+                <CollectionDropdown
                   selectedCollectionAddress={selectedCollectionAddress}
                   setSelectedCollectionAddress={setSelectedCollectionAddress}
                 />
@@ -114,9 +116,12 @@ const CreateHome: React.FC = () => {
             <DutchC.CreateContentTools>
               <SearchInput />
 
-              {isDraftNtSelected && <Button onClick={() => dispatch(setMintModalIsOpen(true))}>Mint Selected NFTs</Button>}
+              {isDraftNtSelected && (
+                <Button onClick={() => dispatch(setMintModalIsOpen(true))}>
+                  Mint Selected NFTs
+                </Button>
+              )}
               {draftNFTs.length > 0 && <Button>Mint all NFTs</Button>}
-
             </DutchC.CreateContentTools>
             <DutchC.CreateContentDraftNFTs>
               {draftNFTs.map((nft) => (
@@ -169,7 +174,7 @@ const DraftNFT: React.FC<DraftNFTProps> = ({
     } else {
       alert('Error occured saving nft');
     }
-  }
+  };
 
   return (
     <DutchC.DraftNFTCard selected={selected ? 1 : 0} onClick={onSelect}>

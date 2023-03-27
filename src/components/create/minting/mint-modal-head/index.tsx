@@ -25,15 +25,15 @@ const MintModalHead: React.FC<MintModalHeadProps> = ({
         isDepositFund
           ? 'Deposit Funds'
           : activeStep === 0
-            ? 'Mint Fee'
-            : activeStep === 1
-              ? 'Approve Wallet Signature'
-              : 'Minting'
+          ? 'Mint Fee'
+          : activeStep === 1
+          ? 'Approve Wallet Signature'
+          : 'Minting'
       }
       onClose={() => onMintModalClose(draftNFTs[0].collection)}
       onBack={() => onMintModalClose(draftNFTs[0].collection)}
     />
-  )
-}
+  );
+};
 
 export default MintModalHead;

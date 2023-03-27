@@ -8,12 +8,13 @@ import { useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
 import useNFTHook from '@/hooks/useNFTHook';
 
-
 interface ContentMintingPropsI {
   isFinishedMinting: boolean;
 }
 
-const ContentMinting: React.FC<ContentMintingPropsI> = ({ isFinishedMinting }) => {
+const ContentMinting: React.FC<ContentMintingPropsI> = ({
+  isFinishedMinting,
+}) => {
   const { onMintModalClose } = useNFTHook();
 
   const { activeStep, draftNFTs } = useAppSelector((state) => {

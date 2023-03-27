@@ -183,7 +183,7 @@ export class LoopringService {
 
   async getLayer2Balance(accountInfo: AccountInfoI) {
     const { userBalances } = await this.userAPI.getUserBalances(
-      { accountId: accountInfo.accInfo.accountId, tokens: "" },
+      { accountId: accountInfo.accInfo.accountId, tokens: '' },
       accountInfo.apiKey
     );
 

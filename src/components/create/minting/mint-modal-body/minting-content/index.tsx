@@ -6,7 +6,12 @@ import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
 import { AttributeI, MintingNftsI, MintStatusEnum, NftDataI } from '@/types';
 import { LoopringService } from '@/lib/LoopringService';
-import { setDraftNFTs, setMintingNfts, setMintModalActiveStep, updateMintNftStatus } from '@/components/create/ducks';
+import {
+  setDraftNFTs,
+  setMintingNfts,
+  setMintModalActiveStep,
+  updateMintNftStatus,
+} from '@/components/create/ducks';
 import useNFTHook from '@/hooks/useNFTHook';
 import { sleep } from '@loopring-web/loopring-sdk';
 
@@ -15,13 +20,22 @@ interface MintModalPropsI {
   setDepositFund: () => void;
 }
 
-const Minting: React.FC<MintModalPropsI> = ({ isDepositFund, setDepositFund }) => {
+const Minting: React.FC<MintModalPropsI> = ({
+  isDepositFund,
+  setDepositFund,
+}) => {
   const [isFinishedMinting, setIsFinishedMinting] = useState<boolean>(false);
 
-  const { activeStep, draftNFTs, isMintModalIsOpen, mintingNfts } = useAppSelector((state) => {
-    const { mintModal, draftNFTs } = state.createPageReducer;
-    return { activeStep: mintModal.activeStep, draftNFTs, isMintModalIsOpen: mintModal.isOpen, mintingNfts: mintModal.mintingNfts };
-  }, shallowEqual);
+  const { activeStep, draftNFTs, isMintModalIsOpen, mintingNfts } =
+    useAppSelector((state) => {
+      const { mintModal, draftNFTs } = state.createPageReducer;
+      return {
+        activeStep: mintModal.activeStep,
+        draftNFTs,
+        isMintModalIsOpen: mintModal.isOpen,
+        mintingNfts: mintModal.mintingNfts,
+      };
+    }, shallowEqual);
 
   const { walletType, accountInfo } = useAppSelector((state) => {
     const { walletType, accountInfo } = state.webAppReducer;
@@ -33,23 +47,19 @@ const Minting: React.FC<MintModalPropsI> = ({ isDepositFund, setDepositFund }) =
   const loopringService = new LoopringService();
   const dispatch = useAppDispatch();
 
-
-  const selectedDraftNfts = draftNFTs.filter(draftNFT => draftNFT.selected);
+  const selectedDraftNfts = draftNFTs.filter((draftNFT) => draftNFT.selected);
 
   useEffect(() => {
-    const nfts: MintingNftsI[] = selectedDraftNfts.map((draftNFT, index) => (
-        {
-          id: index, 
-          media: draftNFT.media,
-          name: draftNFT.name,
-          status: MintStatusEnum.QUEUED
-        }
-      ));
-    dispatch(setMintingNfts(nfts))
+    const nfts: MintingNftsI[] = selectedDraftNfts.map((draftNFT, index) => ({
+      id: index,
+      media: draftNFT.media,
+      name: draftNFT.name,
+      status: MintStatusEnum.QUEUED,
+    }));
+    dispatch(setMintingNfts(nfts));
   }, [selectedDraftNfts.length, isMintModalIsOpen]);
 
-  useEffect(() => {
-  }, [mintingNfts]);
+  useEffect(() => {}, [mintingNfts]);
 
   const handleStartMint = async () => {
     if (!accountInfo) return;
@@ -79,7 +89,7 @@ const Minting: React.FC<MintModalPropsI> = ({ isDepositFund, setDepositFund }) =
           mint_channel: 'Loopring',
           properties,
           attributes: attributes,
-        }
+        };
 
         const res = await loopringService.mintNFT({
           accountInfo,
@@ -96,20 +106,19 @@ const Minting: React.FC<MintModalPropsI> = ({ isDepositFund, setDepositFund }) =
           await deleteDraftNFT(selectedDraftNft.id);
           status = MintStatusEnum.SUCCESS;
         }
-        dispatch(updateMintNftStatus({status, id: i}))
+        dispatch(updateMintNftStatus({ status, id: i }));
 
         await sleep(1000);
       } catch (error: any) {
-        dispatch(updateMintNftStatus({status: MintStatusEnum.FAILED, id: i}))
+        dispatch(updateMintNftStatus({ status: MintStatusEnum.FAILED, id: i }));
         console.log(error.response.data.resultInfo);
       }
     }
 
-    setIsFinishedMinting(true)
+    setIsFinishedMinting(true);
 
     dispatch(setMintModalActiveStep(2));
-
-  }
+  };
 
   let renderContent = (
     <ContentMintFee
@@ -120,17 +129,13 @@ const Minting: React.FC<MintModalPropsI> = ({ isDepositFund, setDepositFund }) =
   );
 
   if (activeStep !== 0) {
-    renderContent = (
-      <ContentMinting isFinishedMinting={isFinishedMinting} />
-    );
+    renderContent = <ContentMinting isFinishedMinting={isFinishedMinting} />;
   }
 
   return (
     <div className="flex flex-col gap-6">
       <Stepper activeStep={activeStep} />
-      <div>
-        {renderContent}
-      </div>
+      <div>{renderContent}</div>
     </div>
   );
 };

@@ -53,7 +53,12 @@ const LoginHome: React.FC<LoginHomeProps> = ({ onClose }): JSX.Element => {
                     <button
                       onClick={() => connectAccount(ConnectorNames.MetaMask)}
                     >
-                      <Image src={option.imgUrl} alt="MetaMask" height="36" width="36" />
+                      <Image
+                        src={option.imgUrl}
+                        alt="MetaMask"
+                        height="36"
+                        width="36"
+                      />
                     </button>
                     <DutchC.TextNormal>{option.name}</DutchC.TextNormal>
                   </DutchC.Account>

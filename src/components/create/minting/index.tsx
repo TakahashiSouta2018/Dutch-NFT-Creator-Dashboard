@@ -10,7 +10,9 @@ interface MintingModalProps {
   className?: string;
 }
 
-const MintingModal: React.FC<MintingModalProps> = ({ className }): JSX.Element => {
+const MintingModal: React.FC<MintingModalProps> = ({
+  className,
+}): JSX.Element => {
   const [isDepositFund, setDepositFund] = useState(false);
 
   const { mintModal } = useAppSelector((state) => {
@@ -20,9 +22,7 @@ const MintingModal: React.FC<MintingModalProps> = ({ className }): JSX.Element =
 
   return (
     <Modal isOpen={mintModal.isOpen} className={className}>
-      <MintModalHead
-        isDepositFund={isDepositFund}
-      />
+      <MintModalHead isDepositFund={isDepositFund} />
       <MintModalBody
         isDepositFund={isDepositFund}
         setDepositFund={() => {

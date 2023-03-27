@@ -58,14 +58,8 @@ const FundMethod: React.FC<FundMethodProps> = ({
       </DutchC.DepositFundMethodHead>
       {showCard && type === 'card' && (
         <DutchC.DepositFundMethodContent>
-          <DepositContentCard
-            icon={WyreIcon}
-            title="Buy with Wyre"
-          />
-          <DepositContentCard
-            icon={RampIcon}
-            title="Buy with Ramp"
-          />
+          <DepositContentCard icon={WyreIcon} title="Buy with Wyre" />
+          <DepositContentCard icon={RampIcon} title="Buy with Ramp" />
         </DutchC.DepositFundMethodContent>
       )}
     </DutchC.DepositFundMethodWrapper>

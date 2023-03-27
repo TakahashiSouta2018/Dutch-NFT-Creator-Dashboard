@@ -17,7 +17,7 @@ const webAppPersistConfig = {
 const createPagePersistConfig = {
   key: 'createPageReducer',
   storage: storageSession,
-  blacklist: ['draftNFTs', 'mintModal']
+  blacklist: ['draftNFTs', 'mintModal'],
 };
 
 const rootReducer = combineReducers({

@@ -10,7 +10,7 @@ interface RegisterHomeProps {
 
 const RegisterHome: React.FC<RegisterHomeProps> = ({
   onClose,
-  isOpen
+  isOpen,
 }): JSX.Element => {
   const [showVerification, setShowVerification] = React.useState(false);
 

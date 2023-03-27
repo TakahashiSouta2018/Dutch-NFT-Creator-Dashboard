@@ -113,4 +113,4 @@ export const getIpfsHttpUrl = (ipfsUrlOrCid: string) => {
   const splitUrl = ipfsUrlOrCid.split('ipfs://');
   const cid = splitUrl.length === 1 ? ipfsUrlOrCid : splitUrl[1];
   return `https://ipfs.loopring.io/ipfs/${cid}`;
-}
+};

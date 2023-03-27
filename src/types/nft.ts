@@ -106,7 +106,7 @@ export enum MintStatusEnum {
   QUEUED = 'QUEUED',
   MINTING = 'MINTING',
   SUCCESS = 'SUCCESS',
-  FAILED = 'FAILED'
+  FAILED = 'FAILED',
 }
 
 export interface MintingNftsI {

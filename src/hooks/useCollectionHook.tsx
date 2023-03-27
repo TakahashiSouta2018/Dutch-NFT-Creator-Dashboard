@@ -55,9 +55,8 @@ const useCollectionHook = () => {
     });
     if (res) {
       alert('collection created successfully');
-      push('/create')
-    }
-    else alert('Unable to create collection')
+      push('/create');
+    } else alert('Unable to create collection');
   };
 
   const getUserCollection = async (offset: number, limit: number) => {

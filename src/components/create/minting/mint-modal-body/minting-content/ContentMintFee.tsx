@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ethers } from "ethers";
+import { ethers } from 'ethers';
 import Image from 'next/image';
 import * as DutchC from './styles';
 import * as Icons from '@/common';
@@ -10,7 +10,10 @@ import ExclamationIcon from '@/assets/exclamation.png';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
 import { LoopringService } from '@/lib/LoopringService';
-import { setMintModalActiveStep, setMintModalIsOpen } from '@/components/create/ducks';
+import {
+  setMintModalActiveStep,
+  setMintModalIsOpen,
+} from '@/components/create/ducks';
 
 interface ContentMintFeePropsI {
   isDepositFund: boolean;
@@ -27,17 +30,19 @@ interface NftFeeListI {
   name: string;
   feeInEth: number;
   feeInUSDT: number;
-} 
+}
 
 const ContentMintFee: React.FC<ContentMintFeePropsI> = ({
   isDepositFund,
   setDepositFund,
-  handleStartMint
+  handleStartMint,
 }): JSX.Element => {
-
   const { theme } = useTheme();
-  const [nftListFee, setNftListFee] = useState<NftFeeListI[]>([])
-  const [balanceCheck, setBalanceCheck] = useState<BalanceI>({totalBalance: '0', isDisabled: true})
+  const [nftListFee, setNftListFee] = useState<NftFeeListI[]>([]);
+  const [balanceCheck, setBalanceCheck] = useState<BalanceI>({
+    totalBalance: '0',
+    isDisabled: true,
+  });
   const loopringService = new LoopringService();
   const dispatch = useAppDispatch();
 
@@ -51,8 +56,7 @@ const ContentMintFee: React.FC<ContentMintFeePropsI> = ({
     return { draftNFTs };
   }, shallowEqual);
 
-  const selectedDraftNfts = draftNFTs
-    .filter((draftNFT) => draftNFT.selected)
+  const selectedDraftNfts = draftNFTs.filter((draftNFT) => draftNFT.selected);
 
   useEffect(() => {
     (async () => {
@@ -70,10 +74,10 @@ const ContentMintFee: React.FC<ContentMintFeePropsI> = ({
             collectionMeta
           );
 
-          const feeInEth = ethers.utils.formatUnits(fee.fees['ETH'].fee, 18)
-          const feeInUSDT = ethers.utils.formatUnits(fee.fees['USDT'].fee, 6)
+          const feeInEth = ethers.utils.formatUnits(fee.fees['ETH'].fee, 18);
+          const feeInUSDT = ethers.utils.formatUnits(fee.fees['USDT'].fee, 6);
 
-          return { name: nft.name, feeInEth, feeInUSDT }
+          return { name: nft.name, feeInEth, feeInUSDT };
         })
       );
       const filteredFeeList = feeList.filter((item) => item !== null);
@@ -85,14 +89,13 @@ const ContentMintFee: React.FC<ContentMintFeePropsI> = ({
         return accumulator + Number(object?.feeInEth);
       }, 0);
 
-      const userBalance = await loopringService.getLayer2Balance(accountInfo);    
-      const userEthBalance = ethers.utils.formatUnits(userBalance[0].total, 18)
+      const userBalance = await loopringService.getLayer2Balance(accountInfo);
+      const userEthBalance = ethers.utils.formatUnits(userBalance[0].total, 18);
 
       setBalanceCheck({
         totalBalance: userEthBalance,
-        isDisabled: totalFee > Number(userEthBalance)
+        isDisabled: totalFee > Number(userEthBalance),
       });
-
     })();
   }, [accountInfo, selectedDraftNfts.length]);
 
@@ -100,7 +103,7 @@ const ContentMintFee: React.FC<ContentMintFeePropsI> = ({
     dispatch(setMintModalActiveStep(0));
     dispatch(setMintModalIsOpen(false));
   };
-  
+
   return (
     <DutchC.MintFeeWrapper>
       <DutchC.MintContentWrapper>
@@ -145,10 +148,7 @@ const ContentMintFee: React.FC<ContentMintFeePropsI> = ({
         </DutchC.DepositTitleCol>
         <DutchC.ButtonRow>
           <OutlineButton onClick={onClose}>Cancel</OutlineButton>
-          <Button
-            onClick={handleStartMint}
-            disabled={balanceCheck.isDisabled}
-          >
+          <Button onClick={handleStartMint} disabled={balanceCheck.isDisabled}>
             Start Minting
           </Button>
         </DutchC.ButtonRow>

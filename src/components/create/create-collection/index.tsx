@@ -121,7 +121,11 @@ const CreateCollectionHome: React.FC = () => {
 
             {/* Create */}
             <DutchC.CreateCollectionButtonWrapper>
-              <Button type="button" loading={isLoading} onClick={handleCreateCollection}>
+              <Button
+                type="button"
+                loading={isLoading}
+                onClick={handleCreateCollection}
+              >
                 Create Collection
               </Button>
             </DutchC.CreateCollectionButtonWrapper>

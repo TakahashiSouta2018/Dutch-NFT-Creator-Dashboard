@@ -44,7 +44,6 @@ const ConnectWallet = (): JSX.Element => {
   let renderContent = <></>;
 
   console.log({ connectionError });
-  
 
   if (connectionError) renderContent = <ConnectionError />;
   else if (isConnectionLoading) renderContent = <ConnectMetaMask />;
@@ -56,7 +55,12 @@ const ConnectWallet = (): JSX.Element => {
             <DutchC.AccountWrapper key={i}>
               <DutchC.Account>
                 <button onClick={() => connectAccount(option.name)}>
-                  <Image src={option.imgUrl} alt="MetaMask" height="36" width="36" />
+                  <Image
+                    src={option.imgUrl}
+                    alt="MetaMask"
+                    height="36"
+                    width="36"
+                  />
                 </button>
                 <DutchC.TextNormal>{option.name}</DutchC.TextNormal>
               </DutchC.Account>

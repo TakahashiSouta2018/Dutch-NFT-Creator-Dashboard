@@ -12,9 +12,9 @@ const ConnectionError: React.FC = () => {
         <DutchC.TextBold>
           It seems your Loopring Layer 2 account is not activated yet!{' '}
         </DutchC.TextBold>
-        Visit <DutchC.TextUnderlined>here</DutchC.TextUnderlined> to learn
-        how to activate your Layer 2 account within 5 minutes and use our
-        Creator Dashboard!
+        Visit <DutchC.TextUnderlined>here</DutchC.TextUnderlined> to learn how
+        to activate your Layer 2 account within 5 minutes and use our Creator
+        Dashboard!
       </DutchC.TextSmall>
     </DutchC.ConnectionErrorWrapper>
   );

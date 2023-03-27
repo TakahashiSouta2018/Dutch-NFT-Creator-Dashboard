@@ -31,7 +31,12 @@ const Button: React.FC<ButtonProps> = ({
   const RightIcon = rightIcon ? icons[rightIcon] : null;
 
   return (
-    <DutchC.ButtonWrapper className={className} size={size} {...rest} disabled={loading}>
+    <DutchC.ButtonWrapper
+      className={className}
+      size={size}
+      {...rest}
+      disabled={loading}
+    >
       {loading ? (
         <ThreeDots
           height="20"
