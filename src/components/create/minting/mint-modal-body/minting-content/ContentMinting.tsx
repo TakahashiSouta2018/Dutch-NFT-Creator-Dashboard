@@ -17,9 +17,9 @@ const ContentMinting: React.FC<ContentMintingPropsI> = ({
 }) => {
   const { onMintModalClose } = useNFTHook();
 
-  const { activeStep, draftNFTs } = useAppSelector((state) => {
-    const { mintModal, draftNFTs } = state.createPageReducer;
-    return { activeStep: mintModal.activeStep, draftNFTs };
+  const { activeStep, selectedDraftNFTs } = useAppSelector((state) => {
+    const { mintModal, selectedDraftNFTs } = state.createPageReducer;
+    return { activeStep: mintModal.activeStep, selectedDraftNFTs };
   }, shallowEqual);
 
   return (
@@ -40,7 +40,7 @@ const ContentMinting: React.FC<ContentMintingPropsI> = ({
         <MintingButton
           activeStep={activeStep}
           isFinished={isFinishedMinting}
-          onClose={() => onMintModalClose(draftNFTs[0].collection)}
+          onClose={() => onMintModalClose(selectedDraftNFTs[0].collection)}
         />
       </DutchC.CancelButtionWrapper>
     </DutchC.WalletSignatureWrapper>

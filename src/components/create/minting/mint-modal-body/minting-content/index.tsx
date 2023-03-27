@@ -4,16 +4,16 @@ import ContentMintFee from './ContentMintFee';
 import ContentMinting from './ContentMinting';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
-import { AttributeI, MintingNftsI, MintStatusEnum, NftDataI } from '@/types';
+import { MintingNftsI, MintStatusEnum, NftDataI } from '@/types';
 import { LoopringService } from '@/lib/LoopringService';
 import {
-  setDraftNFTs,
   setMintingNfts,
   setMintModalActiveStep,
   updateMintNftStatus,
 } from '@/components/create/ducks';
 import useNFTHook from '@/hooks/useNFTHook';
 import { sleep } from '@loopring-web/loopring-sdk';
+import { handleNFTPropertiesAttributes } from '@/lib/metadata';
 
 interface MintModalPropsI {
   isDepositFund: boolean;
@@ -26,12 +26,12 @@ const Minting: React.FC<MintModalPropsI> = ({
 }) => {
   const [isFinishedMinting, setIsFinishedMinting] = useState<boolean>(false);
 
-  const { activeStep, draftNFTs, isMintModalIsOpen, mintingNfts } =
+  const { activeStep, selectedDraftNFTs, isMintModalIsOpen, mintingNfts } =
     useAppSelector((state) => {
-      const { mintModal, draftNFTs } = state.createPageReducer;
+      const { mintModal, selectedDraftNFTs } = state.createPageReducer;
       return {
         activeStep: mintModal.activeStep,
-        draftNFTs,
+        selectedDraftNFTs,
         isMintModalIsOpen: mintModal.isOpen,
         mintingNfts: mintModal.mintingNfts,
       };
@@ -47,17 +47,16 @@ const Minting: React.FC<MintModalPropsI> = ({
   const loopringService = new LoopringService();
   const dispatch = useAppDispatch();
 
-  const selectedDraftNfts = draftNFTs.filter((draftNFT) => draftNFT.selected);
 
   useEffect(() => {
-    const nfts: MintingNftsI[] = selectedDraftNfts.map((draftNFT, index) => ({
+    const nfts: MintingNftsI[] = selectedDraftNFTs.map((draftNFT, index) => ({
       id: index,
       media: draftNFT.media,
       name: draftNFT.name,
       status: MintStatusEnum.QUEUED,
     }));
     dispatch(setMintingNfts(nfts));
-  }, [selectedDraftNfts.length, isMintModalIsOpen]);
+  }, [selectedDraftNFTs.length, isMintModalIsOpen]);
 
   useEffect(() => {}, [mintingNfts]);
 
@@ -65,19 +64,12 @@ const Minting: React.FC<MintModalPropsI> = ({
     if (!accountInfo) return;
 
     dispatch(setMintModalActiveStep(1));
-    for (let i = 0; i < selectedDraftNfts.length; i++) {
-      const selectedDraftNft = selectedDraftNfts[i];
+    for (let i = 0; i < selectedDraftNFTs.length; i++) {
+      const selectedDraftNft = selectedDraftNFTs[i];
       try {
-        const attributes: AttributeI[] = [];
+        const properties = JSON.parse(selectedDraftNft.properties);
 
-        const decodedProperties = JSON.parse(selectedDraftNft.properties);
-
-        const properties: Record<string, string> = {};
-
-        decodedProperties.forEach((property: any) => {
-          properties[property.type] = property.value;
-          attributes.push({ trait_type: property.type, value: property.value });
-        });
+        const attributes = handleNFTPropertiesAttributes(properties);
 
         const nftData: NftDataI = {
           image: `ipfs://${selectedDraftNft.media}`,
@@ -99,7 +91,7 @@ const Minting: React.FC<MintModalPropsI> = ({
           royaltyPercentage: nftData.royalty_percentage,
           nftTokenAddress: selectedDraftNft.collection,
         });
-
+        console.log(res);
         let status = MintStatusEnum.FAILED;
 
         if (res) {
@@ -111,7 +103,7 @@ const Minting: React.FC<MintModalPropsI> = ({
         await sleep(1000);
       } catch (error: any) {
         dispatch(updateMintNftStatus({ status: MintStatusEnum.FAILED, id: i }));
-        console.log(error.response.data.resultInfo);
+        console.log(error);
       }
     }
 

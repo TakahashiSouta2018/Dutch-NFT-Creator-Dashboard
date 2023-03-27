@@ -11,17 +11,16 @@ import * as DutchC from './styles';
 import { IExtMultiMedia } from '../svg';
 
 interface FolderUploadProps {
-  selectedImageFolder: FileList | null;
-  setSelectedImageFolder: (value: FileList | null) => void;
+  imageUrls: string[];
+  setImageUrls: (value: string[]) => void;
 }
 
 const FolderUpload: React.FC<FolderUploadProps> = ({
-  selectedImageFolder,
-  setSelectedImageFolder,
+  imageUrls,
+  setImageUrls,
 }) => {
   const { theme } = useTheme();
   const hiddenFileInput = useRef<HTMLInputElement>(null);
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   const handleOpen = () => {
     if (hiddenFileInput) {
@@ -50,7 +49,6 @@ const FolderUpload: React.FC<FolderUploadProps> = ({
     );
 
     setImageUrls(urls);
-    setSelectedImageFolder(files);
   };
 
   return (

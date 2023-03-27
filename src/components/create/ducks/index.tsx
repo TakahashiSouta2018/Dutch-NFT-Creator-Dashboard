@@ -22,12 +22,14 @@ export interface MintModalI {
 // Define a type for the slice state
 export interface CreatePageReducerI {
   draftNFTs: DraftNFTResponseI[];
+  selectedDraftNFTs: DraftNFTResponseI[];
   mintModal: MintModalI;
 }
 
 // Define the initial state using that type
 const initialState: CreatePageReducerI = {
   draftNFTs: [],
+  selectedDraftNFTs: [],
   mintModal: initialMintModalState,
 };
 
@@ -38,6 +40,9 @@ export const createPageReducer: Slice<CreatePageReducerI> = createSlice({
   reducers: {
     setDraftNFTs: (state, action: PayloadAction<DraftNFTResponseI[]>) => {
       state.draftNFTs = action.payload;
+    },
+    setSelectedDraftNFTs: (state, action: PayloadAction<DraftNFTResponseI[]>) => {
+      state.selectedDraftNFTs = action.payload;
     },
     setMintModalActiveStep: (state, action: PayloadAction<number>) => {
       return {
@@ -72,6 +77,7 @@ export const {
   setMintModalIsOpen,
   setMintingNfts,
   updateMintNftStatus,
+  setSelectedDraftNFTs,
 } = createPageReducer.actions;
 
 // Other code such as selectors can use the imported `RootStateT` type

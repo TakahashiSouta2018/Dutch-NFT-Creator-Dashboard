@@ -41,6 +41,39 @@ const schema = {
 const ajv = new Ajv();
 export const validateMetadata = ajv.compile(schema);
 
+export const handleNFTPropertiesFromFolder = (data: string) => {
+  const splitProperties = data.split(',');
+
+  const properties: Record<string, string> = {};
+  const attributes: AttributeI[] = [];
+
+  splitProperties.forEach((splitProperty) => {
+    const pair = splitProperty.split(':');
+    assert(pair.length === 2, 'Invalid Properties');
+
+    const propertyKey = splitProperty.split(':')[0].trim();
+    const propertyValue = splitProperty.split(':')[1].trim();
+
+    properties[propertyKey] = propertyValue;
+    attributes.push({ trait_type: propertyKey, value: propertyValue });
+  });
+
+  return {properties, attributes}
+}
+
+export const handleNFTPropertiesAttributes = (properties: Record<string, string>) => {
+  const attributes: AttributeI[] = [];
+
+  for (const type in properties) {
+    if (Object.prototype.hasOwnProperty.call(properties, type)) {
+      const value = properties[type];
+      attributes.push({ trait_type: type, value: value });
+      
+    }
+  }
+  return attributes;
+}
+
 export const construcMetadata = ({
   imageNames,
   csvFileContents,
@@ -52,21 +85,7 @@ export const construcMetadata = ({
   return imageNames.map((imageName, index) => {
     const csvFileContent = csvFileContents[index];
 
-    const splitProperties = csvFileContent.properties.split(',');
-
-    const properties: Record<string, string> = {};
-    const attributes: AttributeI[] = [];
-
-    splitProperties.forEach((splitProperty) => {
-      const pair = splitProperty.split(':');
-      assert(pair.length === 2, 'Invalid Properties');
-
-      const propertyKey = splitProperty.split(':')[0].trim();
-      const propertyValue = splitProperty.split(':')[1].trim();
-
-      properties[propertyKey] = propertyValue;
-      attributes.push({ trait_type: propertyKey, value: propertyValue });
-    });
+    const {properties, attributes} = handleNFTPropertiesFromFolder(csvFileContent.properties);
 
     return {
       image: `ipfs://${folderCID}/${imageName}`,

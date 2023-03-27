@@ -46,23 +46,22 @@ const ContentMintFee: React.FC<ContentMintFeePropsI> = ({
   const loopringService = new LoopringService();
   const dispatch = useAppDispatch();
 
-  const { walletType, accountInfo } = useAppSelector((state) => {
-    const { walletType, accountInfo } = state.webAppReducer;
-    return { walletType, accountInfo };
+  const { accountInfo } = useAppSelector((state) => {
+    const { accountInfo } = state.webAppReducer;
+    return { accountInfo };
   }, shallowEqual);
 
-  const { draftNFTs } = useAppSelector((state) => {
-    const { draftNFTs } = state.createPageReducer;
-    return { draftNFTs };
+  const { selectedDraftNFTs } = useAppSelector((state) => {
+    const { selectedDraftNFTs } = state.createPageReducer;
+    return { selectedDraftNFTs };
   }, shallowEqual);
 
-  const selectedDraftNfts = draftNFTs.filter((draftNFT) => draftNFT.selected);
 
   useEffect(() => {
     (async () => {
       if (!accountInfo) return alert('wallet not connect');
       const feeList = await Promise.all(
-        selectedDraftNfts.map(async (nft) => {
+        selectedDraftNFTs.map(async (nft) => {
           const collectionMeta = await loopringService.getCollectionMeta(
             accountInfo,
             nft.collection
@@ -97,7 +96,7 @@ const ContentMintFee: React.FC<ContentMintFeePropsI> = ({
         isDisabled: totalFee > Number(userEthBalance),
       });
     })();
-  }, [accountInfo, selectedDraftNfts.length]);
+  }, [accountInfo, selectedDraftNFTs.length]);
 
   const onClose = () => {
     dispatch(setMintModalActiveStep(0));

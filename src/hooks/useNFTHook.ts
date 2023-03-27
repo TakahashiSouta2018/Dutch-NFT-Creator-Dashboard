@@ -2,16 +2,14 @@ import {
   setDraftNFTs,
   setMintModalActiveStep,
   setMintModalIsOpen,
+  setSelectedDraftNFTs,
 } from '@/components/create/ducks';
-import { LoopringService } from '@/lib/LoopringService';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import DraftNFTService from '@/services/DraftNFTService.service';
 import { DraftNFTI } from '@/types';
-import { useRouter } from 'next/router';
 import { shallowEqual } from 'react-redux';
 
 const useNFTHook = () => {
-  const router = useRouter();
   const dispatch = useAppDispatch();
   const draftNFTService = new DraftNFTService();
 
@@ -27,12 +25,8 @@ const useNFTHook = () => {
         ...draftNFT,
         owner: accountInfo?.accInfo.owner,
       });
-      if (data.data) {
-        alert('Draft saved successfully');
-        router.push('/create');
-      } else {
-        alert('Error occured saving nft');
-      }
+      if (data && data.data) return data.data;
+      else return null;
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +39,7 @@ const useNFTHook = () => {
         id,
         ownerAddress: accountInfo?.accInfo.owner,
       });
-      if (data.data) return data.data;
+      if (data && data.data) return data.data;
       else return null;
     } catch (error) {
       console.log(error);
@@ -59,7 +53,7 @@ const useNFTHook = () => {
         collectionAddress,
         accountInfo?.accInfo.owner
       );
-      if (data.data) {
+      if (data && data.data) {
         return data.data.nft;
       }
       return null;
@@ -76,6 +70,7 @@ const useNFTHook = () => {
 
     dispatch(setMintModalActiveStep(0));
     dispatch(setMintModalIsOpen(false));
+    dispatch(setSelectedDraftNFTs([]))
   };
 
   return {

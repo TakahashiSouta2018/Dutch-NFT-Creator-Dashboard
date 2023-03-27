@@ -1,10 +1,9 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useTheme } from 'next-themes';
 
 // components
 import {
   Button,
-  Dropdown,
   MediaUpload,
   TextArea,
   TextInput,
@@ -18,9 +17,9 @@ import * as DutchC from './styles';
 import * as Icons from '@/common/Icons';
 import useNFTHook from '@/hooks/useNFTHook';
 import { useForm } from '@/hooks/useForm';
-import useCollectionHook from '@/hooks/useCollectionHook';
 import { pinFileToIPFS } from '@/lib/pinata';
 import CollectionDropdown from '@/common/Dropdown/CollectionDropdown';
+import { useRouter } from 'next/router';
 
 // types
 type NFTPropertyT = {
@@ -36,6 +35,8 @@ interface NFTPropertyI {
 
 const CreateDraftNFTHome: React.FC = () => {
   const { theme } = useTheme();
+  const { push } = useRouter();
+
   const { createDraftNFT } = useNFTHook();
 
   const [open, setOpen] = useState(true);
@@ -91,9 +92,15 @@ const CreateDraftNFTHome: React.FC = () => {
     setIsLoading(true);
     const mediaUrl = await pinFileToIPFS([media]);
 
+    const parsedProperties: Record<string, string> = {};
+
+    properties.forEach((property: any) => {
+      parsedProperties[property.type] = property.value;
+    });
+
     if (mediaUrl) {
       await createDraftNFT({
-        properties: JSON.stringify(properties),
+        properties: JSON.stringify(parsedProperties),
         collection: selectedCollectionAddress,
         media: String(mediaUrl),
         name: values.name,
@@ -101,6 +108,8 @@ const CreateDraftNFTHome: React.FC = () => {
         amount: values.amount,
         description: values.description,
       });
+      alert('Draft saved successfully');
+      push('/create');
     } else alert('Unable to pin media');
 
     setIsLoading(false);

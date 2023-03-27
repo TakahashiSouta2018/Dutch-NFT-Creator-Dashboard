@@ -17,8 +17,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
 import CollectionDropdown from '@/common/Dropdown/CollectionDropdown';
 import { getIpfsHttpUrl } from '@/lib/pinata';
-import { setDraftNFTs, setMintModalIsOpen } from './ducks';
-import { useRouter } from 'next/router';
+import { setDraftNFTs, setMintModalIsOpen, setSelectedDraftNFTs } from './ducks';
 
 type DraftNFTProps = DraftNFTResponseI & {
   onSelect: () => void;
@@ -57,6 +56,8 @@ const CreateHome: React.FC = () => {
           return { ...draftNFT, selected: !draftNFT.selected };
         } else return draftNFT;
       });
+      const selectedNfts = updatedNfts.filter(updatedNft => updatedNft.selected);
+      dispatch(setSelectedDraftNFTs(selectedNfts));
       dispatch(setDraftNFTs(updatedNfts));
     },
     [draftNFTs]
@@ -64,6 +65,16 @@ const CreateHome: React.FC = () => {
 
   const toggleGuide = () => {
     setOpen((open) => !open);
+  };
+
+  const handleMintAll = () => {
+    const updatedNfts = draftNFTs.map((draftNFT) => {
+      return { ...draftNFT, selected: true };
+    });
+    
+    dispatch(setSelectedDraftNFTs(updatedNfts));
+    dispatch(setDraftNFTs(updatedNfts));
+    dispatch(setMintModalIsOpen(true))
   };
 
   const isDraftNtSelected =
@@ -121,7 +132,7 @@ const CreateHome: React.FC = () => {
                   Mint Selected NFTs
                 </Button>
               )}
-              {draftNFTs.length > 0 && <Button>Mint all NFTs</Button>}
+              {draftNFTs.length > 0 && <Button onClick={handleMintAll}>Mint all NFTs</Button>}
             </DutchC.CreateContentTools>
             <DutchC.CreateContentDraftNFTs>
               {draftNFTs.map((nft) => (
@@ -156,12 +167,13 @@ const DraftNFT: React.FC<DraftNFTProps> = ({
   amount,
   description,
   selected,
+  collection,
   onSelect,
 }) => {
-  const { push } = useRouter();
+  const dispatch = useAppDispatch();
 
   const { theme } = useTheme();
-  const { deleteDraftNFT } = useNFTHook();
+  const { deleteDraftNFT, getCollectionDraftNFT } = useNFTHook();
 
   const mediaUrl = getIpfsHttpUrl(media);
 
@@ -170,9 +182,13 @@ const DraftNFT: React.FC<DraftNFTProps> = ({
 
     if (isDeleted) {
       alert('Draft deleted successfully');
-      push('/create');
     } else {
       alert('Error occured saving nft');
+    }
+
+    const nft = await getCollectionDraftNFT(collection);
+    if (nft) {
+      dispatch(setDraftNFTs(nft));
     }
   };
 
