@@ -7,7 +7,7 @@ type CreateBulkMintWrapperProps = {
 
 // components
 export const CreateWrapper = styled.div.attrs({
-  className: 'relative flex px-6 py-4 mt-16 overflow-x-hidden',
+  className: 'relative flex px-6 mt-16 overflow-x-hidden',
 })``;
 
 // --- Main Content
@@ -19,7 +19,7 @@ export const CreateBulkMintWrapper = styled.div.attrs({
 `;
 
 export const CreateBulkMintContent = styled.div.attrs({
-  className: 'flex flex-col w-full space-y-4',
+  className: 'flex flex-col w-full',
 })``;
 
 export const CreateBulkMintContentBody = styled.div.attrs({

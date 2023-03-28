@@ -33,7 +33,7 @@ export const IconButtonWrapper = styled.div.attrs<{ className: string }>({
 `;
 
 // --- Outline Button
-export const OutlineButtonWrapper = styled.button.attrs({
+export const OutlineButtonWrapper = styled.button.attrs<{ className: string }>({
   className:
     'relative inline-flex gap-3 items-center justify-center h-10 rounded-lg px-4 bg-transparent border border-black/10 text-black/90 cursor-pointer transition focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-4 hover:bg-white/5 dark:border dark:border-white/70 dark:hover:bg-white/5 dark:bg-transparent dark:text-white/90 dark:focus:ring-white/30 dark:focus:ring-offset-dark-surface disabled:text-black/50 disabled:border-black/10 dark:disabled:border-white/10 dark:disabled:text-white/30 dark:hover:disabled:bg-transparent',
 })`

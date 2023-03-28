@@ -9,7 +9,7 @@ import * as DutchC from './styles';
 // types
 interface ModalProps {
   children: React.ReactNode;
-  isOpen?: boolean;
+  isOpen: boolean;
   className?: string;
 }
 
@@ -27,7 +27,7 @@ interface ModalBodyProps {
 
 export const Modal: React.FC<ModalProps> = ({
   children,
-  isOpen = false,
+  isOpen,
   className,
 }) => {
   return (

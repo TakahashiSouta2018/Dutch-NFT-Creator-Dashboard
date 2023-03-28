@@ -48,7 +48,6 @@ const CreateCollectionHome: React.FC = () => {
       <DutchC.CreateCollectionWrapper open={open ? 1 : 0}>
         <DutchC.CreateCollectionContent>
           <Breadcrumb />
-
           <DutchC.CreateCollectionContentBody>
             <DutchC.CreateCollectionHeader>
               Create Collection

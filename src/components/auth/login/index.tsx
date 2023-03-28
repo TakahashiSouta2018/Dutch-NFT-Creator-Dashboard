@@ -26,15 +26,19 @@ const LoginOptions = [
 
 interface LoginHomeProps {
   onClose?: () => void;
+  connectWallet: boolean;
 }
 
-const LoginHome: React.FC<LoginHomeProps> = ({ onClose }): JSX.Element => {
+const LoginHome: React.FC<LoginHomeProps> = ({
+  onClose,
+  connectWallet,
+}): JSX.Element => {
   const [loading, setLoading] = useState(false);
   const [connectionError, setConnectionError] = useState(false);
   const { connectAccount } = useWalletHook();
 
   return (
-    <Modal>
+    <Modal isOpen={connectWallet} className="max-w-xl">
       <ModalHead
         title={connectionError ? 'Connection Error' : 'Connect a Wallet'}
         onClose={onClose}
@@ -56,8 +60,8 @@ const LoginHome: React.FC<LoginHomeProps> = ({ onClose }): JSX.Element => {
                       <Image
                         src={option.imgUrl}
                         alt="MetaMask"
-                        height="36"
                         width="36"
+                        height="36"
                       />
                     </button>
                     <DutchC.TextNormal>{option.name}</DutchC.TextNormal>

@@ -12,7 +12,7 @@ type DraftNFTCardProps = {
 
 // components
 export const CreateWrapper = styled.div.attrs({
-  className: 'relative flex px-6 py-4 mt-16 overflow-x-hidden',
+  className: 'relative flex px-6 mt-16 overflow-x-hidden',
 })``;
 
 // --- Main Content
@@ -24,7 +24,7 @@ export const CreateContentWrapper = styled.div.attrs({
 `;
 
 export const CreateContent = styled.div.attrs({
-  className: 'flex flex-col w-full space-y-4',
+  className: 'flex flex-col w-full',
 })``;
 
 export const CreateContentHeader = styled.div.attrs({
@@ -71,7 +71,7 @@ export const CreateContentDraftNFTs = styled.div.attrs({
 
 // --- Breadcrumb
 export const BreadcrumbWrapper = styled.div.attrs({
-  className: 'flex items-center',
+  className: 'flex items-center my-4',
 })`
   & > * + * {
     &::before {
