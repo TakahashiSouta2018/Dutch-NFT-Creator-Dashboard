@@ -537,17 +537,17 @@ export const ICustomFriends: React.FC<{ currentColor: string }> = ({
   return <FriendsIcon currentColor={currentColor} />;
 };
 
-export const ICustomRamp: React.FC<{ currentColor: string }> = ({
-  currentColor,
-}) => {
-  return <RampIcon currentColor={currentColor} />;
-};
+// export const ICustomRamp: React.FC<{ currentColor: string }> = ({
+//   currentColor,
+// }) => {
+//   return <RampIcon currentColor={currentColor} />;
+// };
 
-export const ICustomWyre: React.FC<{ currentColor: string }> = ({
-  currentColor,
-}) => {
-  return <WyreIcon currentColor={currentColor} />;
-};
+// export const ICustomWyre: React.FC<{ currentColor: string }> = ({
+//   currentColor,
+// }) => {
+//   return <WyreIcon currentColor={currentColor} />;
+// };
 
 export const icons = {
   bell: IBell,
