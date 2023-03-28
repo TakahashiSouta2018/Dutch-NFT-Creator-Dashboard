@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 import { LoopringService } from '@/lib/LoopringService';
 import { pinFileToIPFS } from '@/lib/pinata';
 import { useAppSelector } from '@/redux/store';
@@ -54,14 +56,14 @@ const useCollectionHook = () => {
       tileUri: `ipfs://${imagesUrl[2]}`,
     });
     if (res) {
-      alert('collection created successfully');
+      toast('collection created successfully', { type: 'success' });
       push('/create');
-    } else alert('Unable to create collection');
+    } else toast('Unable to create collection', { type: 'error' });
   };
 
   const getUserCollection = async (offset: number, limit: number) => {
     try {
-      if (!accountInfo) return alert('Account not connected');
+      if (!accountInfo) return toast('Account not connected', { type: 'info' });
 
       const data = await loopringService.getUserCollection({
         accountInfo,

@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
+import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { toBase64 } from '@/lib/pinata';
@@ -30,13 +31,13 @@ const FolderUpload: React.FC<FolderUploadProps> = ({
 
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    if (!files) return alert('file upload failed');
+    if (!files) return toast('file upload failed', { type: 'error' });
 
     const fileSet = new Set<string>();
 
     Array.from(files).forEach((file) => {
       if (fileSet.has(file.name)) {
-        alert(`File ${file.name} is not unique`);
+        toast(`File ${file.name} is not unique`, { type: 'error' });
         return;
       }
       fileSet.add(file.name);

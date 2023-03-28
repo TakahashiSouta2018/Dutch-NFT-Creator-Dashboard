@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import NFTManagementService from '@/services/NFTManagement.service';
 import { UsageStatusEnum, UserListI } from '@/types';
@@ -18,7 +19,7 @@ const useNFTManagement = () => {
   }, shallowEqual);
 
   const syncNft = async (listName: string) => {
-    if (!accountInfo) return alert('Account not connected');
+    if (!accountInfo) return toast('Account not connected', { type: 'error' });
 
     await Promise.all(
       selectedNFTs.map(async (selectedNFT) => {
@@ -49,7 +50,8 @@ const useNFTManagement = () => {
 
   const getUserNfts = async (isArchived: UsageStatusEnum) => {
     try {
-      if (!accountInfo) return alert('Account not connected');
+      if (!accountInfo)
+        return toast('Account not connected', { type: 'error' });
       const { response, data } = await nftManagement.getUserNfts(
         accountInfo?.accInfo.owner,
         isArchived
@@ -65,7 +67,8 @@ const useNFTManagement = () => {
 
   const getUserNftList = async () => {
     try {
-      if (!accountInfo) return alert('Account not connected');
+      if (!accountInfo)
+        return toast('Account not connected', { type: 'error' });
       const { response, data } = await nftManagement.getUserNftList(
         accountInfo?.accInfo.owner
       );
@@ -80,7 +83,8 @@ const useNFTManagement = () => {
 
   const getUserCollectionList = async () => {
     try {
-      if (!accountInfo) return alert('Account not connected');
+      if (!accountInfo)
+        return toast('Account not connected', { type: 'error' });
       const { response, data } = await nftManagement.getUserCollectionList(
         accountInfo?.accInfo.owner
       );
@@ -95,7 +99,8 @@ const useNFTManagement = () => {
 
   const getUserNftId = async (nftId: string) => {
     try {
-      if (!accountInfo) return alert('Account not connected');
+      if (!accountInfo)
+        return toast('Account not connected', { type: 'error' });
       const { response, data } = await nftManagement.getUserNftId(
         accountInfo?.accInfo.owner,
         nftId

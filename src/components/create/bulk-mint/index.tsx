@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 
 // components
 import {
   Button,
-  Dropdown,
-  MultiMediaUpload,
   CSVUpload,
   OutlineButton,
   Table,
@@ -54,7 +54,9 @@ const CreateBulkMintHome: React.FC = () => {
 
   const handleSaveToDraft = async () => {
     if (selectedCSVFileContent.length !== imageUrls.length) {
-      return alert('CSV content not equal to selected images folder');
+      return toast('CSV content not equal to selected images folder', {
+        type: 'error',
+      });
     }
 
     setIsSavingToDraft(true);
@@ -78,14 +80,16 @@ const CreateBulkMintHome: React.FC = () => {
       })
     );
 
-    alert('NFTs are saved to draft');
+    toast('NFTs are saved to draft', { type: 'error' });
 
     setIsSavingToDraft(false);
   };
 
   const handleMintNfts = async () => {
     if (selectedCSVFileContent.length !== imageUrls.length) {
-      return alert('CSV content not equal to selected images folder');
+      return toast('CSV content not equal to selected images folder', {
+        type: 'error',
+      });
     }
 
     setIsMintingNft(true);

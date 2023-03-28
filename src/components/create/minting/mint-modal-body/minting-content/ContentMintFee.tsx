@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import Image from 'next/image';
+import { toast } from 'react-toastify';
 import * as DutchC from './styles';
 import * as Icons from '@/common';
 import { Button, OutlineButton } from '@/common';
@@ -58,7 +59,7 @@ const ContentMintFee: React.FC<ContentMintFeePropsI> = ({
 
   useEffect(() => {
     (async () => {
-      if (!accountInfo) return alert('wallet not connect');
+      if (!accountInfo) return toast('wallet not connect', { type: 'error' });
       const feeList = await Promise.all(
         selectedDraftNFTs.map(async (nft) => {
           const collectionMeta = await loopringService.getCollectionMeta(

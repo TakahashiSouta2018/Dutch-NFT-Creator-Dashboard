@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import {
   Button,
   Modal,
@@ -10,7 +11,6 @@ import {
   TabContainer,
   TabGroup,
   TextInput,
-  Dropdown,
 } from '@/common';
 import { IconButton } from '@/common';
 import * as DutchC from './styles';
@@ -81,7 +81,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
   const handleSubmitButtonClick = async () => {
     try {
       if (currentTab === 'LIST' && listName === '')
-        return alert('Add a list name');
+        return toast('Add a list name', { type: 'info' });
 
       if (currentTab === 'ALL' || currentTab === 'LIST') {
         await syncNft(listName);

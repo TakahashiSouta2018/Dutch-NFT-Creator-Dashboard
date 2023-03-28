@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useTheme } from 'next-themes';
+import { toast } from 'react-toastify';
 
 // components
 import {
@@ -108,9 +109,9 @@ const CreateDraftNFTHome: React.FC = () => {
         amount: values.amount,
         description: values.description,
       });
-      alert('Draft saved successfully');
+      toast('Draft saved successfully', { type: 'success' });
       push('/create');
-    } else alert('Unable to pin media');
+    } else toast('Unable to pin media', { type: 'error' });
 
     setIsLoading(false);
   };

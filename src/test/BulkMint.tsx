@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import { pinFolderToIPFS } from '@/lib/pinata';
 import Papa from 'papaparse';
 import { CSVMetadataI } from '@/types';
@@ -25,7 +26,8 @@ const FolderUpload = () => {
   }, shallowEqual);
 
   const changeCSVHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) return alert('file upload failed');
+    if (!event.target.files)
+      return toast('file upload failed', { type: 'error' });
 
     const handleParseComplete = (result: any) => {
       const data = result.data;
@@ -41,13 +43,13 @@ const FolderUpload = () => {
 
   const changeFolderHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    if (!files) return alert('file upload failed');
+    if (!files) return toast('file upload failed', { type: 'error' });
 
     const fileSet = new Set<string>();
 
     Array.from(files).forEach((file) => {
       if (fileSet.has(file.name)) {
-        alert(`File ${file.name} is not unique`);
+        toast(`File ${file.name} is not unique`, { type: 'error' });
         return;
       }
       fileSet.add(file.name);
@@ -64,7 +66,9 @@ const FolderUpload = () => {
     const selectedImageFolderArr = Array.from(selectedImageFolder);
 
     if (selectedImageFolderArr.length !== selectedCSVFileContent.length) {
-      return alert('Uploaded image not equal to the CSV metadata');
+      return toast('Uploaded image not equal to the CSV metadata', {
+        type: 'error',
+      });
     }
 
     const formData = new FormData();

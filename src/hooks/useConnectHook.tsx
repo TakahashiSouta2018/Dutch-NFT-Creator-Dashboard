@@ -1,10 +1,6 @@
-import {
-  setAccountInfo,
-  setConnectionError,
-  setIsConnected,
-  setIsConnectionLoading,
-  setIsConnectionModalOpen,
-} from '@/ducks';
+import { toast } from 'react-toastify';
+
+import { setAccountInfo, setConnectionError, setIsConnected } from '@/ducks';
 import { LoopringService } from '@/lib/LoopringService';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { ChainId } from '@loopring-web/loopring-sdk';
@@ -36,7 +32,7 @@ const useConnectHook = () => {
 
         if (chainId === 'unknown' || account === '') return;
         if (chainId !== Number(process.env.NEXT_PUBLIC_CHAIN_ID))
-          return alert('Wrong Network');
+          return toast('Wrong Network', { type: 'error' });
         if (accountInfo?.accInfo?.owner === account) return;
 
         const { accInfo } = await loopringService.exchangeAPI.getAccount({
@@ -89,7 +85,7 @@ const useConnectHook = () => {
       console.log('---> handleError:', props);
       console.log('---> handleErrorMSG:', props);
       //@ts-ignore
-      alert(props.opts.error.message);
+      toast(props.opts.error.message, { type: 'error' });
     },
     handleConnect: async ({ accounts, chainId }: handleConnectI) => {
       setConnectionInfo({ account: accounts[0], chainId });

@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
@@ -61,13 +62,15 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
     if (e.target && e.target.files && e.target.files[0]) {
       const { size, type, name } = e.target.files[0];
       if (!type.toLowerCase().match(/image\/(jpg|jpeg|png|gif)$/)) {
-        alert('Selected file image must be jpg, jpeg, png or gif image only');
+        toast('Selected file image must be jpg, jpeg, png or gif image only', {
+          type: 'error',
+        });
         return;
       }
       const x = await toBase64(e.target.files[0]);
       setImageUrl(x as string);
       setSelectedImageName(name);
-    } else alert('Image upload failed');
+    } else toast('Image upload failed', { type: 'error' });
   };
 
   return (

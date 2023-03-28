@@ -38,14 +38,15 @@ const NFTArchives = () => {
 
   return (
     <DutchC.NFTArchivesWrapper>
-      {NFTs.map((nft) => (
-        <NFTCard
-          key={nft.nftId}
-          type="archives"
-          onSelect={() => onNFTSelect(nft.nftId)}
-          {...nft}
-        />
-      ))}
+      {typeof NFTs === 'object' &&
+        NFTs.map((nft) => (
+          <NFTCard
+            key={nft.nftId}
+            type="archives"
+            onSelect={() => onNFTSelect(nft.nftId)}
+            {...nft}
+          />
+        ))}
     </DutchC.NFTArchivesWrapper>
   );
 };

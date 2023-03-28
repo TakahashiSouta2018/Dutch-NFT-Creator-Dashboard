@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
+import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { toBase64 } from '@/lib/pinata';
@@ -31,7 +32,7 @@ const MultiMediaUpload: React.FC<MultiMediaUploadProps> = () => {
         urls.push(url as string);
       }
       setImageUrls(urls);
-    } else alert('Image upload failed');
+    } else toast('Image upload failed', { type: 'error' });
   };
 
   return (

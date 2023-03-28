@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 import { connectProvides } from '@loopring-web/web3-provider';
 import * as sdk from '@loopring-web/loopring-sdk';
 import Web3 from 'web3';
@@ -81,7 +83,7 @@ export class LoopringService {
 
       return { accInfo, eddsaKey, apiKey };
     } catch (error: any) {
-      alert(error.message);
+      toast(error.message, { type: 'error' });
       console.log(error);
     }
   }
@@ -232,7 +234,7 @@ export class LoopringService {
           (collectionRes as sdk.RESULT_INFO).message)) ||
       !collectionRes.collections.length
     ) {
-      alert('Collection is disable to mint');
+      toast('Collection is disable to mint', { type: 'info' });
       return null;
     }
 

@@ -1,4 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { toast } from 'react-toastify';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
@@ -189,9 +191,9 @@ const DraftNFT: React.FC<DraftNFTProps> = ({
     const isDeleted = await deleteDraftNFT(id);
 
     if (isDeleted) {
-      alert('Draft deleted successfully');
+      toast('Draft deleted successfully', { type: 'error' });
     } else {
-      alert('Error occured saving nft');
+      toast('Error occured saving nft', { type: 'error' });
     }
 
     const nft = await getCollectionDraftNFT(collection);

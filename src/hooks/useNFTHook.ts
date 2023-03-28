@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import {
   setDraftNFTs,
   setMintModalActiveStep,
@@ -20,7 +21,8 @@ const useNFTHook = () => {
 
   const createDraftNFT = async (draftNFT: Omit<DraftNFTI, 'owner'>) => {
     try {
-      if (!accountInfo) return alert('Account not connected');
+      if (!accountInfo)
+        return toast('Account not connected', { type: 'error' });
       const { response, data } = await draftNFTService.createDraftNFT({
         ...draftNFT,
         owner: accountInfo?.accInfo.owner,
@@ -34,7 +36,8 @@ const useNFTHook = () => {
 
   const deleteDraftNFT = async (id: number) => {
     try {
-      if (!accountInfo) return alert('Account not connected');
+      if (!accountInfo)
+        return toast('Account not connected', { type: 'error' });
       const { response, data } = await draftNFTService.deleteDraftNFT({
         id,
         ownerAddress: accountInfo?.accInfo.owner,
@@ -48,7 +51,8 @@ const useNFTHook = () => {
 
   const getCollectionDraftNFT = async (collectionAddress: string) => {
     try {
-      if (!accountInfo) return alert('Account not connected');
+      if (!accountInfo)
+        return toast('Account not connected', { type: 'error' });
       const { response, data } = await draftNFTService.getCollectionDraftNFT(
         collectionAddress,
         accountInfo?.accInfo.owner

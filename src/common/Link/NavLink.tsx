@@ -7,6 +7,7 @@ import type { LinkWrapperProps } from './styles';
 type NavLinkProps = LinkWrapperProps & {
   href: string;
   children: React.ReactNode;
+  active: boolean;
 };
 
 const NavLink: React.FC<NavLinkProps> = ({ href, active, children }) => {

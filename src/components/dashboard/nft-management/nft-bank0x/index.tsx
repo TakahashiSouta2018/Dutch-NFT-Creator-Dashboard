@@ -25,14 +25,15 @@ const NFTBank0x = () => {
 
   return (
     <DutchC.NFTBank0xWrapper>
-      {NFTs.map((nft) => (
-        <NFTCard
-          key={nft.nftId}
-          onSelect={() => onNFTSelect(nft.nftId)}
-          type="bank0x"
-          {...nft}
-        />
-      ))}
+      {typeof NFTs === 'object' &&
+        NFTs.map((nft) => (
+          <NFTCard
+            key={nft.nftId}
+            onSelect={() => onNFTSelect(nft.nftId)}
+            type="bank0x"
+            {...nft}
+          />
+        ))}
     </DutchC.NFTBank0xWrapper>
   );
 };

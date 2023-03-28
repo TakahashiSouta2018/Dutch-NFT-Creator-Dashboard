@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import Image from 'next/image';
+import React, { useState, useRef } from 'react';
+import { toast } from 'react-toastify';
 import { useTheme } from 'next-themes';
 import Papa from 'papaparse';
 
@@ -31,7 +31,8 @@ const CSVUpload: React.FC<CSVUploadProps> = ({
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!event.target.files) return alert('file upload failed');
+    if (!event.target.files)
+      return toast('file upload failed', { type: 'error' });
 
     const handleParseComplete = (result: any) => {
       const data = result.data;

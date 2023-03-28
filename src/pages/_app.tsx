@@ -4,7 +4,10 @@ import { createGlobalStyle } from 'styled-components';
 import store, { persistor } from '@/redux/store';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { ToastContainer } from 'react-toastify';
+
 import '@/styles/globals.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const GlobalStyle = createGlobalStyle`
   :root {
@@ -27,6 +30,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <GlobalStyle />
         <ThemeProvider enableSystem={false} attribute="class">
           <Component {...pageProps} />
+          <ToastContainer />
         </ThemeProvider>
       </PersistGate>
     </Provider>

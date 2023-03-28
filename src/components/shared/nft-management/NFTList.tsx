@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
-import { Table, TBody, THead, TR, TD, IconButton } from '@/common';
+import React from 'react';
+import { Table, TBody, THead, TR, TD } from '@/common';
+import { toast } from 'react-toastify';
 
 import CopyNFTId from '@/components/dashboard/copy-nft-id';
 import * as Icons from '@/common';
@@ -10,7 +11,6 @@ import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
 import { setSelectedNfts } from '@/components/dashboard/ducks';
 import useNFTManagement from '@/hooks/useNFTManagement';
-import { useRouter } from 'next/router';
 
 interface NFTListProps {
   lists: NFTI[];
@@ -36,7 +36,7 @@ const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
   const handleSelectNft = async (list: NFTI) => {
     const nft = await getUserNftId(list.nftId);
     if (nft && currentTab === 'ALL') {
-      return alert('NFT already added to management');
+      return toast('NFT already added to management', { type: 'info' });
     }
 
     dispatch(setSelectedNfts(list));
