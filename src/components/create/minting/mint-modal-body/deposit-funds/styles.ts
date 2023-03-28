@@ -6,7 +6,7 @@ interface CardShowProps {
 
 export const DepositFundContentCard = styled.div.attrs({
   className:
-    'flex gap-4 p-2 border rounded-lg border-black/10 relative cursor-pointer',
+    'flex gap-4 p-2 border rounded-lg border-black/10 dark:border-white/10 relative cursor-pointer',
 })``;
 
 export const DepostFundRightArrow = styled.div.attrs({
@@ -18,9 +18,7 @@ export const DepositFundMethodWrapper = styled.div.attrs({
     'flex flex-col gap-4 p-4 border border-black/10 dark:border-white/10 rounded-lg cursor-pointer',
 })`
   ${(p: CardShowProps) =>
-    p.showCard
-      ? 'background-color: rgba(0, 0, 0, 0.1)'
-      : 'background-color: white'}
+    p.showCard ? 'background-color: rgba(0, 0, 0, 0.1)' : ''}
 `;
 
 export const DepositFundMethodHead = styled.div.attrs({

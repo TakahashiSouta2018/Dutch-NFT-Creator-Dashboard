@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const TransListWrapper = styled.div.attrs({
   className:
-    'flex flex-col divide-y py-2 px-4 border border-black/10 rounded-lg',
+    'flex flex-col divide-y py-2 px-4 border border-black/10 dark:border-white/10 rounded-lg',
 })``;
 
 export const ListElementWrapper = styled.div.attrs({
@@ -22,7 +22,7 @@ export const TextSmall = styled.div.attrs({
 })``;
 
 export const StatusQueued = styled.div.attrs({
-  className: 'text-sm font-bold text-black/50',
+  className: 'text-sm font-bold text-black/50 dark:text-white/50',
 })``;
 
 export const StatusMinting = styled.div.attrs({

@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useDetectClickOutside } from 'react-detect-click-outside';
+import { useTheme } from 'next-themes';
 
 import { PositionType } from '@/types';
 
@@ -27,6 +28,7 @@ const ShortcutContextMenu: React.FC<ShorcutContextMenuProps> = ({
     e.stopPropagation();
     setIsOpen(false);
   }, []);
+  const { theme } = useTheme();
 
   const ref = useDetectClickOutside({ onTriggered: handleClose });
 
@@ -36,7 +38,9 @@ const ShortcutContextMenu: React.FC<ShorcutContextMenuProps> = ({
         <Icons.IEllipsisHorizontal
           variant="solid"
           size="small"
-          color={isOpen === true ? 'white' : 'black'}
+          color={
+            isOpen === true ? 'white' : theme === 'light' ? 'black' : 'white'
+          }
         />
       </DutchC.ShortcutContextMenuButton>
       {isOpen && (

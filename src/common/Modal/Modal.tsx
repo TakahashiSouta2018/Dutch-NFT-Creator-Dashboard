@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 
 // components
 import { IconButton } from '../Button';
@@ -8,13 +9,14 @@ import * as DutchC from './styles';
 // types
 interface ModalProps {
   children: React.ReactNode;
-  isOpen?: boolean;
+  isOpen: boolean;
+  className?: string;
 }
 
 interface ModalHeadProps {
   icon?: IconType;
   title: string;
-  onClose?: () => void;
+  onClose?: (e: any) => void;
   onBack?: () => void;
   children?: React.ReactNode;
 }
@@ -23,13 +25,18 @@ interface ModalBodyProps {
   children: React.ReactNode;
 }
 
-export const Modal: React.FC<ModalProps> = ({ children, isOpen }) => {
+export const Modal: React.FC<ModalProps> = ({
+  children,
+  isOpen,
+  className,
+}) => {
   return (
-    <DutchC.ModalWrapper>
+    <DutchC.ModalWrapper className={clsx(isOpen ? 'visible' : ' invisible')}>
       <DutchC.ModalInner
-        className={`!max-w-4xl absolute transition-all left-1/2 -translate-x-1/2 transform ease-in-out duration-300 ${
-          isOpen ? ' top-1/2 -translate-y-1/2' : 'top-0 -translate-y-full'
-        }`}
+        className={clsx(
+          isOpen ? 'top-1/2 -translate-y-1/2 ' : 'top-0 -translate-y-full',
+          `${className}`
+        )}
       >
         {children}
       </DutchC.ModalInner>
@@ -51,13 +58,7 @@ export const ModalHead: React.FC<ModalHeadProps> = ({
         <DutchC.ModalTitle>{title}</DutchC.ModalTitle>
         {children}
       </DutchC.ModalTitleWrapper>
-      <IconButton
-        icon="close"
-        onClick={(e: React.SyntheticEvent) => {
-          e.stopPropagation();
-          onClose && onClose();
-        }}
-      />
+      <IconButton icon="close" onClick={onClose} />
     </DutchC.ModalHeadWrapper>
   );
 };

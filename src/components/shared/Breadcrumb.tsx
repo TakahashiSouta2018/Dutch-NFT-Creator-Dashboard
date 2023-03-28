@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 
 // components
-import * as DutchC from './styles';
+import * as DutchC from '../create/styles';
 
 // icons
 import * as Icons from '@/common/Icons';

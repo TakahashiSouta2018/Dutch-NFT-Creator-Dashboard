@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import Image from 'next/image';
 import { Modal, ModalHead, ModalBody } from '@/common';
 import useWalletHook from '@/hooks/useWalletHook';
 import { ConnectorNames } from '@loopring-web/loopring-sdk';
@@ -10,37 +11,41 @@ import * as DutchC from './styles';
 
 const LoginOptions = [
   {
-    name: 'MetaMask',
+    name: ConnectorNames.MetaMask,
     imgUrl: 'https://static.loopring.io/assets/svg/meta-mask.svg',
   },
   {
-    name: 'GameStop',
+    name: ConnectorNames.Gamestop,
     imgUrl: 'https://static.loopring.io/assets/svg/gs.svg',
   },
   {
-    name: 'WalletConnect',
+    name: ConnectorNames.WalletConnect,
     imgUrl: 'https://static.loopring.io/assets/svg/wallet-connect.svg',
   },
 ];
 
 interface LoginHomeProps {
   onClose?: () => void;
+  connectWallet: boolean;
 }
 
-const LoginHome: React.FC<LoginHomeProps> = ({ onClose }): JSX.Element => {
+const LoginHome: React.FC<LoginHomeProps> = ({
+  onClose,
+  connectWallet,
+}): JSX.Element => {
   const [loading, setLoading] = useState(false);
   const [connectionError, setConnectionError] = useState(false);
   const { connectAccount } = useWalletHook();
 
   return (
-    <Modal>
+    <Modal isOpen={connectWallet} className="max-w-xl">
       <ModalHead
         title={connectionError ? 'Connection Error' : 'Connect a Wallet'}
         onClose={onClose}
       />
       <ModalBody>
         {connectionError ? (
-          <ConnectionError />
+          <ConnectionError isOpen={connectionError} />
         ) : loading ? (
           <ConnectMetaMask />
         ) : (
@@ -52,7 +57,12 @@ const LoginHome: React.FC<LoginHomeProps> = ({ onClose }): JSX.Element => {
                     <button
                       onClick={() => connectAccount(ConnectorNames.MetaMask)}
                     >
-                      <img src={option.imgUrl} alt="MetaMask" height="36" />
+                      <Image
+                        src={option.imgUrl}
+                        alt="MetaMask"
+                        width="36"
+                        height="36"
+                      />
                     </button>
                     <DutchC.TextNormal>{option.name}</DutchC.TextNormal>
                   </DutchC.Account>

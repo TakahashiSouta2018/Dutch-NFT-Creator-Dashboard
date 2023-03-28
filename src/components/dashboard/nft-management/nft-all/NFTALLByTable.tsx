@@ -1,10 +1,10 @@
 import React from 'react';
 import * as DutchC from './styles';
-import { NFTListType } from '@/types';
+import { CreateNftManagementI } from '@/types';
 import NFTManagementTable from '@/components/dashboard/nft-management/nft-all/NFTManagementAllTable';
 
 interface NFTAllByTableProps {
-  NFTs: NFTListType[];
+  NFTs: CreateNftManagementI[];
   onNFTSelect: (nftId: string) => void;
 }
 

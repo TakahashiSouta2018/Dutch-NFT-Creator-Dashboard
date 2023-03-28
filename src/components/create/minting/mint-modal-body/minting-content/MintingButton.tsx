@@ -5,7 +5,7 @@ import * as DutchC from './styles';
 interface MintingButtonProps {
   activeStep: number;
   isFinished: boolean;
-  onClose: () => void;
+  onClose: (value?: any) => void;
 }
 
 const MintingButton: React.FC<MintingButtonProps> = ({
@@ -18,8 +18,8 @@ const MintingButton: React.FC<MintingButtonProps> = ({
       className={
         activeStep === 2
           ? isFinished
-            ? ''
-            : 'bg-accent-red'
+            ? '!bg-black'
+            : '!bg-accent-red'
           : '!bg-accent-red/40'
       }
       leftIcon={activeStep === 2 && isFinished ? undefined : 'close'}

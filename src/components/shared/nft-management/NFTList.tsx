@@ -1,60 +1,89 @@
 import React, { useEffect } from 'react';
 import { Table, TBody, THead, TR, TD, IconButton } from '@/common';
-import * as DutchC from './styles';
-import { NFTListType } from '@/types';
 
+import CopyNFTId from '@/components/dashboard/copy-nft-id';
 import * as Icons from '@/common';
 
+import * as DutchC from './styles';
+import { NFTI, TabTypeT } from '@/types';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { shallowEqual } from 'react-redux';
+import { setSelectedNfts } from '@/components/dashboard/ducks';
+import useNFTManagement from '@/hooks/useNFTManagement';
+import { useRouter } from 'next/router';
+
 interface NFTListProps {
-  selected: boolean;
-  lists: NFTListType[];
+  lists: NFTI[];
+  currentTab: TabTypeT;
 }
 
-const NFTList: React.FC<NFTListProps> = ({ selected, lists }) => {
-  let tmpLists = [];
-  if (selected) {
-    tmpLists = lists.filter((list) => list.selected);
-  } else tmpLists = lists;
+const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
+  const dispatch = useAppDispatch();
+  const { getUserNftId } = useNFTManagement();
+
+  const { selectedNFTs } = useAppSelector((state) => {
+    const { selectedNFTs } = state.dashboardPageReducer;
+    return { selectedNFTs };
+  }, shallowEqual);
+
+  const isSelected = (nftId: string) => {
+    return (
+      selectedNFTs.filter((selectedNFT) => selectedNFT.nftId === nftId).length >
+      0
+    );
+  };
+
+  const handleSelectNft = async (list: NFTI) => {
+    const nft = await getUserNftId(list.nftId);
+    if (nft && currentTab === 'ALL') {
+      return alert('NFT already added to management');
+    }
+
+    dispatch(setSelectedNfts(list));
+  };
+
+  const selected = true;
   return (
-    <Table>
-      <THead>
+    <Table className="dark:text-white text-black border rounded-xl">
+      <THead className="border-orange bg-black/5 dark:bg-white/5">
         <TR>
           <TD>
             <DutchC.IconRound />
           </TD>
-          <TD>Sr</TD>
+          {currentTab !== 'LIST' && <TD>Sr</TD>}
           <TD>Name</TD>
           {selected && <TD>Collection</TD>}
           <TD>Mint Count</TD>
-          <TD>Burned</TD>
+          {currentTab !== 'LIST' && <TD>Burned</TD>}
           <TD>NFT id</TD>
         </TR>
       </THead>
       <TBody>
-        {tmpLists.map((list) => {
+        {lists.map((list, index) => {
           return (
-            <TR key={list.sr}>
+            <TR key={index} onClick={() => handleSelectNft(list)}>
               <TD>
-                {list.selected ? (
-                  <Icons.ICheckCircle color="orange" size="large" />
+                {isSelected(list.nftId) ? (
+                  <Icons.ICheckCircle
+                    variant="solid"
+                    color="orange"
+                    size="large"
+                  />
                 ) : (
                   <DutchC.IconRound />
                 )}
               </TD>
-              <TD>{list.sr}</TD>
-              <TD>{list.name}</TD>
-              {selected && (
-                <TD>
-                  <DutchC.TextEllipsis>{list.collection}</DutchC.TextEllipsis>
-                </TD>
-              )}
-              <TD>{list.mintCount}</TD>
-              <TD>{list.burned ? 'Yes' : 'No'}</TD>
+              {currentTab !== 'LIST' && <TD>{index}</TD>}
+              <TD>{list?.metadata?.name}</TD>
               <TD>
-                <DutchC.NFTIdWrapper>
-                  <IconButton icon="document" />
-                  <DutchC.TextEllipsis>{list.nftId}</DutchC.TextEllipsis>
-                </DutchC.NFTIdWrapper>
+                <DutchC.TextEllipsis>
+                  {list?.collectionInfo?.name}
+                </DutchC.TextEllipsis>
+              </TD>
+              <TD>{list.total}</TD>
+              {currentTab !== 'LIST' && <TD>{list.locked ? 'Yes' : 'No'}</TD>}
+              <TD>
+                <CopyNFTId type="long" id={list.nftId} />
               </TD>
             </TR>
           );

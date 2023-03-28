@@ -1,36 +1,47 @@
 import React from 'react';
-import Image, { StaticImageData } from 'next/image';
-import WyreIcon from '@/assets/wyre.svg';
-import RampIcon from '@/assets/ramp.svg';
+import WyreIcon from '@/assets/wyre.png';
+import RampIcon from '@/assets/ramp.png';
 
 import * as DutchC from './styles';
 import * as Icons from '@/common/Icons';
 import DepositContentCard from './Card';
+import { useTheme } from 'next-themes';
 
 interface FundMethodProps {
-  icon: StaticImageData;
   type: string;
   title: string;
   description: string;
   onCard?: () => void;
   showCard?: boolean;
-  onBalance?: () => void;
 }
 
 const FundMethod: React.FC<FundMethodProps> = ({
-  icon,
   type,
   title,
   description,
   onCard,
   showCard,
-  onBalance,
 }) => {
+  const { theme } = useTheme();
   return (
     <DutchC.DepositFundMethodWrapper showCard={showCard}>
       <DutchC.DepositFundMethodHead onClick={onCard}>
         <div>
-          <Image src={icon} alt={title} width={24} height={24} />
+          {type === 'card' && (
+            <Icons.ICustomCard
+              currentColor={theme == 'dark' ? 'white' : 'black'}
+            />
+          )}
+          {type === 'wallet' && (
+            <Icons.ICustomExchange
+              currentColor={theme == 'dark' ? 'white' : 'black'}
+            />
+          )}
+          {type === 'friends' && (
+            <Icons.ICustomFriends
+              currentColor={theme == 'dark' ? 'white' : 'black'}
+            />
+          )}
         </div>
         <DutchC.DepositFundMethod>
           <DutchC.TextDepositBold>{title}</DutchC.TextDepositBold>
@@ -38,22 +49,17 @@ const FundMethod: React.FC<FundMethodProps> = ({
         </DutchC.DepositFundMethod>
         {showCard && type === 'card' && (
           <DutchC.IconCheck>
-            <Icons.ICheckCircle size="large" />
+            <Icons.ICheckCircle
+              size="large"
+              color={theme === 'dark' ? 'white' : 'black'}
+            />
           </DutchC.IconCheck>
         )}
       </DutchC.DepositFundMethodHead>
       {showCard && type === 'card' && (
         <DutchC.DepositFundMethodContent>
-          <DepositContentCard
-            icon={WyreIcon}
-            title="Buy with Wyre"
-            onBalance={onBalance}
-          />
-          <DepositContentCard
-            icon={RampIcon}
-            title="Buy with Ramp"
-            onBalance={onBalance}
-          />
+          <DepositContentCard icon={WyreIcon} title="Buy with Wyre" />
+          <DepositContentCard icon={RampIcon} title="Buy with Ramp" />
         </DutchC.DepositFundMethodContent>
       )}
     </DutchC.DepositFundMethodWrapper>

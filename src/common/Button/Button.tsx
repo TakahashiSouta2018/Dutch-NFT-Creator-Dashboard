@@ -1,4 +1,5 @@
 import React from 'react';
+import { ThreeDots } from 'react-loader-spinner';
 
 // components
 import * as DutchC from './styles';
@@ -23,31 +24,47 @@ const Button: React.FC<ButtonProps> = ({
   rightIcon,
   className,
   ref,
+  loading,
   ...rest
 }) => {
   const LeftIcon = leftIcon ? icons[leftIcon] : null;
   const RightIcon = rightIcon ? icons[rightIcon] : null;
 
   return (
-    <DutchC.ButtonWrapper className={className} size={size} {...rest}>
-      {/* left icon */}
-      {LeftIcon && (
-        <LeftIcon
-          variant="solid"
-          size={size === 'large' ? 'medium' : 'small'}
-          color="black"
-        />
-      )}
-
-      <>{children}</>
-
-      {/* right icon */}
-      {RightIcon && (
-        <RightIcon
-          variant="solid"
-          size={size === 'large' ? 'medium' : 'small'}
+    <DutchC.ButtonWrapper
+      className={className}
+      size={size}
+      {...rest}
+      disabled={loading}
+    >
+      {loading ? (
+        <ThreeDots
+          height="20"
+          width="30"
+          radius="9"
           color="white"
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{}}
+          visible={true}
         />
+      ) : (
+        <>
+          {LeftIcon && (
+            <LeftIcon
+              variant="solid"
+              size={size === 'large' ? 'medium' : 'small'}
+              color="black"
+            />
+          )}
+          <>{children}</>
+          {RightIcon && (
+            <RightIcon
+              variant="solid"
+              size={size === 'large' ? 'medium' : 'small'}
+              color="white"
+            />
+          )}
+        </>
       )}
     </DutchC.ButtonWrapper>
   );

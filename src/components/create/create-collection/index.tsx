@@ -5,7 +5,7 @@ import { useTheme } from 'next-themes';
 import { MediaUpload, TextInput, TextArea, Button } from '@/common';
 import { Guide } from '@/components/shared';
 import * as DutchC from './styles';
-import Breadcrumb from '../Breadcrumb';
+import Breadcrumb from '../../shared/Breadcrumb';
 
 // icons
 import * as Icons from '@/common/Icons';
@@ -20,6 +20,7 @@ const CreateCollectionHome: React.FC = () => {
   const [tileUri, setTileUri] = useState<string>('');
   const [avatar, setAvatar] = useState<string>('');
   const [banner, setBanner] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { theme } = useTheme();
   const [open, setOpen] = useState<boolean>(true);
@@ -31,6 +32,7 @@ const CreateCollectionHome: React.FC = () => {
   };
 
   const handleCreateCollection = async () => {
+    setIsLoading(true);
     await createCollection({
       name: values.name,
       description: values.description,
@@ -38,6 +40,7 @@ const CreateCollectionHome: React.FC = () => {
       avatar,
       banner,
     });
+    setIsLoading(false);
   };
 
   return (
@@ -45,7 +48,6 @@ const CreateCollectionHome: React.FC = () => {
       <DutchC.CreateCollectionWrapper open={open ? 1 : 0}>
         <DutchC.CreateCollectionContent>
           <Breadcrumb />
-
           <DutchC.CreateCollectionContentBody>
             <DutchC.CreateCollectionHeader>
               Create Collection
@@ -118,7 +120,11 @@ const CreateCollectionHome: React.FC = () => {
 
             {/* Create */}
             <DutchC.CreateCollectionButtonWrapper>
-              <Button type="button" onClick={handleCreateCollection}>
+              <Button
+                type="button"
+                loading={isLoading}
+                onClick={handleCreateCollection}
+              >
                 Create Collection
               </Button>
             </DutchC.CreateCollectionButtonWrapper>

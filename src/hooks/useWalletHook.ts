@@ -1,4 +1,9 @@
-import { setIsConnected, setWalletType } from '@/ducks';
+import {
+  setIsConnected,
+  setIsConnectionLoading,
+  setIsConnectionModalOpen,
+  setWalletType,
+} from '@/ducks';
 import { useAppDispatch } from '@/redux/store';
 import { ConnectorNames } from '@loopring-web/loopring-sdk';
 import { connectProvides, walletServices } from '@loopring-web/web3-provider';
@@ -13,12 +18,14 @@ const useWalletHook = () => {
 
   const connectAccount = async (connectorName: ConnectorNames) => {
     disconnectAccount();
+    dispatch(setIsConnectionLoading(true));
 
     switch (connectorName) {
       case ConnectorNames.Coinbase:
         await connectProvides.Coinbase({});
         break;
       case ConnectorNames.Gamestop:
+        // @ts-ignore
         await connectProvides.GameStop({ darkMode: true });
         break;
       case ConnectorNames.WalletConnect:
@@ -31,7 +38,8 @@ const useWalletHook = () => {
         await connectProvides.MetaMask({});
         break;
     }
-
+    dispatch(setIsConnectionLoading(false));
+    dispatch(setIsConnectionModalOpen(false));
     dispatch(setWalletType(connectorName));
   };
 

@@ -2,11 +2,11 @@ import styled from 'styled-components';
 
 export const MultiUploadWrapper = styled.div.attrs<{ className: string }>({
   className:
-    'flex flex-col items-center justify-center bg-black/5 rounded-lg text-sm text-black/70 dark:border-white/10 dark:bg-white/5 overflow-hidden w-60 cursor-pointer',
+    'flex flex-col items-center justify-center bg-black/5 border border-black/10 hover:border-black/50 rounded-lg overflow-hidden w-60 cursor-pointer dark:border-white/10 dark:bg-white/5 dark:hover:border-white/50',
 })``;
 
 export const MultiUploadInner = styled.div.attrs<{ className: string }>({
-  className: 'grid  p-2 pb-4 gap-1 grow',
+  className: 'grid gap-1 grow p-2',
 })``;
 
 export const MultiUploadLastMediaWrapper = styled.div.attrs({
@@ -19,8 +19,8 @@ export const MultiUploadLastMediaInner = styled.div.attrs({
 })``;
 
 export const MultiUploadLastMediaContentWrapper = styled.div.attrs({
-  className: 'flex gap-2 items-end mx-4',
+  className: 'relative flex items-end space-x-2 p-4 w-full',
 })``;
 export const MultiUploadLastMediaContentInner = styled.div.attrs({
-  className: 'flex flex-col gap-1',
+  className: 'flex flex-col space-y-1 w-[80%] grow',
 })``;

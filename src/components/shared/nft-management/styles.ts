@@ -53,7 +53,8 @@ export const TextEllipsis = styled.div.attrs<{ className: string }>({
 })``;
 
 export const IconRound = styled.div.attrs<{ className: string }>({
-  className: 'mx-auto border rounded-full w-4 h-4 border-black/70',
+  className:
+    'mx-auto border rounded-full w-4 h-4 border-black/70 dark:border-white',
 })``;
 
 export const NFTIdWrapper = styled.div.attrs<{ className: string }>({
@@ -66,7 +67,7 @@ export const FlexRowBetween = styled.div.attrs<{ className: string }>({
 
 export const NFTSyncWrapper = styled.div.attrs({
   className:
-    'flex gap-5 rounded-lg bg-black p-6 w-full text-white cursor-pointer',
+    'flex gap-5 rounded-lg bg-black p-6 w-full text-white cursor-pointer dark:bg-white dark:text-black',
 })``;
 
 export const FlexCol = styled.div.attrs<{ className: string }>({

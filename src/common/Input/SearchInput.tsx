@@ -21,17 +21,22 @@ const SearchInput: React.FC<SearchInputProps> = ({
   const { theme } = useTheme();
 
   return (
-    <DutchC.SearchInputWrapper>
+    <DutchC.SearchInputWrapper className={className}>
       {/* search icon */}
       <DutchC.SearchIconWrapper>
         <ISearch
           variant="solid"
           size="medium"
           color={theme === 'light' ? 'black' : 'white'}
+          className={className}
         />
       </DutchC.SearchIconWrapper>
 
-      <DutchC.SearchInput isShortCut={isShortCut} {...rest} />
+      <DutchC.SearchInput
+        isShortCut={isShortCut}
+        className={className}
+        {...rest}
+      />
 
       {/* shortcut icon */}
       {isShortCut && (

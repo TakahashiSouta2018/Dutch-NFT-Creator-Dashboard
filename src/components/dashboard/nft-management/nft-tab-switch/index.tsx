@@ -1,4 +1,4 @@
-import { NFTListType } from '@/types';
+import { NFTI } from '@/types';
 import React from 'react';
 
 import NFTAll from '../nft-all';
@@ -10,20 +10,28 @@ import NFTBank0x from '../nft-bank0x';
 interface SwitchProps {
   currentTab: string;
   tableListSwtich: number;
-  nftList: NFTListType[];
+  nftList: NFTI[];
+  onShowListModal: () => void;
 }
 
 const NFTTabSwitch: React.FC<SwitchProps> = ({
   currentTab,
   tableListSwtich,
   nftList,
+  onShowListModal,
 }): JSX.Element => {
   const tabSwitch = (currentTab: string) => {
     switch (currentTab) {
       case 'ALL':
-        return <NFTAll tableListSwtich={tableListSwtich} nftList={nftList} />;
+        return <NFTAll tableListSwtich={tableListSwtich} />;
       case 'LIST':
-        return <NFTLists tableListSwtich={tableListSwtich} nftList={nftList} />;
+        return (
+          <NFTLists
+            tableListSwtich={tableListSwtich}
+            nftList={nftList}
+            onShowListModal={onShowListModal}
+          />
+        );
       case 'COLLECTION':
         return <NFTCollections />;
       case 'ARCHIVE':

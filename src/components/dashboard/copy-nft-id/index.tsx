@@ -28,11 +28,17 @@ const CopyNFTId: React.FC<CopyNFTIdProps> = ({
         e.stopPropagation();
         return onClick;
       }}
-      onMouseDown={() => {
+      onMouseDown={(e) => {
+        e.stopPropagation();
         clearTimeout(timer);
         setStatus('active');
       }}
-      onMouseUp={() => {
+      onMouseUp={(e) => {
+        e.stopPropagation();
+        if (type === 'long') {
+          setStatus('default');
+          return;
+        }
         setStatus('copied');
         clearTimeout(timer);
         setTimer(
@@ -49,11 +55,7 @@ const CopyNFTId: React.FC<CopyNFTIdProps> = ({
         <Icons.IDocument
           size="medium"
           color={
-            type === 'long'
-              ? theme === 'light'
-                ? 'black'
-                : 'white'
-              : theme === 'light'
+            theme === 'light'
               ? status === 'default'
                 ? 'black'
                 : status === 'active'
@@ -65,11 +67,7 @@ const CopyNFTId: React.FC<CopyNFTIdProps> = ({
       </DutchC.CopyNFTIdIconWrapper>
       <DutchC.CopyNFTIdText
         color={
-          type === 'long'
-            ? theme === 'light'
-              ? 'black'
-              : 'white'
-            : theme === 'light'
+          theme === 'light'
             ? status === 'default'
               ? 'black'
               : status === 'active'
