@@ -21,6 +21,7 @@ import * as Icons from '@/common/Icons';
 import * as DutchC from './styles';
 
 import { Logout } from './alert-modals';
+import { PhotoEdit } from './photo-edit-modal';
 
 const timeOptions = [
   {
@@ -31,13 +32,23 @@ const timeOptions = [
 
 const ProfileContent: React.FC = () => {
   const [isLogout, setLogout] = useState(false);
+  const [isPhotoEdit, setPhotoEdit] = useState(false);
 
   return (
     <DutchC.ProfileWrapper>
       <DutchC.ProfileInner>
         <ProfileCardTemplate title="Profile Setting">
           <DutchC.ProfileSettingWrapper>
-            <Image src={AvatarIcon} alt="avatar" />
+            <DutchC.ProfileAvatarWrapper>
+              <Image src={AvatarIcon} alt="avatar" />
+              <DutchC.ProfileAvatarEditIcon
+                onClick={() => {
+                  setPhotoEdit(true);
+                }}
+              >
+                <Icons.IPencil />
+              </DutchC.ProfileAvatarEditIcon>
+            </DutchC.ProfileAvatarWrapper>
             <DutchC.ProfileSettingInner>
               <DutchC.ProfileSettingInnerLine>
                 <InputLabel>Display Name</InputLabel>
@@ -159,6 +170,13 @@ const ProfileContent: React.FC = () => {
         isLogout={isLogout}
         onLogout={() => {
           setLogout(false);
+        }}
+      />
+
+      <PhotoEdit
+        isPhotoEdit={isPhotoEdit}
+        onPhotoEdit={() => {
+          setPhotoEdit(false);
         }}
       />
     </DutchC.ProfileWrapper>

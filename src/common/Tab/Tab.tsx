@@ -5,12 +5,13 @@ import { useTheme } from 'next-themes';
 import * as DutchC from './styles';
 
 type WIDEFILTER = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE' | 'BANK0X';
+type PROFILE_EDIT = 'FROMNFT' | 'UPLOADNEW';
 
 interface TabProps {
   children: React.ReactNode;
   active: boolean;
-  onClick: (slug: WIDEFILTER) => void;
-  slug: WIDEFILTER;
+  onClick: (slug: WIDEFILTER | PROFILE_EDIT) => void;
+  slug: WIDEFILTER | PROFILE_EDIT;
 }
 
 const Tab: React.FC<TabProps> = ({

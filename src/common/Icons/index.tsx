@@ -5,8 +5,6 @@ import SolidIcons20 from '@heroicons/react/20/solid';
 import CardIcon from '../../assets/card.svg';
 import ExchangeIcon from '../../assets/exchange.svg';
 import FriendsIcon from '../../assets/friends.svg';
-import RampIcon from '../../assets/ramp.svg';
-import WyreIcon from '../../assets/wyre.svg';
 
 // type
 import { IconVariants } from '@/types';
@@ -517,6 +515,23 @@ export const IPlus: React.FC<IconProps> = ({
   );
 };
 
+export const IPencil: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+  className,
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons20.PencilIcon
+      className={`${className} ${sizes[size]} ${colors[color]} text-white`}
+    />
+  ) : (
+    <OutlineIcons.PencilIcon
+      className={`${className} ${sizes[size]} ${colors[color]} text-white`}
+    />
+  );
+};
+
 // ------------ Custom SVGs --------------- //
 
 export const ICustomCard: React.FC<{ currentColor: string }> = ({
@@ -535,18 +550,6 @@ export const ICustomFriends: React.FC<{ currentColor: string }> = ({
   currentColor,
 }) => {
   return <FriendsIcon currentColor={currentColor} />;
-};
-
-export const ICustomRamp: React.FC<{ currentColor: string }> = ({
-  currentColor,
-}) => {
-  return <RampIcon currentColor={currentColor} />;
-};
-
-export const ICustomWyre: React.FC<{ currentColor: string }> = ({
-  currentColor,
-}) => {
-  return <WyreIcon currentColor={currentColor} />;
 };
 
 export const icons = {
@@ -577,6 +580,7 @@ export const icons = {
   'check-badge': ICheckBadge,
   'ellipsis-horizontal': IEllipsisHorizontal,
   plus: IPlus,
+  pencil: IPencil,
 };
 
 export type IconType = keyof typeof icons;

@@ -12,6 +12,15 @@ export const ProfileSettingWrapper = styled.div.attrs({
   className: 'flex gap-4',
 })``;
 
+export const ProfileAvatarWrapper = styled.div.attrs({
+  className: 'relative',
+})``;
+
+export const ProfileAvatarEditIcon = styled.div.attrs({
+  className:
+    'absolute bottom-2 right-2 p-3 bg-black/50 rounded-lg cursor-pointer',
+})``;
+
 export const ProfileSettingInner = styled.div.attrs({
   className: 'flex flex-col gap-4 flex-grow',
 })``;

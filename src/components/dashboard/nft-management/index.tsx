@@ -161,7 +161,7 @@ const NFTManagement: React.FC = () => {
                         key={tab.slug}
                         active={tab.slug === currentWideFilter}
                         onClick={(slug) => {
-                          setCurrentWideFilter(slug);
+                          setCurrentWideFilter(slug as WIDEFILTER);
                           setTableListSwitch(0);
                           setShowSyncModal(false);
                         }}
