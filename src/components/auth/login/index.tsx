@@ -45,7 +45,7 @@ const LoginHome: React.FC<LoginHomeProps> = ({
       />
       <ModalBody>
         {connectionError ? (
-          <ConnectionError />
+          <ConnectionError isOpen={connectionError} />
         ) : loading ? (
           <ConnectMetaMask />
         ) : (

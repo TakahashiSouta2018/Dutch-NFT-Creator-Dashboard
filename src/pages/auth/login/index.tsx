@@ -4,7 +4,7 @@ import { AppLayout, CreateBulkMintHome } from '@/components';
 export default function Login() {
   return (
     <AppLayout>
-      <LoginHome />
+      <LoginHome connectWallet={false}  />
     </AppLayout>
   );
 }
