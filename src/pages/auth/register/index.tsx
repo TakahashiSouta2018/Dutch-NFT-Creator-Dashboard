@@ -4,7 +4,7 @@ import { AppLayout, CreateBulkMintHome } from '@/components';
 export default function Register() {
   return (
     <AppLayout>
-      <RegisterHome />
+      <RegisterHome isOpen={false} />
     </AppLayout>
   );
 }

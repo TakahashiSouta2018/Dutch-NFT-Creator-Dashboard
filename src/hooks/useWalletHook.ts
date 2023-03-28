@@ -25,6 +25,7 @@ const useWalletHook = () => {
         await connectProvides.Coinbase({});
         break;
       case ConnectorNames.Gamestop:
+        // @ts-ignore
         await connectProvides.GameStop({ darkMode: true });
         break;
       case ConnectorNames.WalletConnect:
