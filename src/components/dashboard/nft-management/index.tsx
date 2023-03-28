@@ -24,6 +24,8 @@ import * as Icons from '@/common/Icons';
 
 import * as DutchC from './styles';
 import ShortcutContextMenu from '@/components/shared/shortcut-context-menu';
+import { useAppSelector } from '@/redux/store';
+import { shallowEqual } from 'react-redux';
 
 type WIDEFILTER = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE' | 'BANK0X';
 
@@ -32,63 +34,63 @@ type WIDEFILTERTYPE = {
   slug: WIDEFILTER;
 };
 
-const nftList = [
-  {
-    sr: '001',
-    name: 'Red Onion',
-    collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
-    availableCount: 29,
-    mintCount: 1000,
-    burned: false,
-    nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c0b8',
-    selected: true,
-    img: '/images/rice.webp',
-  },
-  {
-    sr: '002',
-    name: 'Red Onion',
-    collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
-    availableCount: 29,
-    mintCount: 100,
-    burned: false,
-    nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c0b9',
-    selected: true,
-    img: '/images/rice.webp',
-  },
-  {
-    sr: '003',
-    name: 'Red Onion',
-    collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
-    availableCount: 29,
-    mintCount: 1000,
-    burned: false,
-    nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c010',
-    selected: true,
-    img: '/images/rice.webp',
-  },
-  {
-    sr: '004',
-    name: 'Red Onion',
-    collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
-    availableCount: 29,
-    mintCount: 10000,
-    burned: false,
-    nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c011',
-    selected: false,
-    img: '/images/rice.webp',
-  },
-  {
-    sr: '005',
-    name: 'Red Onion',
-    collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
-    availableCount: 29,
-    mintCount: 100,
-    burned: false,
-    nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c012',
-    selected: false,
-    img: '/images/rice.webp',
-  },
-];
+// const nftList = [
+//   {
+//     sr: '001',
+//     name: 'Red Onion',
+//     collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
+//     availableCount: 29,
+//     mintCount: 1000,
+//     burned: false,
+//     nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c0b8',
+//     selected: true,
+//     img: '/images/rice.webp',
+//   },
+//   {
+//     sr: '002',
+//     name: 'Red Onion',
+//     collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
+//     availableCount: 29,
+//     mintCount: 100,
+//     burned: false,
+//     nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c0b9',
+//     selected: true,
+//     img: '/images/rice.webp',
+//   },
+//   {
+//     sr: '003',
+//     name: 'Red Onion',
+//     collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
+//     availableCount: 29,
+//     mintCount: 1000,
+//     burned: false,
+//     nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c010',
+//     selected: true,
+//     img: '/images/rice.webp',
+//   },
+//   {
+//     sr: '004',
+//     name: 'Red Onion',
+//     collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
+//     availableCount: 29,
+//     mintCount: 10000,
+//     burned: false,
+//     nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c011',
+//     selected: false,
+//     img: '/images/rice.webp',
+//   },
+//   {
+//     sr: '005',
+//     name: 'Red Onion',
+//     collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
+//     availableCount: 29,
+//     mintCount: 100,
+//     burned: false,
+//     nftId: '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c012',
+//     selected: false,
+//     img: '/images/rice.webp',
+//   },
+// ];
 
 const wideFilters: WIDEFILTERTYPE[][] = [
   [
@@ -124,9 +126,13 @@ const NFTManagement: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const [currentWideFilter, setCurrentWideFilter] = useState<WIDEFILTER>('ALL');
   const [tableListSwtich, setTableListSwitch] = useState(0);
-  const [isSynced, setSynced] = useState(false);
   const [showSyncModal, setShowSyncModal] = useState(false);
   const [showCreateListModal, setShowCreatListModal] = useState(false);
+
+  const { collectionNfts } = useAppSelector((state) => {
+    const { collectionNfts } = state.dashboardPageReducer;
+    return { collectionNfts };
+  }, shallowEqual);
 
   useEffect(() => {
     setMounted(true);
@@ -223,7 +229,7 @@ const NFTManagement: React.FC = () => {
                       currentWideFilter === 'ARCHIVE') && (
                       <Button
                         className="bg-black/90 text-opacity-100 text-bold"
-                        disabled={isSynced ? false : true}
+                        disabled={false}
                         leftIcon={
                           currentWideFilter === 'LIST' ? 'plus' : undefined
                         }
@@ -246,33 +252,29 @@ const NFTManagement: React.FC = () => {
                     onClose={() => {
                       setShowCreatListModal(false);
                     }}
-                    lists={nftList}
+                    lists={collectionNfts}
                     currentTab={currentWideFilter}
                     showSyncModal={showCreateListModal}
                   />
                 )}
 
-                {isSynced ? (
-                  <NFTTabSwitch
-                    currentTab={currentWideFilter}
-                    tableListSwtich={tableListSwtich}
-                    nftList={nftList}
-                    onShowListModal={() => {
-                      setShowCreatListModal(true);
-                    }}
-                  />
-                ) : (
-                  <SyncNFTs
-                    setSynced={(flag) => {
-                      setSynced(flag);
-                    }}
-                    showSyncModal={showSyncModal}
-                    setShowSyncModal={(flag) => {
-                      setShowSyncModal(flag);
-                    }}
-                    nftList={nftList}
-                  />
-                )}
+                <NFTTabSwitch
+                  currentTab={currentWideFilter}
+                  tableListSwtich={tableListSwtich}
+                  nftList={collectionNfts}
+                  onShowListModal={() => {
+                    setShowCreatListModal(true);
+                  }}
+                />
+
+                <SyncNFTs
+                  currentTab={currentWideFilter}
+                  showSyncModal={showSyncModal}
+                  setShowSyncModal={(flag) => {
+                    setShowSyncModal(flag);
+                  }}
+                  nftList={collectionNfts}
+                />
               </DutchC.NFTManagementContentBodyInnerContainer>
             </DutchC.NFTManagementContentBodyInner>
 

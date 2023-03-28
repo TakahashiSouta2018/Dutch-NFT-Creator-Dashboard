@@ -6,9 +6,7 @@ interface DepositFundsProps {
   onBalance: () => void;
 }
 
-const DepositFunds: React.FC<DepositFundsProps> = ({
-  onBalance,
-}): JSX.Element => {
+const DepositFunds: React.FC<DepositFundsProps> = (): JSX.Element => {
   const [showCard, setShowCard] = useState(false);
 
   return (
@@ -21,7 +19,6 @@ const DepositFunds: React.FC<DepositFundsProps> = ({
           setShowCard(!showCard);
         }}
         showCard={showCard}
-        onBalance={onBalance}
       />
       <FundMethod
         type="wallet"

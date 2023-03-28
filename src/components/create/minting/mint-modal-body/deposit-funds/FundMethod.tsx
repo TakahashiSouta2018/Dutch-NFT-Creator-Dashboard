@@ -13,7 +13,6 @@ interface FundMethodProps {
   description: string;
   onCard?: () => void;
   showCard?: boolean;
-  onBalance?: () => void;
 }
 
 const FundMethod: React.FC<FundMethodProps> = ({
@@ -22,7 +21,6 @@ const FundMethod: React.FC<FundMethodProps> = ({
   description,
   onCard,
   showCard,
-  onBalance,
 }) => {
   const { theme } = useTheme();
   return (
@@ -60,16 +58,8 @@ const FundMethod: React.FC<FundMethodProps> = ({
       </DutchC.DepositFundMethodHead>
       {showCard && type === 'card' && (
         <DutchC.DepositFundMethodContent>
-          <DepositContentCard
-            icon={WyreIcon}
-            title="Buy with Wyre"
-            onBalance={onBalance}
-          />
-          <DepositContentCard
-            icon={RampIcon}
-            title="Buy with Ramp"
-            onBalance={onBalance}
-          />
+          <DepositContentCard icon={WyreIcon} title="Buy with Wyre" />
+          <DepositContentCard icon={RampIcon} title="Buy with Ramp" />
         </DutchC.DepositFundMethodContent>
       )}
     </DutchC.DepositFundMethodWrapper>

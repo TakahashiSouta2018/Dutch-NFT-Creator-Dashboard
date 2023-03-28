@@ -11,15 +11,15 @@ import * as DutchC from './styles';
 
 const LoginOptions = [
   {
-    name: 'MetaMask',
+    name: ConnectorNames.MetaMask,
     imgUrl: 'https://static.loopring.io/assets/svg/meta-mask.svg',
   },
   {
-    name: 'GameStop',
+    name: ConnectorNames.Gamestop,
     imgUrl: 'https://static.loopring.io/assets/svg/gs.svg',
   },
   {
-    name: 'WalletConnect',
+    name: ConnectorNames.WalletConnect,
     imgUrl: 'https://static.loopring.io/assets/svg/wallet-connect.svg',
   },
 ];
@@ -45,7 +45,7 @@ const LoginHome: React.FC<LoginHomeProps> = ({
       />
       <ModalBody>
         {connectionError ? (
-          <ConnectionError />
+          <ConnectionError isOpen={connectionError} />
         ) : loading ? (
           <ConnectMetaMask />
         ) : (

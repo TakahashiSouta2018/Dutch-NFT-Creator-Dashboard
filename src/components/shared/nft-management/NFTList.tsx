@@ -5,19 +5,44 @@ import CopyNFTId from '@/components/dashboard/copy-nft-id';
 import * as Icons from '@/common';
 
 import * as DutchC from './styles';
-import { NFTListType } from '@/types';
+import { NFTI, TabTypeT } from '@/types';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { shallowEqual } from 'react-redux';
+import { setSelectedNfts } from '@/components/dashboard/ducks';
+import useNFTManagement from '@/hooks/useNFTManagement';
+import { useRouter } from 'next/router';
 
 interface NFTListProps {
-  selected: boolean;
-  lists: NFTListType[];
-  currentTab?: string;
+  lists: NFTI[];
+  currentTab: TabTypeT;
 }
 
-const NFTList: React.FC<NFTListProps> = ({ selected, lists, currentTab }) => {
-  let tmpLists = [];
-  if (selected) {
-    tmpLists = lists.filter((list) => list.selected);
-  } else tmpLists = lists;
+const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
+  const dispatch = useAppDispatch();
+  const { getUserNftId } = useNFTManagement();
+
+  const { selectedNFTs } = useAppSelector((state) => {
+    const { selectedNFTs } = state.dashboardPageReducer;
+    return { selectedNFTs };
+  }, shallowEqual);
+
+  const isSelected = (nftId: string) => {
+    return (
+      selectedNFTs.filter((selectedNFT) => selectedNFT.nftId === nftId).length >
+      0
+    );
+  };
+
+  const handleSelectNft = async (list: NFTI) => {
+    const nft = await getUserNftId(list.nftId);
+    if (nft && currentTab === 'ALL') {
+      return alert('NFT already added to management');
+    }
+
+    dispatch(setSelectedNfts(list));
+  };
+
+  const selected = true;
   return (
     <Table className="dark:text-white text-black border rounded-xl">
       <THead className="border-orange bg-black/5 dark:bg-white/5">
@@ -34,11 +59,11 @@ const NFTList: React.FC<NFTListProps> = ({ selected, lists, currentTab }) => {
         </TR>
       </THead>
       <TBody>
-        {tmpLists.map((list) => {
+        {lists.map((list, index) => {
           return (
-            <TR key={list.sr}>
+            <TR key={index} onClick={() => handleSelectNft(list)}>
               <TD>
-                {list.selected ? (
+                {isSelected(list.nftId) ? (
                   <Icons.ICheckCircle
                     variant="solid"
                     color="orange"
@@ -48,20 +73,17 @@ const NFTList: React.FC<NFTListProps> = ({ selected, lists, currentTab }) => {
                   <DutchC.IconRound />
                 )}
               </TD>
-              {currentTab !== 'LIST' && <TD>{list.sr}</TD>}
-              <TD>{list.name}</TD>
-              {selected && (
-                <TD>
-                  <DutchC.TextEllipsis>{list.collection}</DutchC.TextEllipsis>
-                </TD>
-              )}
-              <TD>{list.mintCount}</TD>
-              {currentTab !== 'LIST' && <TD>{list.burned ? 'Yes' : 'No'}</TD>}
+              {currentTab !== 'LIST' && <TD>{index}</TD>}
+              <TD>{list?.metadata?.name}</TD>
               <TD>
-                <CopyNFTId
-                  type="long"
-                  id={'0xa613c0e37979f1a3bf9e96c9a42ef7b9e6392025'}
-                />
+                <DutchC.TextEllipsis>
+                  {list?.collectionInfo?.name}
+                </DutchC.TextEllipsis>
+              </TD>
+              <TD>{list.total}</TD>
+              {currentTab !== 'LIST' && <TD>{list.locked ? 'Yes' : 'No'}</TD>}
+              <TD>
+                <CopyNFTId type="long" id={list.nftId} />
               </TD>
             </TR>
           );

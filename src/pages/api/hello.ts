@@ -32,8 +32,6 @@ export default async function handler(
       { headers }
     );
 
-    console.log({ result: result.data });
-
     return res.status(200).json({ status: 'success', data: result.data });
   } catch (error: any) {
     console.log({ error: error.response.data });

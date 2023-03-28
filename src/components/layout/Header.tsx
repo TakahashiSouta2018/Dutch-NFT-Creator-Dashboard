@@ -9,6 +9,9 @@ import * as DutchC from './styles';
 
 // types
 import { Menu } from '@/types';
+import { useAppDispatch } from '@/redux/store';
+import { setIsConnectionModalOpen } from '@/ducks';
+import ConnectWallet from '../shared/ConnectWallet';
 
 const menus: Menu[] = [
   {
@@ -37,8 +40,9 @@ const Header: React.FC = () => {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [connectWallet, setConnectWallet] = useState(false);
   const [isRegister, setRegister] = useState(false);
+
+  const dispatch = useAppDispatch();
 
   const PAGE_PATH = router.asPath.split('/')[1] ?? '';
 
@@ -46,9 +50,9 @@ const Header: React.FC = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   }, [setTheme, theme]);
 
-  const handleLogin = useCallback(() => {
-    setConnectWallet(true);
-  }, [setConnectWallet]);
+  const openConnectionModal = () => {
+    dispatch(setIsConnectionModalOpen(true));
+  };
 
   const handleRegister = useCallback(() => {
     setRegister(true);
@@ -64,12 +68,12 @@ const Header: React.FC = () => {
 
   return (
     <DutchC.HeaderWrapper>
-      <LoginHome
+      {/* <LoginHome
         onClose={() => {
           setConnectWallet(false);
         }}
         connectWallet={connectWallet}
-      />
+      /> */}
       <RegisterHome
         onClose={() => {
           setRegister(false);
@@ -112,10 +116,11 @@ const Header: React.FC = () => {
             onClick={toggleTheme}
           />
           <IconButton icon="bell" />
-          <IconButton icon="wallet" onClick={handleLogin} />
+          <IconButton icon="wallet" onClick={openConnectionModal} />
           <IconButton icon="user" onClick={handleRegister} />
         </DutchC.RightActions>
       </DutchC.HeaderInner>
+      <ConnectWallet />
     </DutchC.HeaderWrapper>
   );
 };

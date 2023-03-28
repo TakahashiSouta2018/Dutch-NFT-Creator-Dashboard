@@ -1,10 +1,9 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useTheme } from 'next-themes';
 
 // components
 import {
   Button,
-  Dropdown,
   MediaUpload,
   TextArea,
   TextInput,
@@ -18,11 +17,12 @@ import * as DutchC from './styles';
 import * as Icons from '@/common/Icons';
 import useNFTHook from '@/hooks/useNFTHook';
 import { useForm } from '@/hooks/useForm';
-import useCollectionHook from '@/hooks/useCollectionHook';
+import { pinFileToIPFS } from '@/lib/pinata';
+import CollectionDropdown from '@/common/Dropdown/CollectionDropdown';
+import { useRouter } from 'next/router';
 
 // types
 type NFTPropertyT = {
-  id: number;
   type: string;
   value: string;
 };
@@ -35,24 +35,23 @@ interface NFTPropertyI {
 
 const CreateDraftNFTHome: React.FC = () => {
   const { theme } = useTheme();
+  const { push } = useRouter();
+
+  const { createDraftNFT } = useNFTHook();
+
   const [open, setOpen] = useState(true);
   const [counter, setCounter] = useState(1);
   const [media, setMedia] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedCollectionAddress, setSelectedCollectionAddress] =
     useState<string>('');
-  const [selectedCollectionName, setSelectedCollectionName] =
-    useState<string>('');
-  const [collectionNames, setCollectionNames] = useState<string[]>([]);
+
   const [properties, setProperties] = useState<NFTPropertyT[]>([
     {
-      id: 0,
-      type: '',
-      value: '',
+      type: 'Cloth',
+      value: 'jeans',
     },
   ]);
-
-  const { createDraftNFT } = useNFTHook();
-  const { userCollection } = useCollectionHook();
 
   const [values, handleChange] = useForm({
     name: '',
@@ -60,16 +59,6 @@ const CreateDraftNFTHome: React.FC = () => {
     royalty: '',
     description: '',
   });
-
-  useEffect(() => {
-    if (userCollection.length > 0) {
-      const collectionNames = userCollection.map(
-        (collection) => collection.name
-      );
-      setCollectionNames(collectionNames);
-      setSelectedCollectionName(collectionNames[0]);
-    }
-  }, [userCollection]);
 
   const toggleGuide = () => {
     setOpen((open) => !open);
@@ -79,9 +68,8 @@ const CreateDraftNFTHome: React.FC = () => {
     setProperties((properties) => [
       ...properties,
       {
-        id: counter,
-        type: '',
-        value: '',
+        type: 'Cloth',
+        value: 'jeans',
       },
     ]);
 
@@ -89,9 +77,7 @@ const CreateDraftNFTHome: React.FC = () => {
   }, [counter]);
 
   const handleRemoveProperty = useCallback(
-    (id: number) => {
-      const index = properties.findIndex((property) => property.id === id);
-
+    (index: number) => {
       if (index >= 0) {
         setProperties((properties) => [
           ...properties.slice(0, index),
@@ -102,38 +88,31 @@ const CreateDraftNFTHome: React.FC = () => {
     [properties]
   );
 
-  const handleSelectCollection = (value: string, index: number) => {
-    setSelectedCollectionName(value);
-    console.log({ index, value, jdjfd: userCollection[index] });
-
-    setSelectedCollectionAddress(userCollection[index].collectionAddress);
-  };
-
   const handleCreateDraftNFT = async () => {
-    // const mediaUrl = await pinFileToIPFS([media]);
-    const x = 'https://';
+    setIsLoading(true);
+    const mediaUrl = await pinFileToIPFS([media]);
 
-    if (x) {
-      console.log({
-        properties: JSON.stringify(properties),
-        collection: selectedCollectionAddress,
-        media: x,
-        name: values.name,
-        royalty: values.royalty,
-        amount: values.amount,
-        description: values.description,
-      });
+    const parsedProperties: Record<string, string> = {};
 
+    properties.forEach((property: any) => {
+      parsedProperties[property.type] = property.value;
+    });
+
+    if (mediaUrl) {
       await createDraftNFT({
-        properties: JSON.stringify(properties),
+        properties: JSON.stringify(parsedProperties),
         collection: selectedCollectionAddress,
-        media: x,
+        media: String(mediaUrl),
         name: values.name,
         royalty: values.royalty,
         amount: values.amount,
         description: values.description,
       });
-    }
+      alert('Draft saved successfully');
+      push('/create');
+    } else alert('Unable to pin media');
+
+    setIsLoading(false);
   };
 
   return (
@@ -149,12 +128,9 @@ const CreateDraftNFTHome: React.FC = () => {
 
             {/* Collection Selector */}
             <DutchC.CreateDraftNFTCollectionSelectWrapper>
-              <Dropdown
-                label="Collection"
-                value={selectedCollectionName}
-                options={collectionNames}
-                position="BL"
-                onSelect={handleSelectCollection}
+              <CollectionDropdown
+                selectedCollectionAddress={selectedCollectionAddress}
+                setSelectedCollectionAddress={setSelectedCollectionAddress}
               />
             </DutchC.CreateDraftNFTCollectionSelectWrapper>
 
@@ -217,10 +193,10 @@ const CreateDraftNFTHome: React.FC = () => {
                   </DutchC.CreateDraftNFTPropertiesLabel>
 
                   {/* list */}
-                  {properties.map((property) => (
+                  {properties.map((property, index) => (
                     <NFTProperty
-                      key={property.id}
-                      onRemove={() => handleRemoveProperty(property.id)}
+                      key={index}
+                      onRemove={() => handleRemoveProperty(index)}
                       {...property}
                     />
                   ))}
@@ -234,7 +210,11 @@ const CreateDraftNFTHome: React.FC = () => {
 
                 {/* Actions */}
                 <DutchC.CreateDraftNFTActions>
-                  <Button type="button" onClick={handleCreateDraftNFT}>
+                  <Button
+                    type="button"
+                    loading={isLoading}
+                    onClick={handleCreateDraftNFT}
+                  >
                     Save Draft
                   </Button>
                   <OutlineButton>Cancel</OutlineButton>

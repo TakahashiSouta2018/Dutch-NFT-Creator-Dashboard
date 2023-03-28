@@ -5,8 +5,8 @@ import SolidIcons20 from '@heroicons/react/20/solid';
 import CardIcon from '../../assets/card.svg';
 import ExchangeIcon from '../../assets/exchange.svg';
 import FriendsIcon from '../../assets/friends.svg';
-import RampIcon from '../../assets/ramp.svg';
-import WyreIcon from '../../assets/wyre.svg';
+import RampIcon from '../../assets/ramp.png';
+import WyreIcon from '../../assets/wyre.png';
 
 // type
 import { IconVariants } from '@/types';
@@ -537,17 +537,17 @@ export const ICustomFriends: React.FC<{ currentColor: string }> = ({
   return <FriendsIcon currentColor={currentColor} />;
 };
 
-export const ICustomRamp: React.FC<{ currentColor: string }> = ({
-  currentColor,
-}) => {
-  return <RampIcon currentColor={currentColor} />;
-};
+// export const ICustomRamp: React.FC<{ currentColor: string }> = ({
+//   currentColor,
+// }) => {
+//   return <RampIcon currentColor={currentColor} />;
+// };
 
-export const ICustomWyre: React.FC<{ currentColor: string }> = ({
-  currentColor,
-}) => {
-  return <WyreIcon currentColor={currentColor} />;
-};
+// export const ICustomWyre: React.FC<{ currentColor: string }> = ({
+//   currentColor,
+// }) => {
+//   return <WyreIcon currentColor={currentColor} />;
+// };
 
 export const icons = {
   bell: IBell,

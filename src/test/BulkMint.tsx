@@ -6,8 +6,9 @@ import { construcMetadata } from '@/lib/metadata';
 import { LoopringService } from '@/lib/LoopringService';
 import { useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
-import ConnectWallet from '@/components/shared/connect-wallet';
+import ConnectWallet from '@/components/shared/ConnectWallet';
 import { AppLayout } from '@/components';
+import { sleep } from '@loopring-web/loopring-sdk';
 
 const FolderUpload = () => {
   const [selectedImageFolder, setSelectedImageFolder] =
@@ -78,8 +79,6 @@ const FolderUpload = () => {
       fileNames.push(`${randomNumber}${file.name}`);
     });
 
-    console.log({ fileNames });
-
     const metadata = JSON.stringify({
       name: 'Folder name', // update to collection name
     });
@@ -116,7 +115,7 @@ const FolderUpload = () => {
           nftTokenAddress: '0x4a160986c99ec5a35a91471c4c738e46dc2ab647',
         });
 
-        console.log({ res });
+        await sleep(1000);
       }
 
       // await Promise.all(
