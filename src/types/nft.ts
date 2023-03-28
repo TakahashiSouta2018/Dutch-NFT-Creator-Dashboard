@@ -137,5 +137,5 @@ export interface UserListI {
 
 export enum UsageStatusEnum {
   ARCHIVED = 'ARCHIVED',
-  UNARCHIVED = "UNARCHIVED"
+  UNARCHIVED = 'UNARCHIVED',
 }

@@ -7,7 +7,6 @@ import * as DutchC from './styles';
 import useNFTManagement from '@/hooks/useNFTManagement';
 
 const NFTArchives = () => {
-
   const { getUserNfts } = useNFTManagement();
   const [NFTs, setNFTs] = useState<CreateNftManagementI[]>([]);
 

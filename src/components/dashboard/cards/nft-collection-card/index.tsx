@@ -30,7 +30,9 @@ const NFTCollectionCard: React.FC<NFTCollectionCardProps> = ({
           {/* <DutchC.NFTTitleWrapper> */}
           <DutchC.NFTTitle>{collection.collectionName}</DutchC.NFTTitle>
           {/* </DutchC.NFTTitleWrapper> */}
-          <DutchC.NFTDescription>{collection.nfts.length} items</DutchC.NFTDescription>
+          <DutchC.NFTDescription>
+            {collection.nfts.length} items
+          </DutchC.NFTDescription>
         </DutchC.NFTDetail>
       </DutchC.NFTFooter>
     </DutchC.NFTCollectionCard>
