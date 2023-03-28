@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import NFTManagementService from '@/services/NFTManagement.service';
-import { CreateNftManagementI, UserListI } from '@/types';
+import { UsageStatusEnum, UserListI } from '@/types';
 import { shallowEqual } from 'react-redux';
 
 const useNFTManagement = () => {
@@ -47,11 +47,12 @@ const useNFTManagement = () => {
     );
   };
 
-  const getAllNfts = async () => {
+  const getUserNfts = async (isArchived: UsageStatusEnum) => {
     try {
       if (!accountInfo) return alert('Account not connected');
-      const { response, data } = await nftManagement.getAllNFT(
-        accountInfo?.accInfo.owner
+      const { response, data } = await nftManagement.getUserNfts(
+        accountInfo?.accInfo.owner,
+        isArchived
       );
       if (data && data.data) {
         return data.data.nfts;
@@ -66,6 +67,21 @@ const useNFTManagement = () => {
     try {
       if (!accountInfo) return alert('Account not connected');
       const { response, data } = await nftManagement.getUserNftList(
+        accountInfo?.accInfo.owner
+      );
+      if (data && data.data) {
+        return data.data.nfts as UserListI[];
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getUserCollectionList = async () => {
+    try {
+      if (!accountInfo) return alert('Account not connected');
+      const { response, data } = await nftManagement.getUserCollectionList(
         accountInfo?.accInfo.owner
       );
       if (data && data.data) {
@@ -98,9 +114,10 @@ const useNFTManagement = () => {
 
   return {
     syncNft,
-    getAllNfts,
+    getUserNfts,
     getUserNftId,
     getUserNftList,
+    getUserCollectionList,
   };
 };
 

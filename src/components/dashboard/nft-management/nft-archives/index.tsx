@@ -1,37 +1,25 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 
 import NFTCard from '../../cards/nft-card';
-import { NFTI } from '@/types';
+import { CreateNftManagementI, NFTI, UsageStatusEnum } from '@/types';
 
 import * as DutchC from './styles';
+import useNFTManagement from '@/hooks/useNFTManagement';
 
 const NFTArchives = () => {
-  const [NFTs, setNFTs] = useState<NFTI[]>([
-    {
-      sr: '001',
-      name: 'Red Onion',
-      collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
-      availableCount: 29,
-      mintCount: 1000,
-      burned: false,
-      nftId:
-        '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c0b8',
-      selected: true,
-      img: '/images/rice.webp',
-    },
-    {
-      sr: '002',
-      name: 'Red Onion',
-      collection: '🍎🍌🍍The Fruit Salad Game🍆🥦🥕',
-      availableCount: 29,
-      mintCount: 100,
-      burned: false,
-      nftId:
-        '0x314c44cae272f9afb555de3b485c7686c3823ac2b13fa0b16eafcbaf9e76c0b9',
-      selected: true,
-      img: '/images/rice.webp',
-    },
-  ]);
+
+  const { getUserNfts } = useNFTManagement();
+  const [NFTs, setNFTs] = useState<CreateNftManagementI[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const nfts = await getUserNfts(UsageStatusEnum.ARCHIVED);
+      if (nfts) {
+        setNFTs(nfts);
+      }
+    })();
+  }, []);
+
   const onNFTSelect = useCallback(
     (nftId: string) => {
       const index = NFTs.findIndex((nft) => nft.nftId === nftId);
@@ -41,7 +29,6 @@ const NFTArchives = () => {
           ...NFTs.slice(0, index),
           {
             ...nft,
-            selected: !nft.selected,
           },
           ...NFTs.slice(index + 1),
         ]);

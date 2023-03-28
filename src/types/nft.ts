@@ -134,3 +134,8 @@ export interface UserListI {
   imageUrls: string[];
   nfts: CreateNftManagementI[];
 }
+
+export enum UsageStatusEnum {
+  ARCHIVED = 'ARCHIVED',
+  UNARCHIVED = "UNARCHIVED"
+}

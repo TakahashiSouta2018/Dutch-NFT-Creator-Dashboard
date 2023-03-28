@@ -1,4 +1,4 @@
-import { CreateNftManagementI } from '@/types';
+import { CreateNftManagementI, UsageStatusEnum } from '@/types';
 import Service from '.';
 
 export default class NFTManagementService extends Service<any> {
@@ -26,7 +26,11 @@ export default class NFTManagementService extends Service<any> {
     return this.getRequest(`list/${ownerAddress}`);
   }
 
-  public getAllNFT(ownerAddress: string) {
-    return this.getRequest(`${ownerAddress}`);
+  public getUserCollectionList(ownerAddress: string) {
+    return this.getRequest(`collection/${ownerAddress}`);
+  }
+
+  public getUserNfts(ownerAddress: string, isArchived: UsageStatusEnum) {
+    return this.getRequest(`${ownerAddress}/${isArchived}`);
   }
 }
