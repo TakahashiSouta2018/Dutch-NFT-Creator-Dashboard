@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import AvatarIcon from '@/assets/avatar.png';
 import ProfileCardTemplate from '../shared/profile/ProfileCardTemplate';
@@ -15,10 +15,12 @@ import InstagramIcon from '@/assets/social_instagram.png';
 import TwitterIcon from '@/assets/social_twitter.png';
 import TiktokIcon from '@/assets/social_tiktok.png';
 import ProfileEmailNotification from '../shared/profile/ProfileEmailNotification';
+import WalletLine from '../shared/profile/WalletLine';
 
 import * as Icons from '@/common/Icons';
 import * as DutchC from './styles';
-import WalletLine from '../shared/profile/WalletLine';
+
+import { Logout } from './alert-modals';
 
 const timeOptions = [
   {
@@ -28,6 +30,8 @@ const timeOptions = [
 ];
 
 const ProfileContent: React.FC = () => {
+  const [isLogout, setLogout] = useState(false);
+
   return (
     <DutchC.ProfileWrapper>
       <DutchC.ProfileInner>
@@ -137,10 +141,26 @@ const ProfileContent: React.FC = () => {
           </DutchC.WalletFund>
           <DutchC.WalletActions>
             <Button className="mb-7">Add Funds</Button>
-            <OutlineButton className="mt-7">Logout</OutlineButton>
+            <OutlineButton
+              className="mt-7"
+              onClick={() => {
+                setLogout(true);
+              }}
+            >
+              Logout
+            </OutlineButton>
           </DutchC.WalletActions>
         </DutchC.WalletWrapper>
       </ProfileCardTemplate>
+
+      {/* Modals */}
+
+      <Logout
+        isLogout={isLogout}
+        onLogout={() => {
+          setLogout(false);
+        }}
+      />
     </DutchC.ProfileWrapper>
   );
 };
