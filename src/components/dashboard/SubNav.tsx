@@ -70,7 +70,7 @@ const DashboardSubNav: React.FC = () => {
             bgColor={nav.bgColor}
             name={nav.name}
             index={index}
-          />  
+          />
         </Link>
       ))}
     </DutchC.SubNavWrapper>

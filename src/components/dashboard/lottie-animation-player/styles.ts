@@ -18,5 +18,5 @@ export const LottieAnimationWrapper = styled(Lottie).attrs({
 })``;
 
 export const TextWrapper = styled.span.attrs({
-  className: 'font-bold font-Satoshi text-base text-black'
+  className: 'font-bold font-Satoshi text-base text-black',
 })``;
