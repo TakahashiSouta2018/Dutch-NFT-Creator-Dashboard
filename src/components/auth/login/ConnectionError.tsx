@@ -4,9 +4,9 @@ import * as DutchC from './styles';
 import Image from 'next/image';
 import ConnectionErrorIcon from '@/assets/connection_error.png';
 
-const ConnectionError: React.FC = () => {
+const ConnectionError: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
   return (
-    <Modal>
+    <Modal isOpen={isOpen}>
       <ModalBody>
         <DutchC.ConnectionErrorWrapper>
           <Image src={ConnectionErrorIcon} alt="connect error" />

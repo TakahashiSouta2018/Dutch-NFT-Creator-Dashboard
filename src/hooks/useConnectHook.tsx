@@ -1,4 +1,10 @@
-import { setAccountInfo, setIsConnected } from '@/ducks';
+import {
+  setAccountInfo,
+  setConnectionError,
+  setIsConnected,
+  setIsConnectionLoading,
+  setIsConnectionModalOpen,
+} from '@/ducks';
 import { LoopringService } from '@/lib/LoopringService';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { ChainId } from '@loopring-web/loopring-sdk';
@@ -37,7 +43,7 @@ const useConnectHook = () => {
           owner: account,
         });
 
-        if (!accInfo) return alert('Account Not Activated');
+        if (!accInfo) return dispatch(setConnectionError(true));
 
         const accountDetails = await loopringService.unlockAccount(
           account,
@@ -45,6 +51,7 @@ const useConnectHook = () => {
         );
         const userExist = accountDetails ? true : false;
 
+        dispatch(setConnectionError(false));
         dispatch(setAccountInfo(accountDetails));
         dispatch(setIsConnected(userExist));
       } catch (error: any) {

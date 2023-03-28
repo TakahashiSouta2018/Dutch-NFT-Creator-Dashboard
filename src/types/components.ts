@@ -102,6 +102,12 @@ export interface UserCollectionI {
   tokenAddress?: string;
   isMintable?: boolean;
 }
+export interface CollectionNFTI {
+  accountInfo: AccountInfoI;
+  offset: number;
+  limit: number;
+  tokensAddress: string[];
+}
 
 export interface FeeI {
   raw_data: unknown;
@@ -223,18 +229,6 @@ export interface TransactionType {
   img: StaticImageData;
   title: string;
   status: number;
-}
-
-export interface NFTListType {
-  sr?: string;
-  burned?: boolean;
-  name: string;
-  collection: string;
-  selected: boolean;
-  mintCount: number;
-  availableCount?: number;
-  img?: string;
-  nftId: string;
 }
 
 export type PositionType = 'TL' | 'TR' | 'BL' | 'BR';

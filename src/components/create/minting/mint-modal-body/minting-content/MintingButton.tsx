@@ -5,7 +5,7 @@ import * as DutchC from './styles';
 interface MintingButtonProps {
   activeStep: number;
   isFinished: boolean;
-  onClose: () => void;
+  onClose: (value?: any) => void;
 }
 
 const MintingButton: React.FC<MintingButtonProps> = ({

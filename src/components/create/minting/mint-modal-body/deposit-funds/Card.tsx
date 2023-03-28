@@ -6,16 +6,14 @@ import { IconButton } from '@/common';
 interface CardProps {
   icon: StaticImageData;
   title: string;
-  onBalance?: () => void;
 }
 
 const DepositContentCard: React.FC<CardProps> = ({
   icon,
   title,
-  onBalance,
 }): JSX.Element => {
   return (
-    <DutchC.DepositFundContentCard onClick={onBalance}>
+    <DutchC.DepositFundContentCard>
       <Image src={icon} alt="paypal" />
       <DutchC.TextDepositBold>{title}</DutchC.TextDepositBold>
       <DutchC.DepostFundRightArrow>

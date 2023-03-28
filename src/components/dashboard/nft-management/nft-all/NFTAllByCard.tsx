@@ -1,9 +1,9 @@
 import React from 'react';
 import * as DutchC from './styles';
-import { NFTListType } from '@/types';
 import NFTCard from '../../cards/nft-card';
+import { CreateNftManagementI } from '@/types';
 interface NFTAllByCardProps {
-  NFTs: NFTListType[];
+  NFTs: CreateNftManagementI[];
   onNFTSelect: (nftId: string) => void;
 }
 

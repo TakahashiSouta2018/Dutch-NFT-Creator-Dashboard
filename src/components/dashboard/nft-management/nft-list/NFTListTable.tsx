@@ -1,17 +1,12 @@
 import { Table, THead, TBody, TR, TD } from '@/common';
 
 import ShortcutContextMenu from '@/components/shared/shortcut-context-menu';
+import { UserListI } from '@/types';
 import NFTMultiCard from '../../cards/nft-multi-card';
 import * as DutchC from './styles';
 
-interface NFTMultiCard {
-  name: string;
-  collection: string;
-  imageUrls: string[];
-}
-
 const NFTListTable: React.FC<{
-  nftMultiList: NFTMultiCard[];
+  nftMultiList: UserListI[];
   onShowListModal: () => void;
 }> = ({ nftMultiList, onShowListModal }): JSX.Element => {
   return (
@@ -30,7 +25,7 @@ const NFTListTable: React.FC<{
             <TR key={i} className="cursor-pointer" onClick={onShowListModal}>
               <TD>
                 <DutchC.NFTListTableName>
-                  <div>{list.name}</div>
+                  <div>{list.listName}</div>
                   <div className="flex gap-2">
                     <NFTMultiCard
                       key={i}
@@ -41,7 +36,7 @@ const NFTListTable: React.FC<{
                   </div>
                 </DutchC.NFTListTableName>
               </TD>
-              <TD>{list.collection}</TD>
+              <TD>{list.collectionName}</TD>
               <TD>{list.imageUrls.length}</TD>
               <TD>
                 <div className="flex justify-between items-center">

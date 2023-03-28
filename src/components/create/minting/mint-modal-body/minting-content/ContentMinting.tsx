@@ -1,44 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import * as DutchC from './styles';
 import Image from 'next/image';
 import TransactionList from '@/common/TransactionList';
 import LoadingIcon from '@/assets/loading.png';
-import LycheeIcon from '@/assets/Lychee.gif';
-import MilkIcon from '@/assets/Milk.gif';
-import { TransactionType } from '@/types';
 import MintingButton from './MintingButton';
+import { useAppSelector } from '@/redux/store';
+import { shallowEqual } from 'react-redux';
+import useNFTHook from '@/hooks/useNFTHook';
 
-interface ContentWalletSignatureProps {
-  setActiveStep: (id: number) => void;
-  activeStep: number;
-  onClose: () => void;
+interface ContentMintingPropsI {
+  isFinishedMinting: boolean;
 }
 
-const transActions = [
-  {
-    id: '01',
-    img: MilkIcon,
-    title: 'Milk',
-    status: 2,
-  },
-  {
-    id: '02',
-    img: LycheeIcon,
-    title: 'Lychee',
-    status: 1,
-  },
-];
+const ContentMinting: React.FC<ContentMintingPropsI> = ({
+  isFinishedMinting,
+}) => {
+  const { onMintModalClose } = useNFTHook();
 
-const ContentWalletSignature: React.FC<ContentWalletSignatureProps> = ({
-  setActiveStep,
-  activeStep,
-  onClose,
-}): JSX.Element => {
-  useEffect(() => {
-    setTimeout(() => {
-      setActiveStep(2);
-    }, 3000);
-  });
+  const { activeStep, selectedDraftNFTs } = useAppSelector((state) => {
+    const { mintModal, selectedDraftNFTs } = state.createPageReducer;
+    return { activeStep: mintModal.activeStep, selectedDraftNFTs };
+  }, shallowEqual);
 
   return (
     <DutchC.WalletSignatureWrapper>
@@ -53,23 +35,16 @@ const ContentWalletSignature: React.FC<ContentWalletSignatureProps> = ({
           </div>
         </DutchC.TransactionTextWrapper>
       )}
-      <TransactionList transActions={transActions} />
+      <TransactionList />
       <DutchC.CancelButtionWrapper>
         <MintingButton
           activeStep={activeStep}
-          isFinished={isFinished(transActions)}
-          onClose={onClose}
+          isFinished={isFinishedMinting}
+          onClose={() => onMintModalClose(selectedDraftNFTs[0].collection)}
         />
       </DutchC.CancelButtionWrapper>
     </DutchC.WalletSignatureWrapper>
   );
 };
 
-export function isFinished(transActions: TransactionType[]) {
-  return (
-    transActions.filter((action) => action.status === 2 || action.status === 3)
-      .length === transActions.length
-  );
-}
-
-export default ContentWalletSignature;
+export default ContentMinting;

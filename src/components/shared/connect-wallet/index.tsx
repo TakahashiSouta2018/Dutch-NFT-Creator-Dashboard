@@ -15,6 +15,7 @@ const ConnectWallet = () => {
             src="https://static.loopring.io/assets/svg/meta-mask.svg"
             alt="MetaMask"
             height="36"
+            width={36}
           />
         </button>
         <button onClick={() => connectAccount(ConnectorNames.WalletConnect)}>
@@ -22,6 +23,7 @@ const ConnectWallet = () => {
             src="https://static.loopring.io/assets/svg/wallet-connect.svg"
             alt="walletConnect"
             height="36"
+            width={36}
           />
         </button>
         <button onClick={() => connectAccount(ConnectorNames.Coinbase)}>
@@ -29,6 +31,7 @@ const ConnectWallet = () => {
             src="https://static.loopring.io/assets/svg/coinbase-wallet.svg"
             alt="Coinbase"
             height="36"
+            width={36}
           />
         </button>
         <button onClick={() => connectAccount(ConnectorNames.Gamestop)}>
@@ -36,6 +39,7 @@ const ConnectWallet = () => {
             src="https://static.loopring.io/assets/svg/gs.svg"
             alt="Gamestop"
             height="36"
+            width={36}
           />
         </button>
         <button onClick={disconnectAccount}>disconnect</button>

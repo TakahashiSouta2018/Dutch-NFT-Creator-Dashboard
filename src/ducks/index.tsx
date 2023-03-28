@@ -9,6 +9,9 @@ export interface WebAppReducerI {
   walletType: ConnectorNames;
   accountInfo: AccountInfoI | null;
   connectedChainId: number | null;
+  connectionError: boolean;
+  isConnectionLoading: boolean;
+  isConnectionModalOpen: boolean;
 }
 
 // Define the initial state using that type
@@ -17,6 +20,9 @@ const initialState: WebAppReducerI = {
   walletType: ConnectorNames.Unknown,
   accountInfo: null,
   connectedChainId: null,
+  connectionError: false,
+  isConnectionLoading: false,
+  isConnectionModalOpen: false,
 };
 
 export const webAppReducer: Slice<WebAppReducerI> = createSlice({
@@ -36,6 +42,15 @@ export const webAppReducer: Slice<WebAppReducerI> = createSlice({
     setAccountInfo: (state, action: PayloadAction<AccountInfoI | null>) => {
       state.accountInfo = action.payload;
     },
+    setConnectionError: (state, action: PayloadAction<boolean>) => {
+      state.connectionError = action.payload;
+    },
+    setIsConnectionLoading: (state, action: PayloadAction<boolean>) => {
+      state.isConnectionLoading = action.payload;
+    },
+    setIsConnectionModalOpen: (state, action: PayloadAction<boolean>) => {
+      state.isConnectionModalOpen = action.payload;
+    },
   },
 });
 
@@ -44,6 +59,9 @@ export const {
   setConnectedChainId,
   setIsConnected,
   setWalletType,
+  setConnectionError,
+  setIsConnectionLoading,
+  setIsConnectionModalOpen,
 } = webAppReducer.actions;
 
 // Other code such as selectors can use the imported `RootStateT` type

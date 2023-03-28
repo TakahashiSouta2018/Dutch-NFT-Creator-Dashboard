@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
+import Papa from 'papaparse';
 
 // components
 import { Button, OutlineButton } from '@/common';
@@ -8,10 +9,17 @@ import * as DutchC from './styles';
 
 // icons
 import { ICSV, ICSVGreen } from '../svg';
+import { CSVMetadataI } from '@/types';
 
-interface CSVUploadProps {}
+interface CSVUploadProps {
+  selectedCSVFileContent: CSVMetadataI[];
+  setSelectedCSVFileContent: (value: CSVMetadataI[]) => void;
+}
 
-const CSVUpload: React.FC<CSVUploadProps> = () => {
+const CSVUpload: React.FC<CSVUploadProps> = ({
+  selectedCSVFileContent,
+  setSelectedCSVFileContent,
+}) => {
   const { theme } = useTheme();
   const hiddenFileInput = useRef<HTMLInputElement>(null);
   const [selectedCSV, setSelectedCSV] = useState<File | null>(null);
@@ -22,8 +30,20 @@ const CSVUpload: React.FC<CSVUploadProps> = () => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedCSV(e.target.files ? e.target.files[0] : null);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return alert('file upload failed');
+
+    const handleParseComplete = (result: any) => {
+      const data = result.data;
+      data.pop();
+      setSelectedCSVFileContent(data);
+    };
+
+    Papa.parse(event.target.files[0], {
+      complete: handleParseComplete,
+      header: true,
+    });
+    setSelectedCSV(event.target.files[0]);
   };
 
   return (
@@ -52,7 +72,7 @@ const CSVUpload: React.FC<CSVUploadProps> = () => {
           {/* actions */}
           <DutchC.CSVUploadActions>
             <DutchC.CSVUploadMetaLengthLabel>
-              43 metadata detected
+              {selectedCSVFileContent.length} metadata detected
             </DutchC.CSVUploadMetaLengthLabel>
 
             <Button size="small" onClick={handleOpen}>
