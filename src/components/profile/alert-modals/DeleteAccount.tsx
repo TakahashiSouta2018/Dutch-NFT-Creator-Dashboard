@@ -23,7 +23,7 @@ const DeleteAccount: React.FC<DeleteAccountProps> = ({
           </p>
           <DutchC.ActionsWrapper>
             <OutlineButton onClick={onDeleteAccount}>No</OutlineButton>
-            <Button className="bg-accent-red dark:bg-dark-red">
+            <Button className="bg-dark-red dark:bg-accent-red text-white dark:text-white">
               Yes, delete my account
             </Button>
           </DutchC.ActionsWrapper>

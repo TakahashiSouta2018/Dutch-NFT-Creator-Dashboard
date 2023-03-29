@@ -113,7 +113,7 @@ const ProfileContent: React.FC = () => {
         <DutchC.WalletWrapper>
           <DutchC.WalletInfo>
             <WalletLine>
-              <InputLabel className=" font-bold text-black/90">
+              <InputLabel className="font-bold text-black/90">
                 trivedi.eth
               </InputLabel>
               <InputLabel className="font-bold text-black/90">
@@ -122,12 +122,12 @@ const ProfileContent: React.FC = () => {
             </WalletLine>
             <WalletLine>
               <div className="flex gap-1 items-center">
-                <InputLabel className="font-medium text-black/50 text-sm">
+                <InputLabel className="font-medium text-black/50 text-sm dark:text-white/50">
                   0x31...6c0b8
                 </InputLabel>
                 <Icons.IDocument />
               </div>
-              <InputLabel className="font-medium text-black/50 text-sm">
+              <InputLabel className="font-medium text-black/50 text-sm dark:text-white/50">
                 $ 2.33 USD
               </InputLabel>
             </WalletLine>

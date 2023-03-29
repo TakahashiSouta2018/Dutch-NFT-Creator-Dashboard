@@ -10,7 +10,7 @@ const ProfileEmailNotification: React.FC = () => {
         <InputLabel className="text-black">
           Receive the new upcoming features notifications
         </InputLabel>
-        <InputLabel className="text-black/50">
+        <InputLabel className="text-black/50 dark:text-white/50">
           This is lorem ipsum place holder text which will explain above title
         </InputLabel>
       </div>

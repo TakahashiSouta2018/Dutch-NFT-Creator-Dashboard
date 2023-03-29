@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
+import { useTheme } from 'next-themes';
+
 import * as Icons from '@/common/Icons';
 import * as DutchC from './styles';
 
@@ -15,16 +17,24 @@ const ProfileNFTCard: React.FC<ProfileNFTCardProps> = ({
   collection,
 }) => {
   const [isSelect, setSelect] = useState(false);
+  const { theme } = useTheme();
   return (
     <DutchC.ProfileNFTCardWrapper
-      className={isSelect ? 'border-black/70 border-2' : 'border-black/10'}
+      className={
+        isSelect
+          ? 'border-black/70 border-2 dark:border-white/70'
+          : 'border-black/10 dark:border-white/10'
+      }
       onClick={() => {
         setSelect(!isSelect);
       }}
     >
       <DutchC.ProfileNFTCardIcon>
         {isSelect ? (
-          <Icons.ICheckCircle size="large" />
+          <Icons.ICheckCircle
+            size="large"
+            color={theme === 'light' ? 'black' : 'white'}
+          />
         ) : (
           <DutchC.ProfileNFTCardIconInner />
         )}
