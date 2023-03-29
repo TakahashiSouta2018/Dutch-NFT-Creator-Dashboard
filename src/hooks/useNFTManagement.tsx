@@ -5,7 +5,6 @@ import { UsageStatusEnum, UserListI } from '@/types';
 import { shallowEqual } from 'react-redux';
 
 const useNFTManagement = () => {
-  const dispatch = useAppDispatch();
   const nftManagement = new NFTManagementService();
 
   const { accountInfo } = useAppSelector((state) => {
@@ -83,8 +82,10 @@ const useNFTManagement = () => {
 
   const getUserCollectionList = async () => {
     try {
-      if (!accountInfo)
-        return toast('Account not connected', { type: 'error' });
+      if (!accountInfo) {
+        toast('Account not connected', { type: 'error' });
+        return null;
+      }
       const { response, data } = await nftManagement.getUserCollectionList(
         accountInfo?.accInfo.owner
       );
