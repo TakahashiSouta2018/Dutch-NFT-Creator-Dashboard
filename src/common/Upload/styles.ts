@@ -64,3 +64,20 @@ export const CSVUploadActions = styled.div.attrs({
 export const CSVUploadMetaLengthLabel = styled.label.attrs({
   className: 'text-white whitespace-nowrap font-bold',
 })``;
+
+export const ImageUploadEditWrapper = styled.div.attrs({
+  className:
+    'absolute left-0 bottom-0 flex items-center justify-between  w-full p-6 z-10 gap-10',
+})``;
+
+export const ImageUploadEditInner = styled.div.attrs({
+  className: 'flex gap-4 w-full items-center',
+})``;
+
+export const ImageUploadEditRangeSlider = styled.div.attrs({
+  className: 'w-[260px]',
+})``;
+
+export const ImageUploadEditRangeText = styled.div.attrs({
+  className: 'font-bold dark:text-white',
+})``;

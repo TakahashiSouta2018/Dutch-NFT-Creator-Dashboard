@@ -44,6 +44,19 @@ export const ISearch: React.FC<IconProps> = ({
   );
 };
 
+export const ISearchPlus: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+  className,
+}) => {
+  return (
+    <SolidIcons.MagnifyingGlassPlusIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
 export const IBell: React.FC<IconProps> = ({
   variant = 'solid',
   size = 'medium',
