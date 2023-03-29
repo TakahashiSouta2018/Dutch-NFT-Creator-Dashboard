@@ -532,6 +532,23 @@ export const IPencil: React.FC<IconProps> = ({
   );
 };
 
+export const IChevronRight: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+  className,
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons20.ChevronRightIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.ChevronRightIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
 // ------------ Custom SVGs --------------- //
 
 export const ICustomCard: React.FC<{ currentColor: string }> = ({
@@ -581,6 +598,7 @@ export const icons = {
   'ellipsis-horizontal': IEllipsisHorizontal,
   plus: IPlus,
   pencil: IPencil,
+  chevronright: IChevronRight,
 };
 
 export type IconType = keyof typeof icons;
