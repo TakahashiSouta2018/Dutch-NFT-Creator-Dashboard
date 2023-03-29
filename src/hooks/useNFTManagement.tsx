@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { useAppSelector } from '@/redux/store';
 import NFTManagementService from '@/services/NFTManagement.service';
 import { UsageStatusEnum, UserListI } from '@/types';
 import { shallowEqual } from 'react-redux';
@@ -18,7 +18,10 @@ const useNFTManagement = () => {
   }, shallowEqual);
 
   const syncNft = async (listName: string) => {
-    if (!accountInfo) return toast('Account not connected', { type: 'error' });
+    if (!accountInfo) {
+      toast('Account not connected', { type: 'error' });
+      return null;
+    }
 
     await Promise.all(
       selectedNFTs.map(async (selectedNFT) => {
@@ -49,8 +52,10 @@ const useNFTManagement = () => {
 
   const getUserNfts = async (isArchived: UsageStatusEnum) => {
     try {
-      if (!accountInfo)
-        return toast('Account not connected', { type: 'error' });
+      if (!accountInfo) {
+        toast('Account not connected', { type: 'error' });
+        return null;
+      }
       const { response, data } = await nftManagement.getUserNfts(
         accountInfo?.accInfo.owner,
         isArchived
@@ -66,8 +71,10 @@ const useNFTManagement = () => {
 
   const getUserNftList = async () => {
     try {
-      if (!accountInfo)
-        return toast('Account not connected', { type: 'error' });
+      if (!accountInfo) {
+        toast('Account not connected', { type: 'error' });
+        return null;
+      }
       const { response, data } = await nftManagement.getUserNftList(
         accountInfo?.accInfo.owner
       );
