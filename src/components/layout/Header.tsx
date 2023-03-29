@@ -7,11 +7,14 @@ import RegisterHome from '../auth/register';
 import { SearchInput, IconButton, Badge, NavLink } from '@/common';
 import * as DutchC from './styles';
 
+import * as Icons from '@/common/Icons';
+
 // types
 import { Menu } from '@/types';
-import { useAppDispatch } from '@/redux/store';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { setIsConnectionModalOpen } from '@/ducks';
 import ConnectWallet from '../shared/ConnectWallet';
+import Image from 'next/image';
 
 const menus: Menu[] = [
   {
@@ -42,6 +45,8 @@ const Header: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const [isRegister, setRegister] = useState(false);
 
+  const { isConnected } = useAppSelector((state) => state.webAppReducer);
+
   const dispatch = useAppDispatch();
 
   const PAGE_PATH = router.asPath.split('/')[1] ?? '';
@@ -65,6 +70,7 @@ const Header: React.FC = () => {
   if (!mounted) {
     return null;
   }
+  console.log(isConnected);
 
   return (
     <DutchC.HeaderWrapper>
@@ -115,9 +121,34 @@ const Header: React.FC = () => {
             icon={theme === 'light' ? 'moon' : 'sun'}
             onClick={toggleTheme}
           />
+          <DutchC.HeaderGasWrapper>
+            <Icons.ICustomGas
+              currentColor={theme === 'light' ? 'black' : 'white'}
+            />
+            <DutchC.HeaderGasPrice>
+              {isConnected ? '$0.14 USD' : ''}
+            </DutchC.HeaderGasPrice>
+          </DutchC.HeaderGasWrapper>
+
           <IconButton icon="bell" />
-          <IconButton icon="wallet" onClick={openConnectionModal} />
-          <IconButton icon="user" onClick={handleRegister} />
+          {isConnected ? (
+            <DutchC.HeaderUserWrapper>
+              <DutchC.HeaderUserLeft>
+                <Image
+                  src="/images/rice.webp"
+                  width={24}
+                  height={24}
+                  alt="logo"
+                />
+                <DutchC.HeaderUserAddress>0x31...c0b8</DutchC.HeaderUserAddress>
+              </DutchC.HeaderUserLeft>
+              <IconButton icon="chevron-down" />
+            </DutchC.HeaderUserWrapper>
+          ) : (
+            <IconButton icon="wallet" onClick={openConnectionModal} />
+          )}
+
+          {/* <IconButton icon="user" onClick={handleRegister} /> */}
         </DutchC.RightActions>
       </DutchC.HeaderInner>
       <ConnectWallet />
