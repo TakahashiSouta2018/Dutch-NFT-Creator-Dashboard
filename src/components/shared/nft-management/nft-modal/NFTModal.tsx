@@ -99,7 +99,13 @@ const NFTModal: React.FC<NFTModalProp> = ({
 
   return (
     <Modal isOpen={showSyncModal}>
-      <ModalHead title="Sync NFTs" onClose={onClose}>
+      <ModalHead
+        title="Sync NFTs"
+        onClose={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
+      >
         <DutchC.NFTWalletAddress>
           <IconButton icon="document" />
           <p className="text-sm text-black/70 dark:text-white">
