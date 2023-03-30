@@ -6,7 +6,7 @@ export const CopyNFTId = styled.div.attrs({
 })``;
 
 export const CopyNFTIdText = styled.div.attrs({
-  className: 'text-xs truncate max-w-full',
+  className: 'text-xs truncate max-w-[170px]',
   //group-hover:text-black group-active:text-white',
 })`
   ${(p: { color: string }) =>

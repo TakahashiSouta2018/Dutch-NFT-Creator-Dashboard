@@ -1,20 +1,25 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
-import LoginHome from '../auth/login';
-import RegisterHome from '../auth/register';
+
+import { setIsConnectionModalOpen } from '@/ducks';
+import ConnectWallet from '../shared/ConnectWallet';
+
 // components
 import { SearchInput, IconButton, Badge, NavLink } from '@/common';
-import * as DutchC from './styles';
+import LoginHome from '../auth/login';
+import RegisterHome from '../auth/register';
+import ProfileMenu from '../shared/profile/profile-menu';
 
 import * as Icons from '@/common/Icons';
 
 // types
 import { Menu } from '@/types';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
-import { setIsConnectionModalOpen } from '@/ducks';
-import ConnectWallet from '../shared/ConnectWallet';
 import Image from 'next/image';
+
+import * as DutchC from './styles';
+import AvatarIcon from '@/assets/avatar.png';
 
 const menus: Menu[] = [
   {
@@ -38,6 +43,13 @@ const menus: Menu[] = [
     slug: 'learn',
   },
 ];
+
+const ProfileMockData = {
+  userName: 'Trithoere',
+  avatar: AvatarIcon,
+  walletAddress: '0x314cc0b8314cc0b8314cc0b8314cc0b8314cc0b8314cc0b8',
+  // ...
+};
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -131,6 +143,7 @@ const Header: React.FC = () => {
           </DutchC.HeaderGasWrapper>
 
           <IconButton icon="bell" />
+          {/* <IconButton icon="wallet" onClick={openConnectionModal} /> */}
           {isConnected ? (
             <DutchC.HeaderUserWrapper>
               <DutchC.HeaderUserLeft>
@@ -148,7 +161,11 @@ const Header: React.FC = () => {
             <IconButton icon="wallet" onClick={openConnectionModal} />
           )}
 
-          {/* <IconButton icon="user" onClick={handleRegister} /> */}
+          {!isConnected ? (
+            <IconButton icon="user" onClick={handleRegister} />
+          ) : (
+            <ProfileMenu {...ProfileMockData} />
+          )}
         </DutchC.RightActions>
       </DutchC.HeaderInner>
       <ConnectWallet />
