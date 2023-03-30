@@ -11,7 +11,7 @@ export const ModalWrapper = styled.div.attrs<{ className: string }>({
 
 export const ModalInner = styled.div.attrs<{ className: string }>({
   className:
-    'w-[837px] overflow-y-auto max-h-[800px] mx-auto flex flex-col border border-black/10 dark: border-white/10 rounded shadow-lg bg-white dark:bg-dark-surface absolute transition-all left-1/2 -translate-x-1/2  ease-in-out duration-300',
+    'w-[837px] overflow-y-auto overflow-x-hidden max-h-[800px] mx-auto flex flex-col border border-black/10 dark: border-white/10 rounded shadow-lg bg-white dark:bg-dark-surface absolute transition-all left-1/2 -translate-x-1/2  ease-in-out duration-300',
 })``;
 
 // --- Modal Head
