@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, SyntheticEvent } from 'react';
 import { useDetectClickOutside } from 'react-detect-click-outside';
 import { useTheme } from 'next-themes';
 
@@ -50,6 +50,14 @@ const Dropdown: React.FC<DropdownProps> = ({
 
   return (
     <DutchC.DropdownWrapper onClick={handleToggle} ref={ref}>
+      {!!open && (
+        <DutchC.DropdownBackWrapper
+          onClick={(e: SyntheticEvent) => {
+            e.stopPropagation();
+            setOpen(false);
+          }}
+        />
+      )}
       {label && <DutchC.DropdownLabel>{label}</DutchC.DropdownLabel>}
       <DutchC.DropdownInner selected={open ? 1 : 0}>
         {/* value */}

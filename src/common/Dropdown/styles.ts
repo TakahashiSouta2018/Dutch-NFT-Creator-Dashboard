@@ -16,6 +16,10 @@ export const DropdownWrapper = styled.div.attrs({
   className: 'flex flex-col w-full gap-1 cursor-pointer z-40',
 })``;
 
+export const DropdownBackWrapper = styled.div.attrs({
+  className: 'fixed h-screen w-screen bg-transparent z-0',
+})``;
+
 export const DropdownLabel = styled.label.attrs({
   className: 'text-sm whitespace-nowrap text-black/70 dark:text-white/70',
 })``;
