@@ -27,7 +27,8 @@ export type IconVariants = {
     | 'white-gray'
     | 'accent-red'
     | 'accent-green'
-    | 'dark-red';
+    | 'dark-red'
+    | 'accent-blue';
 };
 
 /**

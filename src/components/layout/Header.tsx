@@ -70,7 +70,6 @@ const Header: React.FC = () => {
   if (!mounted) {
     return null;
   }
-  console.log(isConnected);
 
   return (
     <DutchC.HeaderWrapper>

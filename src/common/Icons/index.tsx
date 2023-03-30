@@ -29,6 +29,7 @@ const colors = {
   'accent-red': 'text-accent-red',
   'accent-green': 'text-accent-green',
   'dark-red': 'text-dark-red',
+  'accent-blue': 'text-accent-blue',
 };
 
 export const ISearch: React.FC<IconProps> = ({
@@ -563,6 +564,74 @@ export const IChevronRight: React.FC<IconProps> = ({
   );
 };
 
+export const IArrowUpOnSquare: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+  className,
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons20.ArrowUpOnSquareIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.ArrowUpOnSquareIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
+export const IBookOpen: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+  className,
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons20.BookOpenIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.BookOpenIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
+export const ISquare2Stack: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+  className,
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons20.Square2StackIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.Square2StackIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
+export const ILockClosed: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+  className,
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons20.LockClosedIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.LockClosedIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
 // ------------ Custom SVGs --------------- //
 
 export const ICustomCard: React.FC<{ currentColor: string }> = ({
@@ -600,6 +669,7 @@ export const icons = {
   informationcircle: IInformationCircle,
   home: IHome,
   'arrow-down-on-square': IArrowDownOnSquare,
+  'arrow-up-on-square': IArrowUpOnSquare,
   funnel: IFunnel,
   'chevron-up': IChevronUp,
   'chevron-down': IChevronDown,
@@ -619,6 +689,9 @@ export const icons = {
   plus: IPlus,
   pencil: IPencil,
   chevronright: IChevronRight,
+  'book-open': IBookOpen,
+  'square-2-stack': ISquare2Stack,
+  'lock-closed': ILockClosed,
 };
 
 export type IconType = keyof typeof icons;
