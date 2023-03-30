@@ -56,7 +56,6 @@ const Header: React.FC = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isRegister, setRegister] = useState(false);
-  const [accountIsConnected, setAccountIsConnected] = useState(true);
 
   const { isConnected } = useAppSelector((state) => state.webAppReducer);
 
@@ -144,13 +143,8 @@ const Header: React.FC = () => {
           </DutchC.HeaderGasWrapper>
 
           <IconButton icon="bell" />
-          <IconButton icon="wallet" onClick={openConnectionModal} />
-          {/* {!accountIsConnected ? (
-            <IconButton icon="user" onClick={handleRegister} />
-          ) : (
-            <ProfileMenu {...ProfileMockData} />
-          )} */}
-          {/* {isConnected ? (
+          {/* <IconButton icon="wallet" onClick={openConnectionModal} /> */}
+          {isConnected ? (
             <DutchC.HeaderUserWrapper>
               <DutchC.HeaderUserLeft>
                 <Image
@@ -165,9 +159,13 @@ const Header: React.FC = () => {
             </DutchC.HeaderUserWrapper>
           ) : (
             <IconButton icon="wallet" onClick={openConnectionModal} />
-          )} */}
+          )}
 
-          {/* <IconButton icon="user" onClick={handleRegister} /> */}
+          {!isConnected ? (
+            <IconButton icon="user" onClick={handleRegister} />
+          ) : (
+            <ProfileMenu {...ProfileMockData} />
+          )}
         </DutchC.RightActions>
       </DutchC.HeaderInner>
       <ConnectWallet />
