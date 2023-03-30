@@ -6,6 +6,7 @@ import CardIcon from '../../assets/card.svg';
 import ExchangeIcon from '../../assets/exchange.svg';
 import FriendsIcon from '../../assets/friends.svg';
 import GasIcon from '../../assets/gas.svg';
+import DiamondIcon from '../../assets/diamond.svg';
 
 // type
 import { IconVariants } from '@/types';
@@ -589,6 +590,12 @@ export const ICustomGas: React.FC<{ currentColor: string }> = ({
   return <GasIcon currentColor={currentColor} />;
 };
 
+export const ICustomDiamond: React.FC<{ className?: string }> = ({
+  className = ' ',
+}) => {
+  return <DiamondIcon className={className} />;
+};
+
 export const icons = {
   bell: IBell,
   wallet: IWallet,
@@ -619,6 +626,7 @@ export const icons = {
   plus: IPlus,
   pencil: IPencil,
   chevronright: IChevronRight,
+  customdiamond: ICustomDiamond,
 };
 
 export type IconType = keyof typeof icons;
