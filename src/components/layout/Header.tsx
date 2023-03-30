@@ -1,17 +1,22 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
-import LoginHome from '../auth/login';
-import RegisterHome from '../auth/register';
+
+import { setIsConnectionModalOpen } from '@/ducks';
+import ConnectWallet from '../shared/ConnectWallet';
+
 // components
 import { SearchInput, IconButton, Badge, NavLink } from '@/common';
-import * as DutchC from './styles';
+import LoginHome from '../auth/login';
+import RegisterHome from '../auth/register';
+import ProfileMenu from '../shared/profile/profile-menu';
 
 // types
 import { Menu } from '@/types';
 import { useAppDispatch } from '@/redux/store';
-import { setIsConnectionModalOpen } from '@/ducks';
-import ConnectWallet from '../shared/ConnectWallet';
+import AvatarIcon from '@/assets/avatar.png';
+
+import * as DutchC from './styles';
 
 const menus: Menu[] = [
   {
@@ -36,11 +41,19 @@ const menus: Menu[] = [
   },
 ];
 
+const ProfileMockData = {
+  userName: 'Trithoere',
+  avatar: AvatarIcon,
+  walletAddress: '0x314cc0b8314cc0b8314cc0b8314cc0b8314cc0b8314cc0b8',
+  // ...
+};
+
 const Header: React.FC = () => {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [isRegister, setRegister] = useState(false);
+  const [accountIsConnected, setAccountIsConnected] = useState(true);
 
   const dispatch = useAppDispatch();
 
@@ -117,7 +130,11 @@ const Header: React.FC = () => {
           />
           <IconButton icon="bell" />
           <IconButton icon="wallet" onClick={openConnectionModal} />
-          <IconButton icon="user" onClick={handleRegister} />
+          {!accountIsConnected ? (
+            <IconButton icon="user" onClick={handleRegister} />
+          ) : (
+            <ProfileMenu {...ProfileMockData} />
+          )}
         </DutchC.RightActions>
       </DutchC.HeaderInner>
       <ConnectWallet />
