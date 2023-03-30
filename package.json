@@ -12,8 +12,8 @@
     "prepare": "husky install"
   },
   "engines": {
-    "node": "18.14.2",
-    "npm": "9.5.0"
+    "node": "18.13.0",
+    "npm": "8.19.3"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.16",
@@ -38,6 +38,7 @@
     "react-detect-click-outside": "^1.1.7",
     "react-dom": "18.2.0",
     "react-loader-spinner": "^5.3.4",
+    "react-range": "^1.8.14",
     "react-redux": "^8.0.5",
     "react-toastify": "^9.1.2",
     "redux": "^4.2.1",

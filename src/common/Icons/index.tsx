@@ -5,6 +5,7 @@ import SolidIcons20 from '@heroicons/react/20/solid';
 import CardIcon from '../../assets/card.svg';
 import ExchangeIcon from '../../assets/exchange.svg';
 import FriendsIcon from '../../assets/friends.svg';
+import GasIcon from '../../assets/gas.svg';
 
 // type
 import { IconVariants } from '@/types';
@@ -38,6 +39,19 @@ export const ISearch: React.FC<IconProps> = ({
 }) => {
   return (
     <SolidIcons.MagnifyingGlassIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
+export const ISearchPlus: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+  className,
+}) => {
+  return (
+    <SolidIcons.MagnifyingGlassPlusIcon
       className={`${className} ${sizes[size]} ${colors[color]}`}
     />
   );
@@ -567,6 +581,12 @@ export const ICustomFriends: React.FC<{ currentColor: string }> = ({
   currentColor,
 }) => {
   return <FriendsIcon currentColor={currentColor} />;
+};
+
+export const ICustomGas: React.FC<{ currentColor: string }> = ({
+  currentColor,
+}) => {
+  return <GasIcon currentColor={currentColor} />;
 };
 
 export const icons = {

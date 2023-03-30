@@ -145,6 +145,7 @@ export const UploadNew = () => {
         setImageUrl={setMedia}
         imageUrl={media}
         name="media"
+        profile={true}
       />
     </DutchC.UploadNewWrapper>
   );

@@ -8,17 +8,19 @@ import { Button, OutlineButton } from '@/common';
 import * as DutchC from './styles';
 
 // icons
-import { IPhoto } from '@/common/Icons';
+import { IPhoto, ISearchPlus } from '@/common/Icons';
 
 // types
 import { MediaUploadVariants } from '@/types';
 import { toBase64 } from '@/lib/pinata';
+import { CustomRange } from '../Range';
 
 interface MediaUploadProps {
   variant: MediaUploadVariants;
   name: string;
   imageUrl: string;
   setImageUrl: (value: string) => void;
+  profile?: boolean;
 }
 
 const aspects = {
@@ -47,10 +49,13 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
   name,
   imageUrl,
   setImageUrl,
+  profile,
 }) => {
   const { theme } = useTheme();
   const hiddenFileInput = useRef<HTMLInputElement>(null);
   const [selectedImageName, setSelectedImageName] = useState<string>('');
+  const [scale, setScale] = useState([50]);
+  const [angle, setAngle] = useState([0]);
 
   const handleOpen = () => {
     if (hiddenFileInput) {
@@ -99,24 +104,75 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
       {imageUrl && (
         <>
           {/* image */}
-          <Image
-            alt="Mountains"
-            src={imageUrl}
-            fill
-            className={aspectClassNames[variant]}
-          />
+          {profile ? (
+            <Image
+              alt="Mountains"
+              src={imageUrl}
+              width={(312 * Number(scale)) / 100}
+              height={(312 * Number(scale)) / 100}
+              className={`${aspectClassNames[variant]}`}
+              style={{
+                transform: `rotate(${angle}deg)`,
+              }}
+            />
+          ) : (
+            <Image
+              alt="Mountains"
+              src={imageUrl}
+              fill
+              className={aspectClassNames[variant]}
+            />
+          )}
 
           {/* actions */}
-          <DutchC.ImageUploadActions>
-            <div>
-              <p>
-                <span className="text-white font-bold">{types[variant]}</span>{' '}
-                <span className="text-white/70">{aspects[variant]}</span>
-              </p>
-              <span className="text-white font-bold">{selectedImageName}</span>
-            </div>
-            <Button onClick={handleOpen}>Change</Button>
-          </DutchC.ImageUploadActions>
+          {profile ? (
+            <DutchC.ImageUploadEditWrapper>
+              <DutchC.ImageUploadEditInner>
+                <ISearchPlus
+                  variant="solid"
+                  size="large"
+                  color={theme === 'dark' ? 'white' : 'black'}
+                />
+                <DutchC.ImageUploadEditRangeSlider>
+                  <CustomRange values={scale} setValues={setScale} />
+                </DutchC.ImageUploadEditRangeSlider>
+                <DutchC.ImageUploadEditRangeText>
+                  {scale}%
+                </DutchC.ImageUploadEditRangeText>
+              </DutchC.ImageUploadEditInner>
+              <DutchC.ImageUploadEditInner>
+                <ISearchPlus
+                  variant="solid"
+                  size="large"
+                  color={theme === 'dark' ? 'white' : 'black'}
+                />
+                <DutchC.ImageUploadEditRangeSlider>
+                  <CustomRange
+                    values={angle}
+                    setValues={setAngle}
+                    min={-180}
+                    max={180}
+                  />
+                </DutchC.ImageUploadEditRangeSlider>
+                <DutchC.ImageUploadEditRangeText>
+                  {angle}°
+                </DutchC.ImageUploadEditRangeText>
+              </DutchC.ImageUploadEditInner>
+            </DutchC.ImageUploadEditWrapper>
+          ) : (
+            <DutchC.ImageUploadActions>
+              <div>
+                <p>
+                  <span className="text-white font-bold">{types[variant]}</span>{' '}
+                  <span className="text-white/70">{aspects[variant]}</span>
+                </p>
+                <span className="text-white font-bold">
+                  {selectedImageName}
+                </span>
+              </div>
+              <Button onClick={handleOpen}>Change</Button>
+            </DutchC.ImageUploadActions>
+          )}
         </>
       )}
       {/* hidden input */}

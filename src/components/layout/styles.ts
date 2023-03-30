@@ -40,3 +40,24 @@ export const RightActions = styled.div.attrs({
 export const SearchWrapper = styled.div.attrs({
   className: 'flex w-1/5 mx-1',
 })``;
+
+export const HeaderGasWrapper = styled.div.attrs({
+  className: 'flex gap-2',
+})``;
+
+export const HeaderGasPrice = styled.p.attrs({
+  className: 'text-sm font-normal dark:text-white',
+})``;
+
+export const HeaderUserWrapper = styled.div.attrs({
+  className:
+    'flex gap-2.5 px-2 py-1.5 rounded-lg border border-black/10 items-center',
+})``;
+
+export const HeaderUserLeft = styled.div.attrs({
+  className: 'flex gap-1.5',
+})``;
+
+export const HeaderUserAddress = styled.p.attrs({
+  className: 'font-bold dark:text-white',
+})``;
