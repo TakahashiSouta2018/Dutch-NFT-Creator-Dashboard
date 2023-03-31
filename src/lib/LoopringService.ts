@@ -83,7 +83,6 @@ export class LoopringService {
 
       return { accInfo, eddsaKey, apiKey };
     } catch (error: any) {
-      toast(error.message, { type: 'error' });
       console.log(error);
     }
   }

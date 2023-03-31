@@ -59,7 +59,7 @@ const ContentMintFee: React.FC<ContentMintFeePropsI> = ({
 
   useEffect(() => {
     (async () => {
-      if (!accountInfo) return toast('wallet not connect', { type: 'error' });
+      if (!accountInfo) return null;
       const feeList = await Promise.all(
         selectedDraftNFTs.map(async (nft) => {
           const collectionMeta = await loopringService.getCollectionMeta(

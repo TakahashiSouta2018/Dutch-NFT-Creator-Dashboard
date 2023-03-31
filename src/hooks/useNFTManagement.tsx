@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { useAppSelector } from '@/redux/store';
 import NFTManagementService from '@/services/NFTManagement.service';
-import { UsageStatusEnum, UserListI } from '@/types';
+import { AccountInfoI, UsageStatusEnum, UserListI } from '@/types';
 import { shallowEqual } from 'react-redux';
 
 const useNFTManagement = () => {
@@ -50,14 +50,10 @@ const useNFTManagement = () => {
     );
   };
 
-  const getUserNfts = async (isArchived: UsageStatusEnum) => {
+  const getUserNfts = async (user: string, isArchived: UsageStatusEnum) => {
     try {
-      if (!accountInfo) {
-        toast('Account not connected', { type: 'error' });
-        return null;
-      }
       const { response, data } = await nftManagement.getUserNfts(
-        accountInfo?.accInfo.owner,
+        user,
         isArchived
       );
       if (data && data.data) {

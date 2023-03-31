@@ -43,8 +43,6 @@ const ConnectWallet = (): JSX.Element => {
 
   let renderContent = <></>;
 
-  console.log({ connectionError });
-
   if (connectionError) renderContent = <ConnectionError />;
   else if (isConnectionLoading) renderContent = <ConnectMetaMask />;
   else {

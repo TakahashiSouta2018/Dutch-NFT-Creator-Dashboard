@@ -23,15 +23,17 @@ const CollectionDropdown: React.FC<CollectionDropdownI> = ({
   const loopringService = new LoopringService();
   const dispatch = useAppDispatch();
 
-  const { userCollection, collectionNames } = useCollectionHook();
+  const { getCollectionNames } = useCollectionHook();
 
   const [selectedCollectionName, setSelectedCollectionName] =
     useState<string>('');
 
-  const { accountInfo } = useAppSelector((state) => {
-    const { accountInfo } = state.webAppReducer;
-    return { accountInfo };
+  const { accountInfo, userCollection } = useAppSelector((state) => {
+    const { accountInfo, userCollection } = state.webAppReducer;
+    return { accountInfo, userCollection };
   }, shallowEqual);
+
+  const collectionNames = getCollectionNames(userCollection);
 
   useEffect(() => {
     if (userCollection.length > 0) {
