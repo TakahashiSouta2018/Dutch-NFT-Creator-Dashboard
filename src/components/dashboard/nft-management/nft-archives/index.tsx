@@ -20,7 +20,10 @@ const NFTArchives = () => {
   useEffect(() => {
     (async () => {
       if (accountInfo) {
-        const nfts = await getUserNfts(accountInfo.accInfo.owner, UsageStatusEnum.ARCHIVED);
+        const nfts = await getUserNfts(
+          accountInfo.accInfo.owner,
+          UsageStatusEnum.ARCHIVED
+        );
         if (nfts) setNFTs(nfts);
       }
     })();
