@@ -162,23 +162,6 @@ const Header: React.FC = () => {
 
           <IconButton icon="bell" />
 
-          {isConnected ? (
-            <DutchC.HeaderUserWrapper>
-              <DutchC.HeaderUserLeft>
-                <Image
-                  src="/images/rice.webp"
-                  width={24}
-                  height={24}
-                  alt="logo"
-                />
-                <DutchC.HeaderUserAddress>0x31...c0b8</DutchC.HeaderUserAddress>
-              </DutchC.HeaderUserLeft>
-              <IconButton icon="chevron-down" />
-            </DutchC.HeaderUserWrapper>
-          ) : (
-            <IconButton icon="wallet" onClick={openConnectionModal} />
-          )}
-
           {!isConnected ? (
             <IconButton icon="user" onClick={handleRegister} />
           ) : (
