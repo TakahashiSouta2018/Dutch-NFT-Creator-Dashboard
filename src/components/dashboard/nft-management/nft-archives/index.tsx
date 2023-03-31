@@ -19,12 +19,12 @@ const NFTArchives = () => {
 
   useEffect(() => {
     (async () => {
-      const nfts = await getUserNfts(accountInfo, UsageStatusEnum.ARCHIVED);
-      if (nfts) {
-        setNFTs(nfts);
+      if (accountInfo) {
+        const nfts = await getUserNfts(accountInfo.accInfo.owner, UsageStatusEnum.ARCHIVED);
+        if (nfts) setNFTs(nfts);
       }
     })();
-  }, []);
+  }, [accountInfo?.accInfo.owner]);
 
   const onNFTSelect = useCallback(
     (nftId: string) => {
