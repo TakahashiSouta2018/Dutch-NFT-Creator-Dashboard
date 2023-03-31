@@ -1,20 +1,26 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
-import LoginHome from '../auth/login';
-import RegisterHome from '../auth/register';
+
+import { setIsConnectionModalOpen } from '@/ducks';
+import ConnectWallet from '../shared/ConnectWallet';
+
 // components
 import { SearchInput, IconButton, Badge, NavLink } from '@/common';
-import * as DutchC from './styles';
+import LoginHome from '../auth/login';
+import RegisterHome from '../auth/register';
+import ProfileMenu from '../shared/profile/profile-menu';
+import GasInfo from '../shared/header-gas-price.tsx';
 
 import * as Icons from '@/common/Icons';
 
 // types
 import { Menu } from '@/types';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
-import { setIsConnectionModalOpen } from '@/ducks';
-import ConnectWallet from '../shared/ConnectWallet';
 import Image from 'next/image';
+
+import * as DutchC from './styles';
+import AvatarIcon from '@/assets/avatar.png';
 
 const menus: Menu[] = [
   {
@@ -38,6 +44,35 @@ const menus: Menu[] = [
     slug: 'learn',
   },
 ];
+
+const ProfileMockData = {
+  userName: 'Trithoere',
+  avatar: AvatarIcon,
+  walletAddress: '0x314cc0b8314cc0b8314cc0b8314cc0b8314cc0b8314cc0b8',
+  // ...
+};
+
+const GasInfoMockData = {
+  price: 0.14,
+  list: [
+    {
+      nftType: 'NFT Mint',
+      eth: 0.09798,
+      cash: 0.14,
+    },
+    {
+      nftType: 'NFT Transfer',
+      eth: 0.09798,
+      cash: 0.14,
+    },
+    {
+      nftType: 'NFT Withdrawal',
+      eth: 0.09798,
+      cash: 0.14,
+    },
+  ],
+  // ...
+};
 
 const Header: React.FC = () => {
   const router = useRouter();
@@ -120,16 +155,20 @@ const Header: React.FC = () => {
             icon={theme === 'light' ? 'moon' : 'sun'}
             onClick={toggleTheme}
           />
-          <DutchC.HeaderGasWrapper>
-            <Icons.ICustomGas
-              currentColor={theme === 'light' ? 'black' : 'white'}
-            />
-            <DutchC.HeaderGasPrice>
-              {isConnected ? '$0.14 USD' : ''}
-            </DutchC.HeaderGasPrice>
-          </DutchC.HeaderGasWrapper>
+
+          {(isConnected && <GasInfo {...GasInfoMockData} />) || (
+            <DutchC.HeaderGasWrapper>
+              <Icons.ICustomGas
+                currentColor={theme === 'light' ? 'black' : 'white'}
+              />
+              <DutchC.HeaderGasPrice>
+                {isConnected ? '$0.14 USD' : ''}
+              </DutchC.HeaderGasPrice>
+            </DutchC.HeaderGasWrapper>
+          )}
 
           <IconButton icon="bell" />
+
           {isConnected ? (
             <DutchC.HeaderUserWrapper>
               <DutchC.HeaderUserLeft>
@@ -147,7 +186,11 @@ const Header: React.FC = () => {
             <IconButton icon="wallet" onClick={openConnectionModal} />
           )}
 
-          {/* <IconButton icon="user" onClick={handleRegister} /> */}
+          {!isConnected ? (
+            <IconButton icon="user" onClick={handleRegister} />
+          ) : (
+            <ProfileMenu {...ProfileMockData} />
+          )}
         </DutchC.RightActions>
       </DutchC.HeaderInner>
       <ConnectWallet />
