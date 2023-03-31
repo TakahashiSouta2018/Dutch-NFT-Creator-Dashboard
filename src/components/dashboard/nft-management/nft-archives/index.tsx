@@ -5,14 +5,21 @@ import { CreateNftManagementI, NFTI, UsageStatusEnum } from '@/types';
 
 import * as DutchC from './styles';
 import useNFTManagement from '@/hooks/useNFTManagement';
+import { useAppSelector } from '@/redux/store';
+import { shallowEqual } from 'react-redux';
 
 const NFTArchives = () => {
   const { getUserNfts } = useNFTManagement();
   const [NFTs, setNFTs] = useState<CreateNftManagementI[]>([]);
 
+  const { accountInfo } = useAppSelector((state) => {
+    const { accountInfo } = state.webAppReducer;
+    return { accountInfo };
+  }, shallowEqual);
+
   useEffect(() => {
     (async () => {
-      const nfts = await getUserNfts(UsageStatusEnum.ARCHIVED);
+      const nfts = await getUserNfts(accountInfo, UsageStatusEnum.ARCHIVED);
       if (nfts) {
         setNFTs(nfts);
       }
