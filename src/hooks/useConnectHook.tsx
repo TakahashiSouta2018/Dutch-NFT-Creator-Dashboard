@@ -1,22 +1,23 @@
 import { toast } from 'react-toastify';
 
-import { setAccountInfo, setConnectionError, setIsConnected } from '@/ducks';
+import { setAccountInfo, setConnectionError, setIsConnected, setIsConnectionLoading, setIsConnectionModalOpen, setUserCollection } from '@/ducks';
 import { LoopringService } from '@/lib/LoopringService';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { ChainId } from '@loopring-web/loopring-sdk';
-import { useEffect, useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { shallowEqual } from 'react-redux';
 import useConnectHelper, {
   handleConnectI,
   handleErrorI,
   handleProcessingI,
 } from '../helpers/useConnectHelper';
+import { CHAINS, switchNetwork } from '@/helpers/chain';
+import useCollectionHook from './useCollectionHook';
+import { AccountInfoI, CollectionI } from '@/types';
 
 const useConnectHook = () => {
-  const [connectionInfo, setConnectionInfo] = useState<{
-    account: string;
-    chainId: ChainId | 'unknown';
-  }>({ account: '', chainId: 'unknown' });
+  const { getUserCollection } = useCollectionHook();
+
   const loopringService = useMemo(() => new LoopringService(), []);
   const dispatch = useAppDispatch();
 
@@ -25,60 +26,70 @@ const useConnectHook = () => {
     return { walletType, accountInfo };
   }, shallowEqual);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const { account, chainId } = connectionInfo;
 
-        if (chainId === 'unknown' || account === '') return;
-        if (chainId !== Number(process.env.NEXT_PUBLIC_CHAIN_ID))
-          return toast('Wrong Network', { type: 'error' });
-        if (accountInfo?.accInfo?.owner === account) return;
+  const onWalletConnectHandler = async (account: string, chainId: ChainId | 'unknown') => {
+    const networkId = Number(process.env.NEXT_PUBLIC_CHAIN_ID);
 
-        const { accInfo } = await loopringService.exchangeAPI.getAccount({
-          owner: account,
-        });
+    if (
+      accountInfo?.accInfo?.owner !== account &&
+      chainId == networkId
+    ) {
+      dispatch(setAccountInfo(null));
+      dispatch(setIsConnected(false));
+    }
 
-        if (!accInfo) return dispatch(setConnectionError(true));
+    if (chainId !== networkId) {
+      toast(`Connect to ${CHAINS[networkId].name}`, { type: 'warning' });
+      await switchNetwork();
+      return;
+    }
 
-        const accountDetails = await loopringService.unlockAccount(
-          account,
-          walletType
-        );
-        const userExist = accountDetails ? true : false;
+    if (accountInfo?.accInfo?.owner === account) return;
 
-        dispatch(setConnectionError(false));
-        dispatch(setAccountInfo(accountDetails));
-        dispatch(setIsConnected(userExist));
-      } catch (error: any) {
-        console.log(error);
-      }
-    })();
-  }, [connectionInfo, dispatch, accountInfo, loopringService, walletType]);
+    const { accInfo } = await loopringService.exchangeAPI.getAccount({
+      owner: account,
+    });
+    
+    if (!accInfo) {
+      dispatch(setConnectionError(true));
+      dispatch(setIsConnectionModalOpen(true));
+      return 
+    }
+    dispatch(setConnectionError(false));
+    dispatch(setIsConnectionLoading(true));
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const { account, chainId } = connectionInfo;
+    const accountDetails = await loopringService.unlockAccount(
+      account,
+      walletType
+    );
+    const userExist = accountDetails ? true : false;
+    
+    dispatch(setIsConnectionModalOpen(false));
+    dispatch(setIsConnectionLoading(false));
+    dispatch(setAccountInfo(accountDetails));
+    dispatch(setIsConnected(userExist));
 
-        if (chainId === 'unknown' || account === '') return;
+    await initUserData(accountDetails as AccountInfoI);
+  }
 
-        if (
-          accountInfo?.accInfo?.owner !== account &&
-          chainId == Number(process.env.NEXT_PUBLIC_CHAIN_ID)
-        ) {
-          dispatch(setAccountInfo(null));
-          dispatch(setIsConnected(false));
-        }
-      } catch (error: any) {}
-    })();
-  }, [accountInfo?.accInfo?.owner, connectionInfo, dispatch]);
+  const initUserData = async(accountDetails: AccountInfoI) => {
+   
+    // set user collections
+    {
+      const collectionResponse = await getUserCollection(accountDetails);
+      if (collectionResponse && collectionResponse.collections) 
+        dispatch(setUserCollection(collectionResponse.collections));
+    }
+
+  }
 
   useConnectHelper({
     handleAccountDisconnect: () => {
       console.log('handleAccountDisconnect:');
     },
     handleProcessing: ({ opts }: handleProcessingI) => {
+      console.log('---> handleProcessing:', opts);
+
       console.log(opts);
     },
     handleError: (props: handleErrorI) => {
@@ -88,7 +99,7 @@ const useConnectHook = () => {
       toast(props.opts.error.message, { type: 'error' });
     },
     handleConnect: async ({ accounts, chainId }: handleConnectI) => {
-      setConnectionInfo({ account: accounts[0], chainId });
+      await onWalletConnectHandler(accounts[0], chainId);
 
       console.log(
         'After connect >>,network part start: step1 networkUpdate',

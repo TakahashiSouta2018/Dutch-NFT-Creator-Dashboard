@@ -1,5 +1,5 @@
 import { RootStateT } from '@/redux/store';
-import { AccountInfoI } from '@/types';
+import { AccountInfoI, CollectionI } from '@/types';
 import { ConnectorNames } from '@loopring-web/loopring-sdk';
 import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
 
@@ -12,6 +12,7 @@ export interface WebAppReducerI {
   connectionError: boolean;
   isConnectionLoading: boolean;
   isConnectionModalOpen: boolean;
+  userCollection: CollectionI[];
 }
 
 // Define the initial state using that type
@@ -23,6 +24,7 @@ const initialState: WebAppReducerI = {
   connectionError: false,
   isConnectionLoading: false,
   isConnectionModalOpen: false,
+  userCollection: []
 };
 
 export const webAppReducer: Slice<WebAppReducerI> = createSlice({
@@ -51,6 +53,9 @@ export const webAppReducer: Slice<WebAppReducerI> = createSlice({
     setIsConnectionModalOpen: (state, action: PayloadAction<boolean>) => {
       state.isConnectionModalOpen = action.payload;
     },
+    setUserCollection: (state, action: PayloadAction<CollectionI[]>) => {
+      state.userCollection = action.payload;
+    },
   },
 });
 
@@ -62,6 +67,7 @@ export const {
   setConnectionError,
   setIsConnectionLoading,
   setIsConnectionModalOpen,
+  setUserCollection,
 } = webAppReducer.actions;
 
 // Other code such as selectors can use the imported `RootStateT` type

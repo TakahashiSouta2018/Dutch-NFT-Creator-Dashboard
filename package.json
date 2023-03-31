@@ -12,8 +12,8 @@
     "prepare": "husky install"
   },
   "engines": {
-    "npm": "9.5.0",
-    "node": "v18.14.2"
+    "node": "18.13.0",
+    "npm": "8.19.3"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.16",

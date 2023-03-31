@@ -7,7 +7,6 @@ import ConnectWallet from '../shared/ConnectWallet';
 
 // components
 import { SearchInput, IconButton, Badge, NavLink } from '@/common';
-import LoginHome from '../auth/login';
 import RegisterHome from '../auth/register';
 import ProfileMenu from '../shared/profile/profile-menu';
 import GasInfo from '../shared/header-gas-price.tsx';
@@ -109,12 +108,6 @@ const Header: React.FC = () => {
 
   return (
     <DutchC.HeaderWrapper>
-      {/* <LoginHome
-        onClose={() => {
-          setConnectWallet(false);
-        }}
-        connectWallet={connectWallet}
-      /> */}
       <RegisterHome
         onClose={() => {
           setRegister(false);

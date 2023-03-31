@@ -3,40 +3,18 @@ import { toast } from 'react-toastify';
 import { LoopringService } from '@/lib/LoopringService';
 import { pinFileToIPFS } from '@/lib/pinata';
 import { useAppSelector } from '@/redux/store';
-import { CollectionI, CollectionObjectI } from '@/types';
+import { AccountInfoI, CollectionI, CollectionObjectI } from '@/types';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 
 const useCollectionHook = () => {
   const { push } = useRouter();
   const loopringService = new LoopringService();
-  const [userCollection, setUserCollection] = useState<CollectionI[]>([]);
-  const [collectionNames, setCollectionNames] = useState<string[]>([]);
 
   const { accountInfo } = useAppSelector((state) => {
     const { accountInfo } = state.webAppReducer;
     return { accountInfo };
   }, shallowEqual);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        if (accountInfo) {
-          const res = await getUserCollection(0, 100);
-          if (res && res.collections) {
-            const collectionNames = res.collections.map(
-              (collection: CollectionI) => collection.name
-            );
-            setCollectionNames(collectionNames);
-            setUserCollection(res.collections);
-          }
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
 
   const createCollection = async (collectionObject: CollectionObjectI) => {
     const imagesUrl = await pinFileToIPFS([
@@ -61,28 +39,57 @@ const useCollectionHook = () => {
     } else toast('Unable to create collection', { type: 'error' });
   };
 
-  const getUserCollection = async (offset: number, limit: number) => {
+  const getUserCollection = async (accInfo: AccountInfoI) => {
     try {
-      if (!accountInfo) return toast('Account not connected', { type: 'info' });
+      const limit = 50;
+      let offset = 0;
+      let totalUserCollection = null;
 
-      const data = await loopringService.getUserCollection({
-        accountInfo,
+      const collections: CollectionI[] = [];
+
+      let res = await loopringService.getUserCollection({
+        accountInfo: accInfo,
         offset,
         limit,
         isMintable: true,
       });
 
-      return data;
+      if (res && res.collections) {
+        totalUserCollection = Number(res.totalNum);
+        collections.push(...res.collections);
+
+        for (let i = 0; i < totalUserCollection; i++) {
+          if (collections.length === totalUserCollection) break;
+          offset = (i + 1) * limit;
+
+          res = await loopringService.getUserCollection({
+            accountInfo: accInfo,
+            offset,
+            limit,
+            isMintable: true,
+          });
+
+          if (res && res.collections && res.collections.length > 0) collections.push(...res.collections);
+          else break;
+        }
+      }
+
+      return { collections, totalUserCollection };
     } catch (error) {
       console.log(error);
     }
   };
 
+  const getCollectionNames = (collections: CollectionI[]) => {
+    return collections.map(
+      (collection: CollectionI) => collection.name
+    );
+  }
+
   return {
-    userCollection,
-    collectionNames,
     createCollection,
     getUserCollection,
+    getCollectionNames
   };
 };
 

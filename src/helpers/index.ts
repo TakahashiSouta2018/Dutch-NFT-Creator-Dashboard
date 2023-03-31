@@ -6,6 +6,10 @@ export const getTimestampDaysLater = (
   return ts;
 };
 
+export const convertNumToHexdecimal = (num: string | number) => {
+  return num.toString(16);
+};
+
 export const TOKEN_INFO = {
   tokenMap: {
     ETH: {
