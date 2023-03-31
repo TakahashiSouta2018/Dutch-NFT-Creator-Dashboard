@@ -69,7 +69,8 @@ const useCollectionHook = () => {
             isMintable: true,
           });
 
-          if (res && res.collections && res.collections.length > 0) collections.push(...res.collections);
+          if (res && res.collections && res.collections.length > 0)
+            collections.push(...res.collections);
           else break;
         }
       }
@@ -81,15 +82,13 @@ const useCollectionHook = () => {
   };
 
   const getCollectionNames = (collections: CollectionI[]) => {
-    return collections.map(
-      (collection: CollectionI) => collection.name
-    );
-  }
+    return collections.map((collection: CollectionI) => collection.name);
+  };
 
   return {
     createCollection,
     getUserCollection,
-    getCollectionNames
+    getCollectionNames,
   };
 };
 

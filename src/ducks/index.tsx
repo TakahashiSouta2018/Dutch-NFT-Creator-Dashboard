@@ -24,7 +24,7 @@ const initialState: WebAppReducerI = {
   connectionError: false,
   isConnectionLoading: false,
   isConnectionModalOpen: false,
-  userCollection: []
+  userCollection: [],
 };
 
 export const webAppReducer: Slice<WebAppReducerI> = createSlice({

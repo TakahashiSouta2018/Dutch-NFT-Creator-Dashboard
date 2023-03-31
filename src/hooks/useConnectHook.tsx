@@ -1,6 +1,13 @@
 import { toast } from 'react-toastify';
 
-import { setAccountInfo, setConnectionError, setIsConnected, setIsConnectionLoading, setIsConnectionModalOpen, setUserCollection } from '@/ducks';
+import {
+  setAccountInfo,
+  setConnectionError,
+  setIsConnected,
+  setIsConnectionLoading,
+  setIsConnectionModalOpen,
+  setUserCollection,
+} from '@/ducks';
 import { LoopringService } from '@/lib/LoopringService';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { ChainId } from '@loopring-web/loopring-sdk';
@@ -26,14 +33,13 @@ const useConnectHook = () => {
     return { walletType, accountInfo };
   }, shallowEqual);
 
-
-  const onWalletConnectHandler = async (account: string, chainId: ChainId | 'unknown') => {
+  const onWalletConnectHandler = async (
+    account: string,
+    chainId: ChainId | 'unknown'
+  ) => {
     const networkId = Number(process.env.NEXT_PUBLIC_CHAIN_ID);
 
-    if (
-      accountInfo?.accInfo?.owner !== account &&
-      chainId == networkId
-    ) {
+    if (accountInfo?.accInfo?.owner !== account && chainId == networkId) {
       dispatch(setAccountInfo(null));
       dispatch(setIsConnected(false));
     }
@@ -49,11 +55,11 @@ const useConnectHook = () => {
     const { accInfo } = await loopringService.exchangeAPI.getAccount({
       owner: account,
     });
-    
+
     if (!accInfo) {
       dispatch(setConnectionError(true));
       dispatch(setIsConnectionModalOpen(true));
-      return 
+      return;
     }
     dispatch(setConnectionError(false));
     dispatch(setIsConnectionLoading(true));
@@ -63,25 +69,23 @@ const useConnectHook = () => {
       walletType
     );
     const userExist = accountDetails ? true : false;
-    
+
     dispatch(setIsConnectionModalOpen(false));
     dispatch(setIsConnectionLoading(false));
     dispatch(setAccountInfo(accountDetails));
     dispatch(setIsConnected(userExist));
 
     await initUserData(accountDetails as AccountInfoI);
-  }
+  };
 
-  const initUserData = async(accountDetails: AccountInfoI) => {
-   
+  const initUserData = async (accountDetails: AccountInfoI) => {
     // set user collections
     {
       const collectionResponse = await getUserCollection(accountDetails);
-      if (collectionResponse && collectionResponse.collections) 
+      if (collectionResponse && collectionResponse.collections)
         dispatch(setUserCollection(collectionResponse.collections));
     }
-
-  }
+  };
 
   useConnectHelper({
     handleAccountDisconnect: () => {

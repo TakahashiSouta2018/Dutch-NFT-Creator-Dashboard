@@ -20,11 +20,14 @@ const NFTAll: React.FC<NFTAllProps> = ({ tableListSwtich }): JSX.Element => {
   }, shallowEqual);
 
   useEffect(() => {
-    (async () => {      
+    (async () => {
       if (accountInfo) {
-        const nfts = await getUserNfts(accountInfo.accInfo.owner, UsageStatusEnum.UNARCHIVED);    
+        const nfts = await getUserNfts(
+          accountInfo.accInfo.owner,
+          UsageStatusEnum.UNARCHIVED
+        );
         console.log({ nfts });
-    
+
         if (nfts) {
           setNFTs(nfts);
         }
