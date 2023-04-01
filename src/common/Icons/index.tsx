@@ -596,6 +596,23 @@ export const ICustomDiamond: React.FC<{ className?: string }> = ({
   return <DiamondIcon className={className} />;
 };
 
+export const IDocumentDuplicateIcon: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+  className,
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.DocumentDuplicateIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.DocumentDuplicateIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
 export const icons = {
   bell: IBell,
   wallet: IWallet,
@@ -627,6 +644,7 @@ export const icons = {
   pencil: IPencil,
   chevronright: IChevronRight,
   customdiamond: ICustomDiamond,
+  idocumentduplicateIcon: IDocumentDuplicateIcon,
 };
 
 export type IconType = keyof typeof icons;

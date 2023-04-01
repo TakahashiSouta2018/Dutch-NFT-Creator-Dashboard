@@ -157,7 +157,7 @@ const Header: React.FC = () => {
             onClick={toggleTheme}
           />
 
-          {(isConnected && <GasInfo {...GasInfoMockData} />) || (
+          {(true && <GasInfo {...GasInfoMockData} />) || (
             <DutchC.HeaderGasWrapper>
               <Icons.ICustomGas
                 currentColor={theme === 'light' ? 'black' : 'white'}
@@ -187,7 +187,7 @@ const Header: React.FC = () => {
             <IconButton icon="wallet" onClick={openConnectionModal} />
           )}
 
-          {!isConnected ? (
+          {!true ? (
             <IconButton icon="user" onClick={handleRegister} />
           ) : (
             <ProfileMenu {...ProfileMockData} />

@@ -19,5 +19,37 @@ export const GasInfo = styled.div.attrs({
 `;
 
 export const GasInfoHeaderWrapper = styled.div.attrs({
-  className: 'flex items-center justify-between w-full',
+  className: 'flex items-center justify-between w-full pb-3',
+})``;
+
+export const GasInfoHeaderRight = styled.div.attrs({
+  className: 'flex items-center justify-end gap-x-3',
+})``;
+
+export const ProfileMenuDividerX = styled.hr.attrs({
+  className: 'w-full dark:border-white/10',
+})``;
+
+export const ProfileMenuFullWidthWrapper = styled.div.attrs({
+  className: 'w-full',
+})``;
+
+export const ProfileMenuNFTWrapper = styled.div.attrs({
+  className: 'flex justify-between text-sm w-full py-3',
+})``;
+
+export const ProfileMenuNFTPriceWrapper = styled.div.attrs({
+  className: 'flex flex-col items-end truncate max-w-[40%] font-bold',
+})``;
+
+export const ProfileMenuNFTPriceEthWrapper = styled.div.attrs({
+  className: 'flex items-center gap-x-1',
+})``;
+
+export const ProfileMenuNFTPriceEthText = styled.span.attrs({
+  className: 'truncate max-w-full text-right',
+})``;
+
+export const ProfileMenuNFTPriceDollarWrapper = styled.div.attrs({
+  className: 'truncate max-w-full text-right opacity-40',
 })``;
