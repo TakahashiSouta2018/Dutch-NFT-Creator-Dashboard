@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import Image, { StaticImageData } from 'next/image';
 import { useTheme } from 'next-themes';
 import { useDetectClickOutside } from 'react-detect-click-outside';
 
 import * as Icons from '@/common';
-import { Button } from '@/common';
 
 import * as DutchC from './styles';
 

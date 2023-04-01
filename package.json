@@ -12,8 +12,8 @@
     "prepare": "husky install"
   },
   "engines": {
-    "npm": "9.5.0",
-    "node": "v18.14.2"
+    "node": "18.13.0",
+    "npm": "8.19.3"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.16",
@@ -36,6 +36,7 @@
     "papaparse": "^5.4.0",
     "react": "18.2.0",
     "react-detect-click-outside": "^1.1.7",
+    "react-device-detect": "^2.2.3",
     "react-dom": "18.2.0",
     "react-loader-spinner": "^5.3.4",
     "react-range": "^1.8.14",

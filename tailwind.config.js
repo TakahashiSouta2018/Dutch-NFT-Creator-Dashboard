@@ -18,7 +18,7 @@ module.exports = {
         'dark-blue': '#5169A4',
         'accent-green': '#3CAA2A',
         'accent-red': '#C60707',
-        'accent-blue': '#28458F',
+        'accent-blue': '#2E7CF6',
       },
       maxWidth: {
         wide: '1920px',

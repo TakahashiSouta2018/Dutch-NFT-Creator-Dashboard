@@ -7,7 +7,6 @@ import ConnectWallet from '../shared/ConnectWallet';
 
 // components
 import { SearchInput, IconButton, Badge, NavLink } from '@/common';
-import LoginHome from '../auth/login';
 import RegisterHome from '../auth/register';
 import ProfileMenu from '../shared/profile/profile-menu';
 import GasInfo from '../shared/header-gas-price.tsx';
@@ -105,16 +104,9 @@ const Header: React.FC = () => {
   if (!mounted) {
     return null;
   }
-  console.log(isConnected);
 
   return (
     <DutchC.HeaderWrapper>
-      {/* <LoginHome
-        onClose={() => {
-          setConnectWallet(false);
-        }}
-        connectWallet={connectWallet}
-      /> */}
       <RegisterHome
         onClose={() => {
           setRegister(false);
@@ -170,24 +162,7 @@ const Header: React.FC = () => {
 
           <IconButton icon="bell" />
 
-          {isConnected ? (
-            <DutchC.HeaderUserWrapper>
-              <DutchC.HeaderUserLeft>
-                <Image
-                  src="/images/rice.webp"
-                  width={24}
-                  height={24}
-                  alt="logo"
-                />
-                <DutchC.HeaderUserAddress>0x31...c0b8</DutchC.HeaderUserAddress>
-              </DutchC.HeaderUserLeft>
-              <IconButton icon="chevron-down" />
-            </DutchC.HeaderUserWrapper>
-          ) : (
-            <IconButton icon="wallet" onClick={openConnectionModal} />
-          )}
-
-          {!true ? (
+          {!isConnected ? (
             <IconButton icon="user" onClick={handleRegister} />
           ) : (
             <ProfileMenu {...ProfileMockData} />

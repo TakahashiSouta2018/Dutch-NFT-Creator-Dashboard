@@ -26,6 +26,7 @@ import * as DutchC from './styles';
 import ShortcutContextMenu from '@/components/shared/shortcut-context-menu';
 import { useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
+import NFTCard from '../cards/nft-card';
 
 type WIDEFILTER = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE' | 'BANK0X';
 

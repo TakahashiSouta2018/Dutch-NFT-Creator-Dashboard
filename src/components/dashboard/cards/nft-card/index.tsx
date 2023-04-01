@@ -66,7 +66,7 @@ const NFTCard: React.FC<NFTCardProps> = ({
       </DutchC.NFTSelectedMark>
       {image && (
         <Image
-          src={getIpfsHttpUrl(image)}
+          src={image}
           alt={image}
           width={230}
           height={230}

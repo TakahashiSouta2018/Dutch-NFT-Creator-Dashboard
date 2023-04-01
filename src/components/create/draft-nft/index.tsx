@@ -21,6 +21,7 @@ import { useForm } from '@/hooks/useForm';
 import { pinFileToIPFS } from '@/lib/pinata';
 import CollectionDropdown from '@/common/Dropdown/CollectionDropdown';
 import { useRouter } from 'next/router';
+import { Input } from '@/common/Input/styles';
 
 // types
 type NFTPropertyT = {
@@ -253,7 +254,7 @@ const NFTProperty: React.FC<NFTPropertyI> = ({ type, value, onRemove }) => {
   return (
     <DutchC.NFTPropertyWrapper>
       <TextInput placeholder="Type" />
-      <TextInput placeholder="Value" />
+      <TextInput placeholder="Value" type="number" />
       <DutchC.NFTPropertyRemove onClick={onRemove}>
         <Icons.IMinusCircle
           variant="solid"
