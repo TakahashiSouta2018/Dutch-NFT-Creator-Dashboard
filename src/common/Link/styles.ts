@@ -17,17 +17,6 @@ export const NavLinkWrapper = styled(Link).attrs({
     ${(p: LinkWrapperProps) =>
       p.active && 'color: var(--active-color); font-weight: 700;'}
 
-    &::after {
-      content: '';
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background-color: #ff4800;
-      left: 50%;
-      top: 100%;
-      transform: translateX(-50%) translateY(1px);
-    }
   }
 `;
 
@@ -42,3 +31,8 @@ export const LinkWrapper = styled(Link).attrs({
   ${(p: LinkWrapperProps & { size?: LinkSizes }) =>
     p?.size === 'small' && 'font-size: 14px; font-weight: 500;'}
 `;
+
+export const NavLinkDecoration = styled.div.attrs({
+  className:
+    'absolute w-[5px] h-[5px] rounded-full bg-[#ff4800] left-1/2 top-full -translate-x-1/2 translate-y-[1px]',
+})``;
