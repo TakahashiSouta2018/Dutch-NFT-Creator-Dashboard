@@ -149,7 +149,7 @@ const Header: React.FC = () => {
             onClick={toggleTheme}
           />
 
-          {(isConnected && <GasInfo {...GasInfoMockData} />) || (
+          {(true && <GasInfo {...GasInfoMockData} />) || (
             <DutchC.HeaderGasWrapper>
               <Icons.ICustomGas
                 currentColor={theme === 'light' ? 'black' : 'white'}

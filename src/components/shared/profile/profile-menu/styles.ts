@@ -36,5 +36,57 @@ export const ProfileMenuHeaderUserName = styled.div.attrs({
 
 export const ProfileMenuHeaderUserWalletAddress = styled.div.attrs({
   className:
-    'font-bold text-sm text-black/50 truncate max-w-full dark:text-white/50',
+    'font-bold text-sm text-black/50 truncate max-w-[91px] dark:text-white/50',
+})``;
+
+export const ProfileMenuDividerX = styled.hr.attrs({
+  className: 'w-full dark:border-white/10',
+})``;
+
+export const ProfileMenuButtonImageWrapper = styled.div.attrs({
+  className: 'flex items-center gap-x-1.5',
+})``;
+
+export const ProfileMenuButtonUserWalletAddress = styled.span.attrs({
+  className: 'truncate w-[94px] font-bold',
+})``;
+
+export const ProfileMenuHeaderUserWalletAddressWrapper = styled.span.attrs({
+  className: 'flex items-center gap-x-1.5',
+})``;
+
+export const ProfileMenuButtonArrowIconWrapper = styled.div.attrs({
+  className: 'w-5 h-5 flex items-center',
+})``;
+
+export const ProfileMenuWalletBalanceWrapper = styled.div.attrs({
+  className: 'flex justify-between text-sm w-full',
+})``;
+
+export const ProfileMenuWalletBalanceAmountWrapper = styled.div.attrs({
+  className: 'flex flex-col gap-3 items-end truncate max-w-[40%] font-bold',
+})``;
+
+export const ProfileMenuWalletBalanceAmountCategoryWrapper = styled.div.attrs({
+  className: 'flex flex-col gap-3 truncate max-w-[40%]',
+})``;
+
+export const ProfileMenuWalletBalanceAmountTextWrapper = styled.div.attrs({
+  className: 'flex flex-col gap-3 items-end truncate max-w-[40%] font-bold',
+})``;
+
+export const ProfileMenuWalletBalanceAmountText = styled.div.attrs({
+  className: 'truncate max-w-full text-right',
+})``;
+
+export const ProfileMenuAddFundsButtonWrapper = styled.div.attrs({
+  className: 'flex text-sm w-full font-bold p-1',
+})``;
+
+export const ProfileMenuFooterWrapper = styled.div.attrs({
+  className: 'flex items-center justify-between text-sm w-full',
+})``;
+
+export const ProfileMenuFooterThemeText = styled.div.attrs({
+  className: 'text-sm font-bold first-letter:uppercase',
 })``;

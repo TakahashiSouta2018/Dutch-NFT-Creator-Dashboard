@@ -52,7 +52,7 @@ const CopyNFTId: React.FC<CopyNFTIdProps> = ({
         <DutchC.CopyNFTIdTooltip>Copied</DutchC.CopyNFTIdTooltip>
       )}
       <DutchC.CopyNFTIdIconWrapper>
-        <Icons.IDocument
+        <Icons.IDocumentDuplicateIcon
           size="medium"
           color={
             theme === 'light'

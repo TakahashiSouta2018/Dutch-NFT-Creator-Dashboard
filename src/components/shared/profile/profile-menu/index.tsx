@@ -31,11 +31,13 @@ export const ProfileMenuButton: React.FC<ProfileMenuButtonProps> = ({
 }) => {
   return (
     <DutchC.ProfileMenuButtonWrapper onClick={onToggle}>
-      <div className="flex items-center gap-x-1.5">
+      <DutchC.ProfileMenuButtonImageWrapper>
         <Image src={avatar} width={24} height={24} alt="profile-avatar" />
-        <span className="truncate w-[94px] font-bold">{walletAddress}</span>
-      </div>
-      <div className="w-5 h-5 flex items-center">
+        <DutchC.ProfileMenuButtonUserWalletAddress>
+          {walletAddress}
+        </DutchC.ProfileMenuButtonUserWalletAddress>
+      </DutchC.ProfileMenuButtonImageWrapper>
+      <DutchC.ProfileMenuButtonArrowIconWrapper>
         {(!isOpen && (
           <Icons.IChevronDown
             variant="outline"
@@ -49,7 +51,7 @@ export const ProfileMenuButton: React.FC<ProfileMenuButtonProps> = ({
             color={theme === 'light' ? 'black' : 'white'}
           />
         )}
-      </div>
+      </DutchC.ProfileMenuButtonArrowIconWrapper>
     </DutchC.ProfileMenuButtonWrapper>
   );
 };
@@ -89,45 +91,56 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
               <DutchC.ProfileMenuHeaderUserName>
                 {props.userName}
               </DutchC.ProfileMenuHeaderUserName>
-              <DutchC.ProfileMenuHeaderUserWalletAddress>
-                {props.walletAddress}
-              </DutchC.ProfileMenuHeaderUserWalletAddress>
+              <DutchC.ProfileMenuHeaderUserWalletAddressWrapper>
+                <DutchC.ProfileMenuHeaderUserWalletAddress>
+                  {props.walletAddress}
+                </DutchC.ProfileMenuHeaderUserWalletAddress>
+                <Icons.IDocumentDuplicateIcon
+                  variant="solid"
+                  color={theme === 'light' ? 'black' : 'white'}
+                  size="medium"
+                />
+              </DutchC.ProfileMenuHeaderUserWalletAddressWrapper>
             </DutchC.ProfileMenuHeaderDetail>
           </DutchC.ProfileMenuHeaderContent>
           <Icons.IChevronRight
             variant="solid"
             size="medium"
             color={theme === 'light' ? 'black' : 'white'}
-            className="w-5 h-5 absolute right-0"
+            className="w-5 h-5 absolute right-0 opacity-70"
           />
         </DutchC.ProfileMenuHeaderWrapper>
-        <hr className="w-full dark:border-white/10" />
-        <div className="flex justify-between text-sm w-full">
-          <span>Wallet Balance</span>
-          <div className="flex flex-col items-end truncate max-w-[40%] font-bold">
+        <DutchC.ProfileMenuDividerX />
+        <DutchC.ProfileMenuWalletBalanceWrapper>
+          Wallet Balance
+          <DutchC.ProfileMenuWalletBalanceAmountWrapper>
             <span className="truncate max-w-full text-right">0.000245 ETH</span>
             <span className="truncate max-w-full text-right">$ 2.33 USD</span>
-          </div>
-        </div>
-        <hr className="w-full dark:border-white/10" />
-        <div className="flex justify-between text-sm w-full">
-          <div className="flex flex-col gap-3 truncate max-w-[40%]">
+          </DutchC.ProfileMenuWalletBalanceAmountWrapper>
+        </DutchC.ProfileMenuWalletBalanceWrapper>
+        <DutchC.ProfileMenuDividerX />
+        <DutchC.ProfileMenuWalletBalanceWrapper>
+          <DutchC.ProfileMenuWalletBalanceAmountCategoryWrapper>
             <span>Ethereum L1</span>
             <span>Ethereum L2</span>
-          </div>
-          <div className="flex flex-col gap-3 items-end truncate max-w-[40%] font-bold">
-            <span className="truncate max-w-full text-right">0.000245 ETH</span>
-            <span className="truncate max-w-full text-right">$ 2.33 USD</span>
-          </div>
-        </div>
-        <hr className="w-full dark:border-white/10" />
-        <div className="flex text-sm w-full font-bold p-1">
+          </DutchC.ProfileMenuWalletBalanceAmountCategoryWrapper>
+          <DutchC.ProfileMenuWalletBalanceAmountTextWrapper>
+            <DutchC.ProfileMenuWalletBalanceAmountText>
+              0.000245 ETH
+            </DutchC.ProfileMenuWalletBalanceAmountText>
+            <DutchC.ProfileMenuWalletBalanceAmountText>
+              $ 2.33 USD
+            </DutchC.ProfileMenuWalletBalanceAmountText>
+          </DutchC.ProfileMenuWalletBalanceAmountTextWrapper>
+        </DutchC.ProfileMenuWalletBalanceWrapper>
+        <DutchC.ProfileMenuDividerX />
+        <DutchC.ProfileMenuAddFundsButtonWrapper>
           <Button className="w-full">Add Funds</Button>
-        </div>
-        <div className="flex items-center justify-between text-sm w-full">
-          <span className="text-sm font-bold first-letter:uppercase">
+        </DutchC.ProfileMenuAddFundsButtonWrapper>
+        <DutchC.ProfileMenuFooterWrapper>
+          <DutchC.ProfileMenuFooterThemeText>
             {theme} Theme
-          </span>
+          </DutchC.ProfileMenuFooterThemeText>
           {(theme === 'light' && (
             <Icons.ISun
               size="large"
@@ -143,7 +156,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
               className="w-5 h-5"
             />
           )}
-        </div>
+        </DutchC.ProfileMenuFooterWrapper>
       </DutchC.ProfileMenu>
     </DutchC.ProfileMenuWrapper>
   );

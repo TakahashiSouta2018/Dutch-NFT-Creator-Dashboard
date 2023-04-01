@@ -59,34 +59,34 @@ const GasInfo: React.FC<GasInfoProps> = (props) => {
       />
       <DutchC.GasInfo isOpen={isOpen}>
         <DutchC.GasInfoHeaderWrapper>
-          <span>Currency</span>
-          <div className="flex items-center justify-end gap-x-3">
-            <span>ETH</span>
+          Currency
+          <DutchC.GasInfoHeaderRight>
+            ETH
             <Icons.IChevronDown
               variant="solid"
               size="medium"
               color={theme === 'light' ? 'black' : 'white'}
             />
-          </div>
+          </DutchC.GasInfoHeaderRight>
         </DutchC.GasInfoHeaderWrapper>
         {props.list?.map((item, index) => (
-          <div key={index} className="w-full">
-            <hr className="w-full dark:border-white/10" />
-            <div className="flex justify-between text-sm w-full py-3">
-              <span>{item.nftType}</span>
-              <div className="flex flex-col items-end truncate max-w-[40%] font-bold">
-                <div className="flex items-center">
-                  <span className="truncate max-w-full text-right">
+          <DutchC.ProfileMenuFullWidthWrapper key={index}>
+            <DutchC.ProfileMenuDividerX />
+            <DutchC.ProfileMenuNFTWrapper>
+              {item.nftType}
+              <DutchC.ProfileMenuNFTPriceWrapper>
+                <DutchC.ProfileMenuNFTPriceEthWrapper>
+                  <DutchC.ProfileMenuNFTPriceEthText>
                     {item.eth} ETH
-                  </span>
+                  </DutchC.ProfileMenuNFTPriceEthText>
                   <Icons.ICustomDiamond />
-                </div>
-                <span className="truncate max-w-full text-right opacity-40">
+                </DutchC.ProfileMenuNFTPriceEthWrapper>
+                <DutchC.ProfileMenuNFTPriceDollarWrapper>
                   $ {item.cash} USD
-                </span>
-              </div>
-            </div>
-          </div>
+                </DutchC.ProfileMenuNFTPriceDollarWrapper>
+              </DutchC.ProfileMenuNFTPriceWrapper>
+            </DutchC.ProfileMenuNFTWrapper>
+          </DutchC.ProfileMenuFullWidthWrapper>
         ))}
       </DutchC.GasInfo>
     </DutchC.GasInfoWrapper>
