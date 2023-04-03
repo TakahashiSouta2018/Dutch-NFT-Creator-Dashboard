@@ -1,6 +1,10 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
+type ContentLayoutProps = {
+  open: boolean;
+};
+
 // components
 // --- App Layout
 export const AppWrapper = styled.div.attrs({
@@ -60,4 +64,28 @@ export const HeaderUserLeft = styled.div.attrs({
 
 export const HeaderUserAddress = styled.p.attrs({
   className: 'font-bold dark:text-white',
+})``;
+
+// -------------------- Content Layout --------------------- //
+
+export const ContentLayoutWrapper = styled.div.attrs({
+  className: 'relative flex overflow-x-hidden items-start min-h-full',
+})``;
+
+export const ContentLayoutBody = styled.div.attrs({
+  className: 'flex transition-all',
+})`
+  ${(p: ContentLayoutProps) => (p.open ? 'width: 83.333333%;' : 'width: 100%;')}
+`;
+
+export const ContentLayoutBodyInner = styled.div.attrs({
+  className: 'flex flex-col w-full',
+})``;
+
+export const ContentLayoutBodyChildren = styled.div.attrs({
+  className: 'min-h-[400px]',
+})``;
+
+export const GuideInfoIconWrapper = styled.div.attrs({
+  className: 'absolute top-4 right-6 cursor-pointer',
 })``;
