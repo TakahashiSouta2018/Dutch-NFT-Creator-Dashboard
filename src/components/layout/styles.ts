@@ -69,7 +69,7 @@ export const HeaderUserAddress = styled.p.attrs({
 // -------------------- Content Layout --------------------- //
 
 export const ContentLayoutWrapper = styled.div.attrs({
-  className: 'relative flex overflow-x-hidden items-start min-h-full',
+  className: 'relative flex overflow-x-hidden items-start min-h-full px-6',
 })``;
 
 export const ContentLayoutBody = styled.div.attrs({

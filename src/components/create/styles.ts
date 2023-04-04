@@ -139,7 +139,7 @@ export const DraftNFTSelectedMark = styled.div.attrs({
 })``;
 
 // --- Guide info
-export const GuideInfoIconWrapper = styled.div.attrs({
+export const GuideInfoIconWrapper = styled.div.attrs<{ className: string }>({
   className: 'absolute top-4 right-6 cursor-pointer',
 })``;
 

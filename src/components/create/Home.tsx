@@ -158,7 +158,10 @@ const CreateHome: React.FC = () => {
       </DutchC.CreateContentWrapper>
 
       {/* toggle guide */}
-      <DutchC.GuideInfoIconWrapper onClick={toggleGuide}>
+      <DutchC.GuideInfoIconWrapper
+        onClick={toggleGuide}
+        className={open ? 'right-10' : 'right-6'}
+      >
         <Icons.IInformationCircle
           variant="solid"
           size="large"

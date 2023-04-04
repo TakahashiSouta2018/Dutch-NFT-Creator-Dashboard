@@ -43,9 +43,9 @@ const subnavs = [
     bgColor: 'rgba(167, 76, 201, 0.2)',
   },
   {
-    name: 'Sales',
-    path: '/dashboard/sales',
-    slug: 'sales',
+    name: 'Analytics',
+    path: '/dashboard/analytics',
+    slug: 'analytics',
     animationData: Analytics,
     bgColor: 'rgba(255, 79, 182, 0.2)',
   },

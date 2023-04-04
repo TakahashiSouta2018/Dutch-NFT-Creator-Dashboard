@@ -163,7 +163,7 @@ const Header: React.FC = () => {
           <IconButton icon="bell" />
 
           {!isConnected ? (
-            <IconButton icon="user" onClick={handleRegister} />
+            <IconButton icon="wallet" onClick={handleRegister} />
           ) : (
             <ProfileMenu {...ProfileMockData} />
           )}
