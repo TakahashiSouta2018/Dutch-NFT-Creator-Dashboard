@@ -16,7 +16,6 @@ export const NavLinkWrapper = styled(Link).attrs({
   && {
     ${(p: LinkWrapperProps) =>
       p.active && 'color: var(--active-color); font-weight: 700;'}
-
   }
 `;
 
