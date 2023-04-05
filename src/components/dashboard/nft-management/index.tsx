@@ -130,6 +130,8 @@ const NFTManagement: React.FC = () => {
   const [showSyncModal, setShowSyncModal] = useState(false);
   const [showCreateListModal, setShowCreatListModal] = useState(false);
 
+  const { isConnected } = useAppSelector((state) => state.webAppReducer);
+
   const { collectionNfts } = useAppSelector((state) => {
     const { collectionNfts } = state.dashboardPageReducer;
     return { collectionNfts };
@@ -267,15 +269,16 @@ const NFTManagement: React.FC = () => {
                     setShowCreatListModal(true);
                   }}
                 />
-
-                <SyncNFTs
-                  currentTab={currentWideFilter}
-                  showSyncModal={showSyncModal}
-                  setShowSyncModal={(flag) => {
-                    setShowSyncModal(flag);
-                  }}
-                  nftList={collectionNfts}
-                />
+                {!isConnected && (
+                  <SyncNFTs
+                    currentTab={currentWideFilter}
+                    showSyncModal={showSyncModal}
+                    setShowSyncModal={(flag) => {
+                      setShowSyncModal(flag);
+                    }}
+                    nftList={collectionNfts}
+                  />
+                )}
               </DutchC.NFTManagementContentBodyInnerContainer>
             </DutchC.NFTManagementContentBodyInner>
 
