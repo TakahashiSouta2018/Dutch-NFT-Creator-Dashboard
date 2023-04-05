@@ -93,10 +93,6 @@ const Header: React.FC = () => {
     dispatch(setIsConnectionModalOpen(true));
   };
 
-  const handleRegister = useCallback(() => {
-    setRegister(true);
-  }, [setRegister]);
-
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -163,7 +159,7 @@ const Header: React.FC = () => {
           <IconButton icon="bell" />
 
           {!isConnected ? (
-            <IconButton icon="wallet" onClick={handleRegister} />
+            <IconButton icon="wallet" onClick={openConnectionModal} />
           ) : (
             <ProfileMenu {...ProfileMockData} />
           )}

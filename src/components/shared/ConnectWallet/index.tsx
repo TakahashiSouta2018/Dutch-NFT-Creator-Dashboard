@@ -74,7 +74,7 @@ const ConnectWallet = (): JSX.Element => {
 
   return (
     <>
-      <Modal isOpen={isConnectionModalOpen}>
+      <Modal isOpen={isConnectionModalOpen} className="max-w-xl">
         <ModalHead
           title={connectionError ? 'Connection Error' : 'Connect a Wallet'}
           onClose={closeConnectionModal}

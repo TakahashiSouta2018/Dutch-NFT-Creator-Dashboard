@@ -43,7 +43,7 @@ const IconButton: React.FC<IconButtonProps> = ({
       onClick={onClick}
     >
       <Icon
-        variant={isPressed ? 'solid' : 'outline'}
+        variant={'solid'}
         size="large"
         color={
           isPressed
