@@ -100,3 +100,21 @@ export const TextAreaOptional = styled.span.attrs({
 export const TextAreaCounter = styled.span.attrs({
   className: 'text-sm whitespace-nowrap text-black/70 dark:text-white/70',
 })``;
+
+export const CustomSelectWrapper = styled.div.attrs<{ className?: string }>({
+  className: 'relative w-full text-black',
+})``;
+
+export const CustomSelect = styled.select.attrs<{ className?: string }>({
+  className:
+    'outline-none w-full inline-flex items-center justify-center font-semibold py-2 pl-12 border border-black/10 rounded-lg text-sm peer hover:border-black placeholder:text-black/70 focus:border-black dark:border-white/10 dark:text-white/70 dark:bg-dark-surface dark:placeholder:text-white/70 transition',
+})``;
+
+export const CustomSelectLabel = styled.div.attrs<{ className?: string }>({
+  className:
+    'absolute top-0 left-0 bottom-0 px-3 text-sm text-black/70 font-normal dark:text-white/70 inline-flex items-center justify-center',
+})``;
+
+export const CustomSelectOption = styled.option.attrs<{ className?: string }>({
+  className: 'text-black font-semibold',
+})``;

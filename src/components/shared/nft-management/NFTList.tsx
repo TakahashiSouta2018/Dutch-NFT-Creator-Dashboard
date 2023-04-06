@@ -45,7 +45,7 @@ const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
   const selected = true;
   return (
     <Table className="dark:text-white text-black border rounded-xl">
-      <THead className="border-orange bg-black/5 dark:bg-white/5">
+      <THead className="bg-black/5 dark:bg-white/5">
         <TR>
           <TD>
             <DutchC.IconRound />
