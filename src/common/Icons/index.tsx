@@ -669,7 +669,7 @@ export const IArrowUpRight: React.FC<IconProps> = ({
   );
 };
 
-export const IShoppingBag: React.FC<IconProps> = ({
+export const IShoppingBag: React.FC<IconProps & { currentColor?: string }> = ({
   variant = 'solid',
   size = 'medium',
   color = 'black',
