@@ -6,8 +6,6 @@ export const TransactionTableWrapper = styled.div.attrs<{
   className: 'flex flex-col gap-y-2',
 })``;
 
-
-
 export const TransactionTableFlexRowWrapper = styled.div.attrs<{
   className?: string;
 }>({
