@@ -7,6 +7,8 @@ import ExchangeIcon from '../../assets/exchange.svg';
 import FriendsIcon from '../../assets/friends.svg';
 import GasIcon from '../../assets/gas.svg';
 import DiamondIcon from '../../assets/diamond.svg';
+import TriangleX2 from '../../assets/triangleX2.svg';
+import Fire from '../../assets/fire.svg';
 
 // type
 import { IconVariants } from '@/types';
@@ -667,6 +669,57 @@ export const IArrowTrendingDown: React.FC<IconProps> = ({
   );
 };
 
+export const IChevronLeft: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+  className,
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons20.ChevronLeftIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.ChevronLeftIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
+export const IArrowUpRight: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+  className,
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons20.ArrowUpRightIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.ArrowUpRightIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
+export const IShoppingBag: React.FC<IconProps & { currentColor?: string }> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+  className,
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons20.ShoppingBagIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.ShoppingBagIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
 // ------------ Custom SVGs --------------- //
 
 export const ICustomCard: React.FC<{ currentColor: string }> = ({
@@ -693,10 +746,23 @@ export const ICustomGas: React.FC<{ currentColor: string }> = ({
   return <GasIcon currentColor={currentColor} />;
 };
 
-export const ICustomDiamond: React.FC<{ className?: string }> = ({
-  className = ' ',
+export const ICustomTriagleX2: React.FC<{ currentColor: string }> = ({
+  currentColor,
 }) => {
-  return <DiamondIcon className={className} />;
+  return <TriangleX2 currentColor={currentColor} />;
+};
+
+export const ICustomFire: React.FC<{ currentColor: string }> = ({
+  currentColor,
+}) => {
+  return <Fire currentColor={currentColor} />;
+};
+
+export const ICustomDiamond: React.FC<{
+  className?: string;
+  currentColor?: string;
+}> = ({ className = ' ', currentColor }) => {
+  return <DiamondIcon className={className} currentColor={currentColor} />;
 };
 
 export const IDocumentDuplicateIcon: React.FC<IconProps> = ({
@@ -750,10 +816,7 @@ export const icons = {
   'book-open': IBookOpen,
   'square-2-stack': ISquare2Stack,
   'lock-closed': ILockClosed,
-  customdiamond: ICustomDiamond,
   idocumentduplicateIcon: IDocumentDuplicateIcon,
-  'arrow-trending-up': IArrowTrendingUp,
-  'arrow-trending-down': IArrowTrendingDown,
 };
 
 export type IconType = keyof typeof icons;

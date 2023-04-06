@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { AnalyticsSideBar } from './sidebar';
-import { OutlineButton } from '@/common';
+import { OutlineButton, Table, THead, TBody, TD, TR } from '@/common';
 import { OptionSwitch } from './option-switch';
 import { Accordion } from '@/common/Accordion';
+import {
+  AnalyticsTableControl,
+  AnalyticsTransactionTable,
+  AnalyticsTableLayout,
+} from '@/components/dashboard/analytics/analytics-tables';
 
 import { AnalyticsCard } from './analytics-card';
 import {
@@ -55,6 +60,79 @@ const dayOptions = [
   {
     id: 4,
     slug: 'All',
+  },
+];
+
+// mockdata for analytics-transaction table
+import MilkGif from '@/assets/milk.gif';
+
+const mockData = [
+  {
+    type: 'transfer',
+    from: 'AAA',
+    to: 'BBB',
+    nftId: {
+      src: MilkGif,
+      groupName: 'Inkheads',
+      id: 'Yung Zuck',
+    },
+    units: 3,
+    price: 0.00085,
+    gas: 0.000248,
+    date: 'Mar 10, 20223  06:57:59',
+  },
+  {
+    type: 'nft-trade',
+    from: 'AAA',
+    to: 'BBB',
+    nftId: {
+      src: MilkGif,
+      groupName: 'Inkheads',
+      id: 'Yung Zuck',
+    },
+    units: 3,
+    gas: 0.000248,
+    date: 'Mar 10, 20223  06:57:59',
+  },
+  {
+    type: 'primary-sale',
+    from: 'AAA',
+    to: 'BBB',
+    nftId: {
+      src: MilkGif,
+      groupName: 'Inkheads',
+      id: 'Yung Zuck',
+    },
+    units: 3,
+    price: 0.00085,
+    gas: 0.000248,
+    date: 'Mar 10, 20223  06:57:59',
+  },
+  {
+    type: 'transfer',
+    from: 'AAA',
+    to: 'BBB',
+    nftId: {
+      src: MilkGif,
+      groupName: 'Inkheads',
+      id: 'Yung Zuck',
+    },
+    units: 3,
+    gas: 0.000248,
+    date: 'Mar 10, 20223  06:57:59',
+  },
+  {
+    type: 'nft-trade',
+    from: 'AAA',
+    to: 'BBB',
+    nftId: {
+      src: MilkGif,
+      groupName: 'Inkheads',
+      id: 'Yung Zuck',
+    },
+    units: 3,
+    price: 0.00085,
+    date: 'Mar 10, 20223  06:57:59',
   },
 ];
 
@@ -153,7 +231,24 @@ const AnalyticsContent = () => {
             </div>
           </div>
         </div>
-        <div className="table"></div>
+        <div className="table">
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl
+              type="All Transaction"
+              title="All Transaction"
+              date="Mar 1, 2022 - Feb 28 2023"
+              resultNumber={2224}
+              options={[
+                { name: 'AA', value: 'aa' },
+                { name: 'BB', value: 'bb' },
+                { name: 'CC', value: 'cc' },
+              ]}
+              isSearchable
+              isPaginatiable
+            />
+            <AnalyticsTransactionTable isIcon data={mockData} />
+          </AnalyticsTableLayout>
+        </div>
       </div>
     </div>
   );
