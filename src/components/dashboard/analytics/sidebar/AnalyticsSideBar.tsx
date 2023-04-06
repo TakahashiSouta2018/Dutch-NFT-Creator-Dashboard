@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { Accordion } from '@/common/Accordion';
-import { Button, OutlineButton } from '@/common';
+import { Button } from '@/common';
 import { SearchInput } from '@/common';
-
-import clsx from 'clsx';
 
 import * as DutchC from './styles';
 import { Unit } from './unit';
