@@ -3,6 +3,18 @@ import styled from 'styled-components';
 // types
 
 // components
+export const TableControlWrapper = styled.div.attrs<{ className?: string }>({
+  className: 'flex items-center justify-between w-full',
+})``;
+
+export const TableControlLeft = styled.div.attrs<{ className?: string }>({
+  className: 'flex items-center gap-x-2',
+})``;
+
+export const TableControlRight = styled.div.attrs<{ className?: string }>({
+  className: 'flex items-center gap-x-2',
+})``;
+
 export const TableWrapper = styled.div.attrs<{ className: string }>({
   className: 'w-full text-sm flex',
 })``;
