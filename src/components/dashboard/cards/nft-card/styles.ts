@@ -23,7 +23,7 @@ export const NFTCard = styled.div.attrs({
 
 export const NFTUnitBadge = styled.div.attrs({
   className:
-    'absolute top-4 right-0 p-x-1.5 p-y-0.5 flex items-center justify-center gap-x-0.5 opacity-50 text-xs font-medium text-black h-5.5 px-1 bg-black/10 rounded-l-lg backdrop-blur dark:text-white dark:bg-white/10 dark:text-white-surface',
+    'absolute top-4 right-4 p-x-1.5 p-y-0.5 flex items-center justify-center gap-x-0.5 opacity-50 text-xs font-medium text-black h-5.5 px-1 bg-black/10 rounded-l-lg backdrop-blur dark:text-white dark:bg-white/10 dark:text-white-surface',
 })``;
 
 export const NFTSelectedMark = styled.div.attrs({

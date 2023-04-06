@@ -45,7 +45,7 @@ const useConnectHook = () => {
     }
 
     if (chainId !== networkId) {
-      toast(`Connect to ${CHAINS[networkId].name}`, { type: 'warning' });
+      toast(`Connect to ${CHAINS[networkId]}`, { type: 'warning' });
       await switchNetwork();
       return;
     }

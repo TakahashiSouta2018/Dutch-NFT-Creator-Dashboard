@@ -12,7 +12,7 @@ export const AppWrapper = styled.div.attrs({
 })``;
 
 export const ContentWrapper = styled.div.attrs({
-  className: 'relative max-w-app mx-auto select-none',
+  className: 'relative max-w-app mt-16 mx-auto select-none',
 })``;
 
 // --- Header
