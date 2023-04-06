@@ -633,6 +633,40 @@ export const ILockClosed: React.FC<IconProps> = ({
   );
 };
 
+export const IArrowTrendingUp: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+  className,
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons20.ArrowTrendingUpIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.ArrowTrendingUpIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
+export const IArrowTrendingDown: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+  className,
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons20.ArrowTrendingDownIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.ArrowTrendingDownIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
 // ------------ Custom SVGs --------------- //
 
 export const ICustomCard: React.FC<{ currentColor: string }> = ({
@@ -718,6 +752,8 @@ export const icons = {
   'lock-closed': ILockClosed,
   customdiamond: ICustomDiamond,
   idocumentduplicateIcon: IDocumentDuplicateIcon,
+  'arrow-trending-up': IArrowTrendingUp,
+  'arrow-trending-down': IArrowTrendingDown,
 };
 
 export type IconType = keyof typeof icons;
