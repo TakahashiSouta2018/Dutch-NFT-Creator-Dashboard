@@ -1,3 +1,30 @@
+import { TradeNFTI } from "@/types";
+import { ethers } from "ethers";
+import moment from "moment";
+import MilkGif from '@/assets/milk.gif';
+
+
+export enum TransactionTypeEnum {
+  PRIMARY = 'Primary sales',
+  SECONDARY = 'NFT trades',
+  TRANSFER = 'Transfer',
+}
+
+export interface AllTransactionsI {
+  type: TransactionTypeEnum;
+  from: string;
+  to: string;
+  nftId: {
+    src: any;
+    groupName: string;
+    id: string;
+  };
+  units: number;
+  price: number;
+  gas: number;
+  date: string;
+}
+
 export const getTimestampDaysLater = (
   days: number,
   date: Date = new Date()
@@ -9,6 +36,114 @@ export const getTimestampDaysLater = (
 export const convertNumToHexdecimal = (num: string | number) => {
   return num.toString(16);
 };
+
+const formatTransactionRangeDate = (dateStr: string) => {
+  const date = moment(dateStr);
+
+  // format the moment object using the desired format string
+  const formattedDate = date.format('MMM D, YYYY');
+  return formattedDate;
+}
+
+export const getAllTransactionDuration = (allTransactions: AllTransactionsI[]) => {
+  if (allTransactions.length === 1) {
+    return formatTransactionRangeDate(allTransactions[0].date)
+  } else if (allTransactions.length > 1) {
+    return `${formatTransactionRangeDate(String(allTransactions.at(1)?.date))} - ${formatTransactionRangeDate(String(allTransactions.at(-1)?.date))}`
+  }
+  else return "Mar 1, 2022 - Feb 28 2023"
+};
+
+export const truncateText = (text: string, startChars: number, endChars?: number) => {
+  const { length } = text;
+
+  if (!startChars || length <= startChars || (endChars && length <= endChars)) return text;
+  else if (startChars && !endChars) return `${text.substring(0, startChars)}...`;
+  else if (startChars && endChars) {
+    return `${text.substring(0, startChars)}...${text.substring(endChars)}`;
+  }
+};
+
+export const shortenAddress = (text: string) => {
+  return truncateText(text, 6, 38) || '';
+};
+
+
+export const getTradeType = (tradeNFT: TradeNFTI, account: string) => {
+  if (tradeNFT.nfts[0].minter.address === account.toLowerCase()) {
+    return TransactionTypeEnum.PRIMARY
+  }
+  else return TransactionTypeEnum.SECONDARY
+};
+
+export const getTradeNftsUtils = (tradeNFTs: TradeNFTI[], account: string) => {
+  const ethTradeNFTs = tradeNFTs
+    .filter(tradeNFT => tradeNFT.token.symbol === "ETH");
+
+  const lrcTradeNFTs = tradeNFTs
+    .filter(tradeNFT => tradeNFT.token.symbol === "LRC");
+
+  const totalTurnoverETH = ethTradeNFTs
+    .reduce((accumulator, object) => {
+      return accumulator + Number(ethers.utils.formatUnits(object.realizedNFTPrice, object.token.decimals));
+    }, 0);
+
+  const totalRoyatliesETH = ethTradeNFTs
+    .reduce((accumulator, object) => {
+      const x = totalTurnoverETH * object.nfts[0].creatorFeeBips / 100;
+      return accumulator + x;
+    }, 0);
+
+  const totalTurnoverLRC = lrcTradeNFTs
+    .reduce((accumulator, object) => {
+      return accumulator + Number(ethers.utils.formatUnits(object.realizedNFTPrice, object.token.decimals));
+    }, 0);
+
+  const totalRoyatliesLRC = lrcTradeNFTs
+    .reduce((accumulator, object) => {
+      const x = totalTurnoverLRC * object.nfts[0].creatorFeeBips / 100;
+      return accumulator + x;
+    }, 0);
+
+  const primarySales = tradeNFTs
+    .filter(tradeNFT => tradeNFT.nfts[0].minter.address === account.toLowerCase())
+
+  const secondaryTrade = tradeNFTs
+    .filter(tradeNFT => tradeNFT.nfts[0].minter.address !== account.toLowerCase())
+
+  const allTransactions = tradeNFTs.map((tradeNFT) => {
+    const price  = Number(ethers.utils.formatUnits(tradeNFT.realizedNFTPrice, tradeNFT.token.decimals));
+    const gas = Number(tradeNFT.block.gasLimit) * Number(tradeNFT.block.gasPrice);
+
+    const date = moment.unix(Number(tradeNFT.block.timestamp));
+    const formattedDate = date.format('MMM DD, YYYY hh:mm:ss');
+
+    return {
+      type: getTradeType(tradeNFT, account),
+      from: shortenAddress(tradeNFT.accountSeller.address),
+      to: shortenAddress(tradeNFT.accountBuyer.address),
+      nftId: {
+        src: MilkGif,
+        groupName: '',
+        id: tradeNFT.nfts[0].nftID
+      },
+      units: tradeNFT.fFillSB,
+      date: formattedDate,
+      price,
+      gas
+    };    
+  })
+
+  return {
+    totalTurnoverETH, 
+    totalRoyatliesETH, 
+    totalTurnoverLRC, 
+    totalRoyatliesLRC, 
+    primarySales,
+    secondaryTrade,
+    allTransactions
+  }
+}
 
 export const TOKEN_INFO = {
   tokenMap: {

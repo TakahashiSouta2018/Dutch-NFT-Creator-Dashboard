@@ -7,12 +7,13 @@ import { Table, THead, TBody, TR, TD } from '@/common';
 import * as Icons from '@/common/Icons';
 
 import * as DutchC from './styles';
+import { TransactionTypeEnum } from '@/helpers';
 
 interface TransactactionTableProps {
   className?: string;
   isIcon?: boolean;
   data?: {
-    type: string;
+    type: TransactionTypeEnum;
     from?: string;
     to?: string;
     nftId: {
@@ -27,23 +28,20 @@ interface TransactactionTableProps {
   }[];
 }
 
-const iconMatches = {
-  transfer: Icons.ICustomTriagleX2,
-  'nft-trade': Icons.IShoppingBag,
-  'primary-sale': Icons.ICustomFire,
-};
-
-type IType = keyof typeof iconMatches;
-
 const IconSelector = ({
   type,
   currentColor,
   className,
 }: {
-  type: IType;
+  type: TransactionTypeEnum;
   currentColor: string;
   className?: string;
 }) => {
+  const iconMatches = {
+    [TransactionTypeEnum.TRANSFER]: Icons.ICustomTriagleX2,
+    [TransactionTypeEnum.SECONDARY]: Icons.IShoppingBag,
+    [TransactionTypeEnum.PRIMARY]: Icons.ICustomFire,
+  };
   const Icon = iconMatches[type];
   return <Icon currentColor={currentColor} className={className} />;
 };
@@ -77,7 +75,7 @@ const TransactionTable: React.FC<TransactactionTableProps> = ({
               {isIcon && (
                 <TD>
                   <IconSelector
-                    type={item.type as IType}
+                    type={item.type}
                     currentColor={theme === 'light' ? 'black' : 'white'}
                     className={
                       theme === 'light' ? 'text-black/100' : 'text-white/100'

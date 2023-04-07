@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { ICheckCircle } from '@/common';
 
 import * as DutchC from './style';
+import { getIpfsHttpUrl } from '@/lib/pinata';
 
 interface UnitProps {
   id: number;
@@ -27,7 +28,7 @@ const Unit: React.FC<UnitProps> = ({
         onSelected(id);
       }}
     >
-      <Image src={avatar} alt="avatar" width={40} height={40} />
+      <Image src={getIpfsHttpUrl(avatar)} alt="avatar" width={40} height={40} />
       <DutchC.UnitContent>
         <p className="text-black text-medium leading-5 w-[80%]">{title}</p>
         <p className="text-black/50 leading-5">{content}</p>

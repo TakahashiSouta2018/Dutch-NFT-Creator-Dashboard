@@ -8,6 +8,8 @@ import { ToastContainer } from 'react-toastify';
 
 import '@/styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
+import { ApolloProvider } from '@apollo/client';
+import apolloConfig from '@/config/apolloConfig';
 
 const GlobalStyle = createGlobalStyle`
   :root {
@@ -29,7 +31,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <PersistGate loading={null} persistor={persistor}>
         <GlobalStyle />
         <ThemeProvider enableSystem={false} attribute="class">
-          <Component {...pageProps} />
+          <ApolloProvider client={apolloConfig}>
+            <Component {...pageProps} />
+          </ApolloProvider>,
           <ToastContainer />
         </ThemeProvider>
       </PersistGate>

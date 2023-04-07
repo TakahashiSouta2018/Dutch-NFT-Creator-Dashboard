@@ -24,7 +24,7 @@ const createPagePersistConfig = {
 const dashboardPagePersistConfig = {
   key: 'dashboardPageReducer',
   storage: storageSession,
-  blacklist: ['selectedNFTs', 'collectionNfts'],
+  blacklist: ['selectedNFTs', 'collectionNfts', 'trackList'],
 };
 
 const rootReducer = combineReducers({

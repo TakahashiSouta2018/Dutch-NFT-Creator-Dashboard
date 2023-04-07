@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Accordion } from '@/common/Accordion';
 import { Button } from '@/common';
 import { SearchInput } from '@/common';
@@ -6,6 +6,10 @@ import { SearchInput } from '@/common';
 import * as DutchC from './styles';
 import { Unit } from './unit';
 import { OptionSwitch } from '../option-switch';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { shallowEqual } from 'react-redux';
+import { TrackListI, TrackListTypeEnum, setTrackList } from '../../ducks';
+import { LoopringService } from '@/lib/LoopringService';
 
 const mockCollections = [
   {
@@ -96,15 +100,82 @@ const options = [
   },
 ];
 
+
 const AnalyticsSideBar = () => {
   const [currentTrack, setCurrentTrack] = useState(0);
 
-  const [trackList, setTrackList] = useState([
-    ...(currentTrack ? mockNFTs : mockCollections),
-  ]);
+  const loopringService = new LoopringService();
+  const dispatch = useAppDispatch();
+
+  const { accountInfo, userCollection } = useAppSelector((state) => {
+    const { accountInfo, userCollection } = state.webAppReducer;
+    return { accountInfo, userCollection };
+  }, shallowEqual);
+
+  const { trackList } = useAppSelector((state) => {
+    const { trackList } = state.dashboardPageReducer;
+    return { trackList };
+  }, shallowEqual); 
+  
+  console.log({ userCollection });
+  
+
+  useEffect(() => {
+    (async () => {
+      try {
+
+        if (!accountInfo) return;
+
+        let list: TrackListI[] = [];
+        if (currentTrack === 0) {
+          list = userCollection.map((item, i) => {
+            const isSelected = i === 0;
+            return {
+              id: item.collectionAddress,
+              type: TrackListTypeEnum.COLLECTION,
+              avatar: item.avatar,
+              title: item.name,
+              content: item.description,
+              isSelected: isSelected,
+            };
+          })
+
+        } else {
+          const collectionAddresses = userCollection.map(item => item.collectionAddress);
+          const nftsInfo = await loopringService.getUserNFTCollection({
+            accountInfo,
+            tokensAddress: collectionAddresses,
+            offset: 0,
+            limit: 50,
+          });
+
+          if (nftsInfo && nftsInfo.nfts && nftsInfo.nfts.length > 0) {
+            list = nftsInfo.nfts.map((item, i) => {
+              const isSelected = i === 0;
+              return {
+                id: item.nftId,
+                type: TrackListTypeEnum.NFT,
+                avatar: item.metadata.image,
+                title: item.metadata.name,
+                content: '',
+                isSelected: isSelected,
+
+              }
+
+            });
+          }
+
+        }
+        dispatch(setTrackList(list));
+        
+      } catch (error) {
+        console.log(error);
+      }
+    })()
+  }, [currentTrack]);
 
   const handleSelected = (id: number) => {
-    setTrackList(
+    dispatch(setTrackList(
       trackList.map((item, i) => {
         if (i === id)
           return {
@@ -113,8 +184,13 @@ const AnalyticsSideBar = () => {
           };
         else return item;
       })
-    );
+    ));
   };
+
+  const handleOnTrackChange = (id: number) => {
+    dispatch(setTrackList([]));
+    setCurrentTrack(id);
+  }
 
   return (
     <DutchC.SideBarWrapper>
@@ -149,9 +225,7 @@ const AnalyticsSideBar = () => {
                 key={i}
                 currentOptionId={currentTrack}
                 option={option}
-                onCurrentOption={(id) => {
-                  setCurrentTrack(id);
-                }}
+                onCurrentOption={handleOnTrackChange}
               />
             ))}
           </DutchC.TrackSwitchWrapper>
