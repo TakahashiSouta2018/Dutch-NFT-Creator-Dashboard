@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AnalyticsSideBar } from './sidebar';
 import { OutlineButton, Table, THead, TBody, TD, TR } from '@/common';
 import { OptionSwitch } from './option-switch';
@@ -15,6 +15,22 @@ import {
   AnalyticsBarChart,
   AnalyticsPieChart,
 } from './charts';
+import { TypeCard } from './transaction-type-card';
+import MilkGif from '@/assets/milk.gif';
+import { useLazyQuery } from '@apollo/client';
+import { NFT_ID_TRANSACTIONS } from '@/graphql/queries';
+import { useAppSelector } from '@/redux/store';
+import { shallowEqual } from 'react-redux';
+import { TrackListTypeEnum } from '../ducks';
+import { LoopringService } from '@/lib/LoopringService';
+import { AnalyticPieChartDataI, TradeNFTI } from '@/types';
+import { ethers } from 'ethers';
+import {
+  AllTransactionsI,
+  TransactionTypeEnum,
+  getAllTransactionDuration,
+  getTradeNftsUtils,
+} from '@/helpers';
 
 import * as Dutch0x from './styles';
 
@@ -65,11 +81,9 @@ const dayOptions = [
 ];
 
 // mockdata for analytics-transaction table
-import MilkGif from '@/assets/milk.gif';
-
 const mockData = [
   {
-    type: 'transfer',
+    type: TransactionTypeEnum.TRANSFER,
     from: 'AAA',
     to: 'BBB',
     nftId: {
@@ -83,7 +97,7 @@ const mockData = [
     date: 'Mar 10, 20223  06:57:59',
   },
   {
-    type: 'nft-trade',
+    type: TransactionTypeEnum.SECONDARY,
     from: 'AAA',
     to: 'BBB',
     nftId: {
@@ -93,10 +107,11 @@ const mockData = [
     },
     units: 3,
     gas: 0.000248,
+    price: 0.00085,
     date: 'Mar 10, 20223  06:57:59',
   },
   {
-    type: 'primary-sale',
+    type: TransactionTypeEnum.PRIMARY,
     from: 'AAA',
     to: 'BBB',
     nftId: {
@@ -110,20 +125,7 @@ const mockData = [
     date: 'Mar 10, 20223  06:57:59',
   },
   {
-    type: 'transfer',
-    from: 'AAA',
-    to: 'BBB',
-    nftId: {
-      src: MilkGif,
-      groupName: 'Inkheads',
-      id: 'Yung Zuck',
-    },
-    units: 3,
-    gas: 0.000248,
-    date: 'Mar 10, 20223  06:57:59',
-  },
-  {
-    type: 'nft-trade',
+    type: TransactionTypeEnum.TRANSFER,
     from: 'AAA',
     to: 'BBB',
     nftId: {
@@ -133,13 +135,134 @@ const mockData = [
     },
     units: 3,
     price: 0.00085,
+    gas: 0.000248,
     date: 'Mar 10, 20223  06:57:59',
+  },
+  {
+    type: TransactionTypeEnum.SECONDARY,
+    from: 'AAA',
+    to: 'BBB',
+    nftId: {
+      src: MilkGif,
+      groupName: 'Inkheads',
+      id: 'Yung Zuck',
+    },
+    units: 3,
+    gas: 0.000248,
+    price: 0.00085,
+    date: 'Mar 10, 2023  06:57:59',
   },
 ];
 
 const AnalyticsContent = () => {
   const [currentTransOption, setCurrentTransOption] = useState(0);
   const [currentDayOption, setCurrentDayOption] = useState(0);
+  const [totalTransactionCount, setTransActionsCount] = useState(0);
+  const [ethTurnOver, setEthTurnOver] = useState(0);
+  const [lrcTurnOver, setLrcTurnOver] = useState(0);
+  const [lrcTotalRoyalty, setLrcTotalRoyalty] = useState(0);
+  const [ethTotalRoyalty, setEthTotalRoyalty] = useState(0);
+  const [nftIds, setNftIds] = useState<string[]>([]);
+  const [analyticPieChartData, setAnalyticPieChartData] = useState<
+    AnalyticPieChartDataI[]
+  >([]);
+  const [allTransactions, setAllTransactions] = useState<AllTransactionsI[]>(
+    []
+  );
+
+  const { trackList } = useAppSelector((state) => {
+    const { trackList } = state.dashboardPageReducer;
+    return { trackList };
+  }, shallowEqual);
+
+  const { accountInfo } = useAppSelector((state) => {
+    const { accountInfo } = state.webAppReducer;
+    return { accountInfo };
+  }, shallowEqual);
+
+  const loopringService = new LoopringService();
+
+  const [getData, { loading }] = useLazyQuery<{
+    tradeNFTs: TradeNFTI[];
+    transferNFTs: any;
+  }>(NFT_ID_TRANSACTIONS, {
+    variables: {
+      nftIds,
+    },
+    onCompleted(data) {
+      console.log({ data });
+
+      if (data && data.transferNFTs && data.tradeNFTs) {
+        const {
+          totalRoyatliesLRC,
+          totalRoyatliesETH,
+          totalTurnoverETH,
+          totalTurnoverLRC,
+          primarySales,
+          secondaryTrade,
+          allTransactions,
+        } = getTradeNftsUtils(
+          data.tradeNFTs,
+          String(accountInfo?.accInfo.owner)
+        );
+
+        setLrcTotalRoyalty(totalRoyatliesLRC);
+        setEthTotalRoyalty(totalRoyatliesETH);
+        setEthTurnOver(totalTurnoverETH);
+        setLrcTurnOver(totalTurnoverLRC);
+
+        setAllTransactions(allTransactions);
+        setTransActionsCount(data.transferNFTs.length + data.tradeNFTs.length);
+        setAnalyticPieChartData([
+          { name: 'Trades', value: secondaryTrade.length },
+          { name: 'Primary Sales', value: primarySales.length },
+          { name: 'Transfers', value: data.transferNFTs.length },
+        ]);
+
+        // setAllTransactions(mockData)
+        // setTransActionsCount(4000)
+        // setAnalyticPieChartData([
+        //   { name: 'Trades', value: 1458 },
+        //   { name: 'Primary Sales', value: 952 },
+        //   { name: 'Transfers', value: 752 },
+        // ])
+      }
+    },
+    onError(error) {
+      console.log({ error });
+    },
+  });
+
+  const selectedTrackLists = trackList.filter((item) => item.isSelected);
+
+  useEffect(() => {
+    (async () => {
+      let ids: string[] = [];
+
+      const collectionIds = selectedTrackLists
+        .filter((item) => item.type === TrackListTypeEnum.COLLECTION)
+        .map((item) => item.id);
+
+      if (collectionIds.length > 0) {
+        if (!accountInfo) return;
+
+        const nftsInfo = await loopringService.getUserNFTCollection({
+          accountInfo,
+          tokensAddress: collectionIds,
+          offset: 0,
+          limit: 50,
+        });
+
+        if (nftsInfo && nftsInfo.nfts && nftsInfo.nfts.length > 0) {
+          ids = nftsInfo.nfts.map((nft) => nft.nftId);
+        }
+      } else {
+        ids = selectedTrackLists.map((item) => item.id);
+      }
+      getData();
+      setNftIds(ids);
+    })();
+  }, [selectedTrackLists.length]);
 
   return (
     <Dutch0x.AnalyticsContentWrapper>
@@ -188,18 +311,20 @@ const AnalyticsContent = () => {
             <div className="flex">
               <AnalyticsCard
                 title="Transactions Count"
-                transActionsCount={2383}
+                transActionsCount={totalTransactionCount}
                 percentage={5.74}
               />
               <AnalyticsCard
                 title="Turnover"
-                eth={8.639575000002}
+                eth={ethTurnOver}
+                lrc={lrcTurnOver}
                 usd={1146.91}
                 percentage={-3.7}
               />
               <AnalyticsCard
                 title="Royalties Earned"
-                eth={0.6973799999999}
+                eth={ethTotalRoyalty}
+                lrc={lrcTotalRoyalty}
                 usd={431.86}
                 percentage={5.1}
               />
@@ -227,27 +352,41 @@ const AnalyticsContent = () => {
                 <p className="font-bold text-sm text-black/70">
                   By transaction types
                 </p>
-                <AnalyticsPieChart />
+                <AnalyticsPieChart
+                  data={analyticPieChartData}
+                  totalTransaction={totalTransactionCount}
+                />
               </div>
             </div>
           </div>
         </Dutch0x.ContentOverviewWrapper>
-        <AnalyticsTableLayout>
-          <AnalyticsTableControl
-            type="All Transaction"
-            title="All Transaction"
-            date="Mar 1, 2022 - Feb 28 2023"
-            resultNumber={2224}
-            options={[
-              { name: 'AA', value: 'aa' },
-              { name: 'BB', value: 'bb' },
-              { name: 'CC', value: 'cc' },
-            ]}
-            isSearchable
-            isPaginatiable
-          />
-          <AnalyticsTransactionTable isIcon data={mockData} />
-        </AnalyticsTableLayout>
+        <div className="table">
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl
+              type="All Transaction"
+              title="All Transaction"
+              date={getAllTransactionDuration(allTransactions)}
+              resultNumber={2224}
+              options={[
+                {
+                  name: TransactionTypeEnum.PRIMARY,
+                  value: TransactionTypeEnum.PRIMARY,
+                },
+                {
+                  name: TransactionTypeEnum.SECONDARY,
+                  value: TransactionTypeEnum.SECONDARY,
+                },
+                {
+                  name: TransactionTypeEnum.TRANSFER,
+                  value: TransactionTypeEnum.TRANSFER,
+                },
+              ]}
+              isSearchable
+              isPaginatiable
+            />
+            <AnalyticsTransactionTable isIcon data={allTransactions} />
+          </AnalyticsTableLayout>
+        </div>
       </Dutch0x.AnalyticsContentMain>
     </Dutch0x.AnalyticsContentWrapper>
   );

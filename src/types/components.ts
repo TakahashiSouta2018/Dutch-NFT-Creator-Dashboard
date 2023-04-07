@@ -77,6 +77,11 @@ export interface AccountInfoI {
   apiKey: string;
 }
 
+export interface AnalyticPieChartDataI {
+  name: string;
+  value: number;
+}
+
 export interface CollectionObjectI {
   name: string;
   tileUri: string;

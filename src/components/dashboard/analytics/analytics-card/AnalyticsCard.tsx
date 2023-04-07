@@ -6,6 +6,7 @@ interface AnalyticsCardProps {
   title: string;
   transActionsCount?: number;
   eth?: number;
+  lrc?: number;
   usd?: number;
   percentage: number;
 }
@@ -15,6 +16,7 @@ const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
   transActionsCount,
   eth,
   usd,
+  lrc,
   percentage,
 }) => {
   const [isArrorDown, setArrowDown] = useState(false);
@@ -35,6 +37,10 @@ const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
           <div className="flex gap-1">
             <div className=" font-black w-[50px] ">ETH</div>
             <div>{eth}</div>
+          </div>
+          <div className="flex gap-1">
+            <div className=" font-black w-[50px] ">LRC</div>
+            <div>{lrc}</div>
           </div>
           <div className="flex gap-1">
             <div className=" font-black w-[50px] ">USD</div>

@@ -1,3 +1,4 @@
+import { AnalyticPieChartDataI } from '@/types';
 import React from 'react';
 import {
   PieChart,
@@ -8,11 +9,11 @@ import {
   Label,
 } from 'recharts';
 
-const data = [
-  { name: 'Trades', value: 1458 },
-  { name: 'Primary Sales', value: 952 },
-  { name: 'Transfers', value: 752 },
-];
+interface PropsI {
+  data: AnalyticPieChartDataI[];
+  totalTransaction: number;
+}
+
 const COLORS = ['#E16D40', '#449975', '#6661A3'];
 
 const renderActiveShape = (props: any) => {
@@ -47,7 +48,7 @@ const PieLegend = (props: any) => {
           />
           <div className="text-sm">
             <p className="font-bold">{entry.value}</p>
-            <p>{data[index].value}</p>
+            <p>{props.data[index].value}</p>
           </div>
         </div>
       ))}
@@ -55,7 +56,7 @@ const PieLegend = (props: any) => {
   );
 };
 
-const AnalyticsPieChart = () => {
+const AnalyticsPieChart = ({ data, totalTransaction }: PropsI) => {
   return (
     <PieChart width={400} height={400}>
       <Pie
@@ -71,7 +72,6 @@ const AnalyticsPieChart = () => {
         paddingAngle={5}
         dataKey="value"
         label={({ cx, cy, midAngle, innerRadius, outerRadius, value }) => {
-          console.log('handling label?');
           const RADIAN = Math.PI / 180;
           const radius = 25 + innerRadius + (outerRadius - innerRadius);
           const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -87,12 +87,12 @@ const AnalyticsPieChart = () => {
               textAnchor={x > cx ? 'start' : 'end'}
               dominantBaseline="central"
             >
-              {((value * 100) / 3162).toFixed(1) + '%'}
+              {((value * 100) / totalTransaction).toFixed(1) + '%'}
             </text>
           );
         }}
       >
-        <Label position="center">Total Transactions: 3162</Label>
+        <Label position="center">Total Transactions: {totalTransaction}</Label>
         {data.map((_, index) => (
           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
         ))}
@@ -101,7 +101,7 @@ const AnalyticsPieChart = () => {
         verticalAlign="top"
         iconType="circle"
         align="left"
-        content={<PieLegend />}
+        content={<PieLegend data={data} />}
       />
     </PieChart>
   );

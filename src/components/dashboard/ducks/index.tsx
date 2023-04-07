@@ -2,16 +2,31 @@ import { RootStateT } from '@/redux/store';
 import { NFTI } from '@/types';
 import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
 
+export enum TrackListTypeEnum {
+  NFT = 'NFT',
+  COLLECTION = 'COLLECTION',
+}
+
+export interface TrackListI {
+  id: string;
+  type: TrackListTypeEnum;
+  avatar: string;
+  title: string;
+  content: string;
+  isSelected: boolean;
+}
 // Define a type for the slice state
 export interface DashboardPageReducerI {
   selectedNFTs: NFTI[];
   collectionNfts: NFTI[];
+  trackList: TrackListI[];
 }
 
 // Define the initial state using that type
 const initialState: DashboardPageReducerI = {
   selectedNFTs: [],
   collectionNfts: [],
+  trackList: [],
 };
 
 export const dashboardPageReducer: Slice<DashboardPageReducerI> = createSlice({
@@ -34,10 +49,13 @@ export const dashboardPageReducer: Slice<DashboardPageReducerI> = createSlice({
     setCollectionNfts: (state, action: PayloadAction<NFTI[]>) => {
       state.collectionNfts = action.payload;
     },
+    setTrackList: (state, action: PayloadAction<TrackListI[]>) => {
+      state.trackList = action.payload;
+    },
   },
 });
 
-export const { setSelectedNfts, setCollectionNfts } =
+export const { setSelectedNfts, setCollectionNfts, setTrackList } =
   dashboardPageReducer.actions;
 
 // Other code such as selectors can use the imported `RootStateT` type
