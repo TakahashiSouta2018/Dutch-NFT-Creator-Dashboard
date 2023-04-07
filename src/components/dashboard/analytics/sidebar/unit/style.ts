@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const UnitWrapper = styled.div.attrs({
-  className: 'flex p-2 gap-2 border border-black/10 rounded-lg bg-black/10',
+  className: 'flex p-2 gap-2 border border-black/10 rounded-lg bg-black/10 ',
 })``;
 
 export const UnitContent = styled.div.attrs({

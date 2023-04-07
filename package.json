@@ -25,6 +25,7 @@
     "@types/react-dom": "18.0.11",
     "@types/styled-components": "^5.1.26",
     "ajv": "^8.12.0",
+    "async-mutex": "^0.4.0",
     "axios": "^1.3.4",
     "clsx": "^1.2.1",
     "eslint": "8.35.0",

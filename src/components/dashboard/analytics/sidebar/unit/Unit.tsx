@@ -28,7 +28,11 @@ const Unit: React.FC<UnitProps> = ({
         onSelected(id);
       }}
     >
-      <Image src={getIpfsHttpUrl(avatar)} alt="avatar" width={40} height={40} />
+      <Image
+        src={getIpfsHttpUrl(avatar)}
+        alt="avatar"
+        className="flex w-10 h-10"
+      />
       <DutchC.UnitContent>
         <p className="text-black text-medium leading-5 w-[80%]">{title}</p>
         <p className="text-black/50 leading-5">{content}</p>
