@@ -190,8 +190,8 @@ const AnalyticsSideBar = () => {
 
   return (
     <DutchC.SideBarWrapper>
-      <div className="w-full bg-transparent h-full" />
-      <div className="fixed left-6 w-[265px]">
+      <DutchC.SideBarBg />
+      <DutchC.SideBarMain>
         <DutchC.SideBarHeader>
           <DutchC.SideBarHeaderText>Analytics</DutchC.SideBarHeaderText>
           <DutchC.SideBarHeaderDropdown>
@@ -201,18 +201,18 @@ const AnalyticsSideBar = () => {
         <DutchC.SideBarBody>
           <DutchC.CurrencySelect>
             <Accordion>
-              <div className="flex gap-1 text-sm text-black/70">
+              <DutchC.AccordionContent>
                 <p>Crypto:</p>
                 <p className="font-medium">ETH</p>
-              </div>
+              </DutchC.AccordionContent>
             </Accordion>
           </DutchC.CurrencySelect>
           <DutchC.CurrencySelect>
             <Accordion>
-              <div className="flex gap-1 text-sm text-black/70">
+              <DutchC.AccordionContent>
                 <p>Fiat:</p>
                 <p className="font-medium">USD</p>
-              </div>
+              </DutchC.AccordionContent>
             </Accordion>
           </DutchC.CurrencySelect>
           <DutchC.TrackWrapper>
@@ -231,8 +231,8 @@ const AnalyticsSideBar = () => {
             </DutchC.TrackSwitchWrapper>
             <SearchInput placeholder="Collection name or id" />
             <DutchC.TrackListWrapper>
-              {!!trackList &&
-                trackList.map((item, i) => (
+              {!!mockNFTs &&
+                mockNFTs.map((item, i) => (
                   <Unit
                     key={i}
                     id={i}
@@ -255,7 +255,7 @@ const AnalyticsSideBar = () => {
             </p>
           </DutchC.DownloadFullReport>
         </DutchC.SideBarBody>
-      </div>
+      </DutchC.SideBarMain>
     </DutchC.SideBarWrapper>
   );
 };

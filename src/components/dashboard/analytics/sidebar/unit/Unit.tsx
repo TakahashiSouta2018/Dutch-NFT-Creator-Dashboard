@@ -31,6 +31,8 @@ const Unit: React.FC<UnitProps> = ({
       <Image
         src={getIpfsHttpUrl(avatar)}
         alt="avatar"
+        width={40}
+        height={40}
         className="flex w-10 h-10"
       />
       <DutchC.UnitContent>

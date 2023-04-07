@@ -384,7 +384,7 @@ const AnalyticsContent = () => {
               isSearchable
               isPaginatiable
             />
-            <AnalyticsTransactionTable isIcon data={allTransactions} />
+            <AnalyticsTransactionTable isIcon data={mockData} />
           </AnalyticsTableLayout>
         </div>
       </Dutch0x.AnalyticsContentMain>
