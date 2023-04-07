@@ -10,10 +10,9 @@ import {
 } from 'recharts';
 
 interface PropsI {
-  data: AnalyticPieChartDataI[]
-  totalTransaction: number
+  data: AnalyticPieChartDataI[];
+  totalTransaction: number;
 }
-
 
 const COLORS = ['#E16D40', '#449975', '#6661A3'];
 
@@ -102,7 +101,7 @@ const AnalyticsPieChart = ({ data, totalTransaction }: PropsI) => {
         verticalAlign="top"
         iconType="circle"
         align="left"
-        content={<PieLegend data={data}/>}
+        content={<PieLegend data={data} />}
       />
     </PieChart>
   );

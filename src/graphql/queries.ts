@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 // fFillSB = unit
 export const NFT_ID_TRANSACTIONS = gql`
@@ -7,13 +7,16 @@ export const NFT_ID_TRANSACTIONS = gql`
       first: 1000
       orderBy: block__timestamp
       orderDirection: desc
-      where: {nfts_: { nftID_in: $nftIds}}
+      where: { nfts_: { nftID_in: $nftIds } }
     ) {
       id
     }
     tradeNFTs(
       first: 1000
-      where: {nfts_: { nftID_in: $nftIds} token_: {symbol_in: ["ETH" "LRC"]}}
+      where: {
+        nfts_: { nftID_in: $nftIds }
+        token_: { symbol_in: ["ETH", "LRC"] }
+      }
     ) {
       id
       feeSeller
@@ -51,7 +54,10 @@ export const NFT_ID_TRANSACTIONS = gql`
 
 export const USER_NFTS = gql`
   query ($userAddress: String!) {
-    nonFungibleTokens(first: 1000 where: {minter_: {address: $userAddress}}) {
+    nonFungibleTokens(
+      first: 1000
+      where: { minter_: { address: $userAddress } }
+    ) {
       id
       nftID
       minter {

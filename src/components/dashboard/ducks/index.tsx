@@ -4,7 +4,7 @@ import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
 
 export enum TrackListTypeEnum {
   NFT = 'NFT',
-  COLLECTION = 'COLLECTION'
+  COLLECTION = 'COLLECTION',
 }
 
 export interface TrackListI {

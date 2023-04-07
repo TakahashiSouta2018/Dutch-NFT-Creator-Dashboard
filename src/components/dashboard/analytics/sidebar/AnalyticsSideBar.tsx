@@ -100,7 +100,6 @@ const options = [
   },
 ];
 
-
 const AnalyticsSideBar = () => {
   const [currentTrack, setCurrentTrack] = useState(0);
 
@@ -115,15 +114,13 @@ const AnalyticsSideBar = () => {
   const { trackList } = useAppSelector((state) => {
     const { trackList } = state.dashboardPageReducer;
     return { trackList };
-  }, shallowEqual); 
-  
+  }, shallowEqual);
+
   console.log({ userCollection });
-  
 
   useEffect(() => {
     (async () => {
       try {
-
         if (!accountInfo) return;
 
         let list: TrackListI[] = [];
@@ -138,10 +135,11 @@ const AnalyticsSideBar = () => {
               content: item.description,
               isSelected: isSelected,
             };
-          })
-
+          });
         } else {
-          const collectionAddresses = userCollection.map(item => item.collectionAddress);
+          const collectionAddresses = userCollection.map(
+            (item) => item.collectionAddress
+          );
           const nftsInfo = await loopringService.getUserNFTCollection({
             accountInfo,
             tokensAddress: collectionAddresses,
@@ -159,38 +157,36 @@ const AnalyticsSideBar = () => {
                 title: item.metadata.name,
                 content: '',
                 isSelected: isSelected,
-
-              }
-
+              };
             });
           }
-
         }
         dispatch(setTrackList(list));
-        
       } catch (error) {
         console.log(error);
       }
-    })()
+    })();
   }, [currentTrack]);
 
   const handleSelected = (id: number) => {
-    dispatch(setTrackList(
-      trackList.map((item, i) => {
-        if (i === id)
-          return {
-            ...item,
-            isSelected: !item.isSelected,
-          };
-        else return item;
-      })
-    ));
+    dispatch(
+      setTrackList(
+        trackList.map((item, i) => {
+          if (i === id)
+            return {
+              ...item,
+              isSelected: !item.isSelected,
+            };
+          else return item;
+        })
+      )
+    );
   };
 
   const handleOnTrackChange = (id: number) => {
     dispatch(setTrackList([]));
     setCurrentTrack(id);
-  }
+  };
 
   return (
     <DutchC.SideBarWrapper>

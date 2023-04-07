@@ -25,8 +25,12 @@ import { TrackListTypeEnum } from '../ducks';
 import { LoopringService } from '@/lib/LoopringService';
 import { AnalyticPieChartDataI, TradeNFTI } from '@/types';
 import { ethers } from 'ethers';
-import { AllTransactionsI, TransactionTypeEnum, getAllTransactionDuration, getTradeNftsUtils } from '@/helpers';
-
+import {
+  AllTransactionsI,
+  TransactionTypeEnum,
+  getAllTransactionDuration,
+  getTradeNftsUtils,
+} from '@/helpers';
 
 const transOptions = [
   {
@@ -148,8 +152,6 @@ const mockData = [
   },
 ];
 
-
-
 const AnalyticsContent = () => {
   const [currentTransOption, setCurrentTransOption] = useState(0);
   const [currentDayOption, setCurrentDayOption] = useState(0);
@@ -159,8 +161,12 @@ const AnalyticsContent = () => {
   const [lrcTotalRoyalty, setLrcTotalRoyalty] = useState(0);
   const [ethTotalRoyalty, setEthTotalRoyalty] = useState(0);
   const [nftIds, setNftIds] = useState<string[]>([]);
-  const [analyticPieChartData, setAnalyticPieChartData] = useState<AnalyticPieChartDataI[]>([]);
-  const [allTransactions, setAllTransactions] = useState<AllTransactionsI[]>([]);
+  const [analyticPieChartData, setAnalyticPieChartData] = useState<
+    AnalyticPieChartDataI[]
+  >([]);
+  const [allTransactions, setAllTransactions] = useState<AllTransactionsI[]>(
+    []
+  );
 
   const { trackList } = useAppSelector((state) => {
     const { trackList } = state.dashboardPageReducer;
@@ -174,36 +180,42 @@ const AnalyticsContent = () => {
 
   const loopringService = new LoopringService();
 
-  const [getData, { loading }] = useLazyQuery<{ tradeNFTs: TradeNFTI[], transferNFTs: any }>(NFT_ID_TRANSACTIONS, {
+  const [getData, { loading }] = useLazyQuery<{
+    tradeNFTs: TradeNFTI[];
+    transferNFTs: any;
+  }>(NFT_ID_TRANSACTIONS, {
     variables: {
-      nftIds
+      nftIds,
     },
     onCompleted(data) {
-      console.log({data});
+      console.log({ data });
 
       if (data && data.transferNFTs && data.tradeNFTs) {
-        const { 
-          totalRoyatliesLRC, 
-          totalRoyatliesETH, 
-          totalTurnoverETH, 
+        const {
+          totalRoyatliesLRC,
+          totalRoyatliesETH,
+          totalTurnoverETH,
           totalTurnoverLRC,
           primarySales,
           secondaryTrade,
-          allTransactions
-        } = getTradeNftsUtils(data.tradeNFTs, String(accountInfo?.accInfo.owner));
+          allTransactions,
+        } = getTradeNftsUtils(
+          data.tradeNFTs,
+          String(accountInfo?.accInfo.owner)
+        );
 
         setLrcTotalRoyalty(totalRoyatliesLRC);
         setEthTotalRoyalty(totalRoyatliesETH);
         setEthTurnOver(totalTurnoverETH);
         setLrcTurnOver(totalTurnoverLRC);
-        
-        setAllTransactions(allTransactions)
-        setTransActionsCount(data.transferNFTs.length + data.tradeNFTs.length)
+
+        setAllTransactions(allTransactions);
+        setTransActionsCount(data.transferNFTs.length + data.tradeNFTs.length);
         setAnalyticPieChartData([
           { name: 'Trades', value: secondaryTrade.length },
           { name: 'Primary Sales', value: primarySales.length },
-          { name: 'Transfers', value: data.transferNFTs.length }
-        ])
+          { name: 'Transfers', value: data.transferNFTs.length },
+        ]);
 
         // setAllTransactions(mockData)
         // setTransActionsCount(4000)
@@ -213,22 +225,21 @@ const AnalyticsContent = () => {
         //   { name: 'Transfers', value: 752 },
         // ])
       }
-      
     },
     onError(error) {
-      console.log({error});
+      console.log({ error });
     },
   });
 
-  const selectedTrackLists = trackList.filter(item => item.isSelected)
+  const selectedTrackLists = trackList.filter((item) => item.isSelected);
 
-  useEffect(() => {    
+  useEffect(() => {
     (async () => {
       let ids: string[] = [];
 
       const collectionIds = selectedTrackLists
-        .filter(item => item.type === TrackListTypeEnum.COLLECTION)
-        .map(item => item.id)
+        .filter((item) => item.type === TrackListTypeEnum.COLLECTION)
+        .map((item) => item.id);
 
       if (collectionIds.length > 0) {
         if (!accountInfo) return;
@@ -238,20 +249,18 @@ const AnalyticsContent = () => {
           tokensAddress: collectionIds,
           offset: 0,
           limit: 50,
-        });       
+        });
 
         if (nftsInfo && nftsInfo.nfts && nftsInfo.nfts.length > 0) {
-          ids = nftsInfo.nfts.map(nft => nft.nftId);
+          ids = nftsInfo.nfts.map((nft) => nft.nftId);
         }
+      } else {
+        ids = selectedTrackLists.map((item) => item.id);
       }
-      else {
-        ids = selectedTrackLists.map(item => item.id);
-      }
-      getData(); 
+      getData();
       setNftIds(ids);
-
-    })()
-  }, [selectedTrackLists.length]);  
+    })();
+  }, [selectedTrackLists.length]);
 
   return (
     <div className="flex gap-6">
@@ -341,7 +350,10 @@ const AnalyticsContent = () => {
                 <p className="font-bold text-sm text-black/70">
                   By transaction types
                 </p>
-                <AnalyticsPieChart data={analyticPieChartData} totalTransaction={totalTransactionCount} />
+                <AnalyticsPieChart
+                  data={analyticPieChartData}
+                  totalTransaction={totalTransactionCount}
+                />
               </div>
             </div>
           </div>
@@ -354,9 +366,18 @@ const AnalyticsContent = () => {
               date={getAllTransactionDuration(allTransactions)}
               resultNumber={2224}
               options={[
-                { name: TransactionTypeEnum.PRIMARY, value: TransactionTypeEnum.PRIMARY },
-                { name: TransactionTypeEnum.SECONDARY, value: TransactionTypeEnum.SECONDARY },
-                { name: TransactionTypeEnum.TRANSFER, value: TransactionTypeEnum.TRANSFER },
+                {
+                  name: TransactionTypeEnum.PRIMARY,
+                  value: TransactionTypeEnum.PRIMARY,
+                },
+                {
+                  name: TransactionTypeEnum.SECONDARY,
+                  value: TransactionTypeEnum.SECONDARY,
+                },
+                {
+                  name: TransactionTypeEnum.TRANSFER,
+                  value: TransactionTypeEnum.TRANSFER,
+                },
               ]}
               isSearchable
               isPaginatiable
