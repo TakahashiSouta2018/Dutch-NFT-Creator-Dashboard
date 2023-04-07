@@ -382,7 +382,7 @@ const AnalyticsContent = () => {
               isSearchable
               isPaginatiable
             />
-            <AnalyticsTransactionTable isIcon data={mockData} />
+            <AnalyticsTransactionTable isIcon data={allTransactions} />
           </AnalyticsTableLayout>
         </div>
       </div>
