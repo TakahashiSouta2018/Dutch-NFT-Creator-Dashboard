@@ -164,7 +164,9 @@ const AnalyticsContent = () => {
   const [analyticPieChartData, setAnalyticPieChartData] = useState<
     AnalyticPieChartDataI[]
   >([]);
-  const [allTransactions, setAllTransactions] = useState<AllTransactionsI[]>([]);
+  const [allTransactions, setAllTransactions] = useState<AllTransactionsI[]>(
+    []
+  );
 
   const { trackList } = useAppSelector((state) => {
     const { trackList } = state.dashboardPageReducer;
