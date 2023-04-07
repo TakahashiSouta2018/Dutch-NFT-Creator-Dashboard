@@ -118,69 +118,72 @@ const AnalyticsSideBar = () => {
 
   return (
     <DutchC.SideBarWrapper>
-      <DutchC.SideBarHeader>
-        <DutchC.SideBarHeaderText>Analytics</DutchC.SideBarHeaderText>
-        <DutchC.SideBarHeaderDropdown>
-          <Accordion>NFT Tracking</Accordion>
-        </DutchC.SideBarHeaderDropdown>
-      </DutchC.SideBarHeader>
-      <DutchC.SideBarBody>
-        <DutchC.CurrencySelect>
-          <Accordion>
-            <div className="flex gap-1 text-sm text-black/70">
-              <p>Crypto:</p>
-              <p className="font-medium">ETH</p>
-            </div>
-          </Accordion>
-        </DutchC.CurrencySelect>
-        <DutchC.CurrencySelect>
-          <Accordion>
-            <div className="flex gap-1 text-sm text-black/70">
-              <p>Fiat:</p>
-              <p className="font-medium">USD</p>
-            </div>
-          </Accordion>
-        </DutchC.CurrencySelect>
-        <DutchC.TrackWrapper>
-          <p className="text-sm text-black/70">Track by:</p>
-          <DutchC.TrackSwitchWrapper>
-            {options.map((option, i) => (
-              <OptionSwitch
-                key={i}
-                currentOptionId={currentTrack}
-                option={option}
-                onCurrentOption={(id) => {
-                  setCurrentTrack(id);
-                }}
-              />
-            ))}
-          </DutchC.TrackSwitchWrapper>
-          <SearchInput placeholder="Collection name or id" />
-          <DutchC.TrackListWrapper>
-            {!!trackList &&
-              trackList.map((item, i) => (
-                <Unit
+      <div className="w-full bg-transparent h-full" />
+      <div className="fixed left-6 w-[265px]">
+        <DutchC.SideBarHeader>
+          <DutchC.SideBarHeaderText>Analytics</DutchC.SideBarHeaderText>
+          <DutchC.SideBarHeaderDropdown>
+            <Accordion>NFT Tracking</Accordion>
+          </DutchC.SideBarHeaderDropdown>
+        </DutchC.SideBarHeader>
+        <DutchC.SideBarBody>
+          <DutchC.CurrencySelect>
+            <Accordion>
+              <div className="flex gap-1 text-sm text-black/70">
+                <p>Crypto:</p>
+                <p className="font-medium">ETH</p>
+              </div>
+            </Accordion>
+          </DutchC.CurrencySelect>
+          <DutchC.CurrencySelect>
+            <Accordion>
+              <div className="flex gap-1 text-sm text-black/70">
+                <p>Fiat:</p>
+                <p className="font-medium">USD</p>
+              </div>
+            </Accordion>
+          </DutchC.CurrencySelect>
+          <DutchC.TrackWrapper>
+            <p className="text-sm text-black/70">Track by:</p>
+            <DutchC.TrackSwitchWrapper>
+              {options.map((option, i) => (
+                <OptionSwitch
                   key={i}
-                  id={i}
-                  avatar={item.avatar}
-                  title={item.title}
-                  content={item.content}
-                  isSelected={item.isSelected}
-                  onSelected={handleSelected}
+                  currentOptionId={currentTrack}
+                  option={option}
+                  onCurrentOption={(id) => {
+                    setCurrentTrack(id);
+                  }}
                 />
               ))}
-          </DutchC.TrackListWrapper>
-        </DutchC.TrackWrapper>
-        <DutchC.DownloadFullReport>
-          <div className="p-1">
-            <Button className="w-full">Download full report</Button>
-          </div>
-          <p className="text-black/50 text-xs">
-            Data is from Loopring L2 Explorer, and CoinMarketCap values are used
-            for calculations. DUTCH0x is not liable for any data errors.
-          </p>
-        </DutchC.DownloadFullReport>
-      </DutchC.SideBarBody>
+            </DutchC.TrackSwitchWrapper>
+            <SearchInput placeholder="Collection name or id" />
+            <DutchC.TrackListWrapper>
+              {!!trackList &&
+                trackList.map((item, i) => (
+                  <Unit
+                    key={i}
+                    id={i}
+                    avatar={item.avatar}
+                    title={item.title}
+                    content={item.content}
+                    isSelected={item.isSelected}
+                    onSelected={handleSelected}
+                  />
+                ))}
+            </DutchC.TrackListWrapper>
+          </DutchC.TrackWrapper>
+          <DutchC.DownloadFullReport>
+            <div className="p-1">
+              <Button className="w-full">Download full report</Button>
+            </div>
+            <p className="text-black/50 text-xs">
+              Data is from Loopring L2 Explorer, and CoinMarketCap values are
+              used for calculations. DUTCH0x is not liable for any data errors.
+            </p>
+          </DutchC.DownloadFullReport>
+        </DutchC.SideBarBody>
+      </div>
     </DutchC.SideBarWrapper>
   );
 };

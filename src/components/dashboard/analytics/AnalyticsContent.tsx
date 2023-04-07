@@ -15,7 +15,8 @@ import {
   AnalyticsBarChart,
   AnalyticsPieChart,
 } from './charts';
-import { TypeCard } from './transaction-type-card';
+
+import * as Dutch0x from './styles';
 
 const transOptions = [
   {
@@ -141,10 +142,10 @@ const AnalyticsContent = () => {
   const [currentDayOption, setCurrentDayOption] = useState(0);
 
   return (
-    <div className="flex gap-6">
+    <Dutch0x.AnalyticsContentWrapper>
       <AnalyticsSideBar />
-      <div className="flex-grow flex flex-col gap-6">
-        <div className="flex flex-col gap-2">
+      <Dutch0x.AnalyticsContentMain>
+        <Dutch0x.ContentSwitch>
           <div className="flex gap-4">
             <div className="flex gap-1 border border-black/10 rounded-lg">
               {transOptions.map((option, i) => (
@@ -180,8 +181,8 @@ const AnalyticsContent = () => {
               The tracking shown is according to the timeline selected.
             </p>
           </div>
-        </div>
-        <div className="flex flex-col gap-2">
+        </Dutch0x.ContentSwitch>
+        <Dutch0x.ContentOverviewWrapper>
           <div className="font-bold text-black">Overview</div>
           <div className="flex flex-col gap-4">
             <div className="flex">
@@ -230,27 +231,25 @@ const AnalyticsContent = () => {
               </div>
             </div>
           </div>
-        </div>
-        <div className="table">
-          <AnalyticsTableLayout>
-            <AnalyticsTableControl
-              type="All Transaction"
-              title="All Transaction"
-              date="Mar 1, 2022 - Feb 28 2023"
-              resultNumber={2224}
-              options={[
-                { name: 'AA', value: 'aa' },
-                { name: 'BB', value: 'bb' },
-                { name: 'CC', value: 'cc' },
-              ]}
-              isSearchable
-              isPaginatiable
-            />
-            <AnalyticsTransactionTable isIcon data={mockData} />
-          </AnalyticsTableLayout>
-        </div>
-      </div>
-    </div>
+        </Dutch0x.ContentOverviewWrapper>
+        <AnalyticsTableLayout>
+          <AnalyticsTableControl
+            type="All Transaction"
+            title="All Transaction"
+            date="Mar 1, 2022 - Feb 28 2023"
+            resultNumber={2224}
+            options={[
+              { name: 'AA', value: 'aa' },
+              { name: 'BB', value: 'bb' },
+              { name: 'CC', value: 'cc' },
+            ]}
+            isSearchable
+            isPaginatiable
+          />
+          <AnalyticsTransactionTable isIcon data={mockData} />
+        </AnalyticsTableLayout>
+      </Dutch0x.AnalyticsContentMain>
+    </Dutch0x.AnalyticsContentWrapper>
   );
 };
 

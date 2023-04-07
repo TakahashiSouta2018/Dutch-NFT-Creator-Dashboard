@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const SideBarWrapper = styled.div.attrs({
-  className: 'flex flex-col gap-4 w-[265px]',
+  className: 'relative flex flex-col gap-4 w-[265px]',
 })``;
 
 export const SideBarHeader = styled.div.attrs({
