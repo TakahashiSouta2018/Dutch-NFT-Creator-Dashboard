@@ -230,8 +230,8 @@ const AnalyticsSideBar = () => {
             </DutchC.TrackSwitchWrapper>
             <SearchInput placeholder="Collection name or id" />
             <DutchC.TrackListWrapper>
-              {!!mockNFTs &&
-                mockNFTs.map((item, i) => (
+              {!!trackList &&
+                trackList.map((item, i) => (
                   <Unit
                     key={i}
                     id={i}
