@@ -438,7 +438,13 @@ const AnalyticsContent = () => {
               )}
             </Dutch0x.ContentOverviewCards>
             <Dutch0x.ContentOverviewCharts>
-              <Dutch0x.ContentOverviewChartsMain>
+              <Dutch0x.ContentOverviewChartsMain
+                className={
+                  currentTransOption.id === 0 || currentTransOption.id === 3
+                    ? 'w-2/3'
+                    : 'w-full'
+                }
+              >
                 <Dutch0x.ChartsMainTitle>
                   Transactions Count vs Timeline
                 </Dutch0x.ChartsMainTitle>

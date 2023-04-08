@@ -48,7 +48,9 @@ export const ContentOverviewCharts = styled.div.attrs({
   className: 'flex',
 })``;
 
-export const ContentOverviewChartsMain = styled.div.attrs({
+export const ContentOverviewChartsMain = styled.div.attrs<{
+  className: string;
+}>({
   className: 'flex flex-col gap-2',
 })``;
 
