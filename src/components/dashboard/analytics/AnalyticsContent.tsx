@@ -13,7 +13,9 @@ import { AnalyticsCard } from './analytics-card';
 import {
   AnalyticsAreaChart,
   AnalyticsBarChart,
+  AnalyticsComposedChart,
   AnalyticsPieChart,
+  GasFeeAnalyticsChart,
 } from './charts';
 import { TypeCard } from './transaction-type-card';
 import MilkGif from '@/assets/milk.gif';
@@ -33,6 +35,7 @@ import {
 } from '@/helpers';
 
 import * as Dutch0x from './styles';
+import { TotalGasCard } from './total-gas-card';
 
 const transOptions = [
   {
@@ -386,6 +389,38 @@ const AnalyticsContent = () => {
             />
             <AnalyticsTransactionTable isIcon data={mockData} />
           </AnalyticsTableLayout>
+        </div>
+        <div className="flex gap-6">
+          <div className="flex flex-col gap-2 w-full">
+            <div className="flex items-center gap-x-2">
+              <div className="text-black/70 text-sm font-bold whitespace-nowrap dark:text-white inline-flex items-center justify-center">
+                Profit & Loss Trends
+              </div>
+              <div className="text-sm text-black/70 font-normal whitespace-nowrap dark:text-white/70 inline-flex items-center justify-center">
+                Apr 1 2022 - Mar 31 2023
+              </div>
+            </div>
+            <div className="flex flex-col gap-2 items-end">
+              <div className="w-full">
+                <AnalyticsComposedChart />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex gap-6">
+          <div className="flex flex-col gap-2 w-full">
+            <div className="flex items-center gap-x-2">
+              <div className="text-black text-base font-bold whitespace-nowrap dark:text-white inline-flex items-center justify-center">
+                Gas Fee Analytics
+              </div>
+            </div>
+            <div className="divide-y divide-black/10 border border-black/10 rounded-lg">
+              <TotalGasCard />
+              <div className="pt-3">
+                <GasFeeAnalyticsChart />
+              </div>
+            </div>
+          </div>
         </div>
       </Dutch0x.AnalyticsContentMain>
     </Dutch0x.AnalyticsContentWrapper>
