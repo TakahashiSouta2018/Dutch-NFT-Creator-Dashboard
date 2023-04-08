@@ -12,7 +12,7 @@ type DraftNFTCardProps = {
 
 // components
 export const CreateWrapper = styled.div.attrs({
-  className: 'relative flex px-6 mt-16 overflow-x-hidden',
+  className: 'relative flex px-6 mt-16 overflow-hidden',
 })``;
 
 // --- Main Content

@@ -9,25 +9,25 @@ type OptionType = {
 
 interface OptionSwitchProps {
   option: OptionType;
-  currentOptionId: number;
-  onCurrentOption: (id: number) => void;
+  currentOption: OptionType;
+  onCurrentOption: (option: OptionType) => void;
 }
 
 const OptionSwitch: React.FC<OptionSwitchProps> = ({
   option,
-  currentOptionId,
+  currentOption,
   onCurrentOption,
 }) => {
   return (
     <Button
       className={clsx(
-        option.id === currentOptionId
+        option.id === currentOption.id
           ? '!bg-black text-white'
           : '!bg-white !text-black',
         'flex-1'
       )}
       onClick={() => {
-        onCurrentOption(option.id);
+        onCurrentOption(option);
       }}
     >
       {option.slug}

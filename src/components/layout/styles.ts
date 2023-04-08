@@ -69,7 +69,8 @@ export const HeaderUserAddress = styled.p.attrs({
 // -------------------- Content Layout --------------------- //
 
 export const ContentLayoutWrapper = styled.div.attrs({
-  className: 'relative flex overflow-x-hidden items-start min-h-full px-6',
+  className:
+    'relative flex flex-col overflow-x-hidden items-start min-h-full px-6',
 })``;
 
 export const ContentLayoutBody = styled.div.attrs({
@@ -82,10 +83,6 @@ export const ContentLayoutBodyInner = styled.div.attrs({
   className: 'flex flex-col w-full',
 })``;
 
-export const ContentLayoutBodyChildren = styled.div.attrs({
-  className: 'min-h-[400px]',
-})``;
-
 export const GuideInfoIconWrapper = styled.div.attrs({
-  className: 'absolute top-4 right-6 cursor-pointer',
+  className: 'absolute top-4 right-6 z-50 cursor-pointer',
 })``;

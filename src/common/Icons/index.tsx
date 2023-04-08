@@ -636,6 +636,40 @@ export const ILockClosed: React.FC<IconProps> = ({
   );
 };
 
+export const IArrowTrendingUp: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+  className,
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons20.ArrowTrendingUpIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.ArrowTrendingUpIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
+export const IArrowTrendingDown: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+  className,
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons20.ArrowTrendingDownIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.ArrowTrendingDownIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
 export const IChevronLeft: React.FC<IconProps> = ({
   variant = 'solid',
   size = 'medium',
@@ -791,8 +825,6 @@ export const icons = {
   'square-2-stack': ISquare2Stack,
   'lock-closed': ILockClosed,
   idocumentduplicateIcon: IDocumentDuplicateIcon,
-  arrowupright: IArrowUpRight,
-  shoppingbag: IShoppingBag,
 };
 
 export type IconType = keyof typeof icons;

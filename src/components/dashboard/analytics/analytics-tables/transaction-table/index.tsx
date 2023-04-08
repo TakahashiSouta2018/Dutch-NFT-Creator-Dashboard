@@ -8,6 +8,7 @@ import { Table, THead, TBody, TR, TD } from '@/common';
 import * as Icons from '@/common/Icons';
 
 import * as DutchC from './styles';
+import { TransactionTypeEnum } from '@/helpers';
 
 interface TransactactionTableProps {
   className?: string;
@@ -40,9 +41,9 @@ interface TransactactionTableProps {
 }
 
 const iconMatches = {
-  transfer: Icons.ICustomTriagleX2,
-  'nft-trade': Icons.IShoppingBag,
-  'primary-sale': Icons.ICustomFire,
+  Transfer: Icons.ICustomTriagleX2,
+  'NFT trades': Icons.IShoppingBag,
+  'Primary sales': Icons.ICustomFire,
 };
 
 type IType = keyof typeof iconMatches;

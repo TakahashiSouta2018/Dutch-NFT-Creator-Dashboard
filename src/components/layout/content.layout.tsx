@@ -17,24 +17,25 @@ const ContentLayout: React.FC<ContentLayoutProps> = ({ children }) => {
     setOpen((open) => !open);
   };
   return (
-    <DutchC.ContentLayoutWrapper>
-      <DutchC.ContentLayoutBody open={open}>
-        <DutchC.ContentLayoutBodyInner>
-          <Breadcrumb />
-          <DutchC.ContentLayoutBodyChildren>
+    <>
+      <DutchC.ContentLayoutWrapper>
+        <Breadcrumb />
+        <DutchC.ContentLayoutBody open={open}>
+          <DutchC.ContentLayoutBodyInner>
             {children}
-          </DutchC.ContentLayoutBodyChildren>
-        </DutchC.ContentLayoutBodyInner>
-      </DutchC.ContentLayoutBody>
-      <DutchC.GuideInfoIconWrapper onClick={toggleGuide}>
-        <Icons.IInformationCircle
-          variant="solid"
-          size="large"
-          color={theme === 'light' ? 'black' : 'white'}
-        />
-      </DutchC.GuideInfoIconWrapper>
-      <Guide open={open} />
-    </DutchC.ContentLayoutWrapper>
+          </DutchC.ContentLayoutBodyInner>
+        </DutchC.ContentLayoutBody>
+
+        <DutchC.GuideInfoIconWrapper onClick={toggleGuide}>
+          <Icons.IInformationCircle
+            variant="solid"
+            size="large"
+            color={theme === 'light' ? 'black' : 'white'}
+          />
+        </DutchC.GuideInfoIconWrapper>
+        <Guide open={open} />
+      </DutchC.ContentLayoutWrapper>
+    </>
   );
 };
 
