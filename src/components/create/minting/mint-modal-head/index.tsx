@@ -1,8 +1,13 @@
 import React from 'react';
 import { ModalHead } from '@/common';
-import { useAppSelector } from '@/redux/store';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
 import useNFTHook from '@/hooks/useNFTHook';
+import {
+  setDraftNFTs,
+  setMintModalIsOpen,
+  setSelectedDraftNFTs,
+} from '@/components/create/ducks';
 
 interface MintModalHeadProps {
   isDepositFund: boolean;
@@ -12,6 +17,7 @@ const MintModalHead: React.FC<MintModalHeadProps> = ({
   isDepositFund,
 }): JSX.Element => {
   const { onMintModalClose } = useNFTHook();
+  const dispatch = useAppDispatch();
 
   const { activeStep, selectedDraftNFTs } = useAppSelector((state) => {
     const { mintModal, selectedDraftNFTs } = state.createPageReducer;
@@ -30,7 +36,7 @@ const MintModalHead: React.FC<MintModalHeadProps> = ({
           ? 'Approve Wallet Signature'
           : 'Minting'
       }
-      onClose={() => onMintModalClose(selectedDraftNFTs[0].collection)}
+      onClose={() => dispatch(setMintModalIsOpen(false))}
       onBack={() => onMintModalClose(selectedDraftNFTs[0].collection)}
     />
   );

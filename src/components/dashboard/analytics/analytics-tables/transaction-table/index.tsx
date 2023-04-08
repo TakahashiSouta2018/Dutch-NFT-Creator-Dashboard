@@ -1,6 +1,7 @@
 import React from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { useTheme } from 'next-themes';
+import Link from 'next/link';
 
 import { Table, THead, TBody, TR, TD } from '@/common';
 
@@ -11,9 +12,16 @@ import { TransactionTypeEnum } from '@/helpers';
 
 interface TransactactionTableProps {
   className?: string;
-  isIcon?: boolean;
+  isAll?: boolean;
+  isFrom?: boolean;
+  isTo?: boolean;
+  isUnits?: boolean;
+  isRoyality?: boolean;
+  isPrice?: boolean;
+  isGas?: boolean;
+  isTransferredTimes?: boolean;
   data?: {
-    type: TransactionTypeEnum;
+    type: string;
     from?: string;
     to?: string;
     nftId: {
@@ -21,72 +29,96 @@ interface TransactactionTableProps {
       groupName: string;
       id: string;
     };
-    units: number;
+    royalityPercent?: number;
+    royality?: number;
+    units?: number;
+    transferredTimes?: number;
     price?: number;
     gas?: number;
     date?: string;
+    link: string;
   }[];
 }
+
+const iconMatches = {
+  Transfer: Icons.ICustomTriagleX2,
+  'NFT trades': Icons.IShoppingBag,
+  'Primary sales': Icons.ICustomFire,
+};
+
+type IType = keyof typeof iconMatches;
 
 const IconSelector = ({
   type,
   currentColor,
   className,
 }: {
-  type: TransactionTypeEnum;
+  type: IType;
   currentColor: string;
   className?: string;
 }) => {
-  const iconMatches = {
-    [TransactionTypeEnum.TRANSFER]: Icons.ICustomTriagleX2,
-    [TransactionTypeEnum.SECONDARY]: Icons.IShoppingBag,
-    [TransactionTypeEnum.PRIMARY]: Icons.ICustomFire,
-  };
   const Icon = iconMatches[type];
   return <Icon currentColor={currentColor} className={className} />;
 };
 
 const TransactionTable: React.FC<TransactactionTableProps> = ({
   data,
-  isIcon,
   className = ' ',
+  isAll,
+  isFrom,
+  isTo,
+  isGas,
+  isPrice,
+  isRoyality,
+  isTransferredTimes,
+  isUnits,
 }) => {
   const { theme } = useTheme();
 
   return (
     <DutchC.TransactionTableWrapper className={`${className}`}>
-      <Table className="dark:text-white text-black border rounded-xl">
-        <THead className="text-black/100 bg-black/5 dark:bg-white/5">
+      <Table className="dark:text-white text-black border rounded-xl table-auto">
+        <THead className="!text-black/100 dark:!text-white/100 bg-black/5 dark:bg-white/5">
           <TR>
-            {isIcon && <TD></TD>}
-            <TD>Type</TD>
-            <TD>From</TD>
-            <TD>To</TD>
+            {isAll && (
+              <>
+                <TD></TD>
+                <TD>Type</TD>
+              </>
+            )}
+            {isFrom && <TD>From</TD>}
+            {isTo && <TD>To</TD>}
             <TD>NFT Id</TD>
-            <TD className="text-right">Units</TD>
-            <TD className="text-right">Price</TD>
-            <TD className="text-right">Gas</TD>
+            {isUnits && <TD className="text-right">Units</TD>}
+            {isRoyality && (
+              <>
+                <TD className="text-right">Royalities(%)</TD>
+                <TD className="text-right">Royalities</TD>
+              </>
+            )}
+            {isTransferredTimes && <TD className="text-center">Times</TD>}
+            {isPrice && <TD className="text-right">Price</TD>}
+            {isGas && <TD className="text-right">Gas</TD>}
             <TD>Time (EST)</TD>
           </TR>
         </THead>
-        <TBody className="text-sm ">
+        <TBody className="text-sm">
           {data?.map((item, index) => (
             <TR key={index}>
-              {isIcon && (
-                <TD>
-                  <IconSelector
-                    type={item.type}
-                    currentColor={theme === 'light' ? 'black' : 'white'}
-                    className={
-                      theme === 'light' ? 'text-black/100' : 'text-white/100'
-                    }
-                  />
-                </TD>
+              {isAll && (
+                <>
+                  <TD>
+                    <IconSelector
+                      type={item.type as IType}
+                      currentColor={theme === 'light' ? 'black' : 'white'}
+                    />
+                  </TD>
+                  <TD>{item?.type}</TD>
+                </>
               )}
-              <TD>{item?.type}</TD>
-              <TD>{item?.from}</TD>
-              <TD>{item?.to}</TD>
-              <TD>
+              {isFrom && <TD>{item?.from}</TD>}
+              {isTo && <TD>{item?.to}</TD>}
+              <TD className="w-fit">
                 <DutchC.TransactionTableFlexRowWrapper>
                   {item?.nftId && (
                     <Image
@@ -105,22 +137,49 @@ const TransactionTable: React.FC<TransactactionTableProps> = ({
                   </DutchC.TransactionTableFlexColWrapper>
                 </DutchC.TransactionTableFlexRowWrapper>
               </TD>
-              <TD className="text-right">{item.units}</TD>
-              <TD className="text-right">
-                <DutchC.TransactionTableFlexRowWrapper className="justify-end">
-                  {item?.price} {item?.price && <Icons.ICustomDiamond />}
-                </DutchC.TransactionTableFlexRowWrapper>
-              </TD>
-              <TD>
-                <DutchC.TransactionTableFlexRowWrapper className="justify-end">
-                  {item?.gas} {item?.gas && <Icons.ICustomDiamond />}
-                </DutchC.TransactionTableFlexRowWrapper>
-              </TD>
-              <TD>
-                <DutchC.TransactionTableFlexRowWrapper>
+              {isUnits && <TD className="text-right">{item.units}</TD>}
+              {isRoyality && (
+                <>
+                  <TD className="text-right">
+                    {(item?.royalityPercent && item.royalityPercent) || 0}(%)
+                  </TD>
+                  <TD className="text-right">
+                    {item?.royality && (
+                      <DutchC.TransactionTableFlexRowWrapper className="justify-end">
+                        {item.royality} <Icons.ICustomDiamondBlue />
+                      </DutchC.TransactionTableFlexRowWrapper>
+                    )}
+                  </TD>
+                </>
+              )}
+              {isTransferredTimes && (
+                <TD className="text-center">
+                  <DutchC.TransactionTableFlexRowWrapper className="justify-center">
+                    {item?.transferredTimes || 0}
+                  </DutchC.TransactionTableFlexRowWrapper>
+                </TD>
+              )}
+              {isPrice && (
+                <TD className="text-right">
+                  <DutchC.TransactionTableFlexRowWrapper className="justify-end">
+                    {item?.price} {item?.price && <Icons.ICustomDiamondBlue />}
+                  </DutchC.TransactionTableFlexRowWrapper>
+                </TD>
+              )}
+              {isGas && (
+                <TD>
+                  <DutchC.TransactionTableFlexRowWrapper className="justify-end">
+                    {item?.gas} {item?.gas && <Icons.ICustomDiamondBlue />}
+                  </DutchC.TransactionTableFlexRowWrapper>
+                </TD>
+              )}
+              <TD className="whitespace-nowrap">
+                <DutchC.TransactionTableFlexRowWrapper className="  ">
                   {item.date}
                   {item?.date && (
-                    <Icons.IArrowUpRight className="w-5 h-5 border bg-black/5 dark:bg-white/5 rounded-md" />
+                    <Link href={item.link} className="hover:bg-black/">
+                      <Icons.IArrowUpRight className="text-black dark:text-white w-5 h-5 border bg-black/5 dark:bg-white/5 rounded-md" />
+                    </Link>
                   )}
                 </DutchC.TransactionTableFlexRowWrapper>
               </TD>

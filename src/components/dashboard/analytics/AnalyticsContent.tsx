@@ -7,7 +7,12 @@ import {
   AnalyticsTableControl,
   AnalyticsTransactionTable,
   AnalyticsTableLayout,
+  AnalyticsTopRankingTable,
 } from '@/components/dashboard/analytics/analytics-tables';
+import {
+  ShortcutContextMenu,
+  ShortcutContextMenuItem,
+} from '@/components/shared/shortcut-context-menu';
 
 import { AnalyticsCard } from './analytics-card';
 import {
@@ -82,7 +87,7 @@ const dayOptions = [
 ];
 
 // mockdata for analytics-transaction table
-const mockData = [
+const mockDataTransaction = [
   {
     type: TransactionTypeEnum.TRANSFER,
     from: 'AAA',
@@ -92,10 +97,31 @@ const mockData = [
       groupName: 'Inkheads',
       id: 'Yung Zuck',
     },
+    transferredTimes: 3,
     units: 3,
-    price: 0.00085,
+    royalityPercent: 30,
+    royality: 0.131,
+    price: 0.00082455,
+    gas: 0.00024862345453245,
+    date: 'Mar 10, 20223  06:57:59',
+    link: '/home',
+  },
+  {
+    type: TransactionTypeEnum.SECONDARY,
+    from: 'AAA',
+    to: 'BBB',
+    nftId: {
+      src: MilkGif,
+      groupName: 'Inkheads',
+      id: 'Yung Zuck',
+    },
+    transferredTimes: 3,
+    royalityPercent: 50,
+    royality: 0.31,
+    units: 3,
     gas: 0.000248,
     date: 'Mar 10, 20223  06:57:59',
+    link: '/home',
   },
   {
     type: TransactionTypeEnum.SECONDARY,
@@ -107,23 +133,10 @@ const mockData = [
       id: 'Yung Zuck',
     },
     units: 3,
-    gas: 0.000248,
-    price: 0.00085,
-    date: 'Mar 10, 20223  06:57:59',
-  },
-  {
-    type: TransactionTypeEnum.PRIMARY,
-    from: 'AAA',
-    to: 'BBB',
-    nftId: {
-      src: MilkGif,
-      groupName: 'Inkheads',
-      id: 'Yung Zuck',
-    },
-    units: 3,
     price: 0.00085,
     gas: 0.000248,
     date: 'Mar 10, 20223  06:57:59',
+    link: '/home',
   },
   {
     type: TransactionTypeEnum.TRANSFER,
@@ -135,26 +148,51 @@ const mockData = [
       id: 'Yung Zuck',
     },
     units: 3,
-    price: 0.00085,
+    royalityPercent: 70,
+    royality: 0.131,
     gas: 0.000248,
     date: 'Mar 10, 20223  06:57:59',
-  },
-  {
-    type: TransactionTypeEnum.SECONDARY,
-    from: 'AAA',
-    to: 'BBB',
-    nftId: {
-      src: MilkGif,
-      groupName: 'Inkheads',
-      id: 'Yung Zuck',
-    },
-    units: 3,
-    gas: 0.000248,
-    price: 0.00085,
-    date: 'Mar 10, 2023  06:57:59',
+    link: '/home',
   },
 ];
 
+const mockDataSellerTopRanking = [
+  {
+    seller: 'aaaa',
+    buyer: 'bbbb',
+    total: 33,
+    totalNFTsBuy: 11,
+    totalTradeVolume: 12.6727836423123,
+  },
+  {
+    seller: 'aaaa',
+    buyer: 'bbbb',
+    total: 33,
+    totalNFTsBuy: 11,
+    totalTradeVolume: 12.6727836423123,
+  },
+  {
+    seller: 'aaaa',
+    buyer: 'bbbb',
+    total: 33,
+    totalNFTsBuy: 11,
+    totalTradeVolume: 12.6727836423123,
+  },
+  {
+    seller: 'aaaa',
+    buyer: 'bbbb',
+    total: 33,
+    totalNFTsBuy: 11,
+    totalTradeVolume: 12.6727836423123,
+  },
+  {
+    seller: 'aaaa',
+    buyer: 'bbbb',
+    total: 33,
+    totalNFTsBuy: 11,
+    totalTradeVolume: 12.6727836423123,
+  },
+];
 const mockAreaDataOne = Array.from(Array(6), (_, id) => {
   return {
     date: '1672104200',
@@ -466,31 +504,185 @@ const AnalyticsContent = () => {
             </div>
           </div>
         </Dutch0x.ContentOverviewWrapper>
-        <AnalyticsTableLayout>
-          <AnalyticsTableControl
-            type="All Transaction"
-            title="All Transaction"
-            date={getAllTransactionDuration(allTransactions)}
-            resultNumber={2224}
-            options={[
-              {
-                name: TransactionTypeEnum.PRIMARY,
-                value: TransactionTypeEnum.PRIMARY,
-              },
-              {
-                name: TransactionTypeEnum.SECONDARY,
-                value: TransactionTypeEnum.SECONDARY,
-              },
-              {
-                name: TransactionTypeEnum.TRANSFER,
-                value: TransactionTypeEnum.TRANSFER,
-              },
-            ]}
-            isSearchable
-            isPaginatiable
+        <ShortcutContextMenu position="TL">
+          <ShortcutContextMenuItem
+            key="1"
+            text="aaa"
+            onClick={() => {
+              console.log('234567890');
+            }}
           />
-          <AnalyticsTransactionTable isIcon data={mockData} />
-        </AnalyticsTableLayout>
+        </ShortcutContextMenu>
+        <div className="table">
+          {/* all transactions */}
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl
+              type="All Transaction"
+              title="All Transactions"
+              date="Mar 1, 2022 - Feb 28 2023"
+              resultNumber={2224}
+              options={[
+                { name: 'AA', value: 'aa' },
+                { name: 'BB', value: 'bb' },
+                { name: 'CC', value: 'cc' },
+              ]}
+              isDateShowable
+              isResultShowable
+              isSelectable
+              isSearchable
+              isPaginatiable
+            />
+            <AnalyticsTransactionTable
+              isAll
+              isFrom
+              isTo
+              isPrice
+              isGas
+              data={mockDataTransaction}
+            />
+          </AnalyticsTableLayout>
+          {/* trades */}
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl
+              type="NFT Trade"
+              title="All Trades"
+              date="Mar 1, 2022 - Feb 28 2023"
+              resultNumber={2224}
+              options={[
+                { name: 'AA', value: 'aa' },
+                { name: 'BB', value: 'bb' },
+                { name: 'CC', value: 'cc' },
+              ]}
+              isDateShowable
+              isResultShowable
+              isSelectable
+              isSearchable
+              isPaginatiable
+            />
+            <AnalyticsTransactionTable
+              isFrom
+              isTo
+              isRoyality
+              isPrice
+              isGas
+              data={mockDataTransaction}
+            />
+          </AnalyticsTableLayout>
+          {/* primary sales */}
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl
+              type="Primary Sale"
+              title="Primary Sales"
+              date="Mar 1, 2022 - Feb 28 2023"
+              resultNumber={2224}
+              options={[
+                { name: 'AA', value: 'aa' },
+                { name: 'BB', value: 'bb' },
+                { name: 'CC', value: 'cc' },
+              ]}
+              isDateShowable
+              isResultShowable
+              isSelectable
+              isSearchable
+              isPaginatiable
+            />
+            <AnalyticsTransactionTable
+              isTo
+              isPrice
+              isGas
+              data={mockDataTransaction}
+            />
+          </AnalyticsTableLayout>
+          {/* royalities */}
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl
+              type="Royality"
+              title="All Trades"
+              date="Mar 1, 2022 - Feb 28 2023"
+              resultNumber={2224}
+              options={[
+                { name: 'AA', value: 'aa' },
+                { name: 'BB', value: 'bb' },
+                { name: 'CC', value: 'cc' },
+              ]}
+              isDateShowable
+              isResultShowable
+              isSelectable
+              isSearchable
+              isPaginatiable
+            />
+            <AnalyticsTransactionTable
+              isTo
+              isRoyality
+              isPrice
+              data={mockDataTransaction}
+            />
+          </AnalyticsTableLayout>
+          {/* transfer */}
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl
+              type="Transfer"
+              title="All Trades"
+              date="Mar 1, 2022 - Feb 28 2023"
+              resultNumber={2224}
+              options={[
+                { name: 'AA', value: 'aa' },
+                { name: 'BB', value: 'bb' },
+                { name: 'CC', value: 'cc' },
+              ]}
+              isDateShowable
+              isResultShowable
+              isSelectable
+              isSearchable
+              isPaginatiable
+            />
+            <AnalyticsTransactionTable
+              isFrom
+              isTo
+              isGas
+              data={mockDataTransaction}
+            />
+          </AnalyticsTableLayout>
+          {/* Most transfered NFTs */}
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl
+              type="Transfer"
+              title="Most Transfered NFTs"
+              isRanked
+            />
+            <AnalyticsTransactionTable
+              isTransferredTimes
+              data={mockDataTransaction}
+            />
+          </AnalyticsTableLayout>
+          {/* Top Seller Ranking */}
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl title="Top Sellers" isRanked />
+            <AnalyticsTopRankingTable
+              isSeller
+              isTotal
+              data={mockDataSellerTopRanking}
+            />
+          </AnalyticsTableLayout>
+          {/* Top Buyer Ranking */}
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl title="Top Buyers" isRanked />
+            <AnalyticsTopRankingTable
+              isBuyer
+              isTotal
+              data={mockDataSellerTopRanking}
+            />
+          </AnalyticsTableLayout>
+          {/* Top Buyer (Total NFTs Buy) Ranking */}
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl title="Top Buyers" isRanked />
+            <AnalyticsTopRankingTable
+              isBuyer
+              isTotalNFTsBuy
+              data={mockDataSellerTopRanking}
+            />
+          </AnalyticsTableLayout>
+        </div>
       </Dutch0x.AnalyticsContentMain>
     </Dutch0x.AnalyticsContentWrapper>
   );

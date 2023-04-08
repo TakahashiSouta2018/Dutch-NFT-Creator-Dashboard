@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const TransactionTableControlWrapper = styled.div.attrs<{
   className?: string;
 }>({
-  className: 'flex items-center justify-between gap-x-2',
+  className: 'flex items-center justify-between gap-x-2 py-2',
 })``;
 
 export const TransactionTableControlLeft = styled.div.attrs<{
