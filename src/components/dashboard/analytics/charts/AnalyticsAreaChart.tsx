@@ -68,6 +68,16 @@ const AnalyticsAreaChart: React.FC<AreaChartProps> = ({ data }) => {
             strokeWidth: 1,
             transform: 'translate(0, 10)',
           }}
+          ticks={[
+            '1451610000',
+            '1483232400',
+            '1483232400',
+            '1483232400',
+            '1483232400',
+            '1483232400',
+            '1483232400',
+            '1483232400',
+          ]}
           tickSize={0}
           axisLine={{ stroke: '#000', opacity: '10%' }}
           padding={{ left: 20, right: 20 }}

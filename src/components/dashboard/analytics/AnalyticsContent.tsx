@@ -157,7 +157,7 @@ const mockData = [
 
 const mockAreaDataOne = Array.from(Array(6), (_, id) => {
   return {
-    date: '1672104200',
+    date: `1483232400`,
     uv: Math.floor(50 * Math.random()) + 500,
     pv: Math.floor(50 * Math.random()) + 500,
   };
@@ -356,17 +356,17 @@ const AnalyticsContent = () => {
               <Accordion>Custom</Accordion>
             </Dutch0x.DaySwitchWrapper>
           </Dutch0x.ContentSwitchInner>
-          <div className="flex gap-2 items-center">
+          <Dutch0x.ContentIdkHead>
             <OutlineButton size="small">Inkheads</OutlineButton>
             <p className="text-xs text-black/70">
               The tracking shown is according to the timeline selected.
             </p>
-          </div>
+          </Dutch0x.ContentIdkHead>
         </Dutch0x.ContentSwitch>
         <Dutch0x.ContentOverviewWrapper>
           <div className="font-bold text-black">Overview</div>
-          <div className="flex flex-col gap-4">
-            <div className="flex">
+          <Dutch0x.ContentOverviewInner>
+            <Dutch0x.ContentOverviewCards>
               <AnalyticsCard
                 title={currentTransOption.slug + ' Count'}
                 transActionsCount={totalTransactionCount}
@@ -398,23 +398,17 @@ const AnalyticsContent = () => {
                   percentage={5.1}
                 />
               )}
-            </div>
-            <div className="flex gap-6">
-              <div
-                className={`flex flex-col gap-2 ${
-                  currentTransOption.id === 0 || currentTransOption.id === 3
-                    ? 'w-2/3'
-                    : 'w-full'
-                }`}
-              >
-                <div className="font-bold text-sm text-black/70">
+            </Dutch0x.ContentOverviewCards>
+            <Dutch0x.ContentOverviewCharts>
+              <Dutch0x.ContentOverviewChartsMain>
+                <Dutch0x.ChartsMainTitle>
                   Transactions Count vs Timeline
-                </div>
-                <div className="flex flex-col gap-2 items-end">
+                </Dutch0x.ChartsMainTitle>
+                <Dutch0x.ChartsWrapper>
                   <div className="w-full h-[250px]">
                     <AnalyticsAreaChart data={mockAreaData} />
                   </div>
-                  <div className="py-2 flex flex-col gap-2 w-[95%]">
+                  <Dutch0x.BarChartsWrapper>
                     <div className="w-full h-[100px]">
                       <AnalyticsBarChart
                         data={mockBarData}
@@ -428,11 +422,11 @@ const AnalyticsContent = () => {
                     <p className="font-bold text-center text-sm text-black/70">
                       Turnover
                     </p>
-                  </div>
-                </div>
-              </div>
+                  </Dutch0x.BarChartsWrapper>
+                </Dutch0x.ChartsWrapper>
+              </Dutch0x.ContentOverviewChartsMain>
               {currentTransOption.slug === 'All Transactions' && (
-                <div className="flex flex-col gap-4 w-1/3">
+                <Dutch0x.ContentOverviewChartsRight>
                   <p className="font-bold text-sm text-black/70">
                     By transaction types
                   </p>
@@ -440,10 +434,10 @@ const AnalyticsContent = () => {
                     data={analyticPieChartData}
                     totalTransaction={totalTransactionCount}
                   />
-                </div>
+                </Dutch0x.ContentOverviewChartsRight>
               )}
               {currentTransOption.slug === 'Royalties' && (
-                <div className="flex flex-col gap-4 w-1/3">
+                <Dutch0x.ContentOverviewChartsRight>
                   <p className="font-bold text-sm text-black/70">
                     Royalties Earned (ETH) for Percentage groups
                   </p>
@@ -461,10 +455,10 @@ const AnalyticsContent = () => {
                       colorable={true}
                     />
                   </div>
-                </div>
+                </Dutch0x.ContentOverviewChartsRight>
               )}
-            </div>
-          </div>
+            </Dutch0x.ContentOverviewCharts>
+          </Dutch0x.ContentOverviewInner>
         </Dutch0x.ContentOverviewWrapper>
         <AnalyticsTableLayout>
           <AnalyticsTableControl
