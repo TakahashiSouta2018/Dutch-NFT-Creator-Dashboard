@@ -33,6 +33,7 @@ import {
 } from '@/helpers';
 
 import * as Dutch0x from './styles';
+import { BarChart } from 'recharts';
 
 const transOptions = [
   {
@@ -154,9 +155,74 @@ const mockData = [
   },
 ];
 
+const mockAreaDataOne = Array.from(Array(6), (_, id) => {
+  return {
+    date: '1672104200',
+    uv: Math.floor(50 * Math.random()) + 500,
+    pv: Math.floor(50 * Math.random()) + 500,
+  };
+});
+
+const mockAreaDataTwo = Array.from(Array(60), (_, id) => {
+  return {
+    date: '1672104200',
+    uv: Math.floor(50 * Math.random()) + 500,
+  };
+});
+
+const mockBarData = Array.from(Array(60), (_, id) => {
+  return {
+    date: '1672104200',
+    uv: Math.floor(100 * Math.random()),
+    pv: Math.floor(100 * Math.random()),
+  };
+});
+
+const mockRoyalityBarData = [
+  {
+    date: '0-5',
+    uv: 0.001,
+  },
+  {
+    date: '6',
+    uv: 0.005,
+  },
+  {
+    date: '7',
+    uv: 0.003,
+  },
+  {
+    date: '8',
+    uv: 0.01,
+  },
+  {
+    date: '9',
+    uv: 0.02,
+  },
+  {
+    date: '10',
+    uv: 0.025,
+  },
+];
+
+const SwitchTransOptions = (params: string) => {
+  switch (params) {
+    case 'All Transactions':
+      return mockAreaDataOne;
+    default:
+      return mockAreaDataTwo;
+  }
+};
+
 const AnalyticsContent = () => {
-  const [currentTransOption, setCurrentTransOption] = useState(0);
-  const [currentDayOption, setCurrentDayOption] = useState(0);
+  const [currentTransOption, setCurrentTransOption] = useState({
+    id: 0,
+    slug: 'All Transactions',
+  });
+  const [currentDayOption, setCurrentDayOption] = useState({
+    id: 4,
+    slug: 'All',
+  });
   const [totalTransactionCount, setTransActionsCount] = useState(0);
   const [ethTurnOver, setEthTurnOver] = useState(0);
   const [lrcTurnOver, setLrcTurnOver] = useState(0);
@@ -190,8 +256,6 @@ const AnalyticsContent = () => {
       nftIds,
     },
     onCompleted(data) {
-      console.log({ data });
-
       if (data && data.transferNFTs && data.tradeNFTs) {
         const {
           totalRoyatliesLRC,
@@ -218,14 +282,6 @@ const AnalyticsContent = () => {
           { name: 'Primary Sales', value: primarySales.length },
           { name: 'Transfers', value: data.transferNFTs.length },
         ]);
-
-        // setAllTransactions(mockData)
-        // setTransActionsCount(4000)
-        // setAnalyticPieChartData([
-        //   { name: 'Trades', value: 1458 },
-        //   { name: 'Primary Sales', value: 952 },
-        //   { name: 'Transfers', value: 752 },
-        // ])
       }
     },
     onError(error) {
@@ -264,40 +320,42 @@ const AnalyticsContent = () => {
     })();
   }, [selectedTrackLists.length]);
 
+  const mockAreaData = SwitchTransOptions(currentTransOption.slug);
+
   return (
     <Dutch0x.AnalyticsContentWrapper>
       <AnalyticsSideBar />
       <Dutch0x.AnalyticsContentMain>
         <Dutch0x.ContentSwitch>
-          <div className="flex gap-4">
-            <div className="flex gap-1 border border-black/10 rounded-lg">
+          <Dutch0x.ContentSwitchInner>
+            <Dutch0x.TransactionSwitchWrapper>
               {transOptions.map((option, i) => (
                 <OptionSwitch
                   key={i}
-                  currentOptionId={currentTransOption}
+                  currentOption={currentTransOption}
                   option={option}
-                  onCurrentOption={(id) => {
-                    setCurrentTransOption(id);
+                  onCurrentOption={(option) => {
+                    setCurrentTransOption(option);
                   }}
                 />
               ))}
-            </div>
-            <div className="flex divide-x divide-black/10 border border-black/10 rounded-lg">
+            </Dutch0x.TransactionSwitchWrapper>
+            <Dutch0x.DaySwitchWrapper>
               <div className="pr-1 flex gap-1">
                 {dayOptions.map((option, i) => (
                   <OptionSwitch
                     key={i}
-                    currentOptionId={currentDayOption}
+                    currentOption={currentDayOption}
                     option={option}
-                    onCurrentOption={(id) => {
-                      setCurrentDayOption(id);
+                    onCurrentOption={(option) => {
+                      setCurrentDayOption(option);
                     }}
                   />
                 ))}
               </div>
               <Accordion>Custom</Accordion>
-            </div>
-          </div>
+            </Dutch0x.DaySwitchWrapper>
+          </Dutch0x.ContentSwitchInner>
           <div className="flex gap-2 items-center">
             <OutlineButton size="small">Inkheads</OutlineButton>
             <p className="text-xs text-black/70">
@@ -310,37 +368,62 @@ const AnalyticsContent = () => {
           <div className="flex flex-col gap-4">
             <div className="flex">
               <AnalyticsCard
-                title="Transactions Count"
+                title={currentTransOption.slug + ' Count'}
                 transActionsCount={totalTransactionCount}
                 percentage={5.74}
               />
-              <AnalyticsCard
-                title="Turnover"
-                eth={ethTurnOver}
-                lrc={lrcTurnOver}
-                usd={1146.91}
-                percentage={-3.7}
-              />
-              <AnalyticsCard
-                title="Royalties Earned"
-                eth={ethTotalRoyalty}
-                lrc={lrcTotalRoyalty}
-                usd={431.86}
-                percentage={5.1}
-              />
+              {currentTransOption.id > 2 ? (
+                <></>
+              ) : (
+                <AnalyticsCard
+                  title={
+                    currentTransOption.slug === 'All Transactions'
+                      ? 'Turnover'
+                      : currentTransOption.slug + ' Volume'
+                  }
+                  eth={ethTurnOver}
+                  lrc={lrcTurnOver}
+                  usd={1146.91}
+                  percentage={-3.7}
+                />
+              )}
+              {currentTransOption.slug === 'Primary Sales' ? (
+                <></>
+              ) : (
+                <AnalyticsCard
+                  title={'Royalties Earned'}
+                  eth={ethTotalRoyalty}
+                  lrc={lrcTotalRoyalty}
+                  usd={431.86}
+                  percentage={5.1}
+                />
+              )}
             </div>
             <div className="flex gap-6">
-              <div className="flex flex-col gap-2 w-2/3">
+              <div
+                className={`flex flex-col gap-2 ${
+                  currentTransOption.id === 0 || currentTransOption.id === 3
+                    ? 'w-2/3'
+                    : 'w-full'
+                }`}
+              >
                 <div className="font-bold text-sm text-black/70">
                   Transactions Count vs Timeline
                 </div>
                 <div className="flex flex-col gap-2 items-end">
                   <div className="w-full h-[250px]">
-                    <AnalyticsAreaChart />
+                    <AnalyticsAreaChart data={mockAreaData} />
                   </div>
                   <div className="py-2 flex flex-col gap-2 w-[95%]">
                     <div className="w-full h-[100px]">
-                      <AnalyticsBarChart />
+                      <AnalyticsBarChart
+                        data={mockBarData}
+                        barColors={
+                          currentTransOption.id === 0
+                            ? ['#449975', '#E16D40']
+                            : ['#000']
+                        }
+                      />
                     </div>
                     <p className="font-bold text-center text-sm text-black/70">
                       Turnover
@@ -348,45 +431,66 @@ const AnalyticsContent = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-4 w-1/3">
-                <p className="font-bold text-sm text-black/70">
-                  By transaction types
-                </p>
-                <AnalyticsPieChart
-                  data={analyticPieChartData}
-                  totalTransaction={totalTransactionCount}
-                />
-              </div>
+              {currentTransOption.slug === 'All Transactions' && (
+                <div className="flex flex-col gap-4 w-1/3">
+                  <p className="font-bold text-sm text-black/70">
+                    By transaction types
+                  </p>
+                  <AnalyticsPieChart
+                    data={analyticPieChartData}
+                    totalTransaction={totalTransactionCount}
+                  />
+                </div>
+              )}
+              {currentTransOption.slug === 'Royalties' && (
+                <div className="flex flex-col gap-4 w-1/3">
+                  <p className="font-bold text-sm text-black/70">
+                    Royalties Earned (ETH) for Percentage groups
+                  </p>
+                  <div className="w-[400px] h-[400px]">
+                    <AnalyticsBarChart
+                      data={mockRoyalityBarData}
+                      barColors={[
+                        '#E16D40',
+                        '#6661A3',
+                        '#449975',
+                        '#F8D483',
+                        '#49AABF',
+                        '#BB5EB2',
+                      ]}
+                      colorable={true}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </Dutch0x.ContentOverviewWrapper>
-        <div className="table">
-          <AnalyticsTableLayout>
-            <AnalyticsTableControl
-              type="All Transaction"
-              title="All Transaction"
-              date={getAllTransactionDuration(allTransactions)}
-              resultNumber={2224}
-              options={[
-                {
-                  name: TransactionTypeEnum.PRIMARY,
-                  value: TransactionTypeEnum.PRIMARY,
-                },
-                {
-                  name: TransactionTypeEnum.SECONDARY,
-                  value: TransactionTypeEnum.SECONDARY,
-                },
-                {
-                  name: TransactionTypeEnum.TRANSFER,
-                  value: TransactionTypeEnum.TRANSFER,
-                },
-              ]}
-              isSearchable
-              isPaginatiable
-            />
-            <AnalyticsTransactionTable isIcon data={mockData} />
-          </AnalyticsTableLayout>
-        </div>
+        <AnalyticsTableLayout>
+          <AnalyticsTableControl
+            type="All Transaction"
+            title="All Transaction"
+            date={getAllTransactionDuration(allTransactions)}
+            resultNumber={2224}
+            options={[
+              {
+                name: TransactionTypeEnum.PRIMARY,
+                value: TransactionTypeEnum.PRIMARY,
+              },
+              {
+                name: TransactionTypeEnum.SECONDARY,
+                value: TransactionTypeEnum.SECONDARY,
+              },
+              {
+                name: TransactionTypeEnum.TRANSFER,
+                value: TransactionTypeEnum.TRANSFER,
+              },
+            ]}
+            isSearchable
+            isPaginatiable
+          />
+          <AnalyticsTransactionTable isIcon data={mockData} />
+        </AnalyticsTableLayout>
       </Dutch0x.AnalyticsContentMain>
     </Dutch0x.AnalyticsContentWrapper>
   );

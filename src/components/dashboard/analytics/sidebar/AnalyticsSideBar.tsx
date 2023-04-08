@@ -101,7 +101,10 @@ const options = [
 ];
 
 const AnalyticsSideBar = () => {
-  const [currentTrack, setCurrentTrack] = useState(0);
+  const [currentTrack, setCurrentTrack] = useState({
+    id: 0,
+    slug: 'Collections',
+  });
 
   const loopringService = new LoopringService();
   const dispatch = useAppDispatch();
@@ -116,15 +119,13 @@ const AnalyticsSideBar = () => {
     return { trackList };
   }, shallowEqual);
 
-  console.log({ userCollection });
-
   useEffect(() => {
     (async () => {
       try {
         if (!accountInfo) return;
 
         let list: TrackListI[] = [];
-        if (currentTrack === 0) {
+        if (currentTrack.id === 0) {
           list = userCollection.map((item, i) => {
             const isSelected = i === 0;
             return {
@@ -162,9 +163,7 @@ const AnalyticsSideBar = () => {
           }
         }
         dispatch(setTrackList(list));
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     })();
   }, [currentTrack]);
 
@@ -183,10 +182,10 @@ const AnalyticsSideBar = () => {
     );
   };
 
-  const handleOnTrackChange = (id: number) => {
-    dispatch(setTrackList([]));
-    setCurrentTrack(id);
-  };
+  // const handleOnTrackChange = (option: any) => {
+  //   dispatch(setTrackList([]));
+  //   setCurrentTrack(option);
+  // };
 
   return (
     <DutchC.SideBarWrapper>
@@ -221,10 +220,10 @@ const AnalyticsSideBar = () => {
               {options.map((option, i) => (
                 <OptionSwitch
                   key={i}
-                  currentOptionId={currentTrack}
+                  currentOption={currentTrack}
                   option={option}
-                  onCurrentOption={(id) => {
-                    setCurrentTrack(id);
+                  onCurrentOption={(option) => {
+                    setCurrentTrack(option);
                   }}
                 />
               ))}

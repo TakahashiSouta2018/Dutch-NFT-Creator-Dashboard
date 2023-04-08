@@ -10,41 +10,24 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const data = [
-  {
-    time: '1672099200',
-    uv: 510,
-  },
-  {
-    time: '1672099500',
-    uv: 600,
-  },
-  {
-    time: '1672100200',
-    uv: 575,
-  },
-  {
-    time: '1672101200',
-    uv: 530,
-  },
-  {
-    time: '1672102200',
-    uv: 580,
-  },
-  {
-    time: '1672103200',
-    uv: 610,
-  },
-  {
-    time: '1672104200',
-    uv: 580,
-  },
-];
-
 const convertDate = (timestamp: number) =>
   moment(new Date(timestamp * 1000)).format("MMM YY'");
 
-const AnalyticsAreaChart = () => {
+type AreaChartDataTypes = {
+  date: string;
+  uv: number;
+  pv?: number;
+};
+
+interface AreaChartProps {
+  data: AreaChartDataTypes[];
+}
+
+const dataColors = ['#449975', '#E16D40']; //not completed - should be changed dynamically.
+
+const AnalyticsAreaChart: React.FC<AreaChartProps> = ({ data }) => {
+  const dataKeys = Object.keys(data[0]).slice(1);
+
   return (
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart
@@ -57,10 +40,19 @@ const AnalyticsAreaChart = () => {
         }}
       >
         <defs>
-          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#62ba52" stopOpacity={1} />
-            <stop offset="95%" stopColor="#62ba52" stopOpacity={0.1} />
-          </linearGradient>
+          {dataKeys.map((key, i) => (
+            <linearGradient
+              key={i}
+              id={'color' + i}
+              x1="0"
+              y1="0"
+              x2="0"
+              y2="1"
+            >
+              <stop offset="5%" stopColor={dataColors[i]} stopOpacity={1} />
+              <stop offset="95%" stopColor={dataColors[i]} stopOpacity={0.1} />
+            </linearGradient>
+          ))}
         </defs>
         <CartesianGrid
           strokeDasharray="8 3"
@@ -68,7 +60,7 @@ const AnalyticsAreaChart = () => {
           vertical={false}
         />
         <XAxis
-          dataKey="time"
+          dataKey="date"
           tickFormatter={convertDate}
           tick={{
             stroke: 'black',
@@ -95,12 +87,15 @@ const AnalyticsAreaChart = () => {
           axisLine={{ stroke: '#000', opacity: '10%' }}
         />
         <Tooltip />
-        <Area
-          dataKey="uv"
-          stroke="#3caa2a"
-          strokeWidth={3}
-          fill="url(#colorUv)"
-        />
+        {dataKeys.map((key, i) => (
+          <Area
+            key={i}
+            dataKey={key}
+            stroke={dataColors[i]}
+            strokeWidth={3}
+            fill={`url(#color${i})`}
+          />
+        ))}
       </AreaChart>
     </ResponsiveContainer>
   );
