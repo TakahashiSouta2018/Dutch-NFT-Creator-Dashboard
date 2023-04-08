@@ -23,7 +23,10 @@ import { NFTModal } from '@/components/shared/nft-management/nft-modal';
 import * as Icons from '@/common/Icons';
 
 import * as DutchC from './styles';
-import ShortcutContextMenu from '@/components/shared/shortcut-context-menu';
+import {
+  ShortcutContextMenu,
+  ShortcutContextMenuItem,
+} from '@/components/shared/shortcut-context-menu';
 import { useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
 import NFTCard from '../cards/nft-card';
@@ -217,14 +220,26 @@ const NFTManagement: React.FC = () => {
                   <DutchC.NFTManagementSubToolRight>
                     {(currentWideFilter === 'ALL' ||
                       currentWideFilter === 'ARCHIVE') && (
-                      <ShortcutContextMenu
-                        position="BR"
-                        options={[
-                          'Find Holders',
-                          'Show Sales',
-                          'Move to Achieves',
-                        ]}
-                      />
+                      <ShortcutContextMenu position="BR">
+                        <ShortcutContextMenuItem
+                          text="Find Holders"
+                          onClick={() => {
+                            console.log('234567890');
+                          }}
+                        />
+                        <ShortcutContextMenuItem
+                          text="Show Sales"
+                          onClick={() => {
+                            console.log('234567890');
+                          }}
+                        />
+                        <ShortcutContextMenuItem
+                          text="Move to Achieves"
+                          onClick={() => {
+                            console.log('234567890');
+                          }}
+                        />
+                      </ShortcutContextMenu>
                     )}
 
                     {(currentWideFilter === 'ALL' ||

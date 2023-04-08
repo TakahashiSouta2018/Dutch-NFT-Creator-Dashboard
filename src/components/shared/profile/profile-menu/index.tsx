@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { useTheme } from 'next-themes';
 import { useDetectClickOutside } from 'react-detect-click-outside';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import {
+  setDraftNFTs,
+  setMintModalIsOpen,
+  setSelectedDraftNFTs,
+} from '@/components/create/ducks';
+import useNFTHook from '@/hooks/useNFTHook';
 
-import * as Icons from '@/common';
-import { Button } from '@/common';
+import * as Icons from '@/common/Icons';
+import MintingModal from '@/components/create/minting';
+import { Button, IconButton } from '@/common';
 
 import * as DutchC from './styles';
 
@@ -20,6 +28,12 @@ interface ProfileMenuProps {
   userName: string;
   avatar: StaticImageData | string;
   walletAddress: string;
+  walletBalance: {
+    eth: number;
+    dollar: number;
+  };
+  ethL1: number;
+  ethL2: number;
 }
 
 export const ProfileMenuButton: React.FC<ProfileMenuButtonProps> = ({
@@ -57,18 +71,26 @@ export const ProfileMenuButton: React.FC<ProfileMenuButtonProps> = ({
 };
 
 const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
-  const { theme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useAppDispatch();
+
   const handleClose = (e: Event) => {
-    e.stopPropagation();
-    e.preventDefault();
     setIsOpen(false);
+  };
+  const toggleTheme = useCallback(() => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  }, [setTheme, theme]);
+
+  const handleMintAll = () => {
+    dispatch(setMintModalIsOpen(true));
   };
 
   const ref = useDetectClickOutside({ onTriggered: handleClose });
 
   return (
     <DutchC.ProfileMenuWrapper ref={ref}>
+      <MintingModal className="!max-w-xl" />
       <ProfileMenuButton
         onToggle={() => {
           setIsOpen(!isOpen);
@@ -114,8 +136,12 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
         <DutchC.ProfileMenuWalletBalanceWrapper>
           Wallet Balance
           <DutchC.ProfileMenuWalletBalanceAmountWrapper>
-            <span className="truncate max-w-full text-right">0.000245 ETH</span>
-            <span className="truncate max-w-full text-right">$ 2.33 USD</span>
+            <span className="truncate max-w-full text-right">
+              {props.walletBalance.eth} ETH
+            </span>
+            <span className="truncate max-w-full text-right">
+              $ {props.walletBalance.dollar} USD
+            </span>
           </DutchC.ProfileMenuWalletBalanceAmountWrapper>
         </DutchC.ProfileMenuWalletBalanceWrapper>
         <DutchC.ProfileMenuDividerX />
@@ -126,36 +152,34 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
           </DutchC.ProfileMenuWalletBalanceAmountCategoryWrapper>
           <DutchC.ProfileMenuWalletBalanceAmountTextWrapper>
             <DutchC.ProfileMenuWalletBalanceAmountText>
-              0.000245 ETH
+              {props.ethL1} ETH
             </DutchC.ProfileMenuWalletBalanceAmountText>
             <DutchC.ProfileMenuWalletBalanceAmountText>
-              $ 2.33 USD
+              $ {props.ethL2} USD
             </DutchC.ProfileMenuWalletBalanceAmountText>
           </DutchC.ProfileMenuWalletBalanceAmountTextWrapper>
         </DutchC.ProfileMenuWalletBalanceWrapper>
         <DutchC.ProfileMenuDividerX />
         <DutchC.ProfileMenuAddFundsButtonWrapper>
-          <Button className="w-full">Add Funds</Button>
+          <Button
+            className="w-full"
+            onClick={() => {
+              setIsOpen(false);
+              handleMintAll();
+            }}
+          >
+            Add Funds
+          </Button>
         </DutchC.ProfileMenuAddFundsButtonWrapper>
         <DutchC.ProfileMenuFooterWrapper>
           <DutchC.ProfileMenuFooterThemeText>
             {theme} Theme
           </DutchC.ProfileMenuFooterThemeText>
-          {(theme === 'light' && (
-            <Icons.ISun
-              size="large"
-              variant="solid"
-              color={theme === 'light' ? 'black' : 'white'}
-              className="w-5 h-5"
-            />
-          )) || (
-            <Icons.IMoon
-              size="large"
-              variant="solid"
-              color={theme === 'light' ? 'black' : 'white'}
-              className="w-5 h-5"
-            />
-          )}
+          <IconButton
+            className="w-5 h-5"
+            icon={theme === 'light' ? 'sun' : 'moon'}
+            onClick={toggleTheme}
+          />
         </DutchC.ProfileMenuFooterWrapper>
       </DutchC.ProfileMenu>
     </DutchC.ProfileMenuWrapper>

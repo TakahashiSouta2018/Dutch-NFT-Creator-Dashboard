@@ -6,6 +6,7 @@ import CardIcon from '../../assets/card.svg';
 import ExchangeIcon from '../../assets/exchange.svg';
 import FriendsIcon from '../../assets/friends.svg';
 import GasIcon from '../../assets/gas.svg';
+import DiamondBlueIcon from '../../assets/diamond-blue.svg';
 import DiamondIcon from '../../assets/diamond.svg';
 import TriangleX2 from '../../assets/triangleX2.svg';
 import Fire from '../../assets/fire.svg';
@@ -703,7 +704,7 @@ export const IArrowUpRight: React.FC<IconProps> = ({
   );
 };
 
-export const IShoppingBag: React.FC<IconProps & { currentColor?: string }> = ({
+export const IShoppingBag: React.FC<IconProps> = ({
   variant = 'solid',
   size = 'medium',
   color = 'black',
@@ -756,6 +757,13 @@ export const ICustomFire: React.FC<{ currentColor: string }> = ({
   currentColor,
 }) => {
   return <Fire currentColor={currentColor} />;
+};
+
+export const ICustomDiamondBlue: React.FC<{
+  className?: string;
+  currentColor?: string;
+}> = ({ className = ' ', currentColor }) => {
+  return <DiamondBlueIcon className={className} currentColor={currentColor} />;
 };
 
 export const ICustomDiamond: React.FC<{
