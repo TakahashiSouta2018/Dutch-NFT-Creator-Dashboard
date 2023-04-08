@@ -7,7 +7,12 @@ import {
   AnalyticsTableControl,
   AnalyticsTransactionTable,
   AnalyticsTableLayout,
+  AnalyticsTopRankingTable,
 } from '@/components/dashboard/analytics/analytics-tables';
+import {
+  ShortcutContextMenu,
+  ShortcutContextMenuItem,
+} from '@/components/shared/shortcut-context-menu';
 
 const transOptions = [
   {
@@ -58,7 +63,7 @@ const dayOptions = [
 // mockdata for analytics-transaction table
 import MilkGif from '@/assets/milk.gif';
 
-const mockData = [
+const mockDataTransaction = [
   {
     type: 'transfer',
     from: 'AAA',
@@ -68,10 +73,14 @@ const mockData = [
       groupName: 'Inkheads',
       id: 'Yung Zuck',
     },
+    transferredTimes: 3,
     units: 3,
-    price: 0.00085,
-    gas: 0.000248,
+    royalityPercent: 30,
+    royality: 0.131,
+    price: 0.00082455,
+    gas: 0.00024862345453245,
     date: 'Mar 10, 20223  06:57:59',
+    link: '/home',
   },
   {
     type: 'nft-trade',
@@ -82,9 +91,13 @@ const mockData = [
       groupName: 'Inkheads',
       id: 'Yung Zuck',
     },
+    transferredTimes: 3,
+    royalityPercent: 50,
+    royality: 0.31,
     units: 3,
     gas: 0.000248,
     date: 'Mar 10, 20223  06:57:59',
+    link: '/home',
   },
   {
     type: 'primary-sale',
@@ -99,6 +112,7 @@ const mockData = [
     price: 0.00085,
     gas: 0.000248,
     date: 'Mar 10, 20223  06:57:59',
+    link: '/home',
   },
   {
     type: 'transfer',
@@ -110,8 +124,11 @@ const mockData = [
       id: 'Yung Zuck',
     },
     units: 3,
+    royalityPercent: 70,
+    royality: 0.131,
     gas: 0.000248,
     date: 'Mar 10, 20223  06:57:59',
+    link: '/home',
   },
   {
     type: 'nft-trade',
@@ -125,9 +142,47 @@ const mockData = [
     units: 3,
     price: 0.00085,
     date: 'Mar 10, 20223  06:57:59',
+    link: '/home',
   },
 ];
 
+const mockDataSellerTopRanking = [
+  {
+    seller: 'aaaa',
+    buyer: 'bbbb',
+    total: 33,
+    totalNFTsBuy: 11,
+    totalTradeVolume: 12.6727836423123,
+  },
+  {
+    seller: 'aaaa',
+    buyer: 'bbbb',
+    total: 33,
+    totalNFTsBuy: 11,
+    totalTradeVolume: 12.6727836423123,
+  },
+  {
+    seller: 'aaaa',
+    buyer: 'bbbb',
+    total: 33,
+    totalNFTsBuy: 11,
+    totalTradeVolume: 12.6727836423123,
+  },
+  {
+    seller: 'aaaa',
+    buyer: 'bbbb',
+    total: 33,
+    totalNFTsBuy: 11,
+    totalTradeVolume: 12.6727836423123,
+  },
+  {
+    seller: 'aaaa',
+    buyer: 'bbbb',
+    total: 33,
+    totalNFTsBuy: 11,
+    totalTradeVolume: 12.6727836423123,
+  },
+];
 const AnalyticsContent = () => {
   const [currentTransOption, setCurrentTransOption] = useState(0);
   const [currentDayOption, setCurrentDayOption] = useState(0);
@@ -180,11 +235,21 @@ const AnalyticsContent = () => {
             <div className="flex gap-6"></div>
           </div>
         </div>
+        <ShortcutContextMenu position="TL">
+          <ShortcutContextMenuItem
+            key="1"
+            text="aaa"
+            onClick={() => {
+              console.log('234567890');
+            }}
+          />
+        </ShortcutContextMenu>
         <div className="table">
+          {/* all transactions */}
           <AnalyticsTableLayout>
             <AnalyticsTableControl
               type="All Transaction"
-              title="All Transaction"
+              title="All Transactions"
               date="Mar 1, 2022 - Feb 28 2023"
               resultNumber={2224}
               options={[
@@ -192,10 +257,161 @@ const AnalyticsContent = () => {
                 { name: 'BB', value: 'bb' },
                 { name: 'CC', value: 'cc' },
               ]}
+              isDateShowable
+              isResultShowable
+              isSelectable
               isSearchable
               isPaginatiable
             />
-            <AnalyticsTransactionTable isIcon data={mockData} />
+            <AnalyticsTransactionTable
+              isAll
+              isFrom
+              isTo
+              isPrice
+              isGas
+              data={mockDataTransaction}
+            />
+          </AnalyticsTableLayout>
+          {/* trades */}
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl
+              type="NFT Trade"
+              title="All Trades"
+              date="Mar 1, 2022 - Feb 28 2023"
+              resultNumber={2224}
+              options={[
+                { name: 'AA', value: 'aa' },
+                { name: 'BB', value: 'bb' },
+                { name: 'CC', value: 'cc' },
+              ]}
+              isDateShowable
+              isResultShowable
+              isSelectable
+              isSearchable
+              isPaginatiable
+            />
+            <AnalyticsTransactionTable
+              isFrom
+              isTo
+              isRoyality
+              isPrice
+              isGas
+              data={mockDataTransaction}
+            />
+          </AnalyticsTableLayout>
+          {/* primary sales */}
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl
+              type="Primary Sale"
+              title="Primary Sales"
+              date="Mar 1, 2022 - Feb 28 2023"
+              resultNumber={2224}
+              options={[
+                { name: 'AA', value: 'aa' },
+                { name: 'BB', value: 'bb' },
+                { name: 'CC', value: 'cc' },
+              ]}
+              isDateShowable
+              isResultShowable
+              isSelectable
+              isSearchable
+              isPaginatiable
+            />
+            <AnalyticsTransactionTable
+              isTo
+              isPrice
+              isGas
+              data={mockDataTransaction}
+            />
+          </AnalyticsTableLayout>
+          {/* royalities */}
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl
+              type="Royality"
+              title="All Trades"
+              date="Mar 1, 2022 - Feb 28 2023"
+              resultNumber={2224}
+              options={[
+                { name: 'AA', value: 'aa' },
+                { name: 'BB', value: 'bb' },
+                { name: 'CC', value: 'cc' },
+              ]}
+              isDateShowable
+              isResultShowable
+              isSelectable
+              isSearchable
+              isPaginatiable
+            />
+            <AnalyticsTransactionTable
+              isTo
+              isRoyality
+              isPrice
+              data={mockDataTransaction}
+            />
+          </AnalyticsTableLayout>
+          {/* transfer */}
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl
+              type="Transfer"
+              title="All Trades"
+              date="Mar 1, 2022 - Feb 28 2023"
+              resultNumber={2224}
+              options={[
+                { name: 'AA', value: 'aa' },
+                { name: 'BB', value: 'bb' },
+                { name: 'CC', value: 'cc' },
+              ]}
+              isDateShowable
+              isResultShowable
+              isSelectable
+              isSearchable
+              isPaginatiable
+            />
+            <AnalyticsTransactionTable
+              isFrom
+              isTo
+              isGas
+              data={mockDataTransaction}
+            />
+          </AnalyticsTableLayout>
+          {/* Most transfered NFTs */}
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl
+              type="Transfer"
+              title="Most Transfered NFTs"
+              isRanked
+            />
+            <AnalyticsTransactionTable
+              isTransferredTimes
+              data={mockDataTransaction}
+            />
+          </AnalyticsTableLayout>
+          {/* Top Seller Ranking */}
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl title="Top Sellers" isRanked />
+            <AnalyticsTopRankingTable
+              isSeller
+              isTotal
+              data={mockDataSellerTopRanking}
+            />
+          </AnalyticsTableLayout>
+          {/* Top Buyer Ranking */}
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl title="Top Buyers" isRanked />
+            <AnalyticsTopRankingTable
+              isBuyer
+              isTotal
+              data={mockDataSellerTopRanking}
+            />
+          </AnalyticsTableLayout>
+          {/* Top Buyer (Total NFTs Buy) Ranking */}
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl title="Top Buyers" isRanked />
+            <AnalyticsTopRankingTable
+              isBuyer
+              isTotalNFTsBuy
+              data={mockDataSellerTopRanking}
+            />
           </AnalyticsTableLayout>
         </div>
       </div>

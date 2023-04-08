@@ -20,9 +20,11 @@ interface TransactactionTableProps {
   isGas?: boolean;
   isTransferredTimes?: boolean;
   data?: {
+    inout?: 'IN' | 'OUT';
     type: string;
     from?: string;
     to?: string;
+    Bought: number;
     nftId: {
       src: string | StaticImageData;
       groupName: string;

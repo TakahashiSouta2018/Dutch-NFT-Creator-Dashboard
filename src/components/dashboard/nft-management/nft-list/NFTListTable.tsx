@@ -1,6 +1,9 @@
 import { Table, THead, TBody, TR, TD } from '@/common';
 
-import ShortcutContextMenu from '@/components/shared/shortcut-context-menu';
+import {
+  ShortcutContextMenu,
+  ShortcutContextMenuItem,
+} from '@/components/shared/shortcut-context-menu';
 import { UserListI } from '@/types';
 import NFTMultiCard from '../../cards/nft-multi-card';
 import * as DutchC from './styles';
@@ -41,10 +44,26 @@ const NFTListTable: React.FC<{
               <TD>
                 <div className="flex justify-between items-center">
                   <p>Just remarks.</p>
-                  <ShortcutContextMenu
-                    options={['Find Holders', 'Show Sales', 'Move to Achieves']}
-                    position="BR"
-                  />
+                  <ShortcutContextMenu position="BR">
+                    <ShortcutContextMenuItem
+                      text="Find Holders"
+                      onClick={() => {
+                        console.log('234567890');
+                      }}
+                    />
+                    <ShortcutContextMenuItem
+                      text="Show Sales"
+                      onClick={() => {
+                        console.log('234567890');
+                      }}
+                    />
+                    <ShortcutContextMenuItem
+                      text="Move to Achieves"
+                      onClick={() => {
+                        console.log('234567890');
+                      }}
+                    />
+                  </ShortcutContextMenu>
                 </div>
               </TD>
             </TR>

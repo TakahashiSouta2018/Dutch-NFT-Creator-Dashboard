@@ -48,7 +48,12 @@ const ProfileMockData = {
   userName: 'Trithoere',
   avatar: AvatarIcon,
   walletAddress: '0x314cc0b8314cc0b8314cc0b8314cc0b8314cc0b8314cc0b8',
-  // ...
+  walletBalance: {
+    eth: 0.657894470985654,
+    dollar: 9.876987,
+  },
+  ethL1: 0.13123919,
+  ethL2: 0.3672,
 };
 
 const GasInfoMockData = {
@@ -70,7 +75,6 @@ const GasInfoMockData = {
       cash: 0.14,
     },
   ],
-  // ...
 };
 
 const Header: React.FC = () => {
@@ -79,7 +83,8 @@ const Header: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const [isRegister, setRegister] = useState(false);
 
-  const { isConnected } = useAppSelector((state) => state.webAppReducer);
+  // const { isConnected } = useAppSelector((state) => state.webAppReducer);
+  const isConnected = true;
 
   const dispatch = useAppDispatch();
 
@@ -150,9 +155,7 @@ const Header: React.FC = () => {
               <Icons.ICustomGas
                 currentColor={theme === 'light' ? 'black' : 'white'}
               />
-              <DutchC.HeaderGasPrice>
-                {isConnected ? '$0.14 USD' : ''}
-              </DutchC.HeaderGasPrice>
+              <DutchC.HeaderGasPrice>$0.14 USD</DutchC.HeaderGasPrice>
             </DutchC.HeaderGasWrapper>
           )}
 

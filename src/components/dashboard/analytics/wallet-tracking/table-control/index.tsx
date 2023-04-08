@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { SearchInput, CustomSelect, Pagination, Select } from '@/common';
+import {
+  SearchInput,
+  CustomSelect,
+  Pagination,
+  Select,
+  TextInput,
+} from '@/common';
 
 import * as DutchC from './styles';
 
@@ -22,9 +28,14 @@ interface TableControlProps {
   isRanked?: boolean;
   isResultShowable?: boolean;
   isDateShowable?: boolean;
+  isInvolvedCurrencies?: boolean;
+  isNFTsCount?: boolean;
 }
 
 const TableControl: React.FC<TableControlProps> = (p: TableControlProps) => {
+  const [isInvolvedChecked, setIsInvolvedChecked] = useState(false);
+  const [isNFTsCountChecked, setIsNFTsCountChecked] = useState(false);
+
   return (
     <>
       <DutchC.TransactionTableControlWrapper>
@@ -48,6 +59,32 @@ const TableControl: React.FC<TableControlProps> = (p: TableControlProps) => {
             <DutchC.TransactionTableControlDate>
               {p.date}
             </DutchC.TransactionTableControlDate>
+          )}
+          {p.isInvolvedCurrencies && (
+            <div className="flex items-center gap-x-1">
+              <input
+                type="checkbox"
+                checked={isInvolvedChecked}
+                onChange={() => {
+                  setIsInvolvedChecked(!isInvolvedChecked);
+                }}
+                name="isInvolved"
+              />
+              <label htmlFor="isInvolved">Involved Currencies</label>
+            </div>
+          )}
+          {p.isNFTsCount && (
+            <div className="flex items-center gap-x-1">
+              <input
+                type="checkbox"
+                checked={isNFTsCountChecked}
+                onChange={() => {
+                  setIsNFTsCountChecked(!isNFTsCountChecked);
+                }}
+                name="isNFTsCountChecked"
+              />
+              <label htmlFor="isNFTsCountChecked">NFTs Count</label>
+            </div>
           )}
         </DutchC.TransactionTableControlLeft>
         <DutchC.TransactionTableControlRight>

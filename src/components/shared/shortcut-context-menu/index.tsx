@@ -10,16 +10,33 @@ import * as DutchC from './styles';
 
 interface ShorcutContextMenuProps {
   position: PositionType;
-  options: string[];
-  onSelect?: () => void;
+  children: React.ReactNode;
 }
 
-const ShortcutContextMenu: React.FC<ShorcutContextMenuProps> = ({
+export const ShortcutContextMenuItem: React.FC<{
+  className?: string;
+  text: string;
+  key?: any;
+  onClick?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+}> = ({ className, text, key, onClick }) => {
+  return (
+    <DutchC.ShortcutContextMenuListItem
+      className={className}
+      key={key}
+      onClick={onClick}
+    >
+      {text}
+    </DutchC.ShortcutContextMenuListItem>
+  );
+};
+
+export const ShortcutContextMenu: React.FC<ShorcutContextMenuProps> = ({
   position = 'TR',
-  options,
-  onSelect,
+  children,
 }: ShorcutContextMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme } = useTheme();
+
   const handleToggle = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
     setIsOpen(!isOpen);
@@ -28,7 +45,6 @@ const ShortcutContextMenu: React.FC<ShorcutContextMenuProps> = ({
     e.stopPropagation();
     setIsOpen(false);
   }, []);
-  const { theme } = useTheme();
 
   const ref = useDetectClickOutside({ onTriggered: handleClose });
 
@@ -45,15 +61,9 @@ const ShortcutContextMenu: React.FC<ShorcutContextMenuProps> = ({
       </DutchC.ShortcutContextMenuButton>
       {isOpen && (
         <DutchC.ShortcutContextMenuList position={position}>
-          {options.map((option, index) => (
-            <DutchC.ShortcutContextMenuListItem key={index}>
-              {option}
-            </DutchC.ShortcutContextMenuListItem>
-          ))}
+          {children}
         </DutchC.ShortcutContextMenuList>
       )}
     </DutchC.ShortcutContextMenuWrapper>
   );
 };
-
-export default ShortcutContextMenu;
