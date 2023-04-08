@@ -111,11 +111,6 @@ const TransactionTable: React.FC<TransactactionTableProps> = ({
                     <IconSelector
                       type={item.type as IType}
                       currentColor={theme === 'light' ? 'black' : 'white'}
-                      // className={
-                      //   theme === 'light'
-                      //     ? '!text-black/100'
-                      //     : '!text-white/100'
-                      // }
                     />
                   </TD>
                   <TD>{item?.type}</TD>
