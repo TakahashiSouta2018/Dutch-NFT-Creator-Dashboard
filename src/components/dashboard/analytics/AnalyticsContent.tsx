@@ -450,7 +450,10 @@ const AnalyticsContent = () => {
                 </Dutch0x.ChartsMainTitle>
                 <Dutch0x.ChartsWrapper>
                   <div className="w-full h-[250px]">
-                    <AnalyticsAreaChart data={mockAreaData} />
+                    <AnalyticsAreaChart
+                      data={mockAreaData}
+                      dayOption={currentDayOption.slug}
+                    />
                   </div>
                   <Dutch0x.BarChartsWrapper>
                     <div className="w-full h-[100px]">

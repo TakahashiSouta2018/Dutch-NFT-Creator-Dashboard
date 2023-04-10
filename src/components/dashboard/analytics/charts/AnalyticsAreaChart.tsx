@@ -10,8 +10,15 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const convertDate = (timestamp: number) =>
-  moment(new Date(timestamp * 1000)).format("MMM YY'");
+const convertDate = (dayOption: string) => (timestamp: number) => {
+  let date = moment(new Date(timestamp * 1000));
+  if (dayOption === '7D') return date.format('DD');
+  if (dayOption === '1M') return date.format('DD');
+  if (dayOption === '6M') return date.format('MMM');
+  if (dayOption === '1Y') return date.format('MMM');
+
+  return date.format('YYYY');
+};
 
 type AreaChartDataTypes = {
   date: string;
@@ -21,11 +28,12 @@ type AreaChartDataTypes = {
 
 interface AreaChartProps {
   data: AreaChartDataTypes[];
+  dayOption: string;
 }
 
 const dataColors = ['#449975', '#E16D40']; //not completed - should be changed dynamically.
 
-const AnalyticsAreaChart: React.FC<AreaChartProps> = ({ data }) => {
+const AnalyticsAreaChart: React.FC<AreaChartProps> = ({ data, dayOption }) => {
   const dataKeys = Object.keys(data[0]).slice(1);
 
   return (
@@ -61,25 +69,16 @@ const AnalyticsAreaChart: React.FC<AreaChartProps> = ({ data }) => {
         />
         <XAxis
           dataKey="date"
-          tickFormatter={convertDate}
+          tickFormatter={convertDate(dayOption)}
           tick={{
             stroke: 'black',
             opacity: '70%',
             strokeWidth: 1,
             transform: 'translate(0, 10)',
           }}
-          ticks={[
-            '1451610000',
-            '1483232400',
-            '1483232400',
-            '1483232400',
-            '1483232400',
-            '1483232400',
-            '1483232400',
-            '1483232400',
-          ]}
-          tickSize={0}
           axisLine={{ stroke: '#000', opacity: '10%' }}
+          domain={['auto', 'auto']}
+          interval={Math.ceil(data.length / 6) - 1}
           padding={{ left: 20, right: 20 }}
         />
         <YAxis
