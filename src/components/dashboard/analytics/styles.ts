@@ -58,12 +58,16 @@ export const ChartsMainTitle = styled.div.attrs({
   className: 'font-bold text-sm text-black/70',
 })``;
 
-export const ChartsWrapper = styled.div.attrs({
-  className: 'font-bold text-sm text-black/70',
-})``;
-
 export const ContentOverviewChartsRight = styled.div.attrs({
   className: 'flex flex-col gap-4 w-1/3',
+})``;
+
+export const ChartsWrapper = styled.div.attrs({
+  className: ' flex flex-col items-end',
+})``;
+
+export const AreaChartsWrapper = styled.div.attrs({
+  className: 'w-full h-[250px]',
 })``;
 
 export const BarChartsWrapper = styled.div.attrs({

@@ -449,12 +449,12 @@ const AnalyticsContent = () => {
                   Transactions Count vs Timeline
                 </Dutch0x.ChartsMainTitle>
                 <Dutch0x.ChartsWrapper>
-                  <div className="w-full h-[250px]">
+                  <Dutch0x.AreaChartsWrapper>
                     <AnalyticsAreaChart
                       data={mockAreaData}
                       dayOption={currentDayOption.slug}
                     />
-                  </div>
+                  </Dutch0x.AreaChartsWrapper>
                   <Dutch0x.BarChartsWrapper>
                     <div className="w-full h-[100px]">
                       <AnalyticsBarChart
