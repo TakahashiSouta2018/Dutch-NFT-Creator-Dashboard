@@ -155,6 +155,9 @@ const Header: React.FC = () => {
               <Icons.ICustomGas
                 currentColor={theme === 'light' ? 'black' : 'white'}
               />
+              <div className={theme === 'light' ? 'text-black' : 'text-white'}>
+                $0.14 USD
+              </div>
             </DutchC.HeaderGasWrapper>
           )}
 
