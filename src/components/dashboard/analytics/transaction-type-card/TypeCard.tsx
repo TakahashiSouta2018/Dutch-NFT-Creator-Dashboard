@@ -1,5 +1,7 @@
 import React from 'react';
 
+import * as Dutch0x from './styles';
+
 interface TypeCardProps {
   color: string;
   title: string;
@@ -8,13 +10,13 @@ interface TypeCardProps {
 
 const TypeCard: React.FC<TypeCardProps> = ({ color, title, quantity }) => {
   return (
-    <div className="flex gap-4">
-      <div className={`rounded-full w-3 h-3 mt-1 bg-[${color}]`} />
+    <Dutch0x.TypeCardWrapper>
+      <Dutch0x.CardCircleIcon className={`bg-[${color}]`} />
       <div className="text-sm">
         <p className="font-bold">{title}</p>
         <p>{quantity}</p>
       </div>
-    </div>
+    </Dutch0x.TypeCardWrapper>
   );
 };
 

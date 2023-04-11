@@ -64,7 +64,6 @@ const AnalyticsBarChart: React.FC<BarChartProps> = ({
   colorable,
 }) => {
   const dataKeys = Object.keys(data[0]).slice(1);
-  console.error(dataKeys);
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart

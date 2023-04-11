@@ -83,8 +83,7 @@ const Header: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const [isRegister, setRegister] = useState(false);
 
-  // const { isConnected } = useAppSelector((state) => state.webAppReducer);
-  const isConnected = true;
+  const { isConnected } = useAppSelector((state) => state.webAppReducer);
 
   const dispatch = useAppDispatch();
 
@@ -124,6 +123,7 @@ const Header: React.FC = () => {
         />
 
         <DutchC.Nav>
+          {!isConnected && <DutchC.NavCover />}
           {menus.map((menu) => (
             <NavLink
               key={menu.slug}
@@ -155,7 +155,9 @@ const Header: React.FC = () => {
               <Icons.ICustomGas
                 currentColor={theme === 'light' ? 'black' : 'white'}
               />
-              <DutchC.HeaderGasPrice>$0.14 USD</DutchC.HeaderGasPrice>
+              <div className={theme === 'light' ? 'text-black' : 'text-white'}>
+                $0.14 USD
+              </div>
             </DutchC.HeaderGasWrapper>
           )}
 

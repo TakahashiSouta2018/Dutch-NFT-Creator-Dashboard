@@ -28,7 +28,7 @@ import {
 } from '@/helpers';
 
 import * as Dutch0x from './styles';
-import { BarChart } from 'recharts';
+import { WalletTracking } from './WalletTracking';
 
 const transOptions = [
   {
@@ -78,7 +78,7 @@ const dayOptions = [
 
 const mockAreaDataOne = Array.from(Array(6), (_, id) => {
   return {
-    date: '1672104200',
+    date: `1483232400`,
     uv: Math.floor(50 * Math.random()) + 500,
     pv: Math.floor(50 * Math.random()) + 500,
   };
@@ -149,6 +149,8 @@ const AnalyticsContent = () => {
   const [lrcTurnOver, setLrcTurnOver] = useState(0);
   const [lrcTotalRoyalty, setLrcTotalRoyalty] = useState(0);
   const [ethTotalRoyalty, setEthTotalRoyalty] = useState(0);
+  const [currentTracking, setCurrentTracking] = useState(0);
+
   const [nftIds, setNftIds] = useState<string[]>([]);
   const [analyticPieChartData, setAnalyticPieChartData] = useState<
     AnalyticPieChartDataI[]
@@ -245,151 +247,165 @@ const AnalyticsContent = () => {
 
   return (
     <Dutch0x.AnalyticsContentWrapper>
-      <AnalyticsSideBar />
+      <AnalyticsSideBar
+        onCurrentTracking={(currentValue: string) => {
+          setCurrentTracking(Number(currentValue));
+        }}
+      />
       <Dutch0x.AnalyticsContentMain>
-        <Dutch0x.ContentSwitch>
-          <Dutch0x.ContentSwitchInner>
-            <Dutch0x.TransactionSwitchWrapper>
-              {transOptions.map((option, i) => (
-                <OptionSwitch
-                  key={i}
-                  currentOption={currentTransOption}
-                  option={option}
-                  onCurrentOption={(option) => {
-                    setCurrentTransOption(option);
-                  }}
-                />
-              ))}
-            </Dutch0x.TransactionSwitchWrapper>
-            <Dutch0x.DaySwitchWrapper>
-              <div className="pr-1 flex gap-1">
-                {dayOptions.map((option, i) => (
-                  <OptionSwitch
-                    key={i}
-                    currentOption={currentDayOption}
-                    option={option}
-                    onCurrentOption={(option) => {
-                      setCurrentDayOption(option);
-                    }}
-                  />
-                ))}
-              </div>
-              <Accordion>Custom</Accordion>
-            </Dutch0x.DaySwitchWrapper>
-          </Dutch0x.ContentSwitchInner>
-          <div className="flex gap-2 items-center">
-            <OutlineButton size="small">Inkheads</OutlineButton>
-            <p className="text-xs text-black/70">
-              The tracking shown is according to the timeline selected.
-            </p>
-          </div>
-        </Dutch0x.ContentSwitch>
-        <Dutch0x.ContentOverviewWrapper>
-          <div className="font-bold text-black">Overview</div>
-          <div className="flex flex-col gap-4">
-            <div className="flex">
-              <AnalyticsCard
-                title={currentTransOption.slug + ' Count'}
-                transActionsCount={totalTransactionCount}
-                percentage={5.74}
-              />
-              {currentTransOption.id > 2 ? (
-                <></>
-              ) : (
-                <AnalyticsCard
-                  title={
-                    currentTransOption.slug === 'All Transactions'
-                      ? 'Turnover'
-                      : currentTransOption.slug + ' Volume'
-                  }
-                  eth={ethTurnOver}
-                  lrc={lrcTurnOver}
-                  usd={1146.91}
-                  percentage={-3.7}
-                />
-              )}
-              {currentTransOption.slug === 'Primary Sales' ? (
-                <></>
-              ) : (
-                <AnalyticsCard
-                  title={'Royalties Earned'}
-                  eth={ethTotalRoyalty}
-                  lrc={lrcTotalRoyalty}
-                  usd={431.86}
-                  percentage={5.1}
-                />
-              )}
-            </div>
-            <div className="flex gap-6">
-              <div
-                className={`flex flex-col gap-2 ${
-                  currentTransOption.id === 0 || currentTransOption.id === 3
-                    ? 'w-2/3'
-                    : 'w-full'
-                }`}
-              >
-                <div className="font-bold text-sm text-black/70">
-                  Transactions Count vs Timeline
-                </div>
-                <div className="flex flex-col gap-2 items-end">
-                  <div className="w-full h-[250px]">
-                    <AnalyticsAreaChart data={mockAreaData} />
-                  </div>
-                  <div className="py-2 flex flex-col gap-2 w-[95%]">
-                    <div className="w-full h-[100px]">
-                      <AnalyticsBarChart
-                        data={mockBarData}
-                        barColors={
-                          currentTransOption.id === 0
-                            ? ['#449975', '#E16D40']
-                            : ['#000']
-                        }
-                      />
-                    </div>
-                    <p className="font-bold text-center text-sm text-black/70">
-                      Turnover
-                    </p>
-                  </div>
-                </div>
-              </div>
-              {currentTransOption.slug === 'All Transactions' && (
-                <div className="flex flex-col gap-4 w-1/3">
-                  <p className="font-bold text-sm text-black/70">
-                    By transaction types
-                  </p>
-                  <AnalyticsPieChart
-                    data={analyticPieChartData}
-                    totalTransaction={totalTransactionCount}
-                  />
-                </div>
-              )}
-              {currentTransOption.slug === 'Royalties' && (
-                <div className="flex flex-col gap-4 w-1/3">
-                  <p className="font-bold text-sm text-black/70">
-                    Royalties Earned (ETH) for Percentage groups
-                  </p>
-                  <div className="w-[400px] h-[400px]">
-                    <AnalyticsBarChart
-                      data={mockRoyalityBarData}
-                      barColors={[
-                        '#E16D40',
-                        '#6661A3',
-                        '#449975',
-                        '#F8D483',
-                        '#49AABF',
-                        '#BB5EB2',
-                      ]}
-                      colorable={true}
+        {currentTracking ? (
+          <WalletTracking />
+        ) : (
+          <div className="nft-tracking">
+            <Dutch0x.ContentSwitch>
+              <Dutch0x.ContentSwitchInner>
+                <Dutch0x.TransactionSwitchWrapper>
+                  {transOptions.map((option, i) => (
+                    <OptionSwitch
+                      key={i}
+                      currentOption={currentTransOption}
+                      option={option}
+                      onCurrentOption={(option) => {
+                        setCurrentTransOption(option);
+                      }}
                     />
+                  ))}
+                </Dutch0x.TransactionSwitchWrapper>
+                <Dutch0x.DaySwitchWrapper>
+                  <div className="pr-1 flex gap-1">
+                    {dayOptions.map((option, i) => (
+                      <OptionSwitch
+                        key={i}
+                        currentOption={currentDayOption}
+                        option={option}
+                        onCurrentOption={(option) => {
+                          setCurrentDayOption(option);
+                        }}
+                      />
+                    ))}
                   </div>
-                </div>
-              )}
+                  <Accordion>Custom</Accordion>
+                </Dutch0x.DaySwitchWrapper>
+              </Dutch0x.ContentSwitchInner>
+              <Dutch0x.ContentIdkHead>
+                <OutlineButton size="small">Inkheads</OutlineButton>
+                <p className="text-xs text-black/70">
+                  The tracking shown is according to the timeline selected.
+                </p>
+              </Dutch0x.ContentIdkHead>
+            </Dutch0x.ContentSwitch>
+            <Dutch0x.ContentOverviewWrapper>
+              <div className="font-bold text-black">Overview</div>
+              <Dutch0x.ContentOverviewInner>
+                <Dutch0x.ContentOverviewCards>
+                  <AnalyticsCard
+                    title={currentTransOption.slug + ' Count'}
+                    transActionsCount={totalTransactionCount}
+                    percentage={5.74}
+                  />
+                  {currentTransOption.id > 2 ? (
+                    <></>
+                  ) : (
+                    <AnalyticsCard
+                      title={
+                        currentTransOption.slug === 'All Transactions'
+                          ? 'Turnover'
+                          : currentTransOption.slug + ' Volume'
+                      }
+                      eth={ethTurnOver}
+                      lrc={lrcTurnOver}
+                      usd={1146.91}
+                      percentage={-3.7}
+                    />
+                  )}
+                  {currentTransOption.slug === 'Primary Sales' ? (
+                    <></>
+                  ) : (
+                    <AnalyticsCard
+                      title={'Royalties Earned'}
+                      eth={ethTotalRoyalty}
+                      lrc={lrcTotalRoyalty}
+                      usd={431.86}
+                      percentage={5.1}
+                    />
+                  )}
+                </Dutch0x.ContentOverviewCards>
+                <Dutch0x.ContentOverviewCharts>
+                  <Dutch0x.ContentOverviewChartsMain
+                    className={
+                      currentTransOption.id === 0 || currentTransOption.id === 3
+                        ? 'w-2/3'
+                        : 'w-full'
+                    }
+                  >
+                    <Dutch0x.ChartsMainTitle>
+                      Transactions Count vs Timeline
+                    </Dutch0x.ChartsMainTitle>
+                    <Dutch0x.ChartsWrapper>
+                      <Dutch0x.AreaChartsWrapper>
+                        <AnalyticsAreaChart
+                          data={mockAreaData}
+                          dayOption={currentDayOption.slug}
+                        />
+                      </Dutch0x.AreaChartsWrapper>
+                      <Dutch0x.BarChartsWrapper>
+                        <div className="w-full h-[100px]">
+                          <AnalyticsBarChart
+                            data={mockBarData}
+                            barColors={
+                              currentTransOption.id === 0
+                                ? ['#449975', '#E16D40']
+                                : ['#000']
+                            }
+                          />
+                        </div>
+                        <p className="font-bold text-center text-sm text-black/70">
+                          Turnover
+                        </p>
+                      </Dutch0x.BarChartsWrapper>
+                    </Dutch0x.ChartsWrapper>
+                  </Dutch0x.ContentOverviewChartsMain>
+                  {currentTransOption.slug === 'All Transactions' && (
+                    <Dutch0x.ContentOverviewChartsRight>
+                      <p className="font-bold text-sm text-black/70">
+                        By transaction types
+                      </p>
+                      <AnalyticsPieChart
+                        data={analyticPieChartData}
+                        totalTransaction={totalTransactionCount}
+                      />
+                    </Dutch0x.ContentOverviewChartsRight>
+                  )}
+                  {currentTransOption.slug === 'Royalties' && (
+                    <Dutch0x.ContentOverviewChartsRight>
+                      <p className="font-bold text-sm text-black/70">
+                        Royalties Earned (ETH) for Percentage groups
+                      </p>
+                      <div className="w-[400px] h-[400px]">
+                        <AnalyticsBarChart
+                          data={mockRoyalityBarData}
+                          barColors={[
+                            '#E16D40',
+                            '#6661A3',
+                            '#449975',
+                            '#F8D483',
+                            '#49AABF',
+                            '#BB5EB2',
+                          ]}
+                          colorable={true}
+                        />
+                      </div>
+                    </Dutch0x.ContentOverviewChartsRight>
+                  )}
+                </Dutch0x.ContentOverviewCharts>
+              </Dutch0x.ContentOverviewInner>
+            </Dutch0x.ContentOverviewWrapper>
+
+            <div className="table w-full">
+              <AnalyticsTableSelector currentTransOption={currentTransOption} />
             </div>
           </div>
-        </Dutch0x.ContentOverviewWrapper>
-        <div className="table">
-          <AnalyticsTableSelector currentTransOption={currentTransOption} />
-        </div>
+        )}
       </Dutch0x.AnalyticsContentMain>
     </Dutch0x.AnalyticsContentWrapper>
   );

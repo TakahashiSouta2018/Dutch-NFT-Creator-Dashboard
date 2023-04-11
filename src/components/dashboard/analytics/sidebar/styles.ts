@@ -13,7 +13,7 @@ export const SideBarMain = styled.div.attrs({
 })``;
 
 export const SideBarHeader = styled.div.attrs({
-  className: 'flex gap-4',
+  className: 'flex justify-between',
 })``;
 
 export const SideBarHeaderText = styled.div.attrs({

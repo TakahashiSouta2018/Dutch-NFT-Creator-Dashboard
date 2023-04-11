@@ -27,8 +27,7 @@ export const NFTUnitBadge = styled.div.attrs({
 })``;
 
 export const NFTSelectedMark = styled.div.attrs({
-  className:
-    'absolute top-4 left-4 flex items-center justify-center w-5 h-5 rounded-full',
+  className: 'border',
 })``;
 
 export const NFTFooter = styled.div.attrs({

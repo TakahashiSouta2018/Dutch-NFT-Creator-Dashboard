@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { IArrowTrendingUp, IArrowTrendingDown } from '@/common';
 
+import * as Dutch0x from './styles';
+
 interface AnalyticsCardProps {
   title: string;
   transActionsCount?: number;
@@ -28,7 +30,7 @@ const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
   }, [percentage]);
 
   return (
-    <div className="card px-4 py-3 flex-1 border border-black/10 flex flex-col gap-2">
+    <Dutch0x.AnalyticsCardWrapper>
       <p className="text-sm text-black/50">{title}</p>
       {title === 'Transactions Count' ? (
         <div className="flex-grow font-black">{transActionsCount}</div>
@@ -38,17 +40,20 @@ const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
             <div className=" font-black w-[50px] ">ETH</div>
             <div>{eth}</div>
           </div>
-          <div className="flex gap-1">
-            <div className=" font-black w-[50px] ">LRC</div>
-            <div>{lrc}</div>
-          </div>
+          {!!lrc && (
+            <div className="flex gap-1">
+              <div className=" font-black w-[50px] ">LRC</div>
+              <div>{lrc}</div>
+            </div>
+          )}
+
           <div className="flex gap-1">
             <div className=" font-black w-[50px] ">USD</div>
             <div>{usd}</div>
           </div>
         </div>
       )}
-      <div className="flex gap-1 text-sm items-center">
+      <Dutch0x.AnalyticsCardTrending>
         {isArrorDown ? (
           <IArrowTrendingDown color="accent-red" />
         ) : (
@@ -62,8 +67,8 @@ const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
           {percentage}%
         </p>
         <p className="text-black">than last year</p>
-      </div>
-    </div>
+      </Dutch0x.AnalyticsCardTrending>
+    </Dutch0x.AnalyticsCardWrapper>
   );
 };
 
