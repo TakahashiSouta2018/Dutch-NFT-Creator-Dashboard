@@ -1,8 +1,8 @@
 import React from 'react';
-import MobileLogo from '../../assets/mobile_logo.svg';
-import MobileDisplay from '../../assets/mobile_display.svg';
-import MobileTextA from '../../assets/mobile_text_A.svg';
-import MobileReload from '../../assets/mobile_reload.svg';
+import MobileLogo from '../../../assets/mobile_logo.svg';
+import MobileDisplay from '../../../assets/mobile_display.svg';
+import MobileTextA from '../../../assets/mobile_text_A.svg';
+import MobileReload from '../../../assets/mobile_reload.svg';
 import { useTheme } from 'next-themes';
 
 import * as Icons from '@/common/Icons';

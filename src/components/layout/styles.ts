@@ -28,7 +28,11 @@ export const HeaderInner = styled.div.attrs({
 export const Logo = styled(Image).attrs({ className: '' })``;
 
 export const Nav = styled.nav.attrs({
-  className: 'flex items-center space-x-8 px-8',
+  className: 'relative flex items-center space-x-8 px-8',
+})``;
+
+export const NavCover = styled.nav.attrs({
+  className: 'absolute top-0 left-0 w-full h-full z-10',
 })``;
 
 export const ComingSoon = styled.span.attrs({

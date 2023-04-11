@@ -73,7 +73,7 @@ const NFTCard: React.FC<NFTCardProps> = ({
           alt={image}
           width={230}
           height={230}
-          className="aspect-square w-60 h-60"
+          className="aspect-square"
         />
       )}
       <DutchC.NFTFooter>
