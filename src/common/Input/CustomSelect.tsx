@@ -36,13 +36,6 @@ const CustomSelect: React.FC<CustomSelectProps> = (p: CustomSelectProps) => {
         {p?.label && p.label + ':'}
       </DutchC.CustomSelectLabel>
       <DutchC.CustomSelect onSelect={p.onSelect}>
-        <DutchC.CustomSelectOption
-          key={p?.selectedOption && p.selectedOption.name}
-          value={p?.selectedOption && p.selectedOption.value}
-          className="text-black font-semibold"
-        >
-          {p?.selectedOption && p.selectedOption.name}
-        </DutchC.CustomSelectOption>
         {p.options?.map((item) => (
           <DutchC.CustomSelectOption
             key={item.name}
