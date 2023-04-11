@@ -40,10 +40,13 @@ const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
             <div className=" font-black w-[50px] ">ETH</div>
             <div>{eth}</div>
           </div>
-          <div className="flex gap-1">
-            <div className=" font-black w-[50px] ">LRC</div>
-            <div>{lrc}</div>
-          </div>
+          {!!lrc && (
+            <div className="flex gap-1">
+              <div className=" font-black w-[50px] ">LRC</div>
+              <div>{lrc}</div>
+            </div>
+          )}
+
           <div className="flex gap-1">
             <div className=" font-black w-[50px] ">USD</div>
             <div>{usd}</div>

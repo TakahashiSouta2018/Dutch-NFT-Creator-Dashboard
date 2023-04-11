@@ -38,7 +38,7 @@ import {
 } from '@/helpers';
 
 import * as Dutch0x from './styles';
-import { BarChart } from 'recharts';
+import { WalletTracking } from './WalletTracking';
 
 const transOptions = [
   {
@@ -266,6 +266,8 @@ const AnalyticsContent = () => {
   const [lrcTurnOver, setLrcTurnOver] = useState(0);
   const [lrcTotalRoyalty, setLrcTotalRoyalty] = useState(0);
   const [ethTotalRoyalty, setEthTotalRoyalty] = useState(0);
+  const [currentTracking, setCurrentTracking] = useState(0);
+
   const [nftIds, setNftIds] = useState<string[]>([]);
   const [analyticPieChartData, setAnalyticPieChartData] = useState<
     AnalyticPieChartDataI[]
@@ -362,330 +364,332 @@ const AnalyticsContent = () => {
 
   return (
     <Dutch0x.AnalyticsContentWrapper>
-      <AnalyticsSideBar />
+      <AnalyticsSideBar
+        onCurrentTracking={(currentValue: string) => {
+          setCurrentTracking(Number(currentValue));
+        }}
+      />
       <Dutch0x.AnalyticsContentMain>
-        <Dutch0x.ContentSwitch>
-          <Dutch0x.ContentSwitchInner>
-            <Dutch0x.TransactionSwitchWrapper>
-              {transOptions.map((option, i) => (
-                <OptionSwitch
-                  key={i}
-                  currentOption={currentTransOption}
-                  option={option}
-                  onCurrentOption={(option) => {
-                    setCurrentTransOption(option);
-                  }}
-                />
-              ))}
-            </Dutch0x.TransactionSwitchWrapper>
-            <Dutch0x.DaySwitchWrapper>
-              <div className="pr-1 flex gap-1">
-                {dayOptions.map((option, i) => (
-                  <OptionSwitch
-                    key={i}
-                    currentOption={currentDayOption}
-                    option={option}
-                    onCurrentOption={(option) => {
-                      setCurrentDayOption(option);
-                    }}
-                  />
-                ))}
-              </div>
-              <Accordion>Custom</Accordion>
-            </Dutch0x.DaySwitchWrapper>
-          </Dutch0x.ContentSwitchInner>
-          <Dutch0x.ContentIdkHead>
-            <OutlineButton size="small">Inkheads</OutlineButton>
-            <p className="text-xs text-black/70">
-              The tracking shown is according to the timeline selected.
-            </p>
-          </Dutch0x.ContentIdkHead>
-        </Dutch0x.ContentSwitch>
-        <Dutch0x.ContentOverviewWrapper>
-          <div className="font-bold text-black">Overview</div>
-          <Dutch0x.ContentOverviewInner>
-            <Dutch0x.ContentOverviewCards>
-              <AnalyticsCard
-                title={currentTransOption.slug + ' Count'}
-                transActionsCount={totalTransactionCount}
-                percentage={5.74}
-              />
-              {currentTransOption.id > 2 ? (
-                <></>
-              ) : (
-                <AnalyticsCard
-                  title={
-                    currentTransOption.slug === 'All Transactions'
-                      ? 'Turnover'
-                      : currentTransOption.slug + ' Volume'
-                  }
-                  eth={ethTurnOver}
-                  lrc={lrcTurnOver}
-                  usd={1146.91}
-                  percentage={-3.7}
-                />
-              )}
-              {currentTransOption.slug === 'Primary Sales' ? (
-                <></>
-              ) : (
-                <AnalyticsCard
-                  title={'Royalties Earned'}
-                  eth={ethTotalRoyalty}
-                  lrc={lrcTotalRoyalty}
-                  usd={431.86}
-                  percentage={5.1}
-                />
-              )}
-            </Dutch0x.ContentOverviewCards>
-            <Dutch0x.ContentOverviewCharts>
-              <Dutch0x.ContentOverviewChartsMain
-                className={
-                  currentTransOption.id === 0 || currentTransOption.id === 3
-                    ? 'w-2/3'
-                    : 'w-full'
-                }
-              >
-                <Dutch0x.ChartsMainTitle>
-                  Transactions Count vs Timeline
-                </Dutch0x.ChartsMainTitle>
-                <Dutch0x.ChartsWrapper>
-                  <Dutch0x.AreaChartsWrapper>
-                    <AnalyticsAreaChart
-                      data={mockAreaData}
-                      dayOption={currentDayOption.slug}
+        {currentTracking ? (
+          <WalletTracking />
+        ) : (
+          <div className="nft-tracking">
+            <Dutch0x.ContentSwitch>
+              <Dutch0x.ContentSwitchInner>
+                <Dutch0x.TransactionSwitchWrapper>
+                  {transOptions.map((option, i) => (
+                    <OptionSwitch
+                      key={i}
+                      currentOption={currentTransOption}
+                      option={option}
+                      onCurrentOption={(option) => {
+                        setCurrentTransOption(option);
+                      }}
                     />
-                  </Dutch0x.AreaChartsWrapper>
-                  <Dutch0x.BarChartsWrapper>
-                    <div className="w-full h-[100px]">
-                      <AnalyticsBarChart
-                        data={mockBarData}
-                        barColors={
-                          currentTransOption.id === 0
-                            ? ['#449975', '#E16D40']
-                            : ['#000']
-                        }
+                  ))}
+                </Dutch0x.TransactionSwitchWrapper>
+                <Dutch0x.DaySwitchWrapper>
+                  <div className="pr-1 flex gap-1">
+                    {dayOptions.map((option, i) => (
+                      <OptionSwitch
+                        key={i}
+                        currentOption={currentDayOption}
+                        option={option}
+                        onCurrentOption={(option) => {
+                          setCurrentDayOption(option);
+                        }}
                       />
-                    </div>
-                    <p className="font-bold text-center text-sm text-black/70">
-                      Turnover
-                    </p>
-                  </Dutch0x.BarChartsWrapper>
-                </Dutch0x.ChartsWrapper>
-              </Dutch0x.ContentOverviewChartsMain>
-              {currentTransOption.slug === 'All Transactions' && (
-                <Dutch0x.ContentOverviewChartsRight>
-                  <p className="font-bold text-sm text-black/70">
-                    By transaction types
-                  </p>
-                  <AnalyticsPieChart
-                    data={analyticPieChartData}
-                    totalTransaction={totalTransactionCount}
-                  />
-                </Dutch0x.ContentOverviewChartsRight>
-              )}
-              {currentTransOption.slug === 'Royalties' && (
-                <Dutch0x.ContentOverviewChartsRight>
-                  <p className="font-bold text-sm text-black/70">
-                    Royalties Earned (ETH) for Percentage groups
-                  </p>
-                  <div className="w-[400px] h-[400px]">
-                    <AnalyticsBarChart
-                      data={mockRoyalityBarData}
-                      barColors={[
-                        '#E16D40',
-                        '#6661A3',
-                        '#449975',
-                        '#F8D483',
-                        '#49AABF',
-                        '#BB5EB2',
-                      ]}
-                      colorable={true}
-                    />
+                    ))}
                   </div>
-                </Dutch0x.ContentOverviewChartsRight>
-              )}
-            </Dutch0x.ContentOverviewCharts>
-          </Dutch0x.ContentOverviewInner>
-        </Dutch0x.ContentOverviewWrapper>
-        <ShortcutContextMenu position="TL">
-          <ShortcutContextMenuItem
-            key="1"
-            text="aaa"
-            onClick={() => {
-              console.log('234567890');
-            }}
-          />
-        </ShortcutContextMenu>
-        <div className="table">
-          {/* all transactions */}
-          <AnalyticsTableLayout>
-            <AnalyticsTableControl
-              type="All Transaction"
-              title="All Transactions"
-              date="Mar 1, 2022 - Feb 28 2023"
-              resultNumber={2224}
-              options={[
-                { name: 'AA', value: 'aa' },
-                { name: 'BB', value: 'bb' },
-                { name: 'CC', value: 'cc' },
-              ]}
-              isDateShowable
-              isResultShowable
-              isSelectable
-              isSearchable
-              isPaginatiable
-            />
-            <AnalyticsTransactionTable
-              isAll
-              isFrom
-              isTo
-              isPrice
-              isGas
-              data={mockDataTransaction}
-            />
-          </AnalyticsTableLayout>
-          {/* trades */}
-          <AnalyticsTableLayout>
-            <AnalyticsTableControl
-              type="NFT Trade"
-              title="All Trades"
-              date="Mar 1, 2022 - Feb 28 2023"
-              resultNumber={2224}
-              options={[
-                { name: 'AA', value: 'aa' },
-                { name: 'BB', value: 'bb' },
-                { name: 'CC', value: 'cc' },
-              ]}
-              isDateShowable
-              isResultShowable
-              isSelectable
-              isSearchable
-              isPaginatiable
-            />
-            <AnalyticsTransactionTable
-              isFrom
-              isTo
-              isRoyality
-              isPrice
-              isGas
-              data={mockDataTransaction}
-            />
-          </AnalyticsTableLayout>
-          {/* primary sales */}
-          <AnalyticsTableLayout>
-            <AnalyticsTableControl
-              type="Primary Sale"
-              title="Primary Sales"
-              date="Mar 1, 2022 - Feb 28 2023"
-              resultNumber={2224}
-              options={[
-                { name: 'AA', value: 'aa' },
-                { name: 'BB', value: 'bb' },
-                { name: 'CC', value: 'cc' },
-              ]}
-              isDateShowable
-              isResultShowable
-              isSelectable
-              isSearchable
-              isPaginatiable
-            />
-            <AnalyticsTransactionTable
-              isTo
-              isPrice
-              isGas
-              data={mockDataTransaction}
-            />
-          </AnalyticsTableLayout>
-          {/* royalities */}
-          <AnalyticsTableLayout>
-            <AnalyticsTableControl
-              type="Royality"
-              title="All Trades"
-              date="Mar 1, 2022 - Feb 28 2023"
-              resultNumber={2224}
-              options={[
-                { name: 'AA', value: 'aa' },
-                { name: 'BB', value: 'bb' },
-                { name: 'CC', value: 'cc' },
-              ]}
-              isDateShowable
-              isResultShowable
-              isSelectable
-              isSearchable
-              isPaginatiable
-            />
-            <AnalyticsTransactionTable
-              isTo
-              isRoyality
-              isPrice
-              data={mockDataTransaction}
-            />
-          </AnalyticsTableLayout>
-          {/* transfer */}
-          <AnalyticsTableLayout>
-            <AnalyticsTableControl
-              type="Transfer"
-              title="All Trades"
-              date="Mar 1, 2022 - Feb 28 2023"
-              resultNumber={2224}
-              options={[
-                { name: 'AA', value: 'aa' },
-                { name: 'BB', value: 'bb' },
-                { name: 'CC', value: 'cc' },
-              ]}
-              isDateShowable
-              isResultShowable
-              isSelectable
-              isSearchable
-              isPaginatiable
-            />
-            <AnalyticsTransactionTable
-              isFrom
-              isTo
-              isGas
-              data={mockDataTransaction}
-            />
-          </AnalyticsTableLayout>
-          {/* Most transfered NFTs */}
-          <AnalyticsTableLayout>
-            <AnalyticsTableControl
-              type="Transfer"
-              title="Most Transfered NFTs"
-              isRanked
-            />
-            <AnalyticsTransactionTable
-              isTransferredTimes
-              data={mockDataTransaction}
-            />
-          </AnalyticsTableLayout>
-          {/* Top Seller Ranking */}
-          <AnalyticsTableLayout>
-            <AnalyticsTableControl title="Top Sellers" isRanked />
-            <AnalyticsTopRankingTable
-              isSeller
-              isTotal
-              data={mockDataSellerTopRanking}
-            />
-          </AnalyticsTableLayout>
-          {/* Top Buyer Ranking */}
-          <AnalyticsTableLayout>
-            <AnalyticsTableControl title="Top Buyers" isRanked />
-            <AnalyticsTopRankingTable
-              isBuyer
-              isTotal
-              data={mockDataSellerTopRanking}
-            />
-          </AnalyticsTableLayout>
-          {/* Top Buyer (Total NFTs Buy) Ranking */}
-          <AnalyticsTableLayout>
-            <AnalyticsTableControl title="Top Buyers" isRanked />
-            <AnalyticsTopRankingTable
-              isBuyer
-              isTotalNFTsBuy
-              data={mockDataSellerTopRanking}
-            />
-          </AnalyticsTableLayout>
-        </div>
+                  <Accordion>Custom</Accordion>
+                </Dutch0x.DaySwitchWrapper>
+              </Dutch0x.ContentSwitchInner>
+              <Dutch0x.ContentIdkHead>
+                <OutlineButton size="small">Inkheads</OutlineButton>
+                <p className="text-xs text-black/70">
+                  The tracking shown is according to the timeline selected.
+                </p>
+              </Dutch0x.ContentIdkHead>
+            </Dutch0x.ContentSwitch>
+            <Dutch0x.ContentOverviewWrapper>
+              <div className="font-bold text-black">Overview</div>
+              <Dutch0x.ContentOverviewInner>
+                <Dutch0x.ContentOverviewCards>
+                  <AnalyticsCard
+                    title={currentTransOption.slug + ' Count'}
+                    transActionsCount={totalTransactionCount}
+                    percentage={5.74}
+                  />
+                  {currentTransOption.id > 2 ? (
+                    <></>
+                  ) : (
+                    <AnalyticsCard
+                      title={
+                        currentTransOption.slug === 'All Transactions'
+                          ? 'Turnover'
+                          : currentTransOption.slug + ' Volume'
+                      }
+                      eth={ethTurnOver}
+                      lrc={lrcTurnOver}
+                      usd={1146.91}
+                      percentage={-3.7}
+                    />
+                  )}
+                  {currentTransOption.slug === 'Primary Sales' ? (
+                    <></>
+                  ) : (
+                    <AnalyticsCard
+                      title={'Royalties Earned'}
+                      eth={ethTotalRoyalty}
+                      lrc={lrcTotalRoyalty}
+                      usd={431.86}
+                      percentage={5.1}
+                    />
+                  )}
+                </Dutch0x.ContentOverviewCards>
+                <Dutch0x.ContentOverviewCharts>
+                  <Dutch0x.ContentOverviewChartsMain
+                    className={
+                      currentTransOption.id === 0 || currentTransOption.id === 3
+                        ? 'w-2/3'
+                        : 'w-full'
+                    }
+                  >
+                    <Dutch0x.ChartsMainTitle>
+                      Transactions Count vs Timeline
+                    </Dutch0x.ChartsMainTitle>
+                    <Dutch0x.ChartsWrapper>
+                      <Dutch0x.AreaChartsWrapper>
+                        <AnalyticsAreaChart
+                          data={mockAreaData}
+                          dayOption={currentDayOption.slug}
+                        />
+                      </Dutch0x.AreaChartsWrapper>
+                      <Dutch0x.BarChartsWrapper>
+                        <div className="w-full h-[100px]">
+                          <AnalyticsBarChart
+                            data={mockBarData}
+                            barColors={
+                              currentTransOption.id === 0
+                                ? ['#449975', '#E16D40']
+                                : ['#000']
+                            }
+                          />
+                        </div>
+                        <p className="font-bold text-center text-sm text-black/70">
+                          Turnover
+                        </p>
+                      </Dutch0x.BarChartsWrapper>
+                    </Dutch0x.ChartsWrapper>
+                  </Dutch0x.ContentOverviewChartsMain>
+                  {currentTransOption.slug === 'All Transactions' && (
+                    <Dutch0x.ContentOverviewChartsRight>
+                      <p className="font-bold text-sm text-black/70">
+                        By transaction types
+                      </p>
+                      <AnalyticsPieChart
+                        data={analyticPieChartData}
+                        totalTransaction={totalTransactionCount}
+                      />
+                    </Dutch0x.ContentOverviewChartsRight>
+                  )}
+                  {currentTransOption.slug === 'Royalties' && (
+                    <Dutch0x.ContentOverviewChartsRight>
+                      <p className="font-bold text-sm text-black/70">
+                        Royalties Earned (ETH) for Percentage groups
+                      </p>
+                      <div className="w-[400px] h-[400px]">
+                        <AnalyticsBarChart
+                          data={mockRoyalityBarData}
+                          barColors={[
+                            '#E16D40',
+                            '#6661A3',
+                            '#449975',
+                            '#F8D483',
+                            '#49AABF',
+                            '#BB5EB2',
+                          ]}
+                          colorable={true}
+                        />
+                      </div>
+                    </Dutch0x.ContentOverviewChartsRight>
+                  )}
+                </Dutch0x.ContentOverviewCharts>
+              </Dutch0x.ContentOverviewInner>
+            </Dutch0x.ContentOverviewWrapper>
+
+            <div className="table w-full">
+              {/* all transactions */}
+              <AnalyticsTableLayout>
+                <AnalyticsTableControl
+                  type="All Transaction"
+                  title="All Transactions"
+                  date="Mar 1, 2022 - Feb 28 2023"
+                  resultNumber={2224}
+                  options={[
+                    { name: 'AA', value: 'aa' },
+                    { name: 'BB', value: 'bb' },
+                    { name: 'CC', value: 'cc' },
+                  ]}
+                  isDateShowable
+                  isResultShowable
+                  isSelectable
+                  isSearchable
+                  isPaginatiable
+                />
+                <AnalyticsTransactionTable
+                  isAll
+                  isFrom
+                  isTo
+                  isPrice
+                  isGas
+                  data={mockDataTransaction}
+                />
+              </AnalyticsTableLayout>
+              {/* trades */}
+              <AnalyticsTableLayout>
+                <AnalyticsTableControl
+                  type="NFT Trade"
+                  title="All Trades"
+                  date="Mar 1, 2022 - Feb 28 2023"
+                  resultNumber={2224}
+                  options={[
+                    { name: 'AA', value: 'aa' },
+                    { name: 'BB', value: 'bb' },
+                    { name: 'CC', value: 'cc' },
+                  ]}
+                  isDateShowable
+                  isResultShowable
+                  isSelectable
+                  isSearchable
+                  isPaginatiable
+                />
+                <AnalyticsTransactionTable
+                  isFrom
+                  isTo
+                  isRoyality
+                  isPrice
+                  isGas
+                  data={mockDataTransaction}
+                />
+              </AnalyticsTableLayout>
+              {/* primary sales */}
+              <AnalyticsTableLayout>
+                <AnalyticsTableControl
+                  type="Primary Sale"
+                  title="Primary Sales"
+                  date="Mar 1, 2022 - Feb 28 2023"
+                  resultNumber={2224}
+                  options={[
+                    { name: 'AA', value: 'aa' },
+                    { name: 'BB', value: 'bb' },
+                    { name: 'CC', value: 'cc' },
+                  ]}
+                  isDateShowable
+                  isResultShowable
+                  isSelectable
+                  isSearchable
+                  isPaginatiable
+                />
+                <AnalyticsTransactionTable
+                  isTo
+                  isPrice
+                  isGas
+                  data={mockDataTransaction}
+                />
+              </AnalyticsTableLayout>
+              {/* royalities */}
+              <AnalyticsTableLayout>
+                <AnalyticsTableControl
+                  type="Royality"
+                  title="All Trades"
+                  date="Mar 1, 2022 - Feb 28 2023"
+                  resultNumber={2224}
+                  options={[
+                    { name: 'AA', value: 'aa' },
+                    { name: 'BB', value: 'bb' },
+                    { name: 'CC', value: 'cc' },
+                  ]}
+                  isDateShowable
+                  isResultShowable
+                  isSelectable
+                  isSearchable
+                  isPaginatiable
+                />
+                <AnalyticsTransactionTable
+                  isTo
+                  isRoyality
+                  isPrice
+                  data={mockDataTransaction}
+                />
+              </AnalyticsTableLayout>
+              {/* transfer */}
+              <AnalyticsTableLayout>
+                <AnalyticsTableControl
+                  type="Transfer"
+                  title="All Trades"
+                  date="Mar 1, 2022 - Feb 28 2023"
+                  resultNumber={2224}
+                  options={[
+                    { name: 'AA', value: 'aa' },
+                    { name: 'BB', value: 'bb' },
+                    { name: 'CC', value: 'cc' },
+                  ]}
+                  isDateShowable
+                  isResultShowable
+                  isSelectable
+                  isSearchable
+                  isPaginatiable
+                />
+                <AnalyticsTransactionTable
+                  isFrom
+                  isTo
+                  isGas
+                  data={mockDataTransaction}
+                />
+              </AnalyticsTableLayout>
+              {/* Most transfered NFTs */}
+              <AnalyticsTableLayout>
+                <AnalyticsTableControl
+                  type="Transfer"
+                  title="Most Transfered NFTs"
+                  isRanked
+                />
+                <AnalyticsTransactionTable
+                  isTransferredTimes
+                  data={mockDataTransaction}
+                />
+              </AnalyticsTableLayout>
+              {/* Top Seller Ranking */}
+              <AnalyticsTableLayout>
+                <AnalyticsTableControl title="Top Sellers" isRanked />
+                <AnalyticsTopRankingTable
+                  isSeller
+                  isTotal
+                  data={mockDataSellerTopRanking}
+                />
+              </AnalyticsTableLayout>
+              {/* Top Buyer Ranking */}
+              <AnalyticsTableLayout>
+                <AnalyticsTableControl title="Top Buyers" isRanked />
+                <AnalyticsTopRankingTable
+                  isBuyer
+                  isTotal
+                  data={mockDataSellerTopRanking}
+                />
+              </AnalyticsTableLayout>
+              {/* Top Buyer (Total NFTs Buy) Ranking */}
+              <AnalyticsTableLayout>
+                <AnalyticsTableControl title="Top Buyers" isRanked />
+                <AnalyticsTopRankingTable
+                  isBuyer
+                  isTotalNFTsBuy
+                  data={mockDataSellerTopRanking}
+                />
+              </AnalyticsTableLayout>
+            </div>
+          </div>
+        )}
       </Dutch0x.AnalyticsContentMain>
     </Dutch0x.AnalyticsContentWrapper>
   );
