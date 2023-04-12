@@ -13,7 +13,7 @@ export const ProfileMenuButtonWrapper = styled.button.attrs<{
 
 export const ProfileMenu = styled.div.attrs({
   className:
-    'absolute top-10 right-0 z-50 bg-gray-100 rounded-lg p-3 flex flex-col items-center gap-y-3 w-[252px] h-[330px] border border-black/10 dark:border-white/10 dark:bg-gray-900',
+    'absolute top-10 right-0 z-50 bg-gray-100 rounded-lg p-3 flex flex-col items-center gap-y-3 w-[252px] h-fit border border-black/10 dark:border-white/10 dark:bg-gray-900',
 })`
   ${(p: { isOpen: boolean }) => (!p.isOpen ? 'display:none' : '')}
 `;

@@ -38,6 +38,8 @@ export const ShortcutContextMenuList = styled.a.attrs({
   }}
 `;
 
-export const ShortcutContextMenuListItem = styled.div.attrs({
+export const ShortcutContextMenuListItem = styled.div.attrs<{
+  className: string;
+}>({
   className: 'px-2 py-1.5 w-full flex flex-start rounded hover:bg-white/10',
 })``;

@@ -26,7 +26,6 @@ const NFTAll: React.FC<NFTAllProps> = ({ tableListSwtich }): JSX.Element => {
           accountInfo.accInfo.owner,
           UsageStatusEnum.UNARCHIVED
         );
-        console.log({ nfts });
 
         if (nfts) {
           setNFTs(nfts);

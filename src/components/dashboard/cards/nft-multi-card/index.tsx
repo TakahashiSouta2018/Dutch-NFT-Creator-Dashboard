@@ -1,6 +1,9 @@
 import * as DutchC from './styles';
 import Image from 'next/image';
-import ShortcutContextMenu from '@/components/shared/shortcut-context-menu';
+import {
+  ShortcutContextMenu,
+  ShortcutContextMenuItem,
+} from '@/components/shared/shortcut-context-menu';
 import { getIpfsHttpUrl } from '@/lib/pinata';
 
 interface MultiCardProps {
@@ -63,10 +66,26 @@ const NFTMultiCard: React.FC<MultiCardProps> = ({
               {imageUrls.length} NFTs
             </p>
           </DutchC.MultiUploadLastMediaContentInner>
-          <ShortcutContextMenu
-            position="TR"
-            options={['Find Holders', 'Show Sales', 'Move to Achieves']}
-          />
+          <ShortcutContextMenu position="TR">
+            <ShortcutContextMenuItem
+              text="Find Holders"
+              onClick={() => {
+                console.log('234567890');
+              }}
+            />
+            <ShortcutContextMenuItem
+              text="Show Sales"
+              onClick={() => {
+                console.log('234567890');
+              }}
+            />
+            <ShortcutContextMenuItem
+              text="Move to Achieves"
+              onClick={() => {
+                console.log('234567890');
+              }}
+            />
+          </ShortcutContextMenu>
         </DutchC.MultiUploadLastMediaContentWrapper>
       )}
     </DutchC.MultiUploadWrapper>

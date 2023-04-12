@@ -48,7 +48,12 @@ const ProfileMockData = {
   userName: 'Trithoere',
   avatar: AvatarIcon,
   walletAddress: '0x314cc0b8314cc0b8314cc0b8314cc0b8314cc0b8314cc0b8',
-  // ...
+  walletBalance: {
+    eth: 0.657894470985654,
+    dollar: 9.876987,
+  },
+  ethL1: 0.13123919,
+  ethL2: 0.3672,
 };
 
 const GasInfoMockData = {
@@ -70,7 +75,6 @@ const GasInfoMockData = {
       cash: 0.14,
     },
   ],
-  // ...
 };
 
 const Header: React.FC = () => {
@@ -119,6 +123,7 @@ const Header: React.FC = () => {
         />
 
         <DutchC.Nav>
+          {!isConnected && <DutchC.NavCover />}
           {menus.map((menu) => (
             <NavLink
               key={menu.slug}
@@ -150,9 +155,9 @@ const Header: React.FC = () => {
               <Icons.ICustomGas
                 currentColor={theme === 'light' ? 'black' : 'white'}
               />
-              <DutchC.HeaderGasPrice>
-                {isConnected ? '$0.14 USD' : ''}
-              </DutchC.HeaderGasPrice>
+              <div className={theme === 'light' ? 'text-black' : 'text-white'}>
+                $0.14 USD
+              </div>
             </DutchC.HeaderGasWrapper>
           )}
 

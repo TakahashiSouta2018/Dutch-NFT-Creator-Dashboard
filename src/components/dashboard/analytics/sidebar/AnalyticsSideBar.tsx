@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Accordion } from '@/common/Accordion';
-import { Button } from '@/common';
+import { Button, Select } from '@/common';
 import { SearchInput } from '@/common';
 
 import * as DutchC from './styles';
@@ -100,8 +100,17 @@ const options = [
   },
 ];
 
-const AnalyticsSideBar = () => {
-  const [currentTrack, setCurrentTrack] = useState(0);
+interface AnalyticsSideBarProps {
+  onCurrentTracking: (currentValue: string) => void;
+}
+
+const AnalyticsSideBar: React.FC<AnalyticsSideBarProps> = ({
+  onCurrentTracking,
+}) => {
+  const [trackBy, setTrackBy] = useState({
+    id: 0,
+    slug: 'Collections',
+  });
 
   const loopringService = new LoopringService();
   const dispatch = useAppDispatch();
@@ -116,15 +125,13 @@ const AnalyticsSideBar = () => {
     return { trackList };
   }, shallowEqual);
 
-  console.log({ userCollection });
-
   useEffect(() => {
     (async () => {
       try {
         if (!accountInfo) return;
 
         let list: TrackListI[] = [];
-        if (currentTrack === 0) {
+        if (trackBy.id === 0) {
           list = userCollection.map((item, i) => {
             const isSelected = i === 0;
             return {
@@ -162,11 +169,13 @@ const AnalyticsSideBar = () => {
           }
         }
         dispatch(setTrackList(list));
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     })();
-  }, [currentTrack]);
+  }, [trackBy]);
+
+  const handleTrackingChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    onCurrentTracking(e.target.value);
+  };
 
   const handleSelected = (id: number) => {
     dispatch(
@@ -183,10 +192,10 @@ const AnalyticsSideBar = () => {
     );
   };
 
-  const handleOnTrackChange = (id: number) => {
-    dispatch(setTrackList([]));
-    setCurrentTrack(id);
-  };
+  // const handleOnTrackChange = (option: any) => {
+  //   dispatch(setTrackList([]));
+  //   setTrackBy(option);
+  // };
 
   return (
     <DutchC.SideBarWrapper>
@@ -194,9 +203,14 @@ const AnalyticsSideBar = () => {
       <DutchC.SideBarMain>
         <DutchC.SideBarHeader>
           <DutchC.SideBarHeaderText>Analytics</DutchC.SideBarHeaderText>
-          <DutchC.SideBarHeaderDropdown>
-            <Accordion>NFT Tracking</Accordion>
-          </DutchC.SideBarHeaderDropdown>
+          <Select
+            className="border-none w-full flex-grow"
+            options={[
+              { key: '0', value: 'NFT Tracking' },
+              { key: '1', value: 'Wallet Tracking' },
+            ]}
+            onChange={handleTrackingChange}
+          />
         </DutchC.SideBarHeader>
         <DutchC.SideBarBody>
           <DutchC.CurrencySelect>
@@ -221,18 +235,18 @@ const AnalyticsSideBar = () => {
               {options.map((option, i) => (
                 <OptionSwitch
                   key={i}
-                  currentOptionId={currentTrack}
+                  currentOption={trackBy}
                   option={option}
-                  onCurrentOption={(id) => {
-                    setCurrentTrack(id);
+                  onCurrentOption={(option) => {
+                    setTrackBy(option);
                   }}
                 />
               ))}
             </DutchC.TrackSwitchWrapper>
             <SearchInput placeholder="Collection name or id" />
             <DutchC.TrackListWrapper>
-              {!!mockNFTs &&
-                mockNFTs.map((item, i) => (
+              {!!trackList &&
+                trackList.map((item, i) => (
                   <Unit
                     key={i}
                     id={i}

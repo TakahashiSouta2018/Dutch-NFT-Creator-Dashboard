@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useTheme } from 'next-themes';
 import { useDetectClickOutside } from 'react-detect-click-outside';
 
-import * as Icons from '@/common';
+import * as Icons from '@/common/Icons';
+import { Select } from '@/common';
 
 import * as DutchC from './styles';
 
@@ -40,9 +41,11 @@ const GasInfo: React.FC<GasInfoProps> = (props) => {
   const { theme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const handleClose = (e: Event) => {
-    e.stopPropagation();
-    e.preventDefault();
     setIsOpen(false);
+  };
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    alert(e.currentTarget.value);
   };
 
   const ref = useDetectClickOutside({ onTriggered: handleClose });
@@ -60,14 +63,16 @@ const GasInfo: React.FC<GasInfoProps> = (props) => {
       <DutchC.GasInfo isOpen={isOpen}>
         <DutchC.GasInfoHeaderWrapper>
           Currency
-          <DutchC.GasInfoHeaderRight>
-            ETH
-            <Icons.IChevronDown
-              variant="solid"
-              size="medium"
-              color={theme === 'light' ? 'black' : 'white'}
-            />
-          </DutchC.GasInfoHeaderRight>
+          <Select
+            className="border-none bg-transparent"
+            options={[
+              { key: 'ETH', value: 'ETH' },
+              { key: 'LRC', value: 'LRC' },
+              { key: 'USDT', value: 'USDT' },
+              { key: 'USDC', value: 'USDC' },
+            ]}
+            onChange={handleChange}
+          />
         </DutchC.GasInfoHeaderWrapper>
         {props.list?.map((item, index) => (
           <DutchC.ProfileMenuFullWidthWrapper key={index}>

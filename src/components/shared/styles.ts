@@ -8,10 +8,9 @@ type GuideWrapperProps = {
 // components
 export const GuideWrapper = styled.div.attrs({
   className:
-    'flex flex-col w-1/6 gap-8 py-9 ml-6 transition ease-in-out duration-300',
+    'flex flex-col w-1/6 gap-8 py-9 ml-6 transition ease-in-out duration-300 absolute right-0',
 })`
-  ${(p: GuideWrapperProps) =>
-    p.open ? '' : 'position: absolute; right: 0; transform: translateX(100%);'}
+  ${(p: GuideWrapperProps) => (p.open ? '' : 'transform: translateX(100%);')}
 `;
 
 export const GuideCard = styled.div.attrs({

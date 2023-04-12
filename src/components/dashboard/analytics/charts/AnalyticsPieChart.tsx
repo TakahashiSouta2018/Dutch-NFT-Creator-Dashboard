@@ -30,7 +30,6 @@ const renderActiveShape = (props: any) => {
 
 const PieLegend = (props: any) => {
   const { payload } = props;
-  console.log(payload);
   return (
     <div className="flex gap-4">
       {payload.reverse().map((entry: any, index: number) => (

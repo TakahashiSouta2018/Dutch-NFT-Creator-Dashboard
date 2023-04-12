@@ -3,7 +3,10 @@ import { useTheme } from 'next-themes';
 
 import * as Icons from '@/common/Icons';
 import CopyNFTId from '../../copy-nft-id';
-import ShortcutContextMenu from '../../../shared/shortcut-context-menu';
+import {
+  ShortcutContextMenu,
+  ShortcutContextMenuItem,
+} from '../../../shared/shortcut-context-menu';
 import { CreateNftManagementI } from '@/types';
 import * as DutchC from './styles';
 import { useAppSelector } from '@/redux/store';
@@ -56,21 +59,24 @@ const NFTCard: React.FC<NFTCardProps> = ({
         ></Icons.IEye>
         {`${0}/${amount}`}
       </DutchC.NFTUnitBadge>
-      <DutchC.NFTSelectedMark>
-        {isSelected(nftId) && (
+      <div className="absolute top-4 left-4 flex items-center justify-center w-5 h-5 rounded-full">
+        {isSelected(nftId) ? (
           <Icons.ICheckCircle
             color={theme === 'light' ? 'black' : 'white'}
             size="large"
           />
+        ) : (
+          <DutchC.NFTSelectedMark />
         )}
-      </DutchC.NFTSelectedMark>
+      </div>
+
       {image && (
         <Image
           src={image}
           alt={image}
           width={230}
           height={230}
-          className="aspect-square w-60 h-60"
+          className="aspect-square"
         />
       )}
       <DutchC.NFTFooter>
@@ -85,15 +91,45 @@ const NFTCard: React.FC<NFTCardProps> = ({
           <CopyNFTId id={nftId} type="short" />
         </DutchC.NFTDetail>
         {type !== 'collections' && (
-          <ShortcutContextMenu
-            position="TR"
-            options={
-              type === 'bank0x'
-                ? ShortcutContextMenuItems[0]
-                : ShortcutContextMenuItems[1]
-            }
-            onSelect={() => {}}
-          />
+          <ShortcutContextMenu position="TR">
+            {(type === 'bank0x' && (
+              <>
+                <ShortcutContextMenuItem
+                  text="Find Holders"
+                  onClick={() => {
+                    console.log('234567890');
+                  }}
+                />
+                <ShortcutContextMenuItem
+                  text="Show Sales"
+                  onClick={() => {
+                    console.log('234567890');
+                  }}
+                />
+                <ShortcutContextMenuItem
+                  text="Move to Achieves"
+                  onClick={() => {
+                    console.log('234567890');
+                  }}
+                />
+              </>
+            )) || (
+              <>
+                <ShortcutContextMenuItem
+                  text="Recover"
+                  onClick={() => {
+                    console.log('234567890');
+                  }}
+                />
+                <ShortcutContextMenuItem
+                  text="Remove from DUTCH0x"
+                  onClick={() => {
+                    console.log('234567890');
+                  }}
+                />
+              </>
+            )}
+          </ShortcutContextMenu>
         )}
       </DutchC.NFTFooter>
     </DutchC.NFTCard>
