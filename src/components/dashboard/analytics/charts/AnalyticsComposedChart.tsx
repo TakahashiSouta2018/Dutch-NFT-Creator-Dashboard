@@ -16,99 +16,112 @@ import {
   Symbols,
 } from 'recharts';
 
-const data = [
-  {
-    id: 0,
-    Expenses: -100,
-    Turnover: 300,
-    'P&L': 200,
-    Date: '1672099200',
-  },
-  {
-    id: 1,
-    Expenses: -400,
-    Turnover: 300,
-    'P&L': -100,
-    Date: '1672099200',
-  },
-  {
-    id: 2,
-    Expenses: -200,
-    Turnover: 600,
-    'P&L': 400,
-    Date: '1672099200',
-  },
-  {
-    id: 3,
-    Expenses: -230,
-    Turnover: 530,
-    'P&L': 300,
-    Date: '1672099200',
-  },
-  {
-    id: 4,
-    Expenses: -750,
-    Turnover: 650,
-    'P&L': -100,
-    Date: '1672099200',
-  },
-  {
-    id: 5,
-    Expenses: -600,
-    Turnover: 400,
-    'P&L': -200,
-    Date: '1672099200',
-  },
-  {
-    id: 6,
-    Expenses: -300,
-    Turnover: 300,
-    'P&L': 0,
-    Date: '1672099200',
-  },
-  {
-    id: 7,
-    Expenses: -150,
-    Turnover: 350,
-    'P&L': 200,
-    Date: '1672099200',
-  },
-  {
-    id: 8,
-    Expenses: -50,
-    Turnover: 450,
-    'P&L': 400,
-    Date: '1672099200',
-  },
-  {
-    id: 9,
-    Expenses: -250,
-    Turnover: 500,
-    'P&L': 250,
-    Date: '1672099200',
-  },
-  {
-    id: 10,
-    Expenses: -75,
-    Turnover: 475,
-    'P&L': 350,
-    Date: '1672099200',
-  },
-  {
-    id: 11,
-    Expenses: -275,
-    Turnover: 225,
-    'P&L': -50,
-    Date: '1672099200',
-  },
-];
+// const data = [
+//   {
+//     id: 0,
+//     Expenses: -100,
+//     Turnover: 300,
+//     'P&L': 200,
+//     Date: '1672099200',
+//   },
+//   {
+//     id: 1,
+//     Expenses: -400,
+//     Turnover: 300,
+//     'P&L': -100,
+//     Date: '1672099200',
+//   },
+//   {
+//     id: 2,
+//     Expenses: -200,
+//     Turnover: 600,
+//     'P&L': 400,
+//     Date: '1672099200',
+//   },
+//   {
+//     id: 3,
+//     Expenses: -230,
+//     Turnover: 530,
+//     'P&L': 300,
+//     Date: '1672099200',
+//   },
+//   {
+//     id: 4,
+//     Expenses: -750,
+//     Turnover: 650,
+//     'P&L': -100,
+//     Date: '1672099200',
+//   },
+//   {
+//     id: 5,
+//     Expenses: -600,
+//     Turnover: 400,
+//     'P&L': -200,
+//     Date: '1672099200',
+//   },
+//   {
+//     id: 6,
+//     Expenses: -300,
+//     Turnover: 300,
+//     'P&L': 0,
+//     Date: '1672099200',
+//   },
+//   {
+//     id: 7,
+//     Expenses: -150,
+//     Turnover: 350,
+//     'P&L': 200,
+//     Date: '1672099200',
+//   },
+//   {
+//     id: 8,
+//     Expenses: -50,
+//     Turnover: 450,
+//     'P&L': 400,
+//     Date: '1672099200',
+//   },
+//   {
+//     id: 9,
+//     Expenses: -250,
+//     Turnover: 500,
+//     'P&L': 250,
+//     Date: '1672099200',
+//   },
+//   {
+//     id: 10,
+//     Expenses: -75,
+//     Turnover: 475,
+//     'P&L': 350,
+//     Date: '1672099200',
+//   },
+//   {
+//     id: 11,
+//     Expenses: -275,
+//     Turnover: 225,
+//     'P&L': -50,
+//     Date: '1672099200',
+//   },
+// ];
 
 const COLORS = ['#3CAA2A', '#C60707', '#F1BB41'];
 
-const convertDate = (timestamp: number) =>
-  moment(new Date(timestamp * 1000)).format('MMM YYYY');
+const convertDate = (dayOption: string) => (timestamp: number) => {
+  let date = moment(new Date(timestamp * 1000));
+  if (dayOption === '7D') return date.format('DD');
+  if (dayOption === '1M') return date.format('DD');
+  if (dayOption === '6M') return date.format('MMM');
+  if (dayOption === '1Y') return date.format('MMM');
 
-const AnalyticsComposedChart = () => {
+  return date.format('YYYY');
+};
+
+const AnalyticsComposedChart = ({composedChartData, dayOption}: any) => {
+
+  const data = composedChartData.map((d: any) =>{ return {
+    ...d,
+    'P&L': d.Turnover + d.Expenses
+  }});
+
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       return (
@@ -129,7 +142,7 @@ const AnalyticsComposedChart = () => {
 
   const CusomizedLegend = ({ payload }: any) => {
     return (
-      <div className="flex flex-row justify-between">
+      // <div className="flex flex-row justify-between">
         <div className="flex gap-4">
           {payload.map((entry: any, index: number) => (
             <div key={`item-${index}`} className="flex gap-1 items-center">
@@ -149,26 +162,13 @@ const AnalyticsComposedChart = () => {
             </div>
           ))}
         </div>
-        <div className="w-52">
-          <CustomSelect
-            label="Group By"
-            options={[
-              { name: '1 Month', value: '1 Month' },
-              { name: '3 Month', value: '3 Month' },
-              { name: '6 Month', value: '6 Month' },
-              { name: '12 Month', value: '12 Month' },
-            ]}
-            selectedOption={{ name: '1 Month', value: '1 Month' }}
-            onSelect={() => {}}
-          />
-        </div>
-      </div>
+      // </div>
     );
   };
 
   return (
     <div style={{ width: '100%', height: '100%' }}>
-      <ResponsiveContainer width={'100%'} height={300} min-width={300}>
+      <ResponsiveContainer width={'100%'} height={500} min-width={300}>
         <ComposedChart data={data} barGap={200} stackOffset="sign">
           <defs>
             <linearGradient id="Turnover" x1="0" y1="0" x2="0" y2="1">
@@ -183,7 +183,7 @@ const AnalyticsComposedChart = () => {
           <CartesianGrid strokeDasharray="8 3" opacity={0.7} vertical={false} />
           <XAxis
             dataKey="Date"
-            tickFormatter={convertDate}
+            tickFormatter={convertDate(dayOption)}
             tick={{
               stroke: 'black',
               opacity: '70%',
@@ -199,10 +199,14 @@ const AnalyticsComposedChart = () => {
             axisLine={{ stroke: '#000', opacity: '10%' }}
             padding={{ left: 20, right: 20 }}
             interval={0}
+            // domain={['auto', 'auto']}
+          // interval={Math.ceil(data.length / 6) - 1}
           />
           <YAxis
             type="number"
-            tickCount={10}
+            tickCount={7}
+            // domain={[0, 625]}
+            // ticks={[...Array.from(Array(), (_, id) => id * 25 - 475)]}
             scale="linear"
             tick={{
               stroke: 'black',

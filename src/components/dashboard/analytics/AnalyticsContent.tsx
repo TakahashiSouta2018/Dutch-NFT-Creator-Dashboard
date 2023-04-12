@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { AnalyticsSideBar } from './sidebar';
-import { OutlineButton, Table, THead, TBody, TD, TR } from '@/common';
+import {
+  OutlineButton,
+  Table,
+  THead,
+  TBody,
+  TD,
+  TR,
+  CustomSelect,
+} from '@/common';
 import { OptionSwitch } from './option-switch';
 import { Accordion } from '@/common/Accordion';
 import { AnalyticsTableSelector } from '@/components/dashboard/analytics/analytics-tables';
@@ -101,6 +109,16 @@ const mockBarData = Array.from(Array(60), (_, id) => {
     pv: Math.floor(100 * Math.random()),
   };
 });
+
+const composedChartData = Array.from(Array(12), (_, id) => {
+  return   {
+    id: 0,
+    Expenses: Math.floor(-100 * Math.random()),
+    Turnover: Math.floor(100 * Math.random()),
+    'P&L': 200,
+    Date: '1672099200',
+  }
+})
 
 const mockRoyalityBarData = [
   {
@@ -407,35 +425,46 @@ const AnalyticsContent = () => {
             <div className="table w-full">
               <AnalyticsTableSelector currentTransOption={currentTransOption} />
             </div>
-            <div className="flex gap-6">
-              <div className="flex flex-col gap-2 w-full">
-                <div className="flex items-center gap-x-2">
-                  <div className="text-black/70 text-sm font-bold whitespace-nowrap dark:text-white inline-flex items-center justify-center">
-                    Profit & Loss Trends
-                  </div>
-                  <div className="text-sm text-black/70 font-normal whitespace-nowrap dark:text-white/70 inline-flex items-center justify-center">
-                    Apr 1 2022 - Mar 31 2023
-                  </div>
+            <div className="flex flex-col gap-2 w-full mt-2">
+              <div className='flex flex-row justify-between'>
+              <div className="flex items-center gap-x-2">
+                <Dutch0x.ChartsMainTitle>
+                  Profit & Loss Trends
+                </Dutch0x.ChartsMainTitle>
+                <div className="text-sm text-black/70 font-normal whitespace-nowrap dark:text-white/70 inline-flex items-center justify-center">
+                  Apr 1 2022 - Mar 31 2023
                 </div>
-                <div className="flex flex-col gap-2 items-end">
-                  <div className="w-full">
-                    <AnalyticsComposedChart />
-                  </div>
+              </div>
+              <div className="w-52">
+                <CustomSelect
+                  label="Group By"
+                  options={[
+                    { name: '1 Month', value: '1 Month' },
+                    { name: '3 Month', value: '3 Month' },
+                    { name: '6 Month', value: '6 Month' },
+                    { name: '12 Month', value: '12 Month' },
+                  ]}
+                  selectedOption={{ name: '1 Month', value: '1 Month' }}
+                  onSelect={() => {}}
+                />
+              </div>
+              </div>
+              <div className="flex flex-col gap-2 items-end">
+                <div className="w-full">
+                  <AnalyticsComposedChart composedChartData={composedChartData} dayOption={currentDayOption.slug}/>
                 </div>
               </div>
             </div>
-            <div className="flex gap-6">
-              <div className="flex flex-col gap-2 w-full">
-                <div className="flex items-center gap-x-2">
-                  <div className="text-black text-base font-bold whitespace-nowrap dark:text-white inline-flex items-center justify-center">
-                    Gas Fee Analytics
-                  </div>
+            <div className="flex flex-col gap-2 w-full">
+              <div className="flex items-center gap-x-2">
+                <div className="text-black text-base font-bold whitespace-nowrap dark:text-white inline-flex items-center justify-center">
+                  Gas Fee Analytics
                 </div>
-                <div className="divide-y divide-black/10 border border-black/10 rounded-lg">
-                  <TotalGasCard />
-                  <div className="pt-3">
-                    <GasFeeAnalyticsChart />
-                  </div>
+              </div>
+              <div className="divide-y divide-black/10 border border-black/10 rounded-lg">
+                <TotalGasCard />
+                <div className="pt-3">
+                  <GasFeeAnalyticsChart />
                 </div>
               </div>
             </div>
