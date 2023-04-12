@@ -23,8 +23,9 @@ const DashBoardHome = () => {
   if (isMobile) return <DashBoardHomeMobile />;
   return (
     <AppLayout>
-      {isConnected ? (
-        <DashboardSubNav />
+      <DashboardSubNav />
+      {/* {isConnected ? (
+        <DashboardSubNav /> 
       ) : (
         <DutchC.DashboardContentCover>
           <div className="text-6xl">This is dummy content. </div>
@@ -32,7 +33,7 @@ const DashBoardHome = () => {
             Connect Wallet
           </Button>
         </DutchC.DashboardContentCover>
-      )}
+      )} */}
     </AppLayout>
   );
 };

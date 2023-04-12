@@ -192,10 +192,10 @@ const AnalyticsSideBar: React.FC<AnalyticsSideBarProps> = ({
     );
   };
 
-  // const handleOnTrackChange = (option: any) => {
-  //   dispatch(setTrackList([]));
-  //   setTrackBy(option);
-  // };
+  const handleOnTrackChange = (option: any) => {
+    dispatch(setTrackList([]));
+    setTrackBy(option);
+  };
 
   return (
     <DutchC.SideBarWrapper>
