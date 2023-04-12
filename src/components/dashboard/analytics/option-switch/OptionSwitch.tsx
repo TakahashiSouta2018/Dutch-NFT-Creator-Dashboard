@@ -23,8 +23,8 @@ const OptionSwitch: React.FC<OptionSwitchProps> = ({
       className={clsx(
         option.id === currentOption.id
           ? '!bg-black text-white'
-          : '!bg-white !text-black',
-        'flex-1'
+          : ' !bg-black/10 !text-black',
+        'flex-1 '
       )}
       onClick={() => {
         onCurrentOption(option);

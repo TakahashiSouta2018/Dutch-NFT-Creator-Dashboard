@@ -790,6 +790,40 @@ export const IDocumentDuplicateIcon: React.FC<IconProps> = ({
   );
 };
 
+export const IArrowDown: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+  className,
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.ArrowDownIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.ArrowDownIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
+export const IArrowUp: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+  className,
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.ArrowUpIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.ArrowUpIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
 export const icons = {
   bell: IBell,
   wallet: IWallet,

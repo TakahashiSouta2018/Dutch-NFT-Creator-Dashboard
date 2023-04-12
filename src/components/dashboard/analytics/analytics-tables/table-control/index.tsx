@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { SearchInput, CustomSelect, Pagination, Select } from '@/common';
+import { OptionSwitch } from '../../option-switch';
 
 import * as DutchC from './styles';
 
@@ -16,6 +17,9 @@ interface TableControlProps {
   resultNumber?: number;
   options?: { name: string; value: string }[];
   selectedOption?: { name: string; value: string };
+  searchInputPlaceholder?: string;
+
+  isSwitch?: boolean;
   isSearchable?: boolean;
   isPaginatiable?: boolean;
   isSelectable?: boolean;
@@ -24,14 +28,107 @@ interface TableControlProps {
   isDateShowable?: boolean;
 }
 
+const switchOptions = [
+  {
+    id: 0,
+    slug: 'Collections',
+  },
+  {
+    id: 1,
+    slug: 'NFTs',
+  },
+];
+
+const selectOptions = [
+  {
+    name: 'All Transactions',
+    value: 'All Transactions',
+  },
+  {
+    name: 'Deposit',
+    value: 'Deposit',
+  },
+  {
+    name: 'Trade',
+    value: 'Trade',
+  },
+  {
+    name: 'Withdrawal',
+    value: 'Withdrawal',
+  },
+  {
+    name: 'Royality',
+    value: 'Royality',
+  },
+  {
+    name: 'Swap',
+    value: 'Swap',
+  },
+  {
+    name: 'Transfer',
+    value: 'Transfer',
+  },
+  {
+    name: 'NFT Mint',
+    value: 'NFT Mint',
+  },
+  {
+    name: 'NFT Transfer',
+    value: 'NFT Transfer',
+  },
+  {
+    name: 'NFT Trade',
+    value: 'NFT Trade',
+  },
+  {
+    name: 'NFT Primary Sale',
+    value: 'NFT Primary Sale',
+  },
+  {
+    name: 'Other',
+    value: 'Other',
+  },
+];
+
 const TableControl: React.FC<TableControlProps> = (p: TableControlProps) => {
+  const [selectTrackingValue, setSelectTrackingValue] =
+    useState('NFT Tracking');
+  const [selectRanking, setSelectRanking] = useState('top-5');
+  const [searchInputValue, setSearchInputValue] = useState('');
+  const [totalPage, setTotalPage] = useState(3);
+  const [switchOption, setSwitchOption] = useState({
+    id: 0,
+    slug: 'Collections',
+  });
+
+  console.log(selectTrackingValue);
+  console.log(selectRanking);
+  console.log(searchInputValue);
+  console.log(switchOption);
+
   return (
     <>
       <DutchC.TransactionTableControlWrapper>
         <DutchC.TransactionTableControlLeft>
-          <DutchC.TransactionTableControlTitle>
-            {p.title}
-          </DutchC.TransactionTableControlTitle>
+          {p.title && (
+            <DutchC.TransactionTableControlTitle>
+              {p.title}
+            </DutchC.TransactionTableControlTitle>
+          )}
+          {p.isSwitch && (
+            <DutchC.TrackSwitchWrapper>
+              {switchOptions.map((option, i) => (
+                <OptionSwitch
+                  key={i}
+                  currentOption={switchOption}
+                  option={option}
+                  onCurrentOption={(option) => {
+                    setSwitchOption(option);
+                  }}
+                />
+              ))}
+            </DutchC.TrackSwitchWrapper>
+          )}
           {p.isRanked && (
             <div>
               <Select
@@ -41,6 +138,7 @@ const TableControl: React.FC<TableControlProps> = (p: TableControlProps) => {
                   { key: 'top-10', value: 'Top 10' },
                   { key: 'top-20', value: 'Top 20' },
                 ]}
+                onChange={(e) => setSelectRanking(e.currentTarget.value)}
               />
             </div>
           )}
@@ -59,20 +157,31 @@ const TableControl: React.FC<TableControlProps> = (p: TableControlProps) => {
             )}
             {/* Search input */}
             {p.isSearchable && (
-              <SearchInput placeholder="Search" onChange={() => {}} />
+              <SearchInput
+                placeholder={p?.searchInputPlaceholder}
+                value={searchInputValue}
+                onChange={(e) => {
+                  setSearchInputValue(e.currentTarget.value);
+                }}
+              />
             )}
             {/* Select */}
             {p?.isSelectable && (
               <CustomSelect
                 label="Type"
-                options={p.options}
-                selectedOption={p.selectedOption}
-                onSelect={() => {}}
+                options={selectOptions}
+                value={selectTrackingValue}
+                onChange={(value) => setSelectTrackingValue(value)}
               />
             )}
           </DutchC.TransactionTableControlFilter>
           {/* Pagination */}
-          {p.isPaginatiable && <Pagination totalPage={3} />}
+          {p.isPaginatiable && (
+            <Pagination
+              onChange={(value) => console.log(value)}
+              totalPage={totalPage}
+            />
+          )}
         </DutchC.TransactionTableControlRight>
       </DutchC.TransactionTableControlWrapper>
     </>

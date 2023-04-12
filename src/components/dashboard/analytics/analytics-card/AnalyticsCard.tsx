@@ -10,7 +10,8 @@ interface AnalyticsCardProps {
   eth?: number;
   lrc?: number;
   usd?: number;
-  percentage: number;
+  percentage?: number;
+  className?: string;
 }
 
 const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
@@ -20,17 +21,18 @@ const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
   usd,
   lrc,
   percentage,
+  className,
 }) => {
   const [isArrorDown, setArrowDown] = useState(false);
 
   useEffect(() => {
-    if (percentage < 0) {
+    if (percentage && percentage < 0) {
       setArrowDown(true);
     }
   }, [percentage]);
 
   return (
-    <Dutch0x.AnalyticsCardWrapper>
+    <Dutch0x.AnalyticsCardWrapper className={className}>
       <p className="text-sm text-black/50">{title}</p>
       {title === 'Transactions Count' ? (
         <div className="flex-grow font-black">{transActionsCount}</div>
@@ -53,21 +55,23 @@ const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
           </div>
         </div>
       )}
-      <Dutch0x.AnalyticsCardTrending>
-        {isArrorDown ? (
-          <IArrowTrendingDown color="accent-red" />
-        ) : (
-          <IArrowTrendingUp color="accent-green" />
-        )}
-        <p
-          className={clsx(
-            isArrorDown ? 'text-accent-red' : 'text-accent-green'
+      {percentage && (
+        <Dutch0x.AnalyticsCardTrending>
+          {isArrorDown ? (
+            <IArrowTrendingDown color="accent-red" />
+          ) : (
+            <IArrowTrendingUp color="accent-green" />
           )}
-        >
-          {percentage}%
-        </p>
-        <p className="text-black">than last year</p>
-      </Dutch0x.AnalyticsCardTrending>
+          <p
+            className={clsx(
+              isArrorDown ? 'text-accent-red' : 'text-accent-green'
+            )}
+          >
+            {percentage}%
+          </p>
+          <p className="text-black">than last year</p>
+        </Dutch0x.AnalyticsCardTrending>
+      )}
     </Dutch0x.AnalyticsCardWrapper>
   );
 };

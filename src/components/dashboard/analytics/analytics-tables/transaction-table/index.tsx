@@ -77,8 +77,8 @@ const TransactionTable: React.FC<TransactactionTableProps> = ({
 
   return (
     <DutchC.TransactionTableWrapper className={`${className}`}>
-      <Table className="dark:text-white text-black border rounded-xl table-auto">
-        <THead className="!text-black/100 dark:!text-white/100 bg-black/5 dark:bg-white/5">
+      <Table className="dark:text-white text-black border rounded-xl table-fixed">
+        <THead className="!text-black/100 dark:!text-white/100 bg-black/10 dark:bg-white/10">
           <TR>
             {isAll && (
               <>
@@ -99,7 +99,7 @@ const TransactionTable: React.FC<TransactactionTableProps> = ({
             {isTransferredTimes && <TD className="text-center">Times</TD>}
             {isPrice && <TD className="text-right">Price</TD>}
             {isGas && <TD className="text-right">Gas</TD>}
-            <TD>Time (EST)</TD>
+            <TD className="w-0">Time (EST)</TD>
           </TR>
         </THead>
         <TBody className="text-sm">
