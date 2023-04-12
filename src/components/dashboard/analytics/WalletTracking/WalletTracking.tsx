@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 
 import * as Dutch0x from './styles';
+import { Table, THead, TBody, TR, TD } from '@/common';
 import { OptionSwitch } from '../option-switch';
 import { Accordion } from '@/common/Accordion';
 import { AnalyticsCard } from '../analytics-card';
 import { AnalyticsPieChart } from '../charts';
+import {
+  AnalyticsTableControl,
+  AnalyticsTableLayout,
+} from '../analytics-tables';
+import { LRCIconSelector } from '../analytics-tables/lrc-icon-selector';
+import { WalletTrackingTransactionView } from './wallet-tracking-transaction-table';
 
 const dayOptions = [
   {
@@ -26,6 +34,33 @@ const dayOptions = [
   {
     id: 4,
     slug: 'All',
+  },
+];
+
+const mockDataHolding = [
+  {
+    token: 'Ether',
+    lrcId: 'eth',
+    symbol: 'ETH',
+    quantity: 0.243,
+    price: 234.202,
+    value: 242.242231,
+  },
+  {
+    token: 'Loopring',
+    lrcId: 'lrc',
+    symbol: 'LRC',
+    quantity: 0.243,
+    price: 234.202,
+    value: 242.242231,
+  },
+  {
+    token: 'USD Coin',
+    lrcId: 'usdc',
+    symbol: 'USDC',
+    quantity: 0.243,
+    price: 234.202,
+    value: 242.242231,
   },
 ];
 
@@ -99,8 +134,45 @@ const WalletTracking = () => {
         </div>
         <div className="charts flex flex-col gap-2"></div>
       </div>
-      <div className="holdings flex w-full">
-        <div className="hodingsTable flex-grow overflow-hidden"></div>
+      <div className="holdings flex w-full gap-6">
+        <div className="hodingsTable flex-grow flex-col overflow-hidden">
+          <p className="font-bold">Holdings</p>
+          <AnalyticsTableLayout>
+            <AnalyticsTableControl
+              isSwitch
+              isResultShowable
+              resultNumber={234}
+              isSearchable
+              searchInputPlaceholder="Token"
+              isPaginatiable
+            />
+            <Table className="dark:text-white text-black border rounded-xl table-fixed">
+              <THead className="!text-black/100 dark:!text-white/100 bg-black/10 dark:bg-white/10">
+                <TR>
+                  <TD>Token</TD>
+                  <TD>Symbol</TD>
+                  <TD>Quantity</TD>
+                  <TD>Price</TD>
+                  <TD>Value</TD>
+                </TR>
+              </THead>
+              <TBody className="text-sm">
+                {mockDataHolding?.map((item, index) => (
+                  <TR key={index}>
+                    <TD className="flex gap-2 items-center">
+                      <LRCIconSelector id={item.lrcId} />
+                      {item.token}
+                    </TD>
+                    <TD>{item.symbol}</TD>
+                    <TD>{item.quantity}</TD>
+                    <TD>{item.price}</TD>
+                    <TD>{item.value}</TD>
+                  </TR>
+                ))}
+              </TBody>
+            </Table>
+          </AnalyticsTableLayout>
+        </div>
         <div className="flex flex-col gap-4">
           <p className="font-bold">Currency Holdings by %</p>
           <AnalyticsPieChart
@@ -113,7 +185,9 @@ const WalletTracking = () => {
           />
         </div>
       </div>
-      <div className="TransactionsTable flex flex-col gap-4"></div>
+      <div className="TransactionsView flex flex-col gap-4">
+        <WalletTrackingTransactionView />
+      </div>
       <div className="analytics flex flex-col gap-4"></div>
     </div>
   );
