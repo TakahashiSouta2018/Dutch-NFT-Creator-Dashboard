@@ -27,7 +27,9 @@ const DashBoardHome = () => {
         <DashboardSubNav />
       ) : (
         <DutchC.DashboardContentCover>
-          <div className="text-6xl">This is dummy content. </div>
+          <div className="text-6xl text-black dark:text-white">
+            This is dummy content.{' '}
+          </div>
           <Button className="mt-9 p-1" onClick={openConnectionModal}>
             Connect Wallet
           </Button>
