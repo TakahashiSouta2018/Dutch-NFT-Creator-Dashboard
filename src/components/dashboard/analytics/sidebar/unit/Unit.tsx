@@ -31,7 +31,7 @@ const Unit: React.FC<UnitProps> = ({
       <Image
         src={getIpfsHttpUrl(avatar)}
         alt="avatar"
-        width={40}
+        width={40}   
         height={40}
         className="!relative !w-10 !h-10"
         fill
@@ -40,7 +40,10 @@ const Unit: React.FC<UnitProps> = ({
         <p className="text-black text-medium leading-5 w-[80%]">{title}</p>
         <p className="text-black/50 leading-5">{content}</p>
         {isSelected ? (
-          <ICheckCircle size="large" className="absolute right-0 top-0.5" />
+          <ICheckCircle
+            size="large"
+            className="absolute right-0 top-0.5 text-black"
+          />
         ) : (
           <DutchC.UnitNotSelected />
         )}
