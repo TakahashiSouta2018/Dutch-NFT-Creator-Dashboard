@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 export const UnitWrapper = styled.div.attrs({
-  className: 'flex p-2 gap-2 border border-black/10 rounded-lg bg-black/10 ',
+  className:
+    'flex p-2 gap-2 border border-black/10 rounded-lg bg-black/10 items-center',
 })``;
 
 export const UnitContent = styled.div.attrs({
-  className: 'flex-grow relative text-xs',
+  className: 'flex-grow relative text-xs ',
 })``;
 
 export const UnitNotSelected = styled.div.attrs({
