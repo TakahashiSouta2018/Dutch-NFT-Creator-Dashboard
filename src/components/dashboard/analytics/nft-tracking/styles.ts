@@ -8,12 +8,15 @@ export const ContentSwitchInner = styled.div.attrs({
   className: 'flex gap-4 flex-wrap',
 })``;
 
-export const TransactionSwitchWrapper = styled.div.attrs({
-  className: 'flex gap-1 border border-black/10 rounded-lg',
-})``;
+export const TransactionSwitchWrapper = styled.div.attrs<{ className: string }>(
+  {
+    className: 'flex border border-black/10 dark:border-white/10 rounded-lg',
+  }
+)``;
 
 export const DaySwitchWrapper = styled.div.attrs({
-  className: 'flex divide-x divide-black/10 border border-black/10 rounded-lg',
+  className:
+    'flex divide-x divide-black/10 dark:divide-white/10 border border-black/10 dark:border-white/10 rounded-lg',
 })``;
 
 export const ContentIdkHead = styled.div.attrs({
@@ -43,7 +46,7 @@ export const ContentOverviewChartsMain = styled.div.attrs<{
 })``;
 
 export const ChartsMainTitle = styled.div.attrs({
-  className: 'font-bold text-sm text-black/70',
+  className: 'font-bold text-sm text-black/70 dark:text-white/70',
 })``;
 
 export const ContentOverviewChartsRight = styled.div.attrs({

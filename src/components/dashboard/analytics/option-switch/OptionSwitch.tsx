@@ -22,8 +22,8 @@ const OptionSwitch: React.FC<OptionSwitchProps> = ({
     <Button
       className={clsx(
         option.id === currentOption.id
-          ? '!bg-black text-white'
-          : ' !bg-black/10 !text-black',
+          ? '!bg-black text-white dark:!bg-white dark:text-black'
+          : ' !bg-black/10 !text-black dark:!text-white dark:!bg-white/10',
         'flex-1 '
       )}
       onClick={() => {

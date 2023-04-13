@@ -148,7 +148,7 @@ const TableViewAllTrans: React.FC = () => {
           isTo
           isPrice
           isGas
-          data={mockDataTransaction}
+          data={undefined}
         />
       </AnalyticsTableLayout>
     </>

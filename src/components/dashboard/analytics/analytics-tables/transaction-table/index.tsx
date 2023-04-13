@@ -76,7 +76,14 @@ const TransactionTable: React.FC<TransactactionTableProps> = ({
   const { theme } = useTheme();
 
   return (
-    <DutchC.TransactionTableWrapper className={`${className}`}>
+    <DutchC.TransactionTableWrapper
+      className={`${className} relative min-h-[100px]`}
+    >
+      {!data && (
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-0 dark:text-white">
+          No data available
+        </div>
+      )}
       <Table className="dark:text-white text-black border rounded-xl table-fixed">
         <THead className="!text-black/100 dark:!text-white/100 bg-black/10 dark:bg-white/10">
           <TR>

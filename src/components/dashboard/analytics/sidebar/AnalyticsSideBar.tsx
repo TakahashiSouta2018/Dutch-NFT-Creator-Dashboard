@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Accordion } from '@/common/Accordion';
-import { Button, Select } from '@/common';
-import { SearchInput } from '@/common';
+import { Button, Select, SearchInput, Accordion } from '@/common';
 
-import * as DutchC from './styles';
 import { Unit } from './unit';
 import { OptionSwitch } from '../option-switch';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
@@ -11,83 +8,7 @@ import { shallowEqual } from 'react-redux';
 import { TrackListI, TrackListTypeEnum, setTrackList } from '../../ducks';
 import { LoopringService } from '@/lib/LoopringService';
 
-const mockCollections = [
-  {
-    avatar: '/images/avatar.png',
-    title: 'Inkheads',
-    content: '204 Items',
-    isSelected: true,
-  },
-  {
-    avatar: '/images/avatar.png',
-    title: 'Inkheads',
-    content: '204 Items',
-    isSelected: false,
-  },
-  {
-    avatar: '/images/avatar.png',
-    title: 'Inkheads',
-    content: '204 Items',
-    isSelected: false,
-  },
-  {
-    avatar: '/images/avatar.png',
-    title: 'Inkheads',
-    content: '204 Items',
-    isSelected: false,
-  },
-  {
-    avatar: '/images/avatar.png',
-    title: 'Inkheads',
-    content: '204 Items',
-    isSelected: false,
-  },
-  {
-    avatar: '/images/avatar.png',
-    title: 'Inkheads',
-    content: '204 Items',
-    isSelected: false,
-  },
-];
-
-const mockNFTs = [
-  {
-    avatar: '/images/rice.webp',
-    title: 'WAGMI Wolves Club Bodies #056',
-    content: 'Wagmi Wolves Club Bodies',
-    isSelected: true,
-  },
-  {
-    avatar: '/images/rice.webp',
-    title: 'WAGMI Wolves Club Bodies #056',
-    content: 'Wagmi Wolves Club Bodies',
-    isSelected: false,
-  },
-  {
-    avatar: '/images/rice.webp',
-    title: 'WAGMI Wolves Club Bodies #056',
-    content: 'Wagmi Wolves Club Bodies',
-    isSelected: false,
-  },
-  {
-    avatar: '/images/rice.webp',
-    title: 'WAGMI Wolves Club Bodies #056',
-    content: 'Wagmi Wolves Club Bodies',
-    isSelected: false,
-  },
-  {
-    avatar: '/images/rice.webp',
-    title: 'WAGMI Wolves Club Bodies #056',
-    content: 'Wagmi Wolves Club Bodies',
-    isSelected: false,
-  },
-  {
-    avatar: '/images/rice.webp',
-    title: 'WAGMI Wolves Club Bodies #056',
-    content: 'Wagmi Wolves Club Bodies',
-    isSelected: false,
-  },
-];
+import * as DutchC from './styles';
 
 const options = [
   {
@@ -107,6 +28,8 @@ interface AnalyticsSideBarProps {
 const AnalyticsSideBar: React.FC<AnalyticsSideBarProps> = ({
   onCurrentTracking,
 }) => {
+  const { isConnected } = useAppSelector((state) => state.webAppReducer);
+
   const [trackBy, setTrackBy] = useState({
     id: 0,
     slug: 'Collections',
@@ -204,7 +127,9 @@ const AnalyticsSideBar: React.FC<AnalyticsSideBarProps> = ({
         <DutchC.SideBarHeader>
           <DutchC.SideBarHeaderText>Analytics</DutchC.SideBarHeaderText>
           <Select
-            className="border-none w-full flex-grow"
+            className={`border-none w-full flex-grow ${
+              isConnected ? 'visible' : 'invisible'
+            }`}
             options={[
               { key: '0', value: 'NFT Tracking' },
               { key: '1', value: 'Wallet Tracking' },
@@ -214,7 +139,7 @@ const AnalyticsSideBar: React.FC<AnalyticsSideBarProps> = ({
         </DutchC.SideBarHeader>
         <DutchC.SideBarBody>
           <DutchC.CurrencySelect>
-            <Accordion>
+            <Accordion className={isConnected ? 'visible' : 'invisible'}>
               <DutchC.AccordionContent>
                 <p>Crypto:</p>
                 <p className="font-medium">ETH</p>
@@ -222,7 +147,7 @@ const AnalyticsSideBar: React.FC<AnalyticsSideBarProps> = ({
             </Accordion>
           </DutchC.CurrencySelect>
           <DutchC.CurrencySelect>
-            <Accordion>
+            <Accordion className={isConnected ? 'visible' : 'invisible'}>
               <DutchC.AccordionContent>
                 <p>Fiat:</p>
                 <p className="font-medium">USD</p>
@@ -230,20 +155,29 @@ const AnalyticsSideBar: React.FC<AnalyticsSideBarProps> = ({
             </Accordion>
           </DutchC.CurrencySelect>
           <DutchC.TrackWrapper>
-            <p className="text-sm text-black/70">Track by:</p>
-            <DutchC.TrackSwitchWrapper>
-              {options.map((option, i) => (
-                <OptionSwitch
-                  key={i}
-                  currentOption={trackBy}
-                  option={option}
-                  onCurrentOption={(option) => {
-                    setTrackBy(option);
-                  }}
-                />
-              ))}
-            </DutchC.TrackSwitchWrapper>
-            <SearchInput placeholder="Collection name or id" />
+            <p className="text-sm text-black/70 dark:text-white/70">
+              Track by:
+            </p>
+            <div className="border border-black/10 dark:border-white/10 rounded-lg bg-black/5 dark:bg-white/5">
+              <DutchC.TrackSwitchWrapper
+                className={isConnected ? 'visible' : 'invisible'}
+              >
+                {options.map((option, i) => (
+                  <OptionSwitch
+                    key={i}
+                    currentOption={trackBy}
+                    option={option}
+                    onCurrentOption={(option) => {
+                      setTrackBy(option);
+                    }}
+                  />
+                ))}
+              </DutchC.TrackSwitchWrapper>
+            </div>
+            <SearchInput
+              placeholder="Collection name or id"
+              className={isConnected ? 'visible' : 'invisible'}
+            />
             <DutchC.TrackListWrapper>
               {!!trackList &&
                 trackList.map((item, i) => (
@@ -260,10 +194,10 @@ const AnalyticsSideBar: React.FC<AnalyticsSideBarProps> = ({
             </DutchC.TrackListWrapper>
           </DutchC.TrackWrapper>
           <DutchC.DownloadFullReport>
-            <div className="p-1">
+            <div className={`p-1 ${isConnected ? 'visible' : 'invisible'}`}>
               <Button className="w-full">Download full report</Button>
             </div>
-            <p className="text-black/50 text-xs">
+            <p className="text-black/50 text-xs dark:text-white/50">
               Data is from Loopring L2 Explorer, and CoinMarketCap values are
               used for calculations. DUTCH0x is not liable for any data errors.
             </p>

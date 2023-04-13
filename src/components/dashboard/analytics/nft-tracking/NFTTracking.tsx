@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AnalyticsSideBar } from '../sidebar';
-import { OutlineButton, Table, THead, TBody, TD, TR } from '@/common';
+import { OutlineButton } from '@/common';
 import { OptionSwitch } from '../option-switch';
 import { Accordion } from '@/common/Accordion';
 import { AnalyticsTableSelector } from '@/components/dashboard/analytics/analytics-tables';
@@ -11,7 +10,6 @@ import {
   AnalyticsBarChart,
   AnalyticsPieChart,
 } from '../charts';
-import { TypeCard } from '../transaction-type-card';
 import { useLazyQuery } from '@apollo/client';
 import { NFT_ID_TRANSACTIONS } from '@/graphql/queries';
 import { useAppSelector } from '@/redux/store';
@@ -20,15 +18,9 @@ import { TrackListTypeEnum } from '../../ducks';
 import { LoopringService } from '@/lib/LoopringService';
 import { AnalyticPieChartDataI, TradeNFTI } from '@/types';
 import { ethers } from 'ethers';
-import {
-  AllTransactionsI,
-  TransactionTypeEnum,
-  getAllTransactionDuration,
-  getTradeNftsUtils,
-} from '@/helpers';
+import { AllTransactionsI, getTradeNftsUtils } from '@/helpers';
 
 import * as Dutch0x from './styles';
-import { WalletTracking } from '../WalletTracking';
 
 const transOptions = [
   {
@@ -149,7 +141,6 @@ const NFTTracking = () => {
   const [lrcTurnOver, setLrcTurnOver] = useState(0);
   const [lrcTotalRoyalty, setLrcTotalRoyalty] = useState(0);
   const [ethTotalRoyalty, setEthTotalRoyalty] = useState(0);
-  const [currentTracking, setCurrentTracking] = useState(0);
 
   const [nftIds, setNftIds] = useState<string[]>([]);
   const [analyticPieChartData, setAnalyticPieChartData] = useState<
@@ -250,19 +241,25 @@ const NFTTracking = () => {
       <Dutch0x.ContentSwitch>
         <Dutch0x.ContentSwitchInner>
           <Dutch0x.TransactionSwitchWrapper>
-            {transOptions.map((option, i) => (
-              <OptionSwitch
-                key={i}
-                currentOption={currentTransOption}
-                option={option}
-                onCurrentOption={(option) => {
-                  setCurrentTransOption(option);
-                }}
-              />
-            ))}
+            <div
+              className={`bg-black/5 dark:bg-white/5 ${
+                false ? 'visible' : 'invisible'
+              }`}
+            >
+              {transOptions.map((option, i) => (
+                <OptionSwitch
+                  key={i}
+                  currentOption={currentTransOption}
+                  option={option}
+                  onCurrentOption={(option) => {
+                    setCurrentTransOption(option);
+                  }}
+                />
+              ))}
+            </div>
           </Dutch0x.TransactionSwitchWrapper>
           <Dutch0x.DaySwitchWrapper>
-            <div className="pr-1 flex gap-1">
+            <div className="pr-1 flex">
               {dayOptions.map((option, i) => (
                 <OptionSwitch
                   key={i}
@@ -279,13 +276,13 @@ const NFTTracking = () => {
         </Dutch0x.ContentSwitchInner>
         <Dutch0x.ContentIdkHead>
           <OutlineButton size="small">Inkheads</OutlineButton>
-          <p className="text-xs text-black/70">
+          <p className="text-xs text-black/70 dark:text-white/70">
             The tracking shown is according to the timeline selected.
           </p>
         </Dutch0x.ContentIdkHead>
       </Dutch0x.ContentSwitch>
       <Dutch0x.ContentOverviewWrapper>
-        <div className="font-bold text-black">Overview</div>
+        <div className="font-bold text-black dark:text-white">Overview</div>
         <Dutch0x.ContentOverviewInner>
           <Dutch0x.ContentOverviewCards>
             <AnalyticsCard
@@ -334,14 +331,14 @@ const NFTTracking = () => {
               <Dutch0x.ChartsWrapper>
                 <Dutch0x.AreaChartsWrapper>
                   <AnalyticsAreaChart
-                    data={mockAreaData}
+                    data={undefined}
                     dayOption={currentDayOption.slug}
                   />
                 </Dutch0x.AreaChartsWrapper>
                 <Dutch0x.BarChartsWrapper>
                   <div className="w-full h-[100px]">
                     <AnalyticsBarChart
-                      data={mockBarData}
+                      data={undefined}
                       barColors={
                         currentTransOption.id === 0
                           ? ['#449975', '#E16D40']
@@ -349,7 +346,7 @@ const NFTTracking = () => {
                       }
                     />
                   </div>
-                  <p className="font-bold text-center text-sm text-black/70">
+                  <p className="font-bold text-center text-sm text-black/70 dark:text-white/70">
                     Turnover
                   </p>
                 </Dutch0x.BarChartsWrapper>
@@ -357,18 +354,18 @@ const NFTTracking = () => {
             </Dutch0x.ContentOverviewChartsMain>
             {currentTransOption.slug === 'All Transactions' && (
               <Dutch0x.ContentOverviewChartsRight>
-                <p className="font-bold text-sm text-black/70">
+                <p className="font-bold text-sm text-black/70  dark:text-white/70">
                   By transaction types
                 </p>
                 <AnalyticsPieChart
-                  data={analyticPieChartData}
+                  data={undefined}
                   totalTransaction={totalTransactionCount}
                 />
               </Dutch0x.ContentOverviewChartsRight>
             )}
             {currentTransOption.slug === 'Royalties' && (
               <Dutch0x.ContentOverviewChartsRight>
-                <p className="font-bold text-sm text-black/70">
+                <p className="font-bold text-sm text-black/70  dark:text-white/70">
                   Royalties Earned (ETH) for Percentage groups
                 </p>
                 <div className="w-[400px] h-[400px]">

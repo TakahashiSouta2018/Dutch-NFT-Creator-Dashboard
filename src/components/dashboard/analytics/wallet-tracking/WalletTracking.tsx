@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
 
 import * as Dutch0x from './styles';
 import { Table, THead, TBody, TR, TD } from '@/common';
