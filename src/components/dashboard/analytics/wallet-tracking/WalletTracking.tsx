@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import * as Dutch0x from './styles';
+import * as DutchC from './styles';
 import { Table, THead, TBody, TR, TD } from '@/common';
 import { OptionSwitch } from '../option-switch';
 import { Accordion } from '@/common/Accordion';
@@ -69,12 +69,12 @@ const WalletTracking = () => {
     slug: 'All',
   });
   return (
-    <div className="flex flex-col gap-6">
-      <div className="overview flex flex-col gap-4">
-        <div className="switch flex flex-col gap-2">
-          <p className="font-bold">Overview</p>
+    <DutchC.WalletTrackingWrapper>
+      <DutchC.WalletTrackingContainer>
+        <DutchC.WalletTrackingUnitWrapper>
+          <p className="font-bold text-black dark:text-white">Overview</p>
           <div className="flex gap-4 items-center">
-            <Dutch0x.DaySwitchWrapper>
+            <DutchC.DaySwitchWrapper>
               <div className="pr-1 flex gap-1">
                 {dayOptions.map((option, i) => (
                   <OptionSwitch
@@ -88,29 +88,29 @@ const WalletTracking = () => {
                 ))}
               </div>
               <Accordion>Custom</Accordion>
-            </Dutch0x.DaySwitchWrapper>
-            <p className="text-xs text-black/70">
+            </DutchC.DaySwitchWrapper>
+            <p className="text-xs text-black/70 dark:text-white/70">
               The tracking shown is according to the timeline selected.
             </p>
           </div>
-        </div>
-        <div className="cards flex flex-col gap-2">
+        </DutchC.WalletTrackingUnitWrapper>
+        <DutchC.WalletTrackingUnitWrapper>
           <div className="flex gap-4 items-center">
             <div className="flex gap-2 items-center">
-              <p className="text-black/50 font-medium">
+              <p className="text-black/50 dark:text-white/50 font-medium">
                 Opening Balance (Apr 1, 2022)
               </p>
-              <p className="font-bold">$ 502.30</p>
+              <p className="font-bold text-black dark:text-white">$ 502.30</p>
             </div>
 
             <div className="flex gap-2 items-center">
-              <p className="text-black/50 font-medium">
+              <p className="text-black/50 dark:text-white/50 font-medium">
                 Opening Balance (Apr 1, 2022)
               </p>
-              <p className="font-bold">$ 502.30</p>
+              <p className="font-bold text-black dark:text-white">$ 502.30</p>
             </div>
           </div>
-          <Dutch0x.ContentOverviewCards>
+          <DutchC.ContentOverviewCards>
             <AnalyticsCard
               title={'Turnover'}
               eth={0.3209}
@@ -129,13 +129,13 @@ const WalletTracking = () => {
               usd={265.91}
               percentage={7.2}
             />
-          </Dutch0x.ContentOverviewCards>
-        </div>
-        <div className="charts flex flex-col gap-2"></div>
-      </div>
-      <div className="holdings flex w-full gap-6">
-        <div className="hodingsTable flex-grow flex-col overflow-hidden">
-          <p className="font-bold">Holdings</p>
+          </DutchC.ContentOverviewCards>
+        </DutchC.WalletTrackingUnitWrapper>
+        <DutchC.WalletTrackingUnitWrapper></DutchC.WalletTrackingUnitWrapper>
+      </DutchC.WalletTrackingContainer>
+      <DutchC.WalletTrackingContainer>
+        <DutchC.WalletTrackingUnitWrapper>
+          <p className="font-bold dark:text-white">Holdings</p>
           <AnalyticsTableLayout>
             <AnalyticsTableControl
               isSwitch
@@ -145,35 +145,42 @@ const WalletTracking = () => {
               searchInputPlaceholder="Token"
               isPaginatiable
             />
-            <Table className="dark:text-white text-black border rounded-xl table-fixed">
-              <THead className="!text-black/100 dark:!text-white/100 bg-black/10 dark:bg-white/10">
-                <TR>
-                  <TD>Token</TD>
-                  <TD>Symbol</TD>
-                  <TD>Quantity</TD>
-                  <TD>Price</TD>
-                  <TD>Value</TD>
-                </TR>
-              </THead>
-              <TBody className="text-sm">
-                {mockDataHolding?.map((item, index) => (
-                  <TR key={index}>
-                    <TD className="flex gap-2 items-center">
-                      <LRCIconSelector id={item.lrcId} />
-                      {item.token}
-                    </TD>
-                    <TD>{item.symbol}</TD>
-                    <TD>{item.quantity}</TD>
-                    <TD>{item.price}</TD>
-                    <TD>{item.value}</TD>
+            <div className="relative">
+              {!mockDataHolding && (
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-0 dark:text-white">
+                  No data available
+                </div>
+              )}
+              <Table className="dark:text-white text-black border rounded-xl table-fixed">
+                <THead className="!text-black/100 dark:!text-white/100 bg-black/10 dark:bg-white/10">
+                  <TR>
+                    <TD>Token</TD>
+                    <TD>Symbol</TD>
+                    <TD>Quantity</TD>
+                    <TD>Price</TD>
+                    <TD>Value</TD>
                   </TR>
-                ))}
-              </TBody>
-            </Table>
+                </THead>
+                <TBody className="text-sm">
+                  {mockDataHolding?.map((item, index) => (
+                    <TR key={index}>
+                      <TD className="flex gap-2 items-center">
+                        <LRCIconSelector id={item.lrcId} />
+                        {item.token}
+                      </TD>
+                      <TD>{item.symbol}</TD>
+                      <TD>{item.quantity}</TD>
+                      <TD>{item.price}</TD>
+                      <TD>{item.value}</TD>
+                    </TR>
+                  ))}
+                </TBody>
+              </Table>
+            </div>
           </AnalyticsTableLayout>
-        </div>
-        <div className="flex flex-col gap-4">
-          <p className="font-bold">Currency Holdings by %</p>
+        </DutchC.WalletTrackingUnitWrapper>
+        <DutchC.WalletTrackingUnitWrapper>
+          <p className="font-bold dark:text-white">Currency Holdings by %</p>
           <AnalyticsPieChart
             data={[
               { name: 'ETH', value: 1000 },
@@ -182,13 +189,13 @@ const WalletTracking = () => {
             ]}
             totalTransaction={1800}
           />
-        </div>
-      </div>
-      <div className="TransactionsView flex flex-col gap-4">
+        </DutchC.WalletTrackingUnitWrapper>
+      </DutchC.WalletTrackingContainer>
+      <DutchC.WalletTrackingContainer>
         <WalletTrackingTransactionView />
-      </div>
-      <div className="analytics flex flex-col gap-4"></div>
-    </div>
+      </DutchC.WalletTrackingContainer>
+      <DutchC.WalletTrackingContainer></DutchC.WalletTrackingContainer>
+    </DutchC.WalletTrackingWrapper>
   );
 };
 

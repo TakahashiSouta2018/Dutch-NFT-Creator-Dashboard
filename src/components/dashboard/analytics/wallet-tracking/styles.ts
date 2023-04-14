@@ -1,7 +1,20 @@
 import styled from 'styled-components';
 
+export const WalletTrackingWrapper = styled.div.attrs({
+  className: 'flex flex-col gap-6',
+})``;
+
+export const WalletTrackingContainer = styled.div.attrs({
+  className: 'flex flex-col gap-4',
+})``;
+
+export const WalletTrackingUnitWrapper = styled.div.attrs({
+  className: 'flex flex-col gap-2',
+})``;
+
 export const DaySwitchWrapper = styled.div.attrs({
-  className: 'flex divide-x divide-black/10 border border-black/10 rounded-lg',
+  className:
+    'flex divide-x divide-black/10 dark:divide-white/10 border border-black/10 dark:border-white/10 rounded-lg',
 })``;
 
 export const ContentOverviewCards = styled.div.attrs({

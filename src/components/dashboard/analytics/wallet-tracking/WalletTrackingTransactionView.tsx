@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 
-import * as Dutch0x from './styles';
+import * as DutchC from './styles';
 import { OptionSwitch } from '../option-switch';
 import { Accordion } from '@/common/Accordion';
 import { AnalyticsCard, CurrenciesInvolvedCard } from '../analytics-card';
@@ -117,7 +117,7 @@ export const WalletTrackingTransactionView = () => {
         <div className="switch flex flex-col gap-2">
           <p className="font-bold">Transactions</p>
           <div className="flex gap-4 items-center">
-            <Dutch0x.DaySwitchWrapper>
+            <DutchC.DaySwitchWrapper>
               <div className="pr-1 flex gap-1">
                 {dayOptions.map((option, i) => (
                   <OptionSwitch
@@ -131,14 +131,14 @@ export const WalletTrackingTransactionView = () => {
                 ))}
               </div>
               <Accordion>Custom</Accordion>
-            </Dutch0x.DaySwitchWrapper>
+            </DutchC.DaySwitchWrapper>
             <p className="text-xs text-black/70">
               The tracking shown is according to the timeline selected.
             </p>
           </div>
         </div>
         <div className="cards flex flex-col gap-2">
-          <Dutch0x.ContentOverviewCards>
+          <DutchC.ContentOverviewCards>
             <AnalyticsCard title={'Incoming'} eth={0.3209} usd={523.2} />
             <AnalyticsCard title={'Outgoing'} eth={0.1209} usd={189.91} />
             <AnalyticsCard
@@ -146,8 +146,8 @@ export const WalletTrackingTransactionView = () => {
               eth={0.2209}
               usd={265.91}
             />
-          </Dutch0x.ContentOverviewCards>
-          <Dutch0x.ContentOverviewCards>
+          </DutchC.ContentOverviewCards>
+          <DutchC.ContentOverviewCards>
             <CurrenciesInvolvedCard
               data={[
                 {
@@ -214,7 +214,7 @@ export const WalletTrackingTransactionView = () => {
                 },
               ]}
             />
-          </Dutch0x.ContentOverviewCards>
+          </DutchC.ContentOverviewCards>
           <AnalyticsTableLayout>
             <AnalyticsTableControl
               isSwitch
@@ -224,6 +224,11 @@ export const WalletTrackingTransactionView = () => {
               searchInputPlaceholder="Token"
               isPaginatiable
             />
+            {!analyticsTableData && (
+              <div className="absolute left-1/2 -translate-x-1/2 bottom-0 dark:text-white">
+                No data available
+              </div>
+            )}
             <Table className="dark:text-white text-black border rounded-xl table-fixed">
               <THead className="!text-black/100 dark:!text-white/100 bg-black/10 dark:bg-white/10">
                 <TR>

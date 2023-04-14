@@ -34,6 +34,11 @@ const TopRankingTable: React.FC<TopRankingTableProps> = ({
 
   return (
     <DutchC.TopRankingTableWrapper className={`${className}`}>
+      {!data && (
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-0 dark:text-white">
+          No data available
+        </div>
+      )}
       <Table className="dark:text-white text-black border rounded-xl table-auto">
         <THead className="!text-black/100 dark:!text-white/100 bg-black/5 dark:bg-white/5">
           <TR>

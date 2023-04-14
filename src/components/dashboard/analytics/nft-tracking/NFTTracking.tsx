@@ -20,7 +20,7 @@ import { AnalyticPieChartDataI, TradeNFTI } from '@/types';
 import { ethers } from 'ethers';
 import { AllTransactionsI, getTradeNftsUtils } from '@/helpers';
 
-import * as Dutch0x from './styles';
+import * as DutchC from './styles';
 
 const transOptions = [
   {
@@ -71,23 +71,23 @@ const dayOptions = [
 const mockAreaDataOne = Array.from(Array(6), (_, id) => {
   return {
     date: `1483232400`,
-    uv: Math.floor(50 * Math.random()) + 500,
-    pv: Math.floor(50 * Math.random()) + 500,
+    data0: Math.floor(50 * Math.random()) + 500,
+    data1: Math.floor(50 * Math.random()) + 500,
   };
 });
 
 const mockAreaDataTwo = Array.from(Array(60), (_, id) => {
   return {
     date: '1672104200',
-    uv: Math.floor(50 * Math.random()) + 500,
+    data0: Math.floor(50 * Math.random()) + 500,
   };
 });
 
 const mockBarData = Array.from(Array(60), (_, id) => {
   return {
     date: '1672104200',
-    uv: Math.floor(100 * Math.random()),
-    pv: Math.floor(100 * Math.random()),
+    data0: Math.floor(100 * Math.random()),
+    data1: Math.floor(100 * Math.random()),
   };
 });
 
@@ -238,9 +238,9 @@ const NFTTracking = () => {
 
   return (
     <div className="nft-tracking">
-      <Dutch0x.ContentSwitch>
-        <Dutch0x.ContentSwitchInner>
-          <Dutch0x.TransactionSwitchWrapper>
+      <DutchC.ContentSwitch>
+        <DutchC.ContentSwitchInner>
+          <DutchC.TransactionSwitchWrapper>
             <div
               className={`bg-black/5 dark:bg-white/5 ${
                 false ? 'visible' : 'invisible'
@@ -257,8 +257,8 @@ const NFTTracking = () => {
                 />
               ))}
             </div>
-          </Dutch0x.TransactionSwitchWrapper>
-          <Dutch0x.DaySwitchWrapper>
+          </DutchC.TransactionSwitchWrapper>
+          <DutchC.DaySwitchWrapper>
             <div className="pr-1 flex">
               {dayOptions.map((option, i) => (
                 <OptionSwitch
@@ -272,19 +272,19 @@ const NFTTracking = () => {
               ))}
             </div>
             <Accordion>Custom</Accordion>
-          </Dutch0x.DaySwitchWrapper>
-        </Dutch0x.ContentSwitchInner>
-        <Dutch0x.ContentIdkHead>
+          </DutchC.DaySwitchWrapper>
+        </DutchC.ContentSwitchInner>
+        <DutchC.ContentIdkHead>
           <OutlineButton size="small">Inkheads</OutlineButton>
           <p className="text-xs text-black/70 dark:text-white/70">
             The tracking shown is according to the timeline selected.
           </p>
-        </Dutch0x.ContentIdkHead>
-      </Dutch0x.ContentSwitch>
-      <Dutch0x.ContentOverviewWrapper>
+        </DutchC.ContentIdkHead>
+      </DutchC.ContentSwitch>
+      <DutchC.ContentOverviewWrapper>
         <div className="font-bold text-black dark:text-white">Overview</div>
-        <Dutch0x.ContentOverviewInner>
-          <Dutch0x.ContentOverviewCards>
+        <DutchC.ContentOverviewInner>
+          <DutchC.ContentOverviewCards>
             <AnalyticsCard
               title={currentTransOption.slug + ' Count'}
               transActionsCount={totalTransactionCount}
@@ -316,26 +316,26 @@ const NFTTracking = () => {
                 percentage={5.1}
               />
             )}
-          </Dutch0x.ContentOverviewCards>
-          <Dutch0x.ContentOverviewCharts>
-            <Dutch0x.ContentOverviewChartsMain
+          </DutchC.ContentOverviewCards>
+          <DutchC.ContentOverviewCharts>
+            <DutchC.ContentOverviewChartsMain
               className={
                 currentTransOption.id === 0 || currentTransOption.id === 3
                   ? 'w-2/3'
                   : 'w-full'
               }
             >
-              <Dutch0x.ChartsMainTitle>
+              <DutchC.ChartsMainTitle>
                 Transactions Count vs Timeline
-              </Dutch0x.ChartsMainTitle>
-              <Dutch0x.ChartsWrapper>
-                <Dutch0x.AreaChartsWrapper>
+              </DutchC.ChartsMainTitle>
+              <DutchC.ChartsWrapper>
+                <DutchC.AreaChartsWrapper>
                   <AnalyticsAreaChart
-                    data={undefined}
+                    data={mockAreaData}
                     dayOption={currentDayOption.slug}
                   />
-                </Dutch0x.AreaChartsWrapper>
-                <Dutch0x.BarChartsWrapper>
+                </DutchC.AreaChartsWrapper>
+                <DutchC.BarChartsWrapper>
                   <div className="w-full h-[100px]">
                     <AnalyticsBarChart
                       data={undefined}
@@ -349,11 +349,11 @@ const NFTTracking = () => {
                   <p className="font-bold text-center text-sm text-black/70 dark:text-white/70">
                     Turnover
                   </p>
-                </Dutch0x.BarChartsWrapper>
-              </Dutch0x.ChartsWrapper>
-            </Dutch0x.ContentOverviewChartsMain>
+                </DutchC.BarChartsWrapper>
+              </DutchC.ChartsWrapper>
+            </DutchC.ContentOverviewChartsMain>
             {currentTransOption.slug === 'All Transactions' && (
-              <Dutch0x.ContentOverviewChartsRight>
+              <DutchC.ContentOverviewChartsRight>
                 <p className="font-bold text-sm text-black/70  dark:text-white/70">
                   By transaction types
                 </p>
@@ -361,10 +361,10 @@ const NFTTracking = () => {
                   data={undefined}
                   totalTransaction={totalTransactionCount}
                 />
-              </Dutch0x.ContentOverviewChartsRight>
+              </DutchC.ContentOverviewChartsRight>
             )}
             {currentTransOption.slug === 'Royalties' && (
-              <Dutch0x.ContentOverviewChartsRight>
+              <DutchC.ContentOverviewChartsRight>
                 <p className="font-bold text-sm text-black/70  dark:text-white/70">
                   Royalties Earned (ETH) for Percentage groups
                 </p>
@@ -382,11 +382,11 @@ const NFTTracking = () => {
                     colorable={true}
                   />
                 </div>
-              </Dutch0x.ContentOverviewChartsRight>
+              </DutchC.ContentOverviewChartsRight>
             )}
-          </Dutch0x.ContentOverviewCharts>
-        </Dutch0x.ContentOverviewInner>
-      </Dutch0x.ContentOverviewWrapper>
+          </DutchC.ContentOverviewCharts>
+        </DutchC.ContentOverviewInner>
+      </DutchC.ContentOverviewWrapper>
 
       <div className="table w-full">
         <AnalyticsTableSelector currentTransOption={currentTransOption} />

@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { IArrowTrendingUp, IArrowTrendingDown } from '@/common';
 import { LRCIconSelector } from '../analytics-tables/lrc-icon-selector';
 
-import * as Dutch0x from './styles';
+import * as DutchC from './styles';
 
 interface CurrenciesInvolvedCardProps {
   data: {
@@ -20,7 +20,7 @@ const CurrenciesInvolvedCard: React.FC<CurrenciesInvolvedCardProps> = ({
   className,
 }) => {
   return (
-    <Dutch0x.AnalyticsCardWrapper className={className}>
+    <DutchC.AnalyticsCardWrapper className={className}>
       <p className="text-sm text-black/50">Currencies Involved</p>
       <div>
         {data.map((item, index) => (
@@ -36,7 +36,7 @@ const CurrenciesInvolvedCard: React.FC<CurrenciesInvolvedCardProps> = ({
           </>
         ))}
       </div>
-    </Dutch0x.AnalyticsCardWrapper>
+    </DutchC.AnalyticsCardWrapper>
   );
 };
 

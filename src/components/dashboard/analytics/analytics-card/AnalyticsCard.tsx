@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { IArrowTrendingUp, IArrowTrendingDown } from '@/common';
 
-import * as Dutch0x from './styles';
+import * as DutchC from './styles';
 
 interface AnalyticsCardProps {
   title: string;
@@ -32,7 +32,7 @@ const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
   }, [percentage]);
 
   return (
-    <Dutch0x.AnalyticsCardWrapper className={className}>
+    <DutchC.AnalyticsCardWrapper className={className}>
       <p className="text-sm text-black/50 dark:font-white">{title}</p>
       {title === 'Transactions Count' ? (
         <div className="flex-grow text-black dark:text-white">
@@ -58,7 +58,7 @@ const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
         </div>
       )}
       {percentage && (
-        <Dutch0x.AnalyticsCardTrending>
+        <DutchC.AnalyticsCardTrending>
           {isArrorDown ? (
             <IArrowTrendingDown color="accent-red" />
           ) : (
@@ -72,9 +72,9 @@ const AnalyticsCard: React.FC<AnalyticsCardProps> = ({
             {percentage}%
           </p>
           <p className="text-black">than last year</p>
-        </Dutch0x.AnalyticsCardTrending>
+        </DutchC.AnalyticsCardTrending>
       )}
-    </Dutch0x.AnalyticsCardWrapper>
+    </DutchC.AnalyticsCardWrapper>
   );
 };
 

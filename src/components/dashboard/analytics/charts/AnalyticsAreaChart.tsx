@@ -23,11 +23,11 @@ const convertDate = (dayOption: string) => (timestamp: number) => {
   return date.format('YYYY');
 };
 
-type AreaChartDataTypes = {
+interface AreaChartDataTypes {
   date: string;
-  uv: number;
-  pv?: number;
-};
+  data0: number;
+  data1?: number;
+}
 
 interface AreaChartProps {
   data?: AreaChartDataTypes[];
