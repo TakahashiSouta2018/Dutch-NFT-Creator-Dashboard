@@ -12,7 +12,9 @@ export const WalletTrackingHoldings = styled.div.attrs({
   className: 'flex gap-6 w-full justify-between',
 })``;
 
-export const WalletTrackingUnitWrapper = styled.div.attrs({
+export const WalletTrackingUnitWrapper = styled.div.attrs<{
+  className: string;
+}>({
   className: 'flex flex-col gap-2',
 })``;
 

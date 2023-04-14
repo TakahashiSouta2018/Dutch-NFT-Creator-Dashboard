@@ -134,7 +134,7 @@ const WalletTracking = () => {
         <DutchC.WalletTrackingUnitWrapper></DutchC.WalletTrackingUnitWrapper>
       </DutchC.WalletTrackingContainer>
       <DutchC.WalletTrackingHoldings>
-        <DutchC.WalletTrackingUnitWrapper>
+        <DutchC.WalletTrackingUnitWrapper className="flex-grow">
           <p className="font-bold dark:text-white">Holdings</p>
           <AnalyticsTableLayout>
             <AnalyticsTableControl
@@ -145,7 +145,7 @@ const WalletTracking = () => {
               searchInputPlaceholder="Token"
               isPaginatiable
             />
-            <div className="relative">
+            <div className="relative w-full">
               {!mockDataHolding && (
                 <div className="absolute left-1/2 -translate-x-1/2 bottom-0 dark:text-white">
                   No data available
