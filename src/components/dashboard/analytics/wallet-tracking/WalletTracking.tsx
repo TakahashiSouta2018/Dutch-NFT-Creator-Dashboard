@@ -133,7 +133,7 @@ const WalletTracking = () => {
         </DutchC.WalletTrackingUnitWrapper>
         <DutchC.WalletTrackingUnitWrapper></DutchC.WalletTrackingUnitWrapper>
       </DutchC.WalletTrackingContainer>
-      <DutchC.WalletTrackingContainer>
+      <DutchC.WalletTrackingHoldings>
         <DutchC.WalletTrackingUnitWrapper>
           <p className="font-bold dark:text-white">Holdings</p>
           <AnalyticsTableLayout>
@@ -190,7 +190,7 @@ const WalletTracking = () => {
             totalTransaction={1800}
           />
         </DutchC.WalletTrackingUnitWrapper>
-      </DutchC.WalletTrackingContainer>
+      </DutchC.WalletTrackingHoldings>
       <DutchC.WalletTrackingContainer>
         <WalletTrackingTransactionView />
       </DutchC.WalletTrackingContainer>
