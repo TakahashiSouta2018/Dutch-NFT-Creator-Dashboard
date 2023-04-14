@@ -84,7 +84,11 @@ export const ProfileMenuAddFundsButtonWrapper = styled.div.attrs({
 })``;
 
 export const ProfileMenuFooterWrapper = styled.div.attrs({
-  className: 'flex items-center justify-between text-sm w-full',
+  className: 'flex flex-col items-center text-sm w-full',
+})``;
+
+export const ProfileMenuFooterItem = styled.div.attrs({
+  className: 'flex justify-between items-center w-full',
 })``;
 
 export const ProfileMenuFooterThemeText = styled.div.attrs({

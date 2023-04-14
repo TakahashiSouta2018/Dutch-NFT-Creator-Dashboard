@@ -824,6 +824,23 @@ export const IArrowUp: React.FC<IconProps> = ({
   );
 };
 
+export const IArrowRightOnRectangle: React.FC<IconProps> = ({
+  variant = 'solid',
+  size = 'medium',
+  color = 'black',
+  className,
+}) => {
+  return variant === 'solid' ? (
+    <SolidIcons.ArrowRightOnRectangleIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  ) : (
+    <OutlineIcons.ArrowRightOnRectangleIcon
+      className={`${className} ${sizes[size]} ${colors[color]}`}
+    />
+  );
+};
+
 export const icons = {
   bell: IBell,
   wallet: IWallet,
@@ -859,6 +876,7 @@ export const icons = {
   'square-2-stack': ISquare2Stack,
   'lock-closed': ILockClosed,
   idocumentduplicateIcon: IDocumentDuplicateIcon,
+  'arrow-right-on-rectangle': IArrowRightOnRectangle,
 };
 
 export type IconType = keyof typeof icons;

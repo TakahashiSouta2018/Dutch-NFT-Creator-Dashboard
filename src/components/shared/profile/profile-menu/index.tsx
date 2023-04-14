@@ -8,6 +8,7 @@ import {
   setMintModalIsOpen,
   setSelectedDraftNFTs,
 } from '@/components/create/ducks';
+import { setIsConnected } from '@/ducks';
 import useNFTHook from '@/hooks/useNFTHook';
 
 import * as Icons from '@/common/Icons';
@@ -102,6 +103,11 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
 
   const handleMintAll = () => {
     dispatch(setMintModalIsOpen(true));
+  };
+
+  const handleLogout = () => {
+    dispatch(setIsConnected(false));
+    setIsOpen(false);
   };
 
   const ref = useDetectClickOutside({ onTriggered: handleClose });
@@ -202,14 +208,29 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
         )}
 
         <DutchC.ProfileMenuFooterWrapper>
-          <DutchC.ProfileMenuFooterThemeText>
-            {theme} Theme
-          </DutchC.ProfileMenuFooterThemeText>
-          <IconButton
-            className="w-5 h-5"
-            icon={theme === 'light' ? 'sun' : 'moon'}
-            onClick={toggleTheme}
-          />
+          <DutchC.ProfileMenuFooterItem>
+            <DutchC.ProfileMenuFooterThemeText>
+              {theme} Theme
+            </DutchC.ProfileMenuFooterThemeText>
+            <IconButton
+              className="w-5 h-5"
+              icon={theme === 'light' ? 'sun' : 'moon'}
+              onClick={toggleTheme}
+            />
+          </DutchC.ProfileMenuFooterItem>
+          {isConnected && <DutchC.ProfileMenuDividerX />}
+          {isConnected && (
+            <DutchC.ProfileMenuFooterItem>
+              <DutchC.ProfileMenuFooterThemeText>
+                Disconnect
+              </DutchC.ProfileMenuFooterThemeText>
+              <IconButton
+                className="w-5 h-5"
+                icon={'arrow-right-on-rectangle'}
+                onClick={handleLogout}
+              />
+            </DutchC.ProfileMenuFooterItem>
+          )}
         </DutchC.ProfileMenuFooterWrapper>
       </DutchC.ProfileMenu>
     </DutchC.ProfileMenuWrapper>
