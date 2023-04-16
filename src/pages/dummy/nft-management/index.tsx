@@ -11,9 +11,8 @@ import { getCookie } from 'cookies-next';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { useState } from 'react';
 
-
 const NFTManagement = ({ nfts }: { nfts: CreateNftManagementI[] }) => {
-  const [showSyncModal, setShowSyncModal] = useState<boolean>(false)
+  const [showSyncModal, setShowSyncModal] = useState<boolean>(false);
 
   return (
     <AppLayout>
@@ -21,7 +20,7 @@ const NFTManagement = ({ nfts }: { nfts: CreateNftManagementI[] }) => {
       <AllPage tableListSwtich={0} listNfts={nfts} />
       {nfts.length === 0 && (
         <SyncNFTs
-          currentTab={"ALL"}
+          currentTab={'ALL'}
           showSyncModal={showSyncModal}
           setShowSyncModal={(flag) => setShowSyncModal(flag)}
           nftList={[]}
@@ -29,12 +28,12 @@ const NFTManagement = ({ nfts }: { nfts: CreateNftManagementI[] }) => {
       )}
     </AppLayout>
   );
-}
+};
 
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps(
     (store) => async (ctx: GetServerSidePropsContext) => {
-      const nftManagement = new NFTManagementService();      
+      const nftManagement = new NFTManagementService();
       const user = getCookie('ACCOUNT', { req: ctx.req, res: ctx.res });
 
       const { response, data } = await nftManagement.getUserNfts(

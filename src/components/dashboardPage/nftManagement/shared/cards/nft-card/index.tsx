@@ -9,7 +9,10 @@ import { useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
 import { getIpfsHttpUrl } from '@/lib/pinata';
 import CopyNFTId from '@/components/dashboard/copy-nft-id';
-import { ShortcutContextMenu, ShortcutContextMenuItem } from '@/components/shared/shortcut-context-menu';
+import {
+  ShortcutContextMenu,
+  ShortcutContextMenuItem,
+} from '@/components/shared/shortcut-context-menu';
 import { DashboardPageReducerI } from '@/components/dashboard/ducks';
 
 interface NFTCardProps extends CreateNftManagementI {
@@ -29,7 +32,8 @@ const NFTCard: React.FC<NFTCardProps> = ({
   const { theme } = useTheme();
 
   const { selectedNFTs } = useAppSelector((state) => {
-    const { selectedNFTs } = state.dashboardPageReducer as DashboardPageReducerI;
+    const { selectedNFTs } =
+      state.dashboardPageReducer as DashboardPageReducerI;
     return { selectedNFTs };
   }, shallowEqual);
 

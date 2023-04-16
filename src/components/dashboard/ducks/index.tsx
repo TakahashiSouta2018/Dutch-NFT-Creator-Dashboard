@@ -58,10 +58,10 @@ export const dashboardPageReducer: Slice<DashboardPageReducerI> = createSlice({
     [HYDRATE]: (state, action) => {
       return {
         ...state,
-        ...action.payload
-      }
-    }
-  }
+        ...action.payload,
+      };
+    },
+  },
 });
 
 export const { setSelectedNfts, setCollectionNfts, setTrackList } =

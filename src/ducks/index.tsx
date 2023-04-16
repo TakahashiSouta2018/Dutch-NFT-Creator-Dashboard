@@ -86,10 +86,10 @@ export const webAppReducer: Slice<WebAppReducerI> = createSlice({
     [HYDRATE]: (state, action) => {
       return {
         ...state,
-        ...action.payload.webApp
-      }
-    }
-  }
+        ...action.payload.webApp,
+      };
+    },
+  },
 });
 
 export const {

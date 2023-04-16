@@ -77,10 +77,10 @@ export const createPageReducer: Slice<CreatePageReducerI> = createSlice({
     [HYDRATE]: (state, action) => {
       return {
         ...state,
-        ...action.payload
-      }
-    }
-  }
+        ...action.payload,
+      };
+    },
+  },
 });
 
 export const {

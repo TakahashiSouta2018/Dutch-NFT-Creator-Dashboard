@@ -24,7 +24,7 @@ const NFTBank0x = () => {
   );
 
   return (
-    <div className='grid grid-cols-5 gap-3 mt'>
+    <div className="grid grid-cols-5 gap-3 mt">
       {typeof NFTs === 'object' &&
         NFTs.map((nft) => (
           <NFTCard

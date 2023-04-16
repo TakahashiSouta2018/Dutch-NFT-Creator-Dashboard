@@ -17,7 +17,7 @@ const SyncNFTs: React.FC<ShowSyncModalProps> = ({
   currentTab,
 }) => {
   return (
-    <div 
+    <div
       className="flex gap-5 rounded-lg bg-black p-6 w-full text-white cursor-pointer dark:bg-white dark:text-black"
       onClick={(e) => {
         e.stopPropagation();
@@ -25,8 +25,8 @@ const SyncNFTs: React.FC<ShowSyncModalProps> = ({
       }}
     >
       <Icons.IArrowDownOnSquare color="white-gray" size="large" />
-      <div className='flex flex-col'>
-        <div className='font-bold text-xl'>Sync NFTs</div>
+      <div className="flex flex-col">
+        <div className="font-bold text-xl">Sync NFTs</div>
         <p>You can sync your collections and NFTs to your DUTCH0x database.</p>
       </div>
       {

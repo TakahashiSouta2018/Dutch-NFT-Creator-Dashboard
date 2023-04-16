@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
   const PAGE_PATH = router.asPath.split('/')[2] ?? '';
 
   return (
-    <div className='mt-16 pb-4 pt-4 flex items-center text-center gap-x-4 px-6 border-b border-dark/10 dark:border-white/10' >
+    <div className="mt-16 pb-4 pt-4 flex items-center text-center gap-x-4 px-6 border-b border-dark/10 dark:border-white/10">
       {navItems.map((nav, index) => (
         <Link
           key={nav.slug}

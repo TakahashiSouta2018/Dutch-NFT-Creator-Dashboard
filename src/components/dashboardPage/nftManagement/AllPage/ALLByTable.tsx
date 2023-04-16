@@ -55,9 +55,9 @@ const NFTAllByTable: React.FC<NFTAllByTableProps> = ({
               style={
                 isSelected(list.nftId)
                   ? {
-                    border: '2px solid rgba(0, 0, 0, 0.3)',
-                    boxShadow: '0px 1px 10px rgba(0, 0, 0, 0.3)',
-                  }
+                      border: '2px solid rgba(0, 0, 0, 0.3)',
+                      boxShadow: '0px 1px 10px rgba(0, 0, 0, 0.3)',
+                    }
                   : {}
               }
             >
@@ -84,10 +84,10 @@ const NFTAllByTable: React.FC<NFTAllByTableProps> = ({
               <TD>{list.collectionName}</TD>
               <TD>{`${0}/${list.amount}`}</TD>
               <TD>
-                <div className='flex justify-between'>
-                  <div className='flex items-center gap-1 px-2 border border-black/10 rounded-md'>
+                <div className="flex justify-between">
+                  <div className="flex items-center gap-1 px-2 border border-black/10 rounded-md">
                     <IconButton icon="document" />
-                    <div className='w-[10vw] whitespace-nowrap  overflow-hidden overflow-ellipsis font-normal text-sm text-black/70'>
+                    <div className="w-[10vw] whitespace-nowrap  overflow-hidden overflow-ellipsis font-normal text-sm text-black/70">
                       {list.nftId}
                     </div>
                   </div>

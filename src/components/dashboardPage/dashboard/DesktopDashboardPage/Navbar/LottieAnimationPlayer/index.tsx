@@ -2,7 +2,6 @@ import React from 'react';
 // import './animation.css';
 import Lottie from 'lottie-react';
 
-
 export interface IProps {
   animationData: any;
   bgColor: string;
@@ -41,7 +40,6 @@ const LottieAnimationPlayer: React.FC<IProps> = ({
   };
 
   console.log(`flex rounded-lg mb-2 bg-[${bgColor}] max-h-[151px]`);
-  
 
   return (
     <div
@@ -54,14 +52,16 @@ const LottieAnimationPlayer: React.FC<IProps> = ({
         id={`light-sweep${index}`}
       >
         <Lottie
-          className='flex'
+          className="flex"
           lottieRef={animationRef}
           animationData={animationData}
           loop={false}
           autoplay={false}
         />
       </div>
-      <span className='font-bold font-Satoshi text-base text-black'>{name}</span>
+      <span className="font-bold font-Satoshi text-base text-black">
+        {name}
+      </span>
     </div>
   );
 };

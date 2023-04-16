@@ -4,5 +4,5 @@ import { isMobile } from 'react-device-detect';
 
 export default function Dashboard() {
   if (isMobile) return <MobileDashboardPage />;
-  else return <DesktopDashboardPage />
+  else return <DesktopDashboardPage />;
 }

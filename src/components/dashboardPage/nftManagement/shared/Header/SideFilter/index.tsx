@@ -29,26 +29,26 @@ const SideFilter: React.FC<SideFilterProps> = ({
         ${openFilter && 'absolute left-0 -translate-x-full'}
       `}
     >
-      <div className='flex gap-2 items-center'>
+      <div className="flex gap-2 items-center">
         <IconButton icon="close" onClick={onFilter} />
-        <div className='font-bold text-black/50'>Filters</div>
+        <div className="font-bold text-black/50">Filters</div>
       </div>
 
-      <div className='flex flex-col p-2 gap-2'>
-        <div className='flex justify-between p-2'>
-          <div className='font-bold text-black/70'>Available NFTs</div>
-          <div className='flex gap-2 items-center'>
-            <div className='text-xs text-black/70 font-normal'>Reset</div>
+      <div className="flex flex-col p-2 gap-2">
+        <div className="flex justify-between p-2">
+          <div className="font-bold text-black/70">Available NFTs</div>
+          <div className="flex gap-2 items-center">
+            <div className="text-xs text-black/70 font-normal">Reset</div>
             <Icons.IChevronUp />
           </div>
         </div>
 
-        <div className='flex gap-2 items-center'>
+        <div className="flex gap-2 items-center">
           <TextInput
             placeholder="25"
             className="dark:bg-white dark:text-black dark:placeholder:text-black  dark:accent-white"
           />
-          <div className='font-bold text-black/70'>to</div>
+          <div className="font-bold text-black/70">to</div>
           <TextInput
             placeholder="30"
             className="dark:bg-white dark:text-black dark:placeholder:text-black  dark:accent-white"
@@ -56,15 +56,15 @@ const SideFilter: React.FC<SideFilterProps> = ({
         </div>
       </div>
 
-      <div className='flex flex-col gap-2 p-2'>
-        <div className='flex justify-between p-2'>
-          <div className='font-bold text-black/70'>Collections</div>
-          <div className='flex gap-2 items-center'>
-            <div className='text-xs text-black/70 font-normal'>Reset</div>
+      <div className="flex flex-col gap-2 p-2">
+        <div className="flex justify-between p-2">
+          <div className="font-bold text-black/70">Collections</div>
+          <div className="flex gap-2 items-center">
+            <div className="text-xs text-black/70 font-normal">Reset</div>
             <Icons.IChevronUp />
           </div>
         </div>
-        <div className='flex flex-col gap-2 p-2'>
+        <div className="flex flex-col gap-2 p-2">
           {collections.map((item) => (
             <div className="px-2 py-1 flex gap-2 items-center" key={item}>
               <TextInput
@@ -73,7 +73,7 @@ const SideFilter: React.FC<SideFilterProps> = ({
                   'dark:bg-white dark:text-black/100 dark:placeholder:text-black dark:border-black dark:accent-white'
                 }
               />
-              <div className='w-[10vw] whitespace-nowrap  overflow-hidden overflow-ellipsis font-normal text-sm text-black/70'>
+              <div className="w-[10vw] whitespace-nowrap  overflow-hidden overflow-ellipsis font-normal text-sm text-black/70">
                 {item}
               </div>
             </div>
@@ -82,10 +82,10 @@ const SideFilter: React.FC<SideFilterProps> = ({
       </div>
 
       <div className="flex flex-col gap-2 p-2">
-         <div className='flex justify-between p-2'>
-          <div className='font-bold text-black/70'>Propertises</div>
-          <div className='flex gap-2 items-center'>
-            <div className='text-xs text-black/70 font-normal'>Color</div>
+        <div className="flex justify-between p-2">
+          <div className="font-bold text-black/70">Propertises</div>
+          <div className="flex gap-2 items-center">
+            <div className="text-xs text-black/70 font-normal">Color</div>
             <Icons.IChevronUp />
           </div>
         </div>
@@ -96,7 +96,7 @@ const SideFilter: React.FC<SideFilterProps> = ({
             'dark:bg-white dark:text-black/100 dark:placeholder:text-black dark:border-black dark:accent-white'
           }
         />
-        <div className='flex flex-col gap-2 p-2'>
+        <div className="flex flex-col gap-2 p-2">
           {colors.map((color) => (
             <div className="px-2 py-1 flex gap-2 items-center" key={color}>
               <TextInput
@@ -118,7 +118,7 @@ const SideFilter: React.FC<SideFilterProps> = ({
       <div className="px-2 py-1 flex flex-col gap-2 p-2">
         {langs.map((lang) => (
           <div className="gap-2 flex justify-between p-2" key={lang}>
-            <div className='font-bold text-black/70'>{lang}</div>
+            <div className="font-bold text-black/70">{lang}</div>
             <Icons.IChevronDown />
           </div>
         ))}

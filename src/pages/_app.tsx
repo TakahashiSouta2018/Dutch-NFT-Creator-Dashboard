@@ -26,7 +26,6 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export function App({ Component, pageProps }: AppProps) {
-  
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

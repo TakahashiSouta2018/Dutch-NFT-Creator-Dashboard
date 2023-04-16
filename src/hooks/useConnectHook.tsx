@@ -39,13 +39,14 @@ const useConnectHook = () => {
 
   const configuredChainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID);
 
-
   const onWalletConnectHandler = async (
     connectedAccount: string,
     connectedChainId: ChainId | 'unknown'
   ) => {
-
-    if (account !== connectedAccount && connectedChainId === configuredChainId) {
+    if (
+      account !== connectedAccount &&
+      connectedChainId === configuredChainId
+    ) {
       dispatch(setDisconnectAccount(null));
     }
 
@@ -55,7 +56,8 @@ const useConnectHook = () => {
       return;
     }
 
-    if (account === connectedAccount && connectedChainId === configuredChainId) return;
+    if (account === connectedAccount && connectedChainId === configuredChainId)
+      return;
 
     const { accInfo } = await loopringService.exchangeAPI.getAccount({
       owner: connectedAccount,
@@ -74,14 +76,16 @@ const useConnectHook = () => {
       walletType
     );
 
-    dispatch(setConnectAccount({
-      apiKey: accountDetails?.apiKey,
-      account: connectedAccount,
-      chainId: connectedChainId,
-    }));
+    dispatch(
+      setConnectAccount({
+        apiKey: accountDetails?.apiKey,
+        account: connectedAccount,
+        chainId: connectedChainId,
+      })
+    );
 
-    setCookie("ACCOUNT", connectedAccount);
-    setCookie("APIKEY", accountDetails?.apiKey);
+    setCookie('ACCOUNT', connectedAccount);
+    setCookie('APIKEY', accountDetails?.apiKey);
 
     // await initUserData(accountDetails as AccountInfoI);
   };

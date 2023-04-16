@@ -3,15 +3,16 @@ import { CreateNftManagementI } from '@/types';
 import NFTAllByCard from './AllByCard';
 import NFTAllByTable from './ALLByTable';
 
-
 interface NFTAllProps {
   tableListSwtich: number;
-  listNfts: CreateNftManagementI[]
+  listNfts: CreateNftManagementI[];
 }
 
-const AllPage: React.FC<NFTAllProps> = ({ tableListSwtich, listNfts }): JSX.Element => {
+const AllPage: React.FC<NFTAllProps> = ({
+  tableListSwtich,
+  listNfts,
+}): JSX.Element => {
   const [NFTs, setNFTs] = useState<CreateNftManagementI[]>(listNfts);
-
 
   const onNFTSelect = useCallback(
     (nftId: string) => {

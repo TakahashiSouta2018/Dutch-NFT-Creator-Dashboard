@@ -12,7 +12,7 @@ const NFTAllByCard: React.FC<NFTAllByCardProps> = ({
   onNFTSelect,
 }): JSX.Element => {
   return (
-    <div className='grid grid-cols-5 gap-3'>
+    <div className="grid grid-cols-5 gap-3">
       {typeof NFTs === 'object' &&
         NFTs.map((nft) => (
           <NFTCard
