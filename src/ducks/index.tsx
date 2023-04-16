@@ -2,25 +2,33 @@ import { RootStateT } from '@/redux/store';
 import { AccountInfoI, CollectionI } from '@/types';
 import { ConnectorNames } from '@loopring-web/loopring-sdk';
 import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
+import { HYDRATE } from 'next-redux-wrapper';
 
 // Define a type for the slice state
 export interface WebAppReducerI {
   isConnected: boolean;
   walletType: ConnectorNames;
-  accountInfo: AccountInfoI | null;
-  connectedChainId: number | null;
+  apiKey: string | null;
+  account: string | null;
+  chainId: number | null;
   connectionError: boolean;
   isConnectionLoading: boolean;
   isConnectionModalOpen: boolean;
   userCollection: CollectionI[];
+}
+export interface ConnectedAccountI {
+  apiKey: string;
+  account: string;
+  chainId: number;
 }
 
 // Define the initial state using that type
 const initialState: WebAppReducerI = {
   isConnected: false,
   walletType: ConnectorNames.Unknown,
-  accountInfo: null,
-  connectedChainId: null,
+  apiKey: null,
+  account: null,
+  chainId: null,
   connectionError: false,
   isConnectionLoading: false,
   isConnectionModalOpen: false,
@@ -35,14 +43,17 @@ export const webAppReducer: Slice<WebAppReducerI> = createSlice({
     setIsConnected: (state, action: PayloadAction<boolean>) => {
       state.isConnected = action.payload;
     },
-    setConnectedChainId: (state, action: PayloadAction<number | null>) => {
-      state.connectedChainId = action.payload;
+    setChainId: (state, action: PayloadAction<number | null>) => {
+      state.chainId = action.payload;
     },
     setWalletType: (state, action: PayloadAction<ConnectorNames>) => {
       state.walletType = action.payload;
     },
-    setAccountInfo: (state, action: PayloadAction<AccountInfoI | null>) => {
-      state.accountInfo = action.payload;
+    setApiKey: (state, action: PayloadAction<string | null>) => {
+      state.apiKey = action.payload;
+    },
+    setAccount: (state, action: PayloadAction<string | null>) => {
+      state.account = action.payload;
     },
     setConnectionError: (state, action: PayloadAction<boolean>) => {
       state.connectionError = action.payload;
@@ -53,21 +64,46 @@ export const webAppReducer: Slice<WebAppReducerI> = createSlice({
     setIsConnectionModalOpen: (state, action: PayloadAction<boolean>) => {
       state.isConnectionModalOpen = action.payload;
     },
+    setDisconnectAccount: (state) => {
+      state.chainId = null;
+      state.account = null;
+      state.apiKey = null;
+      state.isConnected = false;
+    },
+    setConnectAccount: (state, action: PayloadAction<ConnectedAccountI>) => {
+      state.chainId = action.payload.chainId;
+      state.account = action.payload.account;
+      state.apiKey = action.payload.apiKey;
+      state.isConnected = true;
+      state.isConnectionLoading = false;
+      state.isConnectionModalOpen = false;
+    },
     setUserCollection: (state, action: PayloadAction<CollectionI[]>) => {
       state.userCollection = action.payload;
     },
   },
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload.webApp
+      }
+    }
+  }
 });
 
 export const {
-  setAccountInfo,
-  setConnectedChainId,
+  setApiKey,
+  setChainId,
+  setAccount,
   setIsConnected,
   setWalletType,
   setConnectionError,
   setIsConnectionLoading,
   setIsConnectionModalOpen,
   setUserCollection,
+  setConnectAccount,
+  setDisconnectAccount,
 } = webAppReducer.actions;
 
 // Other code such as selectors can use the imported `RootStateT` type

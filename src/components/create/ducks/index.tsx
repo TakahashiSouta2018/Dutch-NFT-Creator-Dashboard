@@ -1,6 +1,7 @@
 import { RootStateT } from '@/redux/store';
 import { DraftNFTResponseI, MintingNftsI, MintStatusEnum } from '@/types';
 import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
+import { HYDRATE } from 'next-redux-wrapper';
 
 const initialMintModalState = {
   isOpen: false,
@@ -72,6 +73,14 @@ export const createPageReducer: Slice<CreatePageReducerI> = createSlice({
       state.mintModal.mintingNfts = updatedNfts;
     },
   },
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload
+      }
+    }
+  }
 });
 
 export const {
