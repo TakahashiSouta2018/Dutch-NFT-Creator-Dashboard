@@ -10,7 +10,7 @@ type PROFILE_EDIT = 'FROMNFT' | 'UPLOADNEW';
 interface TabProps {
   children: React.ReactNode;
   active: boolean;
-  onClick: (slug: WIDEFILTER | PROFILE_EDIT) => void;
+  onClick?: (slug: WIDEFILTER | PROFILE_EDIT) => void;
   slug: WIDEFILTER | PROFILE_EDIT;
 }
 
@@ -26,7 +26,7 @@ const Tab: React.FC<TabProps> = ({
     <DutchC.TabWrapper
       active={active ? true : false}
       onClick={() => {
-        onClick(slug);
+        onClick?.(slug);
       }}
       theme={theme}
     >

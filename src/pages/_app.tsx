@@ -1,15 +1,15 @@
 import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'next-themes';
 import { createGlobalStyle } from 'styled-components';
-import store, { persistor } from '@/redux/store';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store, wrapper } from '@/redux/store';
 import { ToastContainer } from 'react-toastify';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import '@/styles/globals.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { ApolloProvider } from '@apollo/client';
 import apolloConfig from '@/config/apolloConfig';
+import { Provider } from 'react-redux';
 
 const GlobalStyle = createGlobalStyle`
   :root {
@@ -25,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export default function App({ Component, pageProps }: AppProps) {
+export function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
@@ -40,3 +40,5 @@ export default function App({ Component, pageProps }: AppProps) {
     </Provider>
   );
 }
+
+export default wrapper.withRedux(App);
