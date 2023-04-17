@@ -14,7 +14,7 @@ const TransactionList: React.FC = () => {
 
   return (
     <DutchC.TransListWrapper>
-      {mintingNfts.map((action, index) => (
+      {mintingNfts.map((action: any, index: number) => (
         <DutchC.ListElementWrapper key={index}>
           <DutchC.ActionInfoWrapper>
             <DutchC.ActionInfoNo>{action.id}</DutchC.ActionInfoNo>
