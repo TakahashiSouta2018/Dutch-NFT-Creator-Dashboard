@@ -119,7 +119,7 @@ const Header = ({
             </div>
 
             <div className="flex space-x-2 items-start w-full">
-              <SideFilter openFilter={true} onFilter={() => { }} />
+              <SideFilter openFilter={true} onFilter={() => {}} />
 
               <div className="flex flex-col w-full gap-4">
                 <div className="flex justify-between py-4">
@@ -247,7 +247,7 @@ const Header = ({
 
       <div
         className="absolute right-6 top-4 "
-      // onClick={toggleGuide}
+        // onClick={toggleGuide}
       >
         <Icons.IInformationCircle
           variant="solid"
