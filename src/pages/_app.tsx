@@ -34,7 +34,6 @@ export default function App({ Component, pageProps }: AppProps) {
           <ApolloProvider client={apolloConfig}>
             <Component {...pageProps} />
           </ApolloProvider>
-          ,
           <ToastContainer />
         </ThemeProvider>
       </PersistGate>
