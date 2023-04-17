@@ -77,6 +77,9 @@ const NFTCard: React.FC<NFTCardProps> = ({
           width={230}
           height={230}
           className="aspect-square"
+          onLoad={() => {
+            console.log(true);
+          }}
         />
       )}
       <DutchC.NFTFooter>
