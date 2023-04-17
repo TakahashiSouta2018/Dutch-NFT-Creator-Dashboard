@@ -24,7 +24,7 @@ const NFTBank0x = () => {
   );
 
   return (
-    <DutchC.NFTBank0xWrapper>
+    <div className="grid grid-cols-5 gap-3 mt">
       {typeof NFTs === 'object' &&
         NFTs.map((nft) => (
           <NFTCard
@@ -34,7 +34,7 @@ const NFTBank0x = () => {
             {...nft}
           />
         ))}
-    </DutchC.NFTBank0xWrapper>
+    </div>
   );
 };
 
