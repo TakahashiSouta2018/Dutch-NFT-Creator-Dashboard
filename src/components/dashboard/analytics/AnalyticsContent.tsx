@@ -5,7 +5,7 @@ import { NFTTracking } from './nft-tracking';
 import * as DutchC from './styles';
 
 const AnalyticsContent = () => {
-  const [currentTracking, setCurrentTracking] = useState(0);
+  const [currentTracking, setCurrentTracking] = useState(1);
 
   return (
     <DutchC.AnalyticsContentWrapper>
@@ -15,7 +15,7 @@ const AnalyticsContent = () => {
         }}
       />
       <DutchC.AnalyticsContentMain>
-        {currentTracking ? <WalletTracking /> : <NFTTracking />}
+        {currentTracking === 0 ? <WalletTracking /> : <NFTTracking />}
       </DutchC.AnalyticsContentMain>
     </DutchC.AnalyticsContentWrapper>
   );

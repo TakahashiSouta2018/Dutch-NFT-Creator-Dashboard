@@ -14,9 +14,9 @@ const useNFTHook = () => {
   const dispatch = useAppDispatch();
   const draftNFTService = new DraftNFTService();
 
-  const { accountInfo } = useAppSelector((state) => {
-    const { accountInfo } = state.webAppReducer;
-    return { accountInfo };
+  const { accountInfo, account } = useAppSelector((state) => {
+    const { accountInfo, account } = state.webAppReducer;
+    return { accountInfo, account };
   }, shallowEqual);
 
   const createDraftNFT = async (draftNFT: Omit<DraftNFTI, 'owner'>) => {
@@ -51,16 +51,18 @@ const useNFTHook = () => {
 
   const getCollectionDraftNFT = async (collectionAddress: string) => {
     try {
-      if (!accountInfo)
-        return toast('Account not connected', { type: 'error' });
+      
       const { response, data } = await draftNFTService.getCollectionDraftNFT(
         collectionAddress,
-        accountInfo?.accInfo.owner
+        account
       );
+
+      console.log({dfdffd: data});
+      
       if (data && data.data) {
         return data.data.nft;
       }
-      return null;
+      return [];
     } catch (error) {
       console.log(error);
     }

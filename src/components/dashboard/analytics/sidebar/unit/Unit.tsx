@@ -34,7 +34,6 @@ const Unit: React.FC<UnitProps> = ({
         width={40}
         height={40}
         className="!relative !w-10 !h-10"
-        fill
       />
       <DutchC.UnitContent>
         <p className="text-black text-medium leading-5 w-[80%]">{title}</p>

@@ -1,27 +1,17 @@
 // components
 import { AppLayout } from '@/components';
-import { DashboardPageReducerI } from '@/components/dashboard/ducks';
-import AllPage from '@/components/dashboard/nftManagement/AllPage';
-import SyncNFTs from '@/components/dashboard/nftManagement/AllPage/SyncNFTs';
+import ArchivePage from '@/components/dashboard/nftManagement/ArchivePage';
 import Header from '@/components/dashboard/nftManagement/shared/Header';
-import { useAppSelector, wrapper } from '@/redux/store';
+import { wrapper } from '@/redux/store';
 import NFTManagementService from '@/services/NFTManagement.service';
 import { CreateNftManagementI, UsageStatusEnum } from '@/types';
 
 import { getCookie } from 'cookies-next';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { useState } from 'react';
-import { shallowEqual } from 'react-redux';
 
-const AllNfts = ({ nfts }: { nfts: CreateNftManagementI[] }) => {
-  const [showSyncModal, setShowSyncModal] = useState<boolean>(false);
+const Archive = ({ nfts }: { nfts: CreateNftManagementI[] }) => {
   const [tableListSwtich, setTableListSwtich] = useState<number>(0);
-
-  const { collectionNfts } = useAppSelector((state) => {
-    const { collectionNfts } = state.dashboardPageReducer as DashboardPageReducerI;
-    return { collectionNfts };
-  }, shallowEqual);
-
 
   return (
     <AppLayout>
@@ -29,14 +19,8 @@ const AllNfts = ({ nfts }: { nfts: CreateNftManagementI[] }) => {
         tableListSwtich={tableListSwtich}
         setTableListSwtich={setTableListSwtich}
       />
-      <AllPage tableListSwtich={tableListSwtich} listNfts={nfts} />
+      <ArchivePage listNfts={nfts} />
 
-      <SyncNFTs
-        currentTab={'ALL'}
-        showSyncModal={showSyncModal}
-        setShowSyncModal={(flag) => setShowSyncModal(flag)}
-        nftList={collectionNfts}
-      />
     </AppLayout>
   );
 };
@@ -49,7 +33,7 @@ export const getServerSideProps: GetServerSideProps =
 
       const { response, data } = await nftManagement.getUserNfts(
         String(user),
-        UsageStatusEnum.UNARCHIVED
+        UsageStatusEnum.ARCHIVED
       );
 
       let nfts: CreateNftManagementI[] = [];
@@ -64,4 +48,4 @@ export const getServerSideProps: GetServerSideProps =
     }
   );
 
-export default AllNfts;
+export default Archive;

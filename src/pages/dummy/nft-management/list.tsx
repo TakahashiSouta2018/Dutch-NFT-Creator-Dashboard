@@ -1,19 +1,18 @@
 // components
 import { AppLayout } from '@/components';
 import { DashboardPageReducerI } from '@/components/dashboard/ducks';
-import AllPage from '@/components/dashboard/nftManagement/AllPage';
-import SyncNFTs from '@/components/dashboard/nftManagement/AllPage/SyncNFTs';
+import ListPage from '@/components/dashboard/nftManagement/ListPage';
 import Header from '@/components/dashboard/nftManagement/shared/Header';
 import { useAppSelector, wrapper } from '@/redux/store';
 import NFTManagementService from '@/services/NFTManagement.service';
-import { CreateNftManagementI, UsageStatusEnum } from '@/types';
+import { UserListI } from '@/types';
 
 import { getCookie } from 'cookies-next';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { useState } from 'react';
 import { shallowEqual } from 'react-redux';
 
-const AllNfts = ({ nfts }: { nfts: CreateNftManagementI[] }) => {
+const List = ({ nfts }: { nfts: UserListI[] }) => {
   const [showSyncModal, setShowSyncModal] = useState<boolean>(false);
   const [tableListSwtich, setTableListSwtich] = useState<number>(0);
 
@@ -22,21 +21,24 @@ const AllNfts = ({ nfts }: { nfts: CreateNftManagementI[] }) => {
     return { collectionNfts };
   }, shallowEqual);
 
+  console.log({ collectionNfts });
+
 
   return (
     <AppLayout>
       <Header
         tableListSwtich={tableListSwtich}
         setTableListSwtich={setTableListSwtich}
+        setShowCreatListModal={setShowSyncModal}
       />
-      <AllPage tableListSwtich={tableListSwtich} listNfts={nfts} />
 
-      <SyncNFTs
-        currentTab={'ALL'}
+      <ListPage
+        tableListSwtich={tableListSwtich}
+        listNfts={nfts}
+        setShowSyncModal={setShowSyncModal}
         showSyncModal={showSyncModal}
-        setShowSyncModal={(flag) => setShowSyncModal(flag)}
-        nftList={collectionNfts}
       />
+
     </AppLayout>
   );
 };
@@ -47,12 +49,9 @@ export const getServerSideProps: GetServerSideProps =
       const nftManagement = new NFTManagementService();
       const user = getCookie('ACCOUNT', { req: ctx.req, res: ctx.res });
 
-      const { response, data } = await nftManagement.getUserNfts(
-        String(user),
-        UsageStatusEnum.UNARCHIVED
-      );
+      const { response, data } = await nftManagement.getUserNftList(String(user));
 
-      let nfts: CreateNftManagementI[] = [];
+      let nfts: UserListI[] = [];
 
       if (data && data.data) {
         nfts = data.data.nfts;
@@ -64,4 +63,4 @@ export const getServerSideProps: GetServerSideProps =
     }
   );
 
-export default AllNfts;
+export default List;

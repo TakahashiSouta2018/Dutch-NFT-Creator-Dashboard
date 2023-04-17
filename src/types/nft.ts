@@ -56,7 +56,7 @@ export interface NFTCollectionInfo {
   extra: Extra;
 }
 
-export interface NFTI {
+export interface NFTI_Deprecated {
   id: number;
   accountId: number;
   tokenId: number;
@@ -73,6 +73,15 @@ export interface NFTI {
   royaltyPercentage: number;
   preference: Preference;
   collectionInfo: NFTCollectionInfo;
+  metadata: NftDataI;
+}
+
+export interface NFTI {
+  id: number;
+  amount: number;
+  nftID: string;
+  nftType: string;
+  tokenAddress: string;
   metadata: NftDataI;
 }
 

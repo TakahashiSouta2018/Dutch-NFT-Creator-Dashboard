@@ -39,7 +39,7 @@ export const dashboardPageReducer: Slice<DashboardPageReducerI> = createSlice({
       let newSelectedNFTs = state.selectedNFTs;
 
       const findIndex = newSelectedNFTs.findIndex(
-        (a) => a.nftId === action.payload.nftId
+        (a) => a.nftID === action.payload.nftID
       );
 
       if (findIndex !== -1) newSelectedNFTs.splice(findIndex, 1);

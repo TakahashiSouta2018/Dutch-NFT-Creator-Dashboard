@@ -3,13 +3,14 @@ import { useAppSelector } from '@/redux/store';
 import NFTManagementService from '@/services/NFTManagement.service';
 import { AccountInfoI, UsageStatusEnum, UserListI } from '@/types';
 import { shallowEqual } from 'react-redux';
+import useCollectionHook from './useCollectionHook';
 
 const useNFTManagement = () => {
   const nftManagement = new NFTManagementService();
 
-  const { accountInfo } = useAppSelector((state) => {
-    const { accountInfo } = state.webAppReducer;
-    return { accountInfo };
+  const { accountInfo, account } = useAppSelector((state) => {
+    const { accountInfo, account } = state.webAppReducer;
+    return { accountInfo, account };
   }, shallowEqual);
 
   const { selectedNFTs } = useAppSelector((state) => {
@@ -17,37 +18,34 @@ const useNFTManagement = () => {
     return { selectedNFTs };
   }, shallowEqual);
 
-  const syncNft = async (listName: string) => {
-    if (!accountInfo) {
-      toast('Account not connected', { type: 'error' });
-      return null;
-    }
+  const { getCollectionNameByAddress } = useCollectionHook();
 
-    await Promise.all(
-      selectedNFTs.map(async (selectedNFT) => {
-        const nft = {
-          collectionAddress: selectedNFT?.collectionInfo?.collectionAddress,
-          collectionName: String(selectedNFT?.collectionInfo?.name),
+
+  const syncNft = async (listName: string) => {
+    try {
+      const nfts = selectedNFTs.map((selectedNFT) => {
+        return {
+          collectionAddress: selectedNFT.tokenAddress,
+          collectionName: getCollectionNameByAddress(selectedNFT.tokenAddress),
           name: String(selectedNFT?.metadata?.name),
-          amount: selectedNFT.total,
-          nftId: selectedNFT.nftId,
+          amount: selectedNFT.amount,
+          nftId: selectedNFT.nftID,
           description: String(selectedNFT?.metadata?.description),
-          nftData: selectedNFT.nftData,
           image: selectedNFT?.metadata?.image,
           listName,
-        };
-        const { response, data } = await nftManagement.syncNFT({
-          ...nft,
-          owner: accountInfo?.accInfo.owner,
-          accountId: String(accountInfo?.accInfo.accountId),
-        });
+          owner: account,
+        }
+      });
 
-        console.log({ response, data });
+      const { response, data } = await nftManagement.syncNFT(nfts);
 
-        if (data && data.data) return data.data;
-        else return null;
-      })
-    );
+      if (data && data.data) return data.data;
+      else return null;
+
+      
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getUserNfts = async (user: string, isArchived: UsageStatusEnum) => {

@@ -3,18 +3,23 @@ import { toast } from 'react-toastify';
 import { LoopringService } from '@/lib/LoopringService';
 import { pinFileToIPFS } from '@/lib/pinata';
 import { useAppSelector } from '@/redux/store';
-import { AccountInfoI, CollectionI, CollectionObjectI } from '@/types';
+import { AccountInfoI, CollectionI, CollectionObjectI, NFTI } from '@/types';
 import { useRouter } from 'next/router';
 import { shallowEqual } from 'react-redux';
+import LoopringApi from '@/services/LoopringApi.service';
+import { WebAppReducerI } from '@/ducks';
+import { DashboardPageReducerI } from '@/components/dashboard/ducks';
 
 const useCollectionHook = () => {
   const { push } = useRouter();
   const loopringService = new LoopringService();
+  const loopringApiService = new LoopringApi();
 
-  const { accountInfo } = useAppSelector((state) => {
-    const { accountInfo } = state.webAppReducer;
-    return { accountInfo };
+  const { accountInfo, userCollection } = useAppSelector((state) => {
+    const { accountInfo, userCollection } = state.webAppReducer;
+    return { accountInfo, userCollection };
   }, shallowEqual);
+
 
   const createCollection = async (collectionObject: CollectionObjectI) => {
     const imagesUrl = await pinFileToIPFS([
@@ -39,43 +44,35 @@ const useCollectionHook = () => {
     } else toast('Unable to create collection', { type: 'error' });
   };
 
-  const getUserCollection = async (accInfo: AccountInfoI) => {
+  const getUserCollection = async (user: string, apiKey: string) => {
     try {
-      const limit = 50;
-      let offset = 0;
-      let totalUserCollection = null;
+      const res = await loopringApiService.getUserCollection(user, apiKey);
 
-      const collections: CollectionI[] = [];
+      console.log({ res });
 
-      let res = await loopringService.getUserCollection({
-        accountInfo: accInfo,
-        offset,
-        limit,
-        isMintable: true,
-      });
-
-      if (res && res.collections) {
-        totalUserCollection = Number(res.totalNum);
-        collections.push(...res.collections);
-
-        for (let i = 0; i < totalUserCollection; i++) {
-          if (collections.length === totalUserCollection) break;
-          offset = (i + 1) * limit;
-
-          res = await loopringService.getUserCollection({
-            accountInfo: accInfo,
-            offset,
-            limit,
-            isMintable: true,
-          });
-
-          if (res && res.collections && res.collections.length > 0)
-            collections.push(...res.collections);
-          else break;
-        }
+      if (res?.data?.data?.collections) {
+        return res.data.data.collections 
       }
 
-      return { collections, totalUserCollection };
+      return [];
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getUserCollectionNFTs = async (user: string, tokensAddress: string) => {
+    try {
+      const res = await loopringApiService.getUserCollectionNFTs(user, tokensAddress);
+
+      let nfts: NFTI[] = [];
+
+      if (res?.data?.data?.collections) {
+        nfts = res.data.data.nfts
+      }
+
+      return nfts;
+      
     } catch (error) {
       console.log(error);
     }
@@ -85,10 +82,22 @@ const useCollectionHook = () => {
     return collections.map((collection: CollectionI) => collection.name);
   };
 
+  const getCollectionNameByAddress = (collectionAddress: string) => {
+    if (collectionAddress) {
+      const collection = userCollection.filter((collection: CollectionI) => collection.collectionAddress.toLowerCase() === collectionAddress.toLowerCase());    
+      if (collection.length > 0) {
+        return collection[0].name
+      }
+    }
+    return "";
+  };
+
   return {
     createCollection,
     getUserCollection,
     getCollectionNames,
+    getCollectionNameByAddress,
+    getUserCollectionNFTs,
   };
 };
 

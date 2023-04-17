@@ -87,17 +87,18 @@ const useConnectHook = () => {
     setCookie('ACCOUNT', connectedAccount);
     setCookie('APIKEY', accountDetails?.apiKey);
 
-    // await initUserData(accountDetails as AccountInfoI);
+    await initUserData(accountDetails as AccountInfoI);
   };
 
-  // const initUserData = async (accountDetails: AccountInfoI) => {
-  //   // set user collections
-  //   {
-  //     const collectionResponse = await getUserCollection(accountDetails);
-  //     if (collectionResponse && collectionResponse.collections)
-  //       dispatch(setUserCollection(collectionResponse.collections));
-  //   }
-  // };
+  const initUserData = async (accountDetails: AccountInfoI) => {
+    // set user collections
+    {
+      const collections = await getUserCollection(accountDetails.accInfo.owner, accountDetails.apiKey);      
+      if (collections) {
+        dispatch(setUserCollection(collections));
+      }
+    }
+  };
 
   useConnectHelper({
     handleAccountDisconnect: () => {

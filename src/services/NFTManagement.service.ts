@@ -7,9 +7,9 @@ export default class NFTManagementService extends Service<any> {
   }
 
   public syncNFT(
-    createNftManagement: Omit<CreateNftManagementI, 'id' | 'createdAt'>
+    createNftManagements: Omit<CreateNftManagementI, 'id' | 'createdAt'>[]
   ) {
-    return this.postRequest(``, { ...createNftManagement });
+    return this.postRequest(``, { data: [...createNftManagements] });
   }
 
   public manageNFT(

@@ -8,7 +8,7 @@ import {
 } from '@/components/dashboard/ducks';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
-import { LoopringService } from '@/lib/LoopringService';
+import { WebAppReducerI } from '@/ducks';
 
 // types
 interface CollectionDropdownI {
@@ -20,17 +20,16 @@ const CollectionDropdown: React.FC<CollectionDropdownI> = ({
   selectedCollectionAddress,
   setSelectedCollectionAddress,
 }) => {
-  const loopringService = new LoopringService();
   const dispatch = useAppDispatch();
 
-  const { getCollectionNames } = useCollectionHook();
+  const { getCollectionNames, getUserCollectionNFTs } = useCollectionHook();
 
   const [selectedCollectionName, setSelectedCollectionName] =
     useState<string>('');
 
-  const { accountInfo, userCollection } = useAppSelector((state) => {
-    const { accountInfo, userCollection } = state.webAppReducer;
-    return { accountInfo, userCollection };
+  const { account, userCollection } = useAppSelector((state) => {
+    const { account, userCollection } = state.webAppReducer as WebAppReducerI;
+    return { account, userCollection };
   }, shallowEqual);
 
   const collectionNames = getCollectionNames(userCollection);
@@ -44,24 +43,15 @@ const CollectionDropdown: React.FC<CollectionDropdownI> = ({
 
   useEffect(() => {
     (async () => {
-      if (selectedCollectionAddress) {
-        if (!accountInfo) return;
-
-        const nftsInfo = await loopringService.getUserNFTCollection({
-          accountInfo,
-          tokensAddress: [selectedCollectionAddress],
-          offset: 0,
-          limit: 50,
-        });
-
-        if (nftsInfo && nftsInfo.nfts && nftsInfo.nfts.length > 0)
-          dispatch(setCollectionNfts(nftsInfo.nfts));
-        else dispatch(setCollectionNfts([]));
-
+      if (selectedCollectionAddress && account) {
+        dispatch(setCollectionNfts([]));
+        const nfts = await getUserCollectionNFTs(account, selectedCollectionAddress)
+  
+        dispatch(setCollectionNfts(nfts));
         dispatch(setSelectedNfts([]));
       }
     })();
-  }, [selectedCollectionAddress]);
+  }, [selectedCollectionAddress, account]);
 
   const handleSelectCollection = (value: string, index: number) => {
     setSelectedCollectionName(value);
