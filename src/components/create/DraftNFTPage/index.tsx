@@ -9,7 +9,7 @@ import {
   TextInput,
   OutlineButton,
 } from '@/common';
-import Breadcrumb from '../../shared/Breadcrumb';
+import Breadcrumb from '../../shared/Breadecrumb';
 
 // icons
 import useNFTHook from '@/hooks/useNFTHook';

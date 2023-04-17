@@ -108,7 +108,6 @@ export interface UserCollectionI {
   isMintable?: boolean;
 }
 export interface CollectionNFTI {
-  accountInfo: AccountInfoI;
   offset: number;
   limit: number;
   tokensAddress: string[];

@@ -29,7 +29,8 @@ const Minting: React.FC<MintModalPropsI> = ({
 
   const { activeStep, selectedDraftNFTs, isMintModalIsOpen, mintingNfts } =
     useAppSelector((state) => {
-      const { mintModal, selectedDraftNFTs } = state.createPageReducer as CreatePageReducerI;
+      const { mintModal, selectedDraftNFTs } =
+        state.createPageReducer as CreatePageReducerI;
       return {
         activeStep: mintModal.activeStep,
         selectedDraftNFTs,

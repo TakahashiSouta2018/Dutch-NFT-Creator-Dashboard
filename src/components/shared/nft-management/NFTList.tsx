@@ -8,7 +8,10 @@ import * as DutchC from './styles';
 import { NFTI, TabTypeT } from '@/types';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
-import { DashboardPageReducerI, setSelectedNfts } from '@/components/dashboard/ducks';
+import {
+  DashboardPageReducerI,
+  setSelectedNfts,
+} from '@/components/dashboard/ducks';
 import useNFTManagement from '@/hooks/useNFTManagement';
 import useCollectionHook from '@/hooks/useCollectionHook';
 import CopyNFTId from '@/components/dashboard/nftManagement/shared/CopyNFTId';
@@ -23,9 +26,9 @@ const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
   const { getUserNftId } = useNFTManagement();
   const { getCollectionNameByAddress } = useCollectionHook();
 
-
   const { selectedNFTs } = useAppSelector((state) => {
-    const { selectedNFTs } = state.dashboardPageReducer as DashboardPageReducerI;
+    const { selectedNFTs } =
+      state.dashboardPageReducer as DashboardPageReducerI;
     return { selectedNFTs };
   }, shallowEqual);
 

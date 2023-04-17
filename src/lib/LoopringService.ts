@@ -58,7 +58,6 @@ export class LoopringService {
     this.user = String(getCookie('ACCOUNT'));
     this.apiKey = String(getCookie('APIKEY'));
     this.accountId = Number(getCookie('ACCOUNTID'));
-
   }
 
   async unlockAccount(ownerAddress: string, walletType: ConnectorNames) {
@@ -144,11 +143,7 @@ export class LoopringService {
     return collectionRes;
   }
 
-  async getUserNFTCollection({
-    tokensAddress,
-    offset,
-    limit,
-  }: CollectionNFTI) {
+  async getUserNFTCollection({ tokensAddress, offset, limit }: CollectionNFTI) {
     try {
       const headers = {
         'X-API-KEY': this.apiKey,
@@ -157,7 +152,9 @@ export class LoopringService {
       const res = await axios.get(
         `${
           process.env.NEXT_PUBLIC_LOOPRING_API_URL
-        }/user/nft/balances?accountId=${this.accountId}&tokenAddrs=${tokensAddress.join(
+        }/user/nft/balances?accountId=${
+          this.accountId
+        }&tokenAddrs=${tokensAddress.join(
           ','
         )}&offset=${offset}&limit=${limit}`,
         { headers }
@@ -249,9 +246,7 @@ export class LoopringService {
     return collectionMeta;
   }
 
-  async getNFTOffchainFeeAmt(
-    collectionMeta: sdk.CollectionMeta
-  ) {
+  async getNFTOffchainFeeAmt(collectionMeta: sdk.CollectionMeta) {
     const fee = await this.userAPI.getNFTOffchainFeeAmt(
       {
         accountId: this.accountId,
@@ -274,9 +269,7 @@ export class LoopringService {
       walletType,
     } = params;
     const isMetadataValid = validateMetadata(metadata);
-    const collectionMeta = await this.getCollectionMeta(
-      nftTokenAddress
-    );
+    const collectionMeta = await this.getCollectionMeta(nftTokenAddress);
 
     if (!isMetadataValid) return console.log('Invalid Metadata');
     if (!collectionMeta) return;

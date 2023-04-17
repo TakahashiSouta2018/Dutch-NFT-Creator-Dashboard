@@ -180,10 +180,7 @@ const NFTTracking = () => {
           primarySales,
           secondaryTrade,
           allTransactions,
-        } = getTradeNftsUtils(
-          data.tradeNFTs,
-          String(account)
-        );
+        } = getTradeNftsUtils(data.tradeNFTs, String(account));
 
         setLrcTotalRoyalty(totalRoyatliesLRC);
         setEthTotalRoyalty(totalRoyatliesETH);
@@ -215,7 +212,6 @@ const NFTTracking = () => {
         .map((item) => item.id);
 
       if (collectionIds.length > 0) {
-
         const nftsInfo = await loopringService.getUserNFTCollection({
           tokensAddress: collectionIds,
           offset: 0,

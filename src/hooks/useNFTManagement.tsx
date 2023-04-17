@@ -15,7 +15,8 @@ const useNFTManagement = () => {
   }, shallowEqual);
 
   const { selectedNFTs } = useAppSelector((state) => {
-    const { selectedNFTs } = state.dashboardPageReducer as DashboardPageReducerI;
+    const { selectedNFTs } =
+      state.dashboardPageReducer as DashboardPageReducerI;
     return { selectedNFTs };
   }, shallowEqual);
 

@@ -6,9 +6,7 @@ export default class NFTManagementService extends Service<any> {
     super('/nftManagement');
   }
 
-  public syncNFT(
-    createNftManagements: any[]
-  ) {
+  public syncNFT(createNftManagements: any[]) {
     return this.postRequest(``, { data: [...createNftManagements] });
   }
 

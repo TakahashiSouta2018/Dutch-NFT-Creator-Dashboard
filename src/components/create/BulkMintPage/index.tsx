@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 // components
 import { Button, CSVUpload, OutlineButton } from '@/common';
-import Breadcrumb from '../../shared/Breadcrumb';
+import Breadcrumb from '../../shared/Breadecrumb';
 
 // icons
 import FolderUpload from '@/common/Upload/FolderUpload';

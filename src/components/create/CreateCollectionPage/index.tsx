@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 // components
 import { MediaUpload, TextInput, TextArea, Button } from '@/common';
-import Breadcrumb from '../../shared/Breadcrumb';
+import Breadcrumb from '../../shared/Breadecrumb';
 
 // icons
 import { useForm } from '@/hooks/useForm';

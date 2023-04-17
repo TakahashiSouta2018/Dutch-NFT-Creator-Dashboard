@@ -35,7 +35,7 @@ const initialState: WebAppReducerI = {
   isConnectionLoading: false,
   isConnectionModalOpen: false,
   userCollection: [],
-  accountId: null
+  accountId: null,
 };
 
 export const webAppReducer: Slice<WebAppReducerI> = createSlice({

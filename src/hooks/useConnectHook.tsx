@@ -81,7 +81,7 @@ const useConnectHook = () => {
         apiKey: accountDetails?.apiKey,
         account: connectedAccount,
         chainId: connectedChainId,
-        accountId: accountDetails?.accInfo.accountId
+        accountId: accountDetails?.accInfo.accountId,
       })
     );
 
