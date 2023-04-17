@@ -28,8 +28,8 @@ const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
 
   const isSelected = (nftId: string) => {
     return (
-      selectedNFTs.filter((selectedNFT) => selectedNFT.nftId === nftId).length >
-      0
+      selectedNFTs.filter((selectedNFT: NFTI) => selectedNFT.nftId === nftId)
+        .length > 0
     );
   };
 

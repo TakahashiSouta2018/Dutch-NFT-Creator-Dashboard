@@ -1,5 +1,10 @@
 import { Table, THead, TBody, TR, TD } from '@/common';
-import { CreateNftManagementI, NFTI } from '@/types';
+import {
+  CreateNftManagementI,
+  DraftNFTI,
+  DraftNFTResponseI,
+  NFTI,
+} from '@/types';
 import { IconButton } from '@/common';
 
 import * as DutchC from '../../../shared/nft-management/styles';
@@ -25,8 +30,8 @@ const NFTManagementTable: React.FC<TableProps> = ({
 
   const isSelected = (nftId: string) => {
     return (
-      selectedNFTs.filter((selectedNFT) => selectedNFT.nftId === nftId).length >
-      0
+      selectedNFTs.filter((selectedNFT: NFTI) => selectedNFT.nftId === nftId)
+        .length > 0
     );
   };
 

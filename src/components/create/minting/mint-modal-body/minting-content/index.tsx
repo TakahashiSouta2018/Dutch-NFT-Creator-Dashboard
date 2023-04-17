@@ -4,7 +4,7 @@ import ContentMintFee from './ContentMintFee';
 import ContentMinting from './ContentMinting';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
-import { MintingNftsI, MintStatusEnum, NftDataI } from '@/types';
+import { DraftNFTI, MintingNftsI, MintStatusEnum, NftDataI } from '@/types';
 import { LoopringService } from '@/lib/LoopringService';
 import {
   setMintingNfts,
@@ -48,12 +48,14 @@ const Minting: React.FC<MintModalPropsI> = ({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const nfts: MintingNftsI[] = selectedDraftNFTs.map((draftNFT, index) => ({
-      id: index,
-      media: draftNFT.media,
-      name: draftNFT.name,
-      status: MintStatusEnum.QUEUED,
-    }));
+    const nfts: MintingNftsI[] = selectedDraftNFTs.map(
+      (draftNFT: DraftNFTI, index: number) => ({
+        id: index,
+        media: draftNFT.media,
+        name: draftNFT.name,
+        status: MintStatusEnum.QUEUED,
+      })
+    );
     dispatch(setMintingNfts(nfts));
   }, [selectedDraftNFTs.length, isMintModalIsOpen]);
 

@@ -1,5 +1,5 @@
 import { Table, THead, TBody, TR, TD } from '@/common';
-import { CreateNftManagementI, NFTI } from '@/types';
+import { CreateNftManagementI } from '@/types';
 import { IconButton } from '@/common';
 
 import * as DutchC from '../../../shared/nft-management/styles';
@@ -25,8 +25,9 @@ const NFTAllByTable: React.FC<NFTAllByTableProps> = ({
 
   const isSelected = (nftId: string) => {
     return (
-      selectedNFTs.filter((selectedNFT) => selectedNFT.nftId === nftId).length >
-      0
+      selectedNFTs.filter(
+        (selectedNFT: CreateNftManagementI) => selectedNFT.nftId === nftId
+      ).length > 0
     );
   };
 
@@ -44,12 +45,12 @@ const NFTAllByTable: React.FC<NFTAllByTableProps> = ({
         </TR>
       </THead>
       <TBody>
-        {nftList.map((list, index) => {
+        {NFTs.map((list: CreateNftManagementI, index: number) => {
           return (
             <TR
               key={index}
               onClick={() => {
-                onClick(list.nftId);
+                onNFTSelect(list.nftId);
               }}
               className="cursor-pointer"
               style={

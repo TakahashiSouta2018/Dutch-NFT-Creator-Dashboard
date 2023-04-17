@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { useAppSelector } from '@/redux/store';
 import NFTManagementService from '@/services/NFTManagement.service';
-import { AccountInfoI, UsageStatusEnum, UserListI } from '@/types';
+import { AccountInfoI, NFTI, UsageStatusEnum, UserListI } from '@/types';
 import { shallowEqual } from 'react-redux';
 
 const useNFTManagement = () => {
@@ -24,7 +24,7 @@ const useNFTManagement = () => {
     }
 
     await Promise.all(
-      selectedNFTs.map(async (selectedNFT) => {
+      selectedNFTs.map(async (selectedNFT: NFTI) => {
         const nft = {
           collectionAddress: selectedNFT?.collectionInfo?.collectionAddress,
           collectionName: String(selectedNFT?.collectionInfo?.name),
