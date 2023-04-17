@@ -5,13 +5,18 @@ import { Table, THead, TBody, TR, TD } from '@/common';
 import { OptionSwitch } from '../option-switch';
 import { Accordion } from '@/common/Accordion';
 import { AnalyticsCard } from '../analytics-card';
-import { AnalyticsPieChart } from '../charts';
+import {
+  AnalyticsComposedChart,
+  AnalyticsPieChart,
+  GasFeeAnalyticsChart,
+} from '../charts';
 import {
   AnalyticsTableControl,
   AnalyticsTableLayout,
 } from '../analytics-tables';
 import { LRCIconSelector } from '../analytics-tables/lrc-icon-selector';
 import { WalletTrackingTransactionView } from './WalletTrackingTransactionView';
+import { TotalGasCard } from '../total-gas-card';
 
 const dayOptions = [
   {
@@ -141,7 +146,16 @@ const WalletTracking = () => {
             />
           </DutchC.ContentOverviewCards>
         </DutchC.WalletTrackingUnitWrapper>
-        <DutchC.WalletTrackingUnitWrapper className="profit"></DutchC.WalletTrackingUnitWrapper>
+        <DutchC.WalletTrackingUnitWrapper>
+          <div className="flex gap-2 items-center">
+            <p className="font-bold text-sm dark:white">Profit & Loss Trends</p>
+            <p className="text-xs dark:white">Apr 1, 2022 - Mar 31 2023</p>
+          </div>
+          <AnalyticsComposedChart
+            composedChartData={[]}
+            dayOption={currentDayOption.slug}
+          />
+        </DutchC.WalletTrackingUnitWrapper>
       </DutchC.WalletTrackingContainer>
       <DutchC.WalletTrackingHoldings>
         <DutchC.WalletTrackingUnitWrapper className="flex-grow">
@@ -197,7 +211,13 @@ const WalletTracking = () => {
       <DutchC.WalletTrackingContainer>
         <WalletTrackingTransactionView />
       </DutchC.WalletTrackingContainer>
-      <DutchC.WalletTrackingContainer className="gas fee"></DutchC.WalletTrackingContainer>
+      <DutchC.WalletTrackingContainer>
+        <div className="font-bold dark:white">Gas Fee Analytics</div>
+        <DutchC.GasFeeChartWrapper>
+          <TotalGasCard />
+          <GasFeeAnalyticsChart />
+        </DutchC.GasFeeChartWrapper>
+      </DutchC.WalletTrackingContainer>
     </DutchC.WalletTrackingWrapper>
   );
 };

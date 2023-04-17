@@ -17,6 +17,8 @@ import {
   Label,
 } from 'recharts';
 
+import * as DutchC from './styles';
+
 const data = [
   {
     id: 0,
@@ -61,7 +63,10 @@ const GasFeeAnalyticsChart = () => {
   };
 
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ width: '100%', position: 'relative' }}>
+      {!data.length && (
+        <DutchC.NoDataWrapper>No data available</DutchC.NoDataWrapper>
+      )}
       <ResponsiveContainer width="100%" height={192}>
         <BarChart
           data={data}

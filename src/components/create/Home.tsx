@@ -57,13 +57,13 @@ const CreateHome: React.FC = () => {
 
   const onNFTSelect = useCallback(
     (id: number) => {
-      const updatedNfts = draftNFTs.map((draftNFT) => {
+      const updatedNfts = draftNFTs.map((draftNFT: DraftNFTResponseI) => {
         if (draftNFT.id === id) {
           return { ...draftNFT, selected: !draftNFT.selected };
         } else return draftNFT;
       });
       const selectedNfts = updatedNfts.filter(
-        (updatedNft) => updatedNft.selected
+        (updatedNft: DraftNFTResponseI) => updatedNft.selected
       );
       dispatch(setSelectedDraftNFTs(selectedNfts));
       dispatch(setDraftNFTs(updatedNfts));
@@ -76,7 +76,7 @@ const CreateHome: React.FC = () => {
   };
 
   const handleMintAll = () => {
-    const updatedNfts = draftNFTs.map((draftNFT) => {
+    const updatedNfts = draftNFTs.map((draftNFT: DraftNFTResponseI) => {
       return { ...draftNFT, selected: true };
     });
 
@@ -86,7 +86,8 @@ const CreateHome: React.FC = () => {
   };
 
   const isDraftNtSelected =
-    draftNFTs.filter((draftNFT) => draftNFT.selected).length > 0;
+    draftNFTs.filter((draftNFT: DraftNFTResponseI) => draftNFT.selected)
+      .length > 0;
 
   return (
     <DutchC.CreateWrapper>
@@ -145,7 +146,7 @@ const CreateHome: React.FC = () => {
               )}
             </DutchC.CreateContentTools>
             <DutchC.CreateContentDraftNFTs>
-              {draftNFTs.map((nft) => (
+              {draftNFTs.map((nft: DraftNFTResponseI) => (
                 <DraftNFT
                   key={nft.id}
                   onSelect={() => onNFTSelect(nft.id)}

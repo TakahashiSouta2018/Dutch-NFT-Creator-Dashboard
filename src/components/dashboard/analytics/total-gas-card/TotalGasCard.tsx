@@ -12,7 +12,7 @@ const TotalGasCard = () => {
     },
   ];
   return (
-    <div className="flex flex-col gap-2 px-4 px-4 py-3">
+    <div className="flex flex-col gap-2 px-4 py-3">
       <div className="font-normal text-sm text-black/50">Total Gas</div>
       <div className="flex flex-row justify-between">
         <div className="flex gap-8">
@@ -21,7 +21,7 @@ const TotalGasCard = () => {
               <p className="font-black md:font-black text-base w-[50px]">
                 {gas.name}
               </p>
-              <p className="font-normal text-base font-bold">{gas.value}</p>
+              <p className="text-base font-bold">{gas.value}</p>
             </div>
           ))}
         </div>

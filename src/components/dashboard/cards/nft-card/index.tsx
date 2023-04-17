@@ -7,7 +7,7 @@ import {
   ShortcutContextMenu,
   ShortcutContextMenuItem,
 } from '../../../shared/shortcut-context-menu';
-import { CreateNftManagementI } from '@/types';
+import { CreateNftManagementI, NFTI } from '@/types';
 import * as DutchC from './styles';
 import { useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
@@ -36,8 +36,8 @@ const NFTCard: React.FC<NFTCardProps> = ({
 
   const isSelected = (nftId: string) => {
     return (
-      selectedNFTs.filter((selectedNFT) => selectedNFT.nftId === nftId).length >
-      0
+      selectedNFTs.filter((selectedNFT: NFTI) => selectedNFT.nftId === nftId)
+        .length > 0
     );
   };
 

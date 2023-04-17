@@ -16,92 +16,94 @@ import {
   Symbols,
 } from 'recharts';
 
-// const data = [
-//   {
-//     id: 0,
-//     Expenses: -100,
-//     Turnover: 300,
-//     'P&L': 200,
-//     Date: '1672099200',
-//   },
-//   {
-//     id: 1,
-//     Expenses: -400,
-//     Turnover: 300,
-//     'P&L': -100,
-//     Date: '1672099200',
-//   },
-//   {
-//     id: 2,
-//     Expenses: -200,
-//     Turnover: 600,
-//     'P&L': 400,
-//     Date: '1672099200',
-//   },
-//   {
-//     id: 3,
-//     Expenses: -230,
-//     Turnover: 530,
-//     'P&L': 300,
-//     Date: '1672099200',
-//   },
-//   {
-//     id: 4,
-//     Expenses: -750,
-//     Turnover: 650,
-//     'P&L': -100,
-//     Date: '1672099200',
-//   },
-//   {
-//     id: 5,
-//     Expenses: -600,
-//     Turnover: 400,
-//     'P&L': -200,
-//     Date: '1672099200',
-//   },
-//   {
-//     id: 6,
-//     Expenses: -300,
-//     Turnover: 300,
-//     'P&L': 0,
-//     Date: '1672099200',
-//   },
-//   {
-//     id: 7,
-//     Expenses: -150,
-//     Turnover: 350,
-//     'P&L': 200,
-//     Date: '1672099200',
-//   },
-//   {
-//     id: 8,
-//     Expenses: -50,
-//     Turnover: 450,
-//     'P&L': 400,
-//     Date: '1672099200',
-//   },
-//   {
-//     id: 9,
-//     Expenses: -250,
-//     Turnover: 500,
-//     'P&L': 250,
-//     Date: '1672099200',
-//   },
-//   {
-//     id: 10,
-//     Expenses: -75,
-//     Turnover: 475,
-//     'P&L': 350,
-//     Date: '1672099200',
-//   },
-//   {
-//     id: 11,
-//     Expenses: -275,
-//     Turnover: 225,
-//     'P&L': -50,
-//     Date: '1672099200',
-//   },
-// ];
+import * as DutchC from './styles';
+
+const mock_data = [
+  {
+    id: 0,
+    Expenses: -100,
+    Turnover: 300,
+    'P&L': 200,
+    Date: '1672099200',
+  },
+  {
+    id: 1,
+    Expenses: -400,
+    Turnover: 300,
+    'P&L': -100,
+    Date: '1672099200',
+  },
+  {
+    id: 2,
+    Expenses: -200,
+    Turnover: 600,
+    'P&L': 400,
+    Date: '1672099200',
+  },
+  {
+    id: 3,
+    Expenses: -230,
+    Turnover: 530,
+    'P&L': 300,
+    Date: '1672099200',
+  },
+  {
+    id: 4,
+    Expenses: -750,
+    Turnover: 650,
+    'P&L': -100,
+    Date: '1672099200',
+  },
+  {
+    id: 5,
+    Expenses: -600,
+    Turnover: 400,
+    'P&L': -200,
+    Date: '1672099200',
+  },
+  {
+    id: 6,
+    Expenses: -300,
+    Turnover: 300,
+    'P&L': 0,
+    Date: '1672099200',
+  },
+  {
+    id: 7,
+    Expenses: -150,
+    Turnover: 350,
+    'P&L': 200,
+    Date: '1672099200',
+  },
+  {
+    id: 8,
+    Expenses: -50,
+    Turnover: 450,
+    'P&L': 400,
+    Date: '1672099200',
+  },
+  {
+    id: 9,
+    Expenses: -250,
+    Turnover: 500,
+    'P&L': 250,
+    Date: '1672099200',
+  },
+  {
+    id: 10,
+    Expenses: -75,
+    Turnover: 475,
+    'P&L': 350,
+    Date: '1672099200',
+  },
+  {
+    id: 11,
+    Expenses: -275,
+    Turnover: 225,
+    'P&L': -50,
+    Date: '1672099200',
+  },
+];
 
 const COLORS = ['#3CAA2A', '#C60707', '#F1BB41'];
 
@@ -115,12 +117,13 @@ const convertDate = (dayOption: string) => (timestamp: number) => {
   return date.format('YYYY');
 };
 
-const AnalyticsComposedChart = ({composedChartData, dayOption}: any) => {
-
-  const data = composedChartData.map((d: any) =>{ return {
-    ...d,
-    'P&L': d.Turnover + d.Expenses
-  }});
+const AnalyticsComposedChart = ({ composedChartData, dayOption }: any) => {
+  const data = composedChartData.map((d: any) => {
+    return {
+      ...d,
+      'P&L': d.Turnover + d.Expenses,
+    };
+  });
 
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
@@ -143,33 +146,37 @@ const AnalyticsComposedChart = ({composedChartData, dayOption}: any) => {
   const CusomizedLegend = ({ payload }: any) => {
     return (
       // <div className="flex flex-row justify-between">
-        <div className="flex gap-4">
-          {payload.map((entry: any, index: number) => (
-            <div key={`item-${index}`} className="flex gap-1 items-center">
-              <div
-                style={{
-                  display: 'inline-block',
-                  width: '12px',
-                  height: index === 2 ? '1px' : '12px',
-                  backgroundColor: COLORS[index],
-                  border: index === 2 ? `3px solid ${COLORS[index]}` : 'none',
-                  padding: index === 2 ? '0px' : '4px',
-                }}
-              />
-              <div className="text-sm">
-                <p className="font-bold">{entry.value}</p>
-              </div>
+      <div className="flex gap-4">
+        {payload.map((entry: any, index: number) => (
+          <div key={`item-${index}`} className="flex gap-1 items-center">
+            <div
+              style={{
+                display: 'inline-block',
+                width: '12px',
+                height: index === 2 ? '1px' : '12px',
+                backgroundColor: COLORS[index],
+                border: index === 2 ? `3px solid ${COLORS[index]}` : 'none',
+                padding: index === 2 ? '0px' : '4px',
+              }}
+            />
+            <div className="text-sm">
+              <p className="font-bold">{entry.value}</p>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
+      </div>
       // </div>
     );
   };
 
   return (
-    <div style={{ width: '100%', height: '100%' }}>
+    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+      {!mock_data.length && (
+        <DutchC.NoDataWrapper>No data available</DutchC.NoDataWrapper>
+      )}
+
       <ResponsiveContainer width={'100%'} height={500} min-width={300}>
-        <ComposedChart data={data} barGap={200} stackOffset="sign">
+        <ComposedChart data={mock_data} barGap={200} stackOffset="sign">
           <defs>
             <linearGradient id="Turnover" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#62BA52" stopOpacity={1} />
@@ -200,7 +207,7 @@ const AnalyticsComposedChart = ({composedChartData, dayOption}: any) => {
             padding={{ left: 20, right: 20 }}
             interval={0}
             // domain={['auto', 'auto']}
-          // interval={Math.ceil(data.length / 6) - 1}
+            // interval={Math.ceil(data.length / 6) - 1}
           />
           <YAxis
             type="number"

@@ -26,3 +26,7 @@ export const DaySwitchWrapper = styled.div.attrs({
 export const ContentOverviewCards = styled.div.attrs({
   className: 'flex',
 })``;
+
+export const GasFeeChartWrapper = styled.div.attrs({
+  className: 'border border-black/10 dark:border-white/10 rounded-lg p-3',
+})``;
