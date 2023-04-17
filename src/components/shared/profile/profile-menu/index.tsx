@@ -19,6 +19,7 @@ import { Button, IconButton } from '@/common';
 import { setIsConnectionModalOpen } from '@/ducks';
 
 import * as DutchC from './styles';
+import { setTrackList } from '@/components/dashboard/ducks';
 
 interface ProfileMenuButtonProps {
   onToggle: () => void;
@@ -108,6 +109,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
   const handleLogout = () => {
     dispatch(setIsConnected(false));
     setIsOpen(false);
+    dispatch(setTrackList(undefined));
   };
 
   const ref = useDetectClickOutside({ onTriggered: handleClose });
@@ -126,8 +128,8 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
       />
       <DutchC.ProfileMenu isOpen={isOpen}>
         {isConnected ? (
-          <div>
-            <DutchC.ProfileMenuHeaderWrapper>
+          <div className="flex flex-col gap-y-3">
+            <DutchC.ProfileMenuHeaderWrapper href="/profile">
               <DutchC.ProfileMenuHeaderContent>
                 <Image
                   src={props.avatar}

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Link from 'next/link';
 
 export const ProfileMenuWrapper = styled.div.attrs({
   className: 'relative flex flex-col items-end w-fit',
@@ -18,7 +19,7 @@ export const ProfileMenu = styled.div.attrs({
   ${(p: { isOpen: boolean }) => (!p.isOpen ? 'display:none' : '')}
 `;
 
-export const ProfileMenuHeaderWrapper = styled.div.attrs({
+export const ProfileMenuHeaderWrapper = styled(Link).attrs({
   className: 'flex items-center relative w-full',
 })``;
 
