@@ -12,7 +12,8 @@ import * as DutchC from './styles';
 import { AppLayout } from '@/components/layout';
 
 const DashBoardHome = () => {
-  const { isConnected } = useAppSelector((state) => state.webAppReducer);
+  // const { isConnected } = useAppSelector((state) => state.webAppReducer);
+  const isConnected = true;
 
   const dispatch = useAppDispatch();
 

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { OutlineButton } from '@/common';
+import Datepicker from 'react-tailwindcss-datepicker';
+import { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
+import { OutlineButton, Dropdown } from '@/common';
 import { OptionSwitch } from '../option-switch';
 import { Accordion } from '@/common/Accordion';
 import { AnalyticsTableSelector } from '@/components/dashboard/analytics/analytics-tables';
@@ -236,6 +238,16 @@ const NFTTracking = () => {
 
   const mockAreaData = SwitchTransOptions(currentTransOption.slug);
 
+  const [customDateRange, setCustomDateRange] = useState<DateValueType>({
+    startDate: new Date(),
+    endDate: new Date(),
+  });
+
+  const handleValueChange = (newValue: DateValueType) => {
+    console.log('newValue:', newValue);
+    setCustomDateRange(newValue);
+  };
+
   return (
     <div className="nft-tracking">
       <DutchC.ContentSwitch>
@@ -267,7 +279,15 @@ const NFTTracking = () => {
                 />
               ))}
             </div>
-            <Accordion>Custom</Accordion>
+            <Accordion label="Custom">
+              <Datepicker
+                inputClassName="button bg-white"
+                value={customDateRange}
+                onChange={handleValueChange}
+                showShortcuts={true}
+                showFooter={true}
+              />
+            </Accordion>
           </DutchC.DaySwitchWrapper>
         </DutchC.ContentSwitchInner>
         <DutchC.ContentIdkHead>
