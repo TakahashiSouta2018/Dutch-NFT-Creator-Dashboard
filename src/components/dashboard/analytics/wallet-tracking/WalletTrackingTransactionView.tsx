@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Datepicker from 'react-tailwindcss-datepicker';
+import { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 
 import * as DutchC from './styles';
 import { useAppSelector } from '@/redux/store';
@@ -128,6 +130,16 @@ export const WalletTrackingTransactionView = () => {
 
   const { isConnected } = useAppSelector((state) => state.webAppReducer);
 
+  const [customDateRange, setCustomDateRange] = useState<DateValueType>({
+    startDate: new Date(),
+    endDate: new Date(),
+  });
+
+  const handleValueChange = (newValue: DateValueType) => {
+    console.log('newValue:', newValue);
+    setCustomDateRange(newValue);
+  };
+
   return (
     <div className="flex flex-col gap-6">
       <div className="overview flex flex-col gap-4">
@@ -147,7 +159,15 @@ export const WalletTrackingTransactionView = () => {
                   />
                 ))}
               </div>
-              <Accordion>Custom</Accordion>
+              <Accordion label="Custom">
+                <Datepicker
+                  inputClassName="button bg-white"
+                  value={customDateRange}
+                  onChange={handleValueChange}
+                  showShortcuts={true}
+                  showFooter={true}
+                />
+              </Accordion>
             </DutchC.DaySwitchWrapper>
             <p className="text-xs text-black/70">
               The tracking shown is according to the timeline selected.
