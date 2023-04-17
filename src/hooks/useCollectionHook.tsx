@@ -20,7 +20,6 @@ const useCollectionHook = () => {
     return { accountInfo, userCollection };
   }, shallowEqual);
 
-
   const createCollection = async (collectionObject: CollectionObjectI) => {
     const imagesUrl = await pinFileToIPFS([
       collectionObject.avatar,
@@ -51,11 +50,10 @@ const useCollectionHook = () => {
       console.log({ res });
 
       if (res?.data?.data?.collections) {
-        return res.data.data.collections 
+        return res.data.data.collections;
       }
 
       return [];
-      
     } catch (error) {
       console.log(error);
     }
@@ -63,16 +61,18 @@ const useCollectionHook = () => {
 
   const getUserCollectionNFTs = async (user: string, tokensAddress: string) => {
     try {
-      const res = await loopringApiService.getUserCollectionNFTs(user, tokensAddress);
+      const res = await loopringApiService.getUserCollectionNFTs(
+        user,
+        tokensAddress
+      );
 
       let nfts: NFTI[] = [];
 
       if (res?.data?.data?.collections) {
-        nfts = res.data.data.nfts
+        nfts = res.data.data.nfts;
       }
 
       return nfts;
-      
     } catch (error) {
       console.log(error);
     }
@@ -84,12 +84,16 @@ const useCollectionHook = () => {
 
   const getCollectionNameByAddress = (collectionAddress: string) => {
     if (collectionAddress) {
-      const collection = userCollection.filter((collection: CollectionI) => collection.collectionAddress.toLowerCase() === collectionAddress.toLowerCase());    
+      const collection = userCollection.filter(
+        (collection: CollectionI) =>
+          collection.collectionAddress.toLowerCase() ===
+          collectionAddress.toLowerCase()
+      );
       if (collection.length > 0) {
-        return collection[0].name
+        return collection[0].name;
       }
     }
-    return "";
+    return '';
   };
 
   return {

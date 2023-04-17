@@ -17,12 +17,12 @@ const List = ({ nfts }: { nfts: UserListI[] }) => {
   const [tableListSwtich, setTableListSwtich] = useState<number>(0);
 
   const { collectionNfts } = useAppSelector((state) => {
-    const { collectionNfts } = state.dashboardPageReducer as DashboardPageReducerI;
+    const { collectionNfts } =
+      state.dashboardPageReducer as DashboardPageReducerI;
     return { collectionNfts };
   }, shallowEqual);
 
   console.log({ collectionNfts });
-
 
   return (
     <AppLayout>
@@ -38,7 +38,6 @@ const List = ({ nfts }: { nfts: UserListI[] }) => {
         setShowSyncModal={setShowSyncModal}
         showSyncModal={showSyncModal}
       />
-
     </AppLayout>
   );
 };
@@ -49,7 +48,9 @@ export const getServerSideProps: GetServerSideProps =
       const nftManagement = new NFTManagementService();
       const user = getCookie('ACCOUNT', { req: ctx.req, res: ctx.res });
 
-      const { response, data } = await nftManagement.getUserNftList(String(user));
+      const { response, data } = await nftManagement.getUserNftList(
+        String(user)
+      );
 
       let nfts: UserListI[] = [];
 

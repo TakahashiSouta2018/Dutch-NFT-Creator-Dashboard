@@ -8,7 +8,10 @@ import * as Icons from '@/common';
 import { NFTI, TabTypeT } from '@/types';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
-import { DashboardPageReducerI, setSelectedNfts } from '@/components/dashboard/ducks';
+import {
+  DashboardPageReducerI,
+  setSelectedNfts,
+} from '@/components/dashboard/ducks';
 import useNFTManagement from '@/hooks/useNFTManagement';
 import useCollectionHook from '@/hooks/useCollectionHook';
 
@@ -21,9 +24,9 @@ const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
   const dispatch = useAppDispatch();
   const { getCollectionNameByAddress } = useCollectionHook();
 
-
   const { selectedNFTs } = useAppSelector((state) => {
-    const { selectedNFTs } = state.dashboardPageReducer as DashboardPageReducerI;
+    const { selectedNFTs } =
+      state.dashboardPageReducer as DashboardPageReducerI;
     return { selectedNFTs };
   }, shallowEqual);
 
@@ -34,7 +37,7 @@ const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
     );
   };
 
-  const handleSelectNft = async (list: NFTI) => {    
+  const handleSelectNft = async (list: NFTI) => {
     dispatch(setSelectedNfts(list));
   };
 
@@ -44,7 +47,7 @@ const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
       <THead className="bg-black/5 dark:bg-white/5">
         <TR>
           <TD>
-            <div className='mx-auto border rounded-full w-4 h-4 border-black/70 dark:border-white' />
+            <div className="mx-auto border rounded-full w-4 h-4 border-black/70 dark:border-white" />
           </TD>
           {currentTab !== 'LIST' && <TD>Sr</TD>}
           <TD>Name</TD>
@@ -66,13 +69,13 @@ const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
                     size="large"
                   />
                 ) : (
-                  <div className='mx-auto border rounded-full w-4 h-4 border-black/70 dark:border-white' />
+                  <div className="mx-auto border rounded-full w-4 h-4 border-black/70 dark:border-white" />
                 )}
               </TD>
               {currentTab !== 'LIST' && <TD>{index}</TD>}
               <TD>{list?.metadata?.name}</TD>
               <TD>
-                <div className='w-[10vw] whitespace-nowrap  overflow-hidden overflow-ellipsis font-normal text-sm text-black/70'>
+                <div className="w-[10vw] whitespace-nowrap  overflow-hidden overflow-ellipsis font-normal text-sm text-black/70">
                   {getCollectionNameByAddress(list.tokenAddress)}
                 </div>
               </TD>

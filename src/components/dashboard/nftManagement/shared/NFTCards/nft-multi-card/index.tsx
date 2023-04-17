@@ -22,7 +22,7 @@ const NFTMultiCard: React.FC<MultiCardProps> = ({
   onShowListModal,
 }) => {
   console.log({ imageUrls });
-  
+
   return (
     <DutchC.MultiUploadWrapper onClick={onShowListModal}>
       <DutchC.MultiUploadInner className={className}>

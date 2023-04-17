@@ -93,7 +93,10 @@ const useConnectHook = () => {
   const initUserData = async (accountDetails: AccountInfoI) => {
     // set user collections
     {
-      const collections = await getUserCollection(accountDetails.accInfo.owner, accountDetails.apiKey);      
+      const collections = await getUserCollection(
+        accountDetails.accInfo.owner,
+        accountDetails.apiKey
+      );
       if (collections) {
         dispatch(setUserCollection(collections));
       }

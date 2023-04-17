@@ -16,7 +16,6 @@ const AllPage: React.FC<NFTAllProps> = ({
 
   const onNFTSelect = useCallback(
     (nftId: string) => {
-      
       const index = NFTs.findIndex((nft) => nft.nftId === nftId);
       const nft = NFTs.find((nft) => nft.nftId === nftId);
       if (nft) {
@@ -30,7 +29,7 @@ const AllPage: React.FC<NFTAllProps> = ({
       }
     },
     [NFTs]
-  );  
+  );
 
   if (tableListSwtich)
     return <NFTAllByTable NFTs={NFTs} onNFTSelect={onNFTSelect} />;

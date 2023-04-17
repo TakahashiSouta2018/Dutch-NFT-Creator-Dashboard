@@ -29,7 +29,7 @@ const ArchivePage = ({ listNfts }: PropsI) => {
   );
 
   return (
-    <div className='grid grid-cols-5 gap-4'>
+    <div className="grid grid-cols-5 gap-4">
       {NFTs.map((nft) => (
         <NFTCard
           key={nft.nftId}

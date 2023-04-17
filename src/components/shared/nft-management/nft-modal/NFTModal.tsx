@@ -139,7 +139,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
             }}
           />
           <SearchInput placeholder="NFT name or id" />
-          
+
           <NFTList lists={lists} currentTab={currentTab} />
 
           <DutchC.NFTModalFooterWrapper>

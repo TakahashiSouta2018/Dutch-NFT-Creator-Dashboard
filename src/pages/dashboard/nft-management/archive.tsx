@@ -1,27 +1,17 @@
 // components
 import { AppLayout } from '@/components';
-import { DashboardPageReducerI } from '@/components/dashboard/ducks';
-import CollectionPage from '@/components/dashboard/nftManagement/CollectionPage';
+import ArchivePage from '@/components/dashboard/nftManagement/ArchivePage';
 import Header from '@/components/dashboard/nftManagement/shared/Header';
-import { useAppSelector, wrapper } from '@/redux/store';
+import { wrapper } from '@/redux/store';
 import NFTManagementService from '@/services/NFTManagement.service';
-import { UserListI } from '@/types';
+import { CreateNftManagementI, UsageStatusEnum } from '@/types';
 
 import { getCookie } from 'cookies-next';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { useState } from 'react';
-import { shallowEqual } from 'react-redux';
 
-const Collection = ({ nfts }: { nfts: UserListI[] }) => {
+const Archive = ({ nfts }: { nfts: CreateNftManagementI[] }) => {
   const [tableListSwtich, setTableListSwtich] = useState<number>(0);
-
-  const { collectionNfts } = useAppSelector((state) => {
-    const { collectionNfts } = state.dashboardPageReducer as DashboardPageReducerI;
-    return { collectionNfts };
-  }, shallowEqual);
-
-  console.log({ collectionNfts });
-
 
   return (
     <AppLayout>
@@ -29,9 +19,7 @@ const Collection = ({ nfts }: { nfts: UserListI[] }) => {
         tableListSwtich={tableListSwtich}
         setTableListSwtich={setTableListSwtich}
       />
-
-      <CollectionPage listNfts={nfts} />
-
+      <ArchivePage listNfts={nfts} />
     </AppLayout>
   );
 };
@@ -42,9 +30,12 @@ export const getServerSideProps: GetServerSideProps =
       const nftManagement = new NFTManagementService();
       const user = getCookie('ACCOUNT', { req: ctx.req, res: ctx.res });
 
-      const { response, data } = await nftManagement.getUserCollectionList(String(user));
+      const { response, data } = await nftManagement.getUserNfts(
+        String(user),
+        UsageStatusEnum.ARCHIVED
+      );
 
-      let nfts: UserListI[] = [];
+      let nfts: CreateNftManagementI[] = [];
 
       if (data && data.data) {
         nfts = data.data.nfts;
@@ -56,4 +47,4 @@ export const getServerSideProps: GetServerSideProps =
     }
   );
 
-export default Collection;
+export default Archive;

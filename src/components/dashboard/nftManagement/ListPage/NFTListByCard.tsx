@@ -10,7 +10,7 @@ interface NFTListByCardProps {
 const NFTListByCard: React.FC<NFTListByCardProps> = ({
   multiNFTs,
   onShowListModal,
-}): JSX.Element => {  
+}): JSX.Element => {
   return (
     <div className="grid grid-cols-5 gap-3">
       {multiNFTs.map((card, i) => (

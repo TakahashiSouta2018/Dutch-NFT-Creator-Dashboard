@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
 // components
-import {
-  Button,
-  CSVUpload,
-  OutlineButton,
-} from '@/common';
+import { Button, CSVUpload, OutlineButton } from '@/common';
 import Breadcrumb from '../../shared/Breadcrumb';
 
 // icons
@@ -106,39 +102,36 @@ const BulkMintPage: React.FC = () => {
     <Layout>
       <Breadcrumb />
 
-      <div className='flex flex-col space-y-4 p-4 border border-black/10 rounded-lg dark:border-white/10'>
-        <div className='text-2xl font-bold whitespace-nowrap text-black dark:text-white'>Bulk Mint</div>
+      <div className="flex flex-col space-y-4 p-4 border border-black/10 rounded-lg dark:border-white/10">
+        <div className="text-2xl font-bold whitespace-nowrap text-black dark:text-white">
+          Bulk Mint
+        </div>
 
-        <div className='w-1/3 mr-2'>
+        <div className="w-1/3 mr-2">
           <CollectionDropdown
             selectedCollectionAddress={selectedCollectionAddress}
             setSelectedCollectionAddress={setSelectedCollectionAddress}
           />
         </div>
 
-        <div className='grid grid-cols-3 space-x-4'>
-          <div className='col-span-1 flex flex-col space-y-4'>
-            <div className='flex flex-col space-y-1'>
-              <div className='text-sm font-medium text-black/70 dark:text-white/70'>
-                Media files* <br /> (Supported : JPG, PNG, GIF, WEBP, WEBM,
-                MP4, GLB, GLTF)
+        <div className="grid grid-cols-3 space-x-4">
+          <div className="col-span-1 flex flex-col space-y-4">
+            <div className="flex flex-col space-y-1">
+              <div className="text-sm font-medium text-black/70 dark:text-white/70">
+                Media files* <br /> (Supported : JPG, PNG, GIF, WEBP, WEBM, MP4,
+                GLB, GLTF)
               </div>
 
-              <FolderUpload
-                setImageUrls={setImageUrls}
-                imageUrls={imageUrls}
-              />
+              <FolderUpload setImageUrls={setImageUrls} imageUrls={imageUrls} />
             </div>
-            <div className='flex flex-col space-y-1'>
-              <label className='text-sm'>
+            <div className="flex flex-col space-y-1">
+              <label className="text-sm">
                 <span className="font-medium text-black/70 dark:text-white/70">
                   CSV file*
                 </span>{' '}
                 <br />
                 <p>
-                  <span className="font-bold">
-                    Download our CSV template
-                  </span>{' '}
+                  <span className="font-bold">Download our CSV template</span>{' '}
                   to make sure your CSV is formatted correctly.
                 </p>
               </label>
@@ -154,11 +147,10 @@ const BulkMintPage: React.FC = () => {
             selectedCSVFileContent={selectedCSVFileContent}
             imageUrls={imageUrls}
           />
-
         </div>
 
         {/* Actions */}
-        <div className='inline-flex items-center space-x-4'>
+        <div className="inline-flex items-center space-x-4">
           <Button onClick={handleMintNfts} loading={isMintingNft}>
             Mint all NFTs
           </Button>

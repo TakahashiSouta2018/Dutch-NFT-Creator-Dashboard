@@ -26,7 +26,7 @@ const NFTListTable: React.FC<{
           return (
             <TR key={i} className="cursor-pointer" onClick={onShowListModal}>
               <TD>
-                <div className='flex gap-2 justify-between items-center'>
+                <div className="flex gap-2 justify-between items-center">
                   <div>{list.listName}</div>
                   <div className="flex gap-2">
                     <NFTMultiCard

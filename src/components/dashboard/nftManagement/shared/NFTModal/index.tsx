@@ -51,7 +51,6 @@ const NFTModal: React.FC<NFTModalProp> = ({
     return { accountInfo };
   }, shallowEqual);
 
-  
   const handleSubmitButtonClick = async () => {
     try {
       if (currentTab === 'LIST' && listName === '')
@@ -80,7 +79,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
           onClose();
         }}
       >
-        <div className='flex pr-2 items-center bg-black/10 rounded-md'>
+        <div className="flex pr-2 items-center bg-black/10 rounded-md">
           <IconButton icon="document" />
           <p className="text-sm text-black/70 dark:text-white">
             {accountInfo?.accInfo.owner}
@@ -88,7 +87,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
         </div>
       </ModalHead>
       <ModalBody>
-        <div className='flex flex-col gap-6'>
+        <div className="flex flex-col gap-6">
           <div className="flex gap-6 justify-between">
             {currentTab === 'LIST' && (
               <div className="w-1/2">
@@ -115,7 +114,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
 
           <NFTList lists={lists} currentTab={currentTab} />
 
-          <div className='flex justify-end gap-3'>
+          <div className="flex justify-end gap-3">
             <OutlineButton
               onClick={(e) => {
                 e.stopPropagation();
@@ -124,7 +123,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
             >
               Cancel
             </OutlineButton>
-            <Button onClick={handleSubmitButtonClick} type='button'>
+            <Button onClick={handleSubmitButtonClick} type="button">
               {currentTab === 'LIST' ? 'Save Changes' : 'Sync NFTs'}
             </Button>
           </div>

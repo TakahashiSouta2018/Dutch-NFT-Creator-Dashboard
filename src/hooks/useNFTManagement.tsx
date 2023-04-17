@@ -20,7 +20,6 @@ const useNFTManagement = () => {
 
   const { getCollectionNameByAddress } = useCollectionHook();
 
-
   const syncNft = async (listName: string) => {
     try {
       const nfts = selectedNFTs.map((selectedNFT) => {
@@ -34,15 +33,13 @@ const useNFTManagement = () => {
           image: selectedNFT?.metadata?.image,
           listName,
           owner: account,
-        }
+        };
       });
 
       const { response, data } = await nftManagement.syncNFT(nfts);
 
       if (data && data.data) return data.data;
       else return null;
-
-      
     } catch (error) {
       console.log(error);
     }

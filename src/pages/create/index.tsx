@@ -1,12 +1,13 @@
+import CreateHome from '@/components/create/CreateHomePage';
+import { AppLayout } from '@/components/layout';
 import React from 'react';
 
-// components
-import { AppLayout, CreateHome } from '@/components';
-
-export default function Create() {
+const Create = () => {
   return (
     <AppLayout>
       <CreateHome />
     </AppLayout>
   );
-}
+};
+
+export default Create;

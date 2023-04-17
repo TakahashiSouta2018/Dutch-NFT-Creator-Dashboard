@@ -70,8 +70,11 @@ interface PropsI {
   setShowCreatListModal?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-
-const Header = ({ setTableListSwtich, setShowCreatListModal, tableListSwtich }: PropsI) => {
+const Header = ({
+  setTableListSwtich,
+  setShowCreatListModal,
+  tableListSwtich,
+}: PropsI) => {
   const { theme } = useTheme();
   const { pathname } = useRouter();
 

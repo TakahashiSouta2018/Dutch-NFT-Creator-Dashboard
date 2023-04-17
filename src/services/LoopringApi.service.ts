@@ -10,7 +10,8 @@ export default class LoopringApi extends Service<any> {
   }
 
   public getUserCollectionNFTs(ownerAddress: string, tokenAddress: string) {
-    return this.getRequest(`user-collection-nft/${ownerAddress}/${tokenAddress}`);
+    return this.getRequest(
+      `user-collection-nft/${ownerAddress}/${tokenAddress}`
+    );
   }
-
 }

@@ -1,6 +1,6 @@
 // components
 import { AppLayout } from '@/components';
-import ArchivePage from '@/components/dashboard/nftManagement/ArchivePage';
+import Bank0xPage from '@/components/dashboard/nftManagement/Bank0xPage';
 import Header from '@/components/dashboard/nftManagement/shared/Header';
 import { wrapper } from '@/redux/store';
 import NFTManagementService from '@/services/NFTManagement.service';
@@ -19,8 +19,7 @@ const Archive = ({ nfts }: { nfts: CreateNftManagementI[] }) => {
         tableListSwtich={tableListSwtich}
         setTableListSwtich={setTableListSwtich}
       />
-      <ArchivePage listNfts={nfts} />
-
+      <Bank0xPage listNfts={nfts} />
     </AppLayout>
   );
 };
@@ -33,7 +32,7 @@ export const getServerSideProps: GetServerSideProps =
 
       const { response, data } = await nftManagement.getUserNfts(
         String(user),
-        UsageStatusEnum.ARCHIVED
+        UsageStatusEnum.UNARCHIVED
       );
 
       let nfts: CreateNftManagementI[] = [];

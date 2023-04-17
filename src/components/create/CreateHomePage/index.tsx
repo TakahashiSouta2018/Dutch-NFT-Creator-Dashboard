@@ -3,19 +3,21 @@ import React, { useState, useCallback, useEffect } from 'react';
 // components
 import { Button, SearchInput } from '@/common';
 
-
 // icons
 import useNFTHook from '@/hooks/useNFTHook';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
 
-
 import Header from './Header';
 import DraftNFTCard from './DraftNFTCard';
-import { CreatePageReducerI, setDraftNFTs, setMintModalIsOpen, setSelectedDraftNFTs } from '@/components/create/ducks';
+import {
+  CreatePageReducerI,
+  setDraftNFTs,
+  setMintModalIsOpen,
+  setSelectedDraftNFTs,
+} from '@/components/create/ducks';
 import CollectionDropdown from '@/common/Dropdown/CollectionDropdown';
 import Layout from '../shared/Layout';
-
 
 const CreateHome: React.FC = () => {
   const { getCollectionDraftNFT } = useNFTHook();
@@ -67,17 +69,17 @@ const CreateHome: React.FC = () => {
     dispatch(setMintModalIsOpen(true));
   };
 
-
-  const isDraftNtSelected = draftNFTs && draftNFTs.length > 0 && draftNFTs?.filter((draftNFT) => draftNFT.selected).length > 0;
+  const isDraftNtSelected =
+    draftNFTs &&
+    draftNFTs.length > 0 &&
+    draftNFTs?.filter((draftNFT) => draftNFT.selected).length > 0;
 
   return (
     <Layout>
-
-      <div className='border-b border-black/10 dark:border-white/10'>
-
+      <div className="border-b border-black/10 dark:border-white/10">
         <Header />
 
-        <div className='flex w-1/4 my-4'>
+        <div className="flex w-1/4 my-4">
           <CollectionDropdown
             selectedCollectionAddress={selectedCollectionAddress}
             setSelectedCollectionAddress={setSelectedCollectionAddress}
@@ -85,8 +87,8 @@ const CreateHome: React.FC = () => {
         </div>
       </div>
 
-      <div className='relative flex flex-col space-y-4 mt-5'>
-        <div className='w-1/2 flex items-center space-x-4'>
+      <div className="relative flex flex-col space-y-4 mt-5">
+        <div className="w-1/2 flex items-center space-x-4">
           <SearchInput />
           {isDraftNtSelected && (
             <Button onClick={() => dispatch(setMintModalIsOpen(true))}>
@@ -97,7 +99,7 @@ const CreateHome: React.FC = () => {
             <Button onClick={handleMintAll}>Mint all NFTs</Button>
           )}
         </div>
-        <div className='grid grid-cols-5 gap-4'>
+        <div className="grid grid-cols-5 gap-4">
           {draftNFTs.map((nft) => (
             <DraftNFTCard
               key={nft.id}
@@ -107,11 +109,8 @@ const CreateHome: React.FC = () => {
           ))}
         </div>
       </div>
-
     </Layout>
   );
 };
-
-
 
 export default CreateHome;

@@ -19,13 +19,14 @@ const NFTAllByTable: React.FC<NFTAllByTableProps> = ({
   onNFTSelect,
 }): JSX.Element => {
   const { selectedNFTs } = useAppSelector((state) => {
-    const { selectedNFTs } = state.dashboardPageReducer as DashboardPageReducerI;
+    const { selectedNFTs } =
+      state.dashboardPageReducer as DashboardPageReducerI;
     return { selectedNFTs };
   }, shallowEqual);
 
   const isSelected = (nftId: string) => {
     console.log({ selectedNFTs });
-    
+
     return (
       selectedNFTs.filter((selectedNFT) => selectedNFT.nftID === nftId).length >
       0
@@ -37,7 +38,7 @@ const NFTAllByTable: React.FC<NFTAllByTableProps> = ({
       <THead>
         <TR>
           <TD>
-            <div className='mx-auto border rounded-full w-4 h-4 border-black/70 dark:border-white' />
+            <div className="mx-auto border rounded-full w-4 h-4 border-black/70 dark:border-white" />
           </TD>
           <TD>Name</TD>
           <TD>Collection</TD>
@@ -48,7 +49,7 @@ const NFTAllByTable: React.FC<NFTAllByTableProps> = ({
       <TBody>
         {NFTs.map((list, index) => {
           console.log({ list });
-          
+
           return (
             <TR
               key={index}
@@ -69,7 +70,7 @@ const NFTAllByTable: React.FC<NFTAllByTableProps> = ({
                 {isSelected(list.nftId) ? (
                   <Icons.ICheckCircle color="black" size="large" />
                 ) : (
-                  <div className='mx-auto border rounded-full w-4 h-4 border-black/70 dark:border-white' />
+                  <div className="mx-auto border rounded-full w-4 h-4 border-black/70 dark:border-white" />
                 )}
               </TD>
               <TD>

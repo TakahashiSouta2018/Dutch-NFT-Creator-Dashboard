@@ -45,8 +45,11 @@ const CollectionDropdown: React.FC<CollectionDropdownI> = ({
     (async () => {
       if (selectedCollectionAddress && account) {
         dispatch(setCollectionNfts([]));
-        const nfts = await getUserCollectionNFTs(account, selectedCollectionAddress)
-  
+        const nfts = await getUserCollectionNFTs(
+          account,
+          selectedCollectionAddress
+        );
+
         dispatch(setCollectionNfts(nfts));
         dispatch(setSelectedNfts([]));
       }

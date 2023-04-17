@@ -51,14 +51,13 @@ const useNFTHook = () => {
 
   const getCollectionDraftNFT = async (collectionAddress: string) => {
     try {
-      
       const { response, data } = await draftNFTService.getCollectionDraftNFT(
         collectionAddress,
         account
       );
 
-      console.log({dfdffd: data});
-      
+      console.log({ dfdffd: data });
+
       if (data && data.data) {
         return data.data.nft;
       }

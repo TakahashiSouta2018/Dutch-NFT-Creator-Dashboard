@@ -21,7 +21,6 @@ const CreateCollectionPage: React.FC = () => {
 
   const { createCollection } = useCollectionHook();
 
-
   const handleCreateCollection = async () => {
     setIsLoading(true);
     await createCollection({
@@ -37,21 +36,21 @@ const CreateCollectionPage: React.FC = () => {
   return (
     <Layout>
       <Breadcrumb />
-      <div className='flex flex-col space-y-4 p-4 border border-black/10 rounded-lg dark:border-white/10'>
-        <div className='text-2xl font-bold whitespace-nowrap text-black dark:text-white'>
+      <div className="flex flex-col space-y-4 p-4 border border-black/10 rounded-lg dark:border-white/10">
+        <div className="text-2xl font-bold whitespace-nowrap text-black dark:text-white">
           Create Collection
         </div>
 
-        <div className='flex flex-col space-y-2'>
+        <div className="flex flex-col space-y-2">
           {/* label */}
-          <div className='flex flex-col text-sm text-black/70 whitespace-nowrap'>
+          <div className="flex flex-col text-sm text-black/70 whitespace-nowrap">
             <span className="font-medium dark:text-white/70">Media*</span>
             <span className="dark:text-white/70">
               (Supported: JPG, JPEG, PNG, GIF)
             </span>
           </div>
           {/* Media Upload */}
-          <div className='w-full grid grid-cols-5'>
+          <div className="w-full grid grid-cols-5">
             <div
               className={`flex px-1 first:pl-0 last:pr-0 self-end`}
               style={{ aspectRatio: '5/7', gridColumn: `span 1 / span 1` }}
@@ -108,7 +107,7 @@ const CreateCollectionPage: React.FC = () => {
         />
 
         {/* Create */}
-        <div className='w-1/6'>
+        <div className="w-1/6">
           <Button
             type="button"
             loading={isLoading}

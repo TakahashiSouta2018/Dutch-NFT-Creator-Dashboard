@@ -5,7 +5,12 @@ import { Unit } from './unit';
 import { OptionSwitch } from '../option-switch';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
-import { DashboardPageReducerI, TrackListI, TrackListTypeEnum, setTrackList } from '../../ducks';
+import {
+  DashboardPageReducerI,
+  TrackListI,
+  TrackListTypeEnum,
+  setTrackList,
+} from '../../ducks';
 import { LoopringService } from '@/lib/LoopringService';
 
 import * as DutchC from './styles';
@@ -40,7 +45,8 @@ const AnalyticsSideBar: React.FC<AnalyticsSideBarProps> = ({
   const dispatch = useAppDispatch();
 
   const { account, isConnected, userCollection } = useAppSelector((state) => {
-    const { account, isConnected, userCollection } = state.webAppReducer as WebAppReducerI;
+    const { account, isConnected, userCollection } =
+      state.webAppReducer as WebAppReducerI;
     return { account, isConnected, userCollection };
   }, shallowEqual);
 
@@ -66,12 +72,16 @@ const AnalyticsSideBar: React.FC<AnalyticsSideBarProps> = ({
             };
           });
         } else {
-          const collectionAddresses = userCollection.map((item) => item.collectionAddress).join(',');
+          const collectionAddresses = userCollection
+            .map((item) => item.collectionAddress)
+            .join(',');
 
-          const nftsInfo = await getUserCollectionNFTs(String(account), collectionAddresses);
+          const nftsInfo = await getUserCollectionNFTs(
+            String(account),
+            collectionAddresses
+          );
 
           console.log({ nftsInfo });
-
 
           if (nftsInfo) {
             list = nftsInfo.map((item, i) => ({
@@ -85,7 +95,7 @@ const AnalyticsSideBar: React.FC<AnalyticsSideBarProps> = ({
           }
         }
         dispatch(setTrackList(list));
-      } catch (error) { }
+      } catch (error) {}
     })();
   }, [trackBy]);
 
@@ -115,7 +125,6 @@ const AnalyticsSideBar: React.FC<AnalyticsSideBarProps> = ({
 
   console.log({ trackList });
 
-
   return (
     <DutchC.SideBarWrapper>
       <DutchC.SideBarBg />
@@ -123,8 +132,9 @@ const AnalyticsSideBar: React.FC<AnalyticsSideBarProps> = ({
         <DutchC.SideBarHeader>
           <DutchC.SideBarHeaderText>Analytics</DutchC.SideBarHeaderText>
           <Select
-            className={`border-none w-full flex-grow ${isConnected ? 'visible' : 'invisible'
-              }`}
+            className={`border-none w-full flex-grow ${
+              isConnected ? 'visible' : 'invisible'
+            }`}
             options={[
               { key: '0', value: 'NFT Tracking' },
               { key: '1', value: 'Wallet Tracking' },

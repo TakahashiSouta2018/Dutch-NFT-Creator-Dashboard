@@ -103,122 +103,122 @@ const DraftNFTPage: React.FC = () => {
   };
 
   return (
-      <Layout>
-        <Breadcrumb />
+    <Layout>
+      <Breadcrumb />
 
-        <div className='flex flex-col space-y-4 p-4 border border-black/10 rounded-lg dark:border-white/10'>
-          <div className='text-2xl font-bold whitespace-nowrap text-black dark:text-white'>
-            Add NFTs Metadata
-          </div>
-
-          {/* Collection Selector */}
-          <div className='w-1/3 mr-2'>
-            <CollectionDropdown
-              selectedCollectionAddress={selectedCollectionAddress}
-              setSelectedCollectionAddress={setSelectedCollectionAddress}
-            />
-          </div>
-
-          <div className='grid grid-cols-3 space-x-4'>
-            {/* Media Upload */}
-            <div className='flex flex-col space-y-1'>
-              <div className='flex flex-col text-sm text-black/70 whitespace-nowrap'>
-                <span className="font-medium dark:text-white/70">Media*</span>
-                <span className="dark:text-white/70 truncate">
-                  (Supported: JPG, PNG, GIF, WEBP, WEBM, MP4, GLB, GLTF)
-                </span>
-              </div>
-
-              <div className='flex aspect-square'>
-                <MediaUpload
-                  variant="default"
-                  setImageUrl={setMedia}
-                  imageUrl={media}
-                  name="media"
-                />
-              </div>
-            </div>
-
-            {/* Detail Edit */}
-            <div className='flex flex-col space-y-4'>
-              {/* Name */}
-              <TextInput
-                label="Name"
-                onChange={handleChange}
-                value={values.name}
-                name="name"
-              />
-              {/* Amount */}
-              <TextInput
-                type="number"
-                label="Amount"
-                helper="Max: 100,000"
-                min={1}
-                max={100000}
-                onChange={handleChange}
-                value={values.amount}
-                name="amount"
-              />
-              {/* Royalty (%) */}
-              <TextInput
-                type="number"
-                label="Royalty (%)"
-                helper="Max: 10"
-                min={1}
-                max={10}
-                onChange={handleChange}
-                value={values.royalty}
-                name="royalty"
-              />
-
-              {/* Properties */}
-              <div className='flex flex-col space-y-1'>
-                <div className='text-sm whitespace-nowrap font-medium text-black dark:text-white'>
-                  Properties
-                </div>
-
-                {/* list */}
-                {properties.map((property, index) => (
-                  <NFTProperty
-                    key={index}
-                    onRemove={() => handleRemoveProperty(index)}
-                    {...property}
-                  />
-                ))}
-
-                <div className='inline-flex w-fit text-sm whitespace-nowrap text-black/70 cursor-pointer dark:text-white/70'
-                  onClick={handleAddProperty}
-                >
-                  + Add property
-                </div>
-              </div>
-
-              {/* Actions */}
-              <div className='flex items-center space-x-2'>
-                <Button
-                  type="button"
-                  loading={isLoading}
-                  onClick={handleCreateDraftNFT}
-                >
-                  Save Draft
-                </Button>
-                <OutlineButton>Cancel</OutlineButton>
-              </div>
-            </div>
-
-            {/* Description */}
-            <TextArea
-              label="Description"
-              placeholder="Describe your NFT"
-              onChange={handleChange}
-              value={values.description}
-              name="description"
-            />
-          </div>
+      <div className="flex flex-col space-y-4 p-4 border border-black/10 rounded-lg dark:border-white/10">
+        <div className="text-2xl font-bold whitespace-nowrap text-black dark:text-white">
+          Add NFTs Metadata
         </div>
-      </Layout>
+
+        {/* Collection Selector */}
+        <div className="w-1/3 mr-2">
+          <CollectionDropdown
+            selectedCollectionAddress={selectedCollectionAddress}
+            setSelectedCollectionAddress={setSelectedCollectionAddress}
+          />
+        </div>
+
+        <div className="grid grid-cols-3 space-x-4">
+          {/* Media Upload */}
+          <div className="flex flex-col space-y-1">
+            <div className="flex flex-col text-sm text-black/70 whitespace-nowrap">
+              <span className="font-medium dark:text-white/70">Media*</span>
+              <span className="dark:text-white/70 truncate">
+                (Supported: JPG, PNG, GIF, WEBP, WEBM, MP4, GLB, GLTF)
+              </span>
+            </div>
+
+            <div className="flex aspect-square">
+              <MediaUpload
+                variant="default"
+                setImageUrl={setMedia}
+                imageUrl={media}
+                name="media"
+              />
+            </div>
+          </div>
+
+          {/* Detail Edit */}
+          <div className="flex flex-col space-y-4">
+            {/* Name */}
+            <TextInput
+              label="Name"
+              onChange={handleChange}
+              value={values.name}
+              name="name"
+            />
+            {/* Amount */}
+            <TextInput
+              type="number"
+              label="Amount"
+              helper="Max: 100,000"
+              min={1}
+              max={100000}
+              onChange={handleChange}
+              value={values.amount}
+              name="amount"
+            />
+            {/* Royalty (%) */}
+            <TextInput
+              type="number"
+              label="Royalty (%)"
+              helper="Max: 10"
+              min={1}
+              max={10}
+              onChange={handleChange}
+              value={values.royalty}
+              name="royalty"
+            />
+
+            {/* Properties */}
+            <div className="flex flex-col space-y-1">
+              <div className="text-sm whitespace-nowrap font-medium text-black dark:text-white">
+                Properties
+              </div>
+
+              {/* list */}
+              {properties.map((property, index) => (
+                <NFTProperty
+                  key={index}
+                  onRemove={() => handleRemoveProperty(index)}
+                  {...property}
+                />
+              ))}
+
+              <div
+                className="inline-flex w-fit text-sm whitespace-nowrap text-black/70 cursor-pointer dark:text-white/70"
+                onClick={handleAddProperty}
+              >
+                + Add property
+              </div>
+            </div>
+
+            {/* Actions */}
+            <div className="flex items-center space-x-2">
+              <Button
+                type="button"
+                loading={isLoading}
+                onClick={handleCreateDraftNFT}
+              >
+                Save Draft
+              </Button>
+              <OutlineButton>Cancel</OutlineButton>
+            </div>
+          </div>
+
+          {/* Description */}
+          <TextArea
+            label="Description"
+            placeholder="Describe your NFT"
+            onChange={handleChange}
+            value={values.description}
+            name="description"
+          />
+        </div>
+      </div>
+    </Layout>
   );
 };
-
 
 export default DraftNFTPage;
