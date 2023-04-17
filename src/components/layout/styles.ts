@@ -88,5 +88,5 @@ export const ContentLayoutBodyInner = styled.div.attrs({
 })``;
 
 export const GuideInfoIconWrapper = styled.div.attrs({
-  className: 'absolute top-4 right-6 z-50 cursor-pointer',
+  className: 'absolute top-4 right-6 z-40 cursor-pointer',
 })``;
