@@ -1,6 +1,7 @@
 import { RootStateT } from '@/redux/store';
 import { NFTI } from '@/types';
 import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
+import { HYDRATE } from 'next-redux-wrapper';
 
 export enum TrackListTypeEnum {
   NFT = 'NFT',
@@ -51,6 +52,14 @@ export const dashboardPageReducer: Slice<DashboardPageReducerI> = createSlice({
     },
     setTrackList: (state, action: PayloadAction<TrackListI[]>) => {
       state.trackList = action.payload;
+    },
+  },
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      return {
+        ...state,
+        ...action.payload,
+      };
     },
   },
 });

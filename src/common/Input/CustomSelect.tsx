@@ -1,32 +1,14 @@
 import React from 'react';
 import * as DutchC from './styles';
 
-const sortList = [
-  {
-    name: 'Today',
-    value: 'today',
-  },
-  {
-    name: '1 Week',
-    value: 'oneWeek',
-  },
-  {
-    name: '2 Weeks',
-    value: 'twoWeeks',
-  },
-];
-
 interface CustomSelectProps {
   label?: string;
-  selectedOption?: {
-    name: string;
-    value: string;
-  };
   options?: {
     name: string;
     value: string;
   }[];
-  onSelect?: () => void;
+  value?: string;
+  onChange: (value: string) => void;
 }
 
 const CustomSelect: React.FC<CustomSelectProps> = (p: CustomSelectProps) => {
@@ -35,7 +17,10 @@ const CustomSelect: React.FC<CustomSelectProps> = (p: CustomSelectProps) => {
       <DutchC.CustomSelectLabel>
         {p?.label && p.label + ':'}
       </DutchC.CustomSelectLabel>
-      <DutchC.CustomSelect onSelect={p.onSelect}>
+      <DutchC.CustomSelect
+        onChange={(e) => p.onChange(e.currentTarget.value)}
+        value={p?.value}
+      >
         {p.options?.map((item) => (
           <DutchC.CustomSelectOption
             key={item.name}

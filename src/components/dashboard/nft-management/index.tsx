@@ -202,7 +202,13 @@ const NFTManagement: React.FC = () => {
               <DutchC.NFTManagementContentBodyInnerContainer>
                 <DutchC.NFTManagementSubTool>
                   <DutchC.NFTManagementSubToolLeft>
-                    <IconButton icon="funnel" rounded onClick={toggleFilter} />
+                    {!openFilter && (
+                      <IconButton
+                        icon="funnel"
+                        rounded
+                        onClick={toggleFilter}
+                      />
+                    )}
                     <SearchInput placeholder="NFT name or id" />
                     <SortSelect />
                     {(currentWideFilter === 'ALL' ||

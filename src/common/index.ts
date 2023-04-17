@@ -11,3 +11,4 @@ export * from './Modal';
 export * from './Switch';
 export * from './Stepper';
 export * from './Pagination';
+export * from './Accordion';

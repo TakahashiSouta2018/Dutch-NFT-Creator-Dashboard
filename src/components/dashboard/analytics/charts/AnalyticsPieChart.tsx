@@ -8,9 +8,10 @@ import {
   Legend,
   Label,
 } from 'recharts';
+import * as DutchC from './styles';
 
 interface PropsI {
-  data: AnalyticPieChartDataI[];
+  data?: AnalyticPieChartDataI[];
   totalTransaction: number;
 }
 
@@ -57,52 +58,61 @@ const PieLegend = (props: any) => {
 
 const AnalyticsPieChart = ({ data, totalTransaction }: PropsI) => {
   return (
-    <PieChart width={400} height={400}>
-      <Pie
-        data={data}
-        activeShape={renderActiveShape}
-        cx="50%"
-        cy={150}
-        innerRadius={100}
-        outerRadius={120}
-        startAngle={-80}
-        endAngle={360}
-        fill="#8884d8"
-        paddingAngle={5}
-        dataKey="value"
-        label={({ cx, cy, midAngle, innerRadius, outerRadius, value }) => {
-          const RADIAN = Math.PI / 180;
-          const radius = 25 + innerRadius + (outerRadius - innerRadius);
-          const x = cx + radius * Math.cos(-midAngle * RADIAN);
-          const y = cy + radius * Math.sin(-midAngle * RADIAN);
+    <DutchC.ChartWrapper>
+      {!data && <DutchC.NoDataWrapper>No data available</DutchC.NoDataWrapper>}
+      <PieChart width={400} height={400}>
+        <Pie
+          data={data}
+          activeShape={renderActiveShape}
+          cx="50%"
+          cy={150}
+          innerRadius={100}
+          outerRadius={120}
+          startAngle={-80}
+          endAngle={360}
+          fill="#8884d8"
+          paddingAngle={5}
+          dataKey="value"
+          label={({ cx, cy, midAngle, innerRadius, outerRadius, value }) => {
+            const RADIAN = Math.PI / 180;
+            const radius = 25 + innerRadius + (outerRadius - innerRadius);
+            const x = cx + radius * Math.cos(-midAngle * RADIAN);
+            const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-          return (
-            <text
-              x={x}
-              y={y}
-              fill="#000"
-              fontWeight={700}
-              fontSize="small"
-              textAnchor={x > cx ? 'start' : 'end'}
-              dominantBaseline="central"
-            >
-              {((value * 100) / totalTransaction).toFixed(1) + '%'}
-            </text>
-          );
-        }}
-      >
-        <Label position="center">Total Transactions: {totalTransaction}</Label>
-        {data.map((_, index) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-        ))}
-      </Pie>
-      <Legend
-        verticalAlign="top"
-        iconType="circle"
-        align="left"
-        content={<PieLegend data={data} />}
-      />
-    </PieChart>
+            return (
+              <text
+                x={x}
+                y={y}
+                fill="#000"
+                fontWeight={700}
+                fontSize="small"
+                textAnchor={x > cx ? 'start' : 'end'}
+                dominantBaseline="central"
+              >
+                {((value * 100) / totalTransaction).toFixed(1) + '%'}
+              </text>
+            );
+          }}
+        >
+          <Label position="center">
+            Total Transactions: {totalTransaction}
+          </Label>
+          {!!data &&
+            data.map((_, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+              />
+            ))}
+        </Pie>
+        <Legend
+          verticalAlign="top"
+          iconType="circle"
+          align="left"
+          content={<PieLegend data={data} />}
+        />
+      </PieChart>
+    </DutchC.ChartWrapper>
   );
 };
 

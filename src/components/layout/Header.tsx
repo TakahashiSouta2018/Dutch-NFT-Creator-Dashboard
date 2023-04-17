@@ -163,11 +163,7 @@ const Header: React.FC = () => {
 
           <IconButton icon="bell" />
 
-          {!isConnected ? (
-            <IconButton icon="wallet" onClick={openConnectionModal} />
-          ) : (
-            <ProfileMenu {...ProfileMockData} />
-          )}
+          <ProfileMenu {...ProfileMockData} />
         </DutchC.RightActions>
       </DutchC.HeaderInner>
       <ConnectWallet />

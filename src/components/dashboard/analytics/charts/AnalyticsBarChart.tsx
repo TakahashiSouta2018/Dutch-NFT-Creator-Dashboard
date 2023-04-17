@@ -11,6 +11,8 @@ import {
 
 import { TooltipProps } from 'recharts';
 
+import * as DutchC from './styles';
+
 const dataColors = ['#449975', '#E16D40'];
 
 const CustomBarTooltip = ({
@@ -53,7 +55,7 @@ type BartChartType = {
 };
 
 interface BarChartProps {
-  data: BartChartType[];
+  data?: BartChartType[];
   barColors?: string[];
   colorable?: boolean;
 }
@@ -63,54 +65,61 @@ const AnalyticsBarChart: React.FC<BarChartProps> = ({
   barColors,
   colorable,
 }) => {
-  const dataKeys = Object.keys(data[0]).slice(1);
+  const dataKeys = !!data && Object.keys(data[0]).slice(1);
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <BarChart
-        data={data}
-        margin={{
-          top: 0,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
-      >
-        <defs>
-          {!!barColors &&
-            barColors.map((color: string, index: number) => (
-              <linearGradient
-                key={index}
-                id={`colorUv${index}`}
-                x1="0"
-                y1="0"
-                x2="0"
-                y2="1"
-              >
-                <stop offset="0%" stopColor={color} stopOpacity={1} />
-                <stop offset="100%" stopColor="#fff" stopOpacity={0.9} />
-              </linearGradient>
-            ))}
-        </defs>
-        <Tooltip content={<CustomBarTooltip />} />
-        {colorable && <XAxis dataKey="date" />}
-        {colorable && <YAxis />}
-        {dataKeys.map((key, i) => (
-          <Bar
-            key={i}
-            dataKey={key}
-            opacity={
-              colorable || (barColors && barColors?.length > 1) ? 1 : 0.1
-            }
-            fill={`${barColors && barColors[i]}`}
-          >
-            {colorable &&
-              barColors?.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={`url(#colorUv${index})`} />
+    <DutchC.ChartWrapper>
+      {!data && <DutchC.NoDataWrapper>No data available</DutchC.NoDataWrapper>}
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          data={data}
+          margin={{
+            top: 0,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <defs>
+            {!!barColors &&
+              barColors.map((color: string, index: number) => (
+                <linearGradient
+                  key={index}
+                  id={`colorUv${index}`}
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="1"
+                >
+                  <stop offset="0%" stopColor={color} stopOpacity={1} />
+                  <stop offset="100%" stopColor="#fff" stopOpacity={0.9} />
+                </linearGradient>
               ))}
-          </Bar>
-        ))}
-      </BarChart>
-    </ResponsiveContainer>
+          </defs>
+          <Tooltip content={<CustomBarTooltip />} />
+          {colorable && <XAxis dataKey="date" />}
+          {colorable && <YAxis />}
+          {!!dataKeys &&
+            dataKeys.map((key, i) => (
+              <Bar
+                key={i}
+                dataKey={key}
+                opacity={
+                  colorable || (barColors && barColors?.length > 1) ? 1 : 0.1
+                }
+                fill={`${barColors && barColors[i]}`}
+              >
+                {colorable &&
+                  barColors?.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={`url(#colorUv${index})`}
+                    />
+                  ))}
+              </Bar>
+            ))}
+        </BarChart>
+      </ResponsiveContainer>
+    </DutchC.ChartWrapper>
   );
 };
 

@@ -33,14 +33,17 @@ const Unit: React.FC<UnitProps> = ({
         alt="avatar"
         width={40}
         height={40}
-        className="!w-10 !h-10"
+        className="!relative !w-10 !h-10"
         fill
       />
       <DutchC.UnitContent>
         <p className="text-black text-medium leading-5 w-[80%]">{title}</p>
         <p className="text-black/50 leading-5">{content}</p>
         {isSelected ? (
-          <ICheckCircle size="large" className="absolute right-0 top-0.5" />
+          <ICheckCircle
+            size="large"
+            className="absolute right-0 top-0.5 text-black"
+          />
         ) : (
           <DutchC.UnitNotSelected />
         )}
