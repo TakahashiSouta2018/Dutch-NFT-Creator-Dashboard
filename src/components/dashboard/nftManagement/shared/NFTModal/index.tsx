@@ -64,7 +64,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
       dispatch(setCollectionNfts([]));
 
       onClose();
-      push('/dummy/nft-management');
+      push('/dashboard/nft-management');
     } catch (error) {
       console.log(error);
     }

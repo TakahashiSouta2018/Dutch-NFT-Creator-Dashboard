@@ -37,29 +37,29 @@ const tabItems = [
     {
       label: 'All(5)',
       slug: TabNameEnum.ALL,
-      url: '/dummy/nft-management',
+      url: '/dashboard/nft-management',
     },
     {
       label: 'Lists(5)',
       slug: TabNameEnum.LIST,
-      url: '/dummy/nft-management/list',
+      url: '/dashboard/nft-management/list',
     },
     {
       label: 'Collections(2)',
       slug: TabNameEnum.COLLECTION,
-      url: '/dummy/nft-management/collection',
+      url: '/dashboard/nft-management/collection',
     },
     {
       label: 'Archives(2)',
       slug: TabNameEnum.ARCHIVE,
-      url: '/dummy/nft-management/archive',
+      url: '/dashboard/nft-management/archive',
     },
   ],
   [
     {
       label: 'BANK0x(1)',
       slug: TabNameEnum.BANK0X,
-      url: '/dummy/nft-management/bank0x',
+      url: '/dashboard/nft-management/bank0x',
     },
   ],
 ];
@@ -119,7 +119,7 @@ const Header = ({
             </div>
 
             <div className="flex space-x-2 items-start w-full">
-              <SideFilter openFilter={true} onFilter={() => {}} />
+              <SideFilter openFilter={true} onFilter={() => { }} />
 
               <div className="flex flex-col w-full gap-4">
                 <div className="flex justify-between py-4">
@@ -247,7 +247,7 @@ const Header = ({
 
       <div
         className="absolute right-6 top-4 "
-        // onClick={toggleGuide}
+      // onClick={toggleGuide}
       >
         <Icons.IInformationCircle
           variant="solid"

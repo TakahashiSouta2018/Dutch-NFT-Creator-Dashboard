@@ -36,7 +36,7 @@ const Breadcrumb: React.FC = () => {
   }, [router.asPath]);
 
   return (
-    <div className='flex items-center my-4'>
+    <div className="flex items-center my-4">
       <Link
         className="relative inline-flex items-center justify-center px-4 first:pl-2 last:pr-2 text-black/60 capitalize dark:text-white/60"
         href="/"
@@ -50,7 +50,11 @@ const Breadcrumb: React.FC = () => {
 
       {breadcrumbs &&
         breadcrumbs.map((breadcrumb) => (
-          <Link className='relative inline-flex items-center justify-center px-4 first:pl-2 last:pr-2 text-black/60 capitalize dark:text-white/60' key={breadcrumb.href} href={breadcrumb.href}>
+          <Link
+            className="relative inline-flex items-center justify-center px-4 first:pl-2 last:pr-2 text-black/60 capitalize dark:text-white/60"
+            key={breadcrumb.href}
+            href={breadcrumb.href}
+          >
             {breadcrumb.label}
           </Link>
         ))}

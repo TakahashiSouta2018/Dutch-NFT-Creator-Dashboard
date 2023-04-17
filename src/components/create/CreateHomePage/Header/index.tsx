@@ -23,13 +23,13 @@ const Header: React.FC = () => {
 
         <div className="flex space-x-3">
           <Button>
-            <Link href="/dummyCreate/create-collection">Create Collection</Link>
+            <Link href="/create/create-collection">Create Collection</Link>
           </Button>
           <Button>
-            <Link href="/dummyCreate/draft-nft">Draft NFT</Link>
+            <Link href="/create/draft-nft">Draft NFT</Link>
           </Button>
           <Button>
-            <Link href="/dummyCreate/bulk-mint">Bulk NFT</Link>
+            <Link href="/create/bulk-mint">Bulk NFT</Link>
           </Button>
         </div>
       </div>
