@@ -36,32 +36,42 @@ const dayOptions = [
   },
 ];
 
-const mockDataHolding = [
-  {
-    token: 'Ether',
-    lrcId: 'eth',
-    symbol: 'ETH',
-    quantity: 0.243,
-    price: 234.202,
-    value: 242.242231,
-  },
-  {
-    token: 'Loopring',
-    lrcId: 'lrc',
-    symbol: 'LRC',
-    quantity: 0.243,
-    price: 234.202,
-    value: 242.242231,
-  },
-  {
-    token: 'USD Coin',
-    lrcId: 'usdc',
-    symbol: 'USDC',
-    quantity: 0.243,
-    price: 234.202,
-    value: 242.242231,
-  },
-];
+interface DataType {
+  token: string;
+  lrcId: string;
+  symbol: string;
+  quantity: number;
+  price: number;
+  value: number;
+}
+
+const mockDataHolding: DataType[] = [];
+// [
+//   {
+//     token: 'Ether',
+//     lrcId: 'eth',
+//     symbol: 'ETH',
+//     quantity: 0.243,
+//     price: 234.202,
+//     value: 242.242231,
+//   },
+//   {
+//     token: 'Loopring',
+//     lrcId: 'lrc',
+//     symbol: 'LRC',
+//     quantity: 0.243,
+//     price: 234.202,
+//     value: 242.242231,
+//   },
+//   {
+//     token: 'USD Coin',
+//     lrcId: 'usdc',
+//     symbol: 'USDC',
+//     quantity: 0.243,
+//     price: 234.202,
+//     value: 242.242231,
+//   },
+// ];
 
 const WalletTracking = () => {
   const [currentDayOption, setCurrentDayOption] = useState({
@@ -131,7 +141,7 @@ const WalletTracking = () => {
             />
           </DutchC.ContentOverviewCards>
         </DutchC.WalletTrackingUnitWrapper>
-        <DutchC.WalletTrackingUnitWrapper></DutchC.WalletTrackingUnitWrapper>
+        <DutchC.WalletTrackingUnitWrapper className="profit"></DutchC.WalletTrackingUnitWrapper>
       </DutchC.WalletTrackingContainer>
       <DutchC.WalletTrackingHoldings>
         <DutchC.WalletTrackingUnitWrapper className="flex-grow">
@@ -146,12 +156,12 @@ const WalletTracking = () => {
               isPaginatiable
             />
             <div className="relative w-full">
-              {!mockDataHolding && (
+              {!mockDataHolding.length && (
                 <div className="absolute left-1/2 -translate-x-1/2 bottom-0 dark:text-white">
                   No data available
                 </div>
               )}
-              <Table className="dark:text-white text-black border rounded-xl table-fixed">
+              <Table className="dark:text-white text-black border rounded-xl table-fixed min-h-[100px]">
                 <THead className="!text-black/100 dark:!text-white/100 bg-black/10 dark:bg-white/10">
                   <TR>
                     <TD>Token</TD>
@@ -162,7 +172,7 @@ const WalletTracking = () => {
                   </TR>
                 </THead>
                 <TBody className="text-sm">
-                  {mockDataHolding?.map((item, index) => (
+                  {mockDataHolding?.map((item: DataType, index: number) => (
                     <TR key={index}>
                       <TD className="flex gap-2 items-center">
                         <LRCIconSelector id={item.lrcId} />
@@ -181,20 +191,13 @@ const WalletTracking = () => {
         </DutchC.WalletTrackingUnitWrapper>
         <DutchC.WalletTrackingUnitWrapper>
           <p className="font-bold dark:text-white">Currency Holdings by %</p>
-          <AnalyticsPieChart
-            data={[
-              { name: 'ETH', value: 1000 },
-              { name: 'LRC', value: 300 },
-              { name: 'USD', value: 500 },
-            ]}
-            totalTransaction={1800}
-          />
+          <AnalyticsPieChart data={undefined} totalTransaction={1800} />
         </DutchC.WalletTrackingUnitWrapper>
       </DutchC.WalletTrackingHoldings>
       <DutchC.WalletTrackingContainer>
         <WalletTrackingTransactionView />
       </DutchC.WalletTrackingContainer>
-      <DutchC.WalletTrackingContainer></DutchC.WalletTrackingContainer>
+      <DutchC.WalletTrackingContainer className="gas fee"></DutchC.WalletTrackingContainer>
     </DutchC.WalletTrackingWrapper>
   );
 };

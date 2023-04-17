@@ -4,7 +4,7 @@ export const WalletTrackingWrapper = styled.div.attrs({
   className: 'flex flex-col gap-6',
 })``;
 
-export const WalletTrackingContainer = styled.div.attrs({
+export const WalletTrackingContainer = styled.div.attrs<{ className: string }>({
   className: 'flex flex-col gap-4',
 })``;
 

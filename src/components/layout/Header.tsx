@@ -128,7 +128,7 @@ const Header: React.FC = () => {
             <NavLink
               key={menu.slug}
               href={menu.path}
-              active={PAGE_PATH === menu.slug ? true : false}
+              isActive={PAGE_PATH === menu.slug ? true : false}
             >
               {menu.name}
               {menu.slug === 'marketplace' && (

@@ -17,7 +17,7 @@ export const SideBarHeader = styled.div.attrs({
 })``;
 
 export const SideBarHeaderText = styled.div.attrs({
-  className: 'text-2xl font-bold',
+  className: 'text-2xl font-bold dark:text-white',
 })``;
 
 export const SideBarHeaderDropdown = styled.div.attrs({
@@ -34,7 +34,7 @@ export const CurrencySelect = styled.div.attrs({
 })``;
 
 export const AccordionContent = styled.div.attrs({
-  className: 'flex gap-1 text-sm text-black/70',
+  className: 'flex gap-1 text-sm text-black/70 dark:text-white/70',
 })``;
 
 export const TrackWrapper = styled.div.attrs({

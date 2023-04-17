@@ -10,6 +10,7 @@ const AnalyticsContent = () => {
   return (
     <DutchC.AnalyticsContentWrapper>
       <AnalyticsSideBar
+        currentTracking={currentTracking}
         onCurrentTracking={(currentValue: string) => {
           setCurrentTracking(Number(currentValue));
         }}

@@ -203,15 +203,15 @@ const NFTTracking = () => {
     },
   });
 
-  const selectedTrackLists = trackList.filter((item) => item.isSelected);
+  const selectedTrackLists = trackList.filter((item: any) => item.isSelected);
 
   useEffect(() => {
     (async () => {
       let ids: string[] = [];
 
       const collectionIds = selectedTrackLists
-        .filter((item) => item.type === TrackListTypeEnum.COLLECTION)
-        .map((item) => item.id);
+        .filter((item: any) => item.type === TrackListTypeEnum.COLLECTION)
+        .map((item: any) => item.id);
 
       if (collectionIds.length > 0) {
         if (!accountInfo) return;
@@ -227,7 +227,7 @@ const NFTTracking = () => {
           ids = nftsInfo.nfts.map((nft) => nft.nftId);
         }
       } else {
-        ids = selectedTrackLists.map((item) => item.id);
+        ids = selectedTrackLists.map((item: any) => item.id);
       }
       getData();
       setNftIds(ids);
@@ -241,11 +241,7 @@ const NFTTracking = () => {
       <DutchC.ContentSwitch>
         <DutchC.ContentSwitchInner>
           <DutchC.TransactionSwitchWrapper>
-            <div
-              className={`bg-black/5 dark:bg-white/5 ${
-                false ? 'visible' : 'invisible'
-              }`}
-            >
+            <div className="bg-black/5 dark:bg-white/5">
               {transOptions.map((option, i) => (
                 <OptionSwitch
                   key={i}

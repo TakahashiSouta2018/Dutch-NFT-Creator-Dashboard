@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 
 import * as DutchC from './styles';
+import { useAppSelector } from '@/redux/store';
 import { OptionSwitch } from '../option-switch';
 import { Accordion } from '@/common/Accordion';
 import { AnalyticsCard, CurrenciesInvolvedCard } from '../analytics-card';
@@ -35,6 +36,20 @@ const dayOptions = [
     slug: 'All',
   },
 ];
+
+interface DataType {
+  dir: string;
+  type: string;
+  fromGroup: string;
+  from: string;
+  toGroup: string;
+  to: string;
+  sold?: { value: number; id: string };
+  bought?: { value: number; id: string };
+  value: number;
+  gas: { value: number; id: string };
+  time: string;
+}
 
 const mockDataTable = [
   {
@@ -109,7 +124,9 @@ export const WalletTrackingTransactionView = () => {
     id: 4,
     slug: 'All',
   });
-  const [analyticsTableData, setAnalyticsTableData] = useState(mockDataTable);
+  const [analyticsTableData, setAnalyticsTableData] = useState([]);
+
+  const { isConnected } = useAppSelector((state) => state.webAppReducer);
 
   return (
     <div className="flex flex-col gap-6">
@@ -139,7 +156,7 @@ export const WalletTrackingTransactionView = () => {
         </div>
         <div className="cards flex flex-col gap-2">
           <DutchC.ContentOverviewCards>
-            <AnalyticsCard title={'Incoming'} eth={0.3209} usd={523.2} />
+            <AnalyticsCard title={'Incoming'} eth={undefined} usd={undefined} />
             <AnalyticsCard title={'Outgoing'} eth={0.1209} usd={189.91} />
             <AnalyticsCard
               title={'Difference (In-Out)'}
@@ -147,74 +164,76 @@ export const WalletTrackingTransactionView = () => {
               usd={265.91}
             />
           </DutchC.ContentOverviewCards>
-          <DutchC.ContentOverviewCards>
-            <CurrenciesInvolvedCard
-              data={[
-                {
-                  token: 'ETH',
-                  tokenId: 'eth',
-                  value: 0.423425,
-                  price: 34.234534,
-                },
-                {
-                  token: 'LRC',
-                  tokenId: 'lrc',
-                  value: 0.423425,
-                  price: 34.234534,
-                },
-                {
-                  token: 'USDT',
-                  tokenId: 'usdt',
-                  value: 0.423425,
-                  price: 34.234534,
-                },
-              ]}
-            />
-            <CurrenciesInvolvedCard
-              data={[
-                {
-                  token: 'ETH',
-                  tokenId: 'eth',
-                  value: 0.423425,
-                  price: 34.234534,
-                },
-                {
-                  token: 'LRC',
-                  tokenId: 'lrc',
-                  value: 0.423425,
-                  price: 34.234534,
-                },
-                {
-                  token: 'USDT',
-                  tokenId: 'usdt',
-                  value: 0.423425,
-                  price: 34.234534,
-                },
-              ]}
-            />
-            <CurrenciesInvolvedCard
-              data={[
-                {
-                  token: 'ETH',
-                  tokenId: 'eth',
-                  value: 0.423425,
-                  price: 34.234534,
-                },
-                {
-                  token: 'LRC',
-                  tokenId: 'lrc',
-                  value: 0.423425,
-                  price: 34.234534,
-                },
-                {
-                  token: 'USDT',
-                  tokenId: 'usdt',
-                  value: 0.423425,
-                  price: 34.234534,
-                },
-              ]}
-            />
-          </DutchC.ContentOverviewCards>
+          {isConnected && (
+            <DutchC.ContentOverviewCards>
+              <CurrenciesInvolvedCard
+                data={[
+                  {
+                    token: 'ETH',
+                    tokenId: 'eth',
+                    value: 0.423425,
+                    price: 34.234534,
+                  },
+                  {
+                    token: 'LRC',
+                    tokenId: 'lrc',
+                    value: 0.423425,
+                    price: 34.234534,
+                  },
+                  {
+                    token: 'USDT',
+                    tokenId: 'usdt',
+                    value: 0.423425,
+                    price: 34.234534,
+                  },
+                ]}
+              />
+              <CurrenciesInvolvedCard
+                data={[
+                  {
+                    token: 'ETH',
+                    tokenId: 'eth',
+                    value: 0.423425,
+                    price: 34.234534,
+                  },
+                  {
+                    token: 'LRC',
+                    tokenId: 'lrc',
+                    value: 0.423425,
+                    price: 34.234534,
+                  },
+                  {
+                    token: 'USDT',
+                    tokenId: 'usdt',
+                    value: 0.423425,
+                    price: 34.234534,
+                  },
+                ]}
+              />
+              <CurrenciesInvolvedCard
+                data={[
+                  {
+                    token: 'ETH',
+                    tokenId: 'eth',
+                    value: 0.423425,
+                    price: 34.234534,
+                  },
+                  {
+                    token: 'LRC',
+                    tokenId: 'lrc',
+                    value: 0.423425,
+                    price: 34.234534,
+                  },
+                  {
+                    token: 'USDT',
+                    tokenId: 'usdt',
+                    value: 0.423425,
+                    price: 34.234534,
+                  },
+                ]}
+              />
+            </DutchC.ContentOverviewCards>
+          )}
           <AnalyticsTableLayout>
             <AnalyticsTableControl
               isSwitch
@@ -224,12 +243,12 @@ export const WalletTrackingTransactionView = () => {
               searchInputPlaceholder="Token"
               isPaginatiable
             />
-            {!analyticsTableData && (
+            {!analyticsTableData.length && (
               <div className="absolute left-1/2 -translate-x-1/2 bottom-0 dark:text-white">
                 No data available
               </div>
             )}
-            <Table className="dark:text-white text-black border rounded-xl table-fixed">
+            <Table className="dark:text-white text-black border rounded-xl table-fixed min-h-[90px]">
               <THead className="!text-black/100 dark:!text-white/100 bg-black/10 dark:bg-white/10">
                 <TR>
                   <TD></TD>
@@ -244,7 +263,7 @@ export const WalletTrackingTransactionView = () => {
                 </TR>
               </THead>
               <TBody className="text-sm">
-                {analyticsTableData?.map((item, index) => (
+                {analyticsTableData?.map((item: DataType, index) => (
                   <TR key={index}>
                     <TD>
                       <InOrOut value={item.dir} />
@@ -303,7 +322,7 @@ export const WalletTrackingTransactionView = () => {
             </Table>
           </AnalyticsTableLayout>
         </div>
-        <div className="charts flex flex-col gap-2"></div>
+        <div className="charts flex flex-col gap-2 "></div>
       </div>
     </div>
   );
