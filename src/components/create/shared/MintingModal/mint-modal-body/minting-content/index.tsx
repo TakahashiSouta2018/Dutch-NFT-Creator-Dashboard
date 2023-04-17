@@ -7,6 +7,7 @@ import { shallowEqual } from 'react-redux';
 import { MintingNftsI, MintStatusEnum, NftDataI } from '@/types';
 import { LoopringService } from '@/lib/LoopringService';
 import {
+  CreatePageReducerI,
   setMintingNfts,
   setMintModalActiveStep,
   updateMintNftStatus,
@@ -28,7 +29,7 @@ const Minting: React.FC<MintModalPropsI> = ({
 
   const { activeStep, selectedDraftNFTs, isMintModalIsOpen, mintingNfts } =
     useAppSelector((state) => {
-      const { mintModal, selectedDraftNFTs } = state.createPageReducer;
+      const { mintModal, selectedDraftNFTs } = state.createPageReducer as CreatePageReducerI;
       return {
         activeStep: mintModal.activeStep,
         selectedDraftNFTs,

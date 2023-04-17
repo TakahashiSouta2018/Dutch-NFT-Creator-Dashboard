@@ -22,6 +22,7 @@ import { validateMetadata } from '@/lib/metadata';
 import { pinJSONToIPFS } from './pinata';
 import { getTimestampDaysLater, TOKEN_INFO } from '@/helpers';
 import axios from 'axios';
+import { getCookie } from 'cookies-next';
 
 interface MintNFTI {
   accountInfo: AccountInfoI;
@@ -36,6 +37,9 @@ export class LoopringService {
   exchangeAPI: sdk.ExchangeAPI;
   userAPI: sdk.UserAPI;
   nftAPI: sdk.NFTAPI;
+  user: string;
+  apiKey: string;
+  accountId: number;
 
   constructor() {
     this.exchangeAPI = new sdk.ExchangeAPI({
@@ -50,6 +54,11 @@ export class LoopringService {
     this.nftAPI = new sdk.NFTAPI({
       chainId: Number(process.env.NEXT_PUBLIC_CHAIN_ID),
     });
+
+    this.user = String(getCookie('ACCOUNT'));
+    this.apiKey = String(getCookie('APIKEY'));
+    this.accountId = Number(getCookie('ACCOUNTID'));
+
   }
 
   async unlockAccount(ownerAddress: string, walletType: ConnectorNames) {
@@ -116,7 +125,6 @@ export class LoopringService {
   }
 
   async getUserCollection({
-    accountInfo,
     tokenAddress = undefined,
     offset = undefined,
     limit = undefined,
@@ -124,33 +132,32 @@ export class LoopringService {
   }: UserCollectionI) {
     const collectionRes = await this.userAPI.getUserOwenCollection(
       {
-        owner: accountInfo.accInfo.owner,
+        owner: this.user,
         tokenAddress,
         isMintable,
         offset,
         limit,
       },
-      accountInfo.apiKey
+      this.apiKey
     );
 
     return collectionRes;
   }
 
   async getUserNFTCollection({
-    accountInfo,
     tokensAddress,
     offset,
     limit,
   }: CollectionNFTI) {
     try {
       const headers = {
-        'X-API-KEY': accountInfo.apiKey,
+        'X-API-KEY': this.apiKey,
       };
 
       const res = await axios.get(
         `${
           process.env.NEXT_PUBLIC_LOOPRING_API_URL
-        }/user/nft/balances?accountId=${accountInfo.accInfo.accountId.toString()}&tokenAddrs=${tokensAddress.join(
+        }/user/nft/balances?accountId=${this.accountId}&tokenAddrs=${tokensAddress.join(
           ','
         )}&offset=${offset}&limit=${limit}`,
         { headers }
@@ -161,7 +168,7 @@ export class LoopringService {
 
         const nftsWithMetadata = await Promise.all(
           nfts.map(async (nft) => {
-            const cid = await this.ipfsNftIDToCid(nft.nftId);
+            const cid = await this.ipfsNftIDToCid(nft.nftID);
             const metadataRes = await axios.get(
               `https://ipfs.loopring.io/ipfs/${cid}`
             );
@@ -197,10 +204,10 @@ export class LoopringService {
     return response;
   }
 
-  async getLayer2Balance(accountInfo: AccountInfoI) {
+  async getLayer2Balance() {
     const { userBalances } = await this.userAPI.getUserBalances(
-      { accountId: accountInfo.accInfo.accountId, tokens: '' },
-      accountInfo.apiKey
+      { accountId: this.accountId, tokens: '' },
+      this.apiKey
     );
 
     return userBalances;
@@ -220,9 +227,8 @@ export class LoopringService {
     return response;
   }
 
-  async getCollectionMeta(accountInfo: AccountInfoI, tokenAddress: string) {
+  async getCollectionMeta(tokenAddress: string) {
     const collectionRes = await this.getUserCollection({
-      accountInfo,
       tokenAddress,
       isMintable: true,
     });
@@ -244,16 +250,15 @@ export class LoopringService {
   }
 
   async getNFTOffchainFeeAmt(
-    accountInfo: AccountInfoI,
     collectionMeta: sdk.CollectionMeta
   ) {
     const fee = await this.userAPI.getNFTOffchainFeeAmt(
       {
-        accountId: accountInfo.accInfo.accountId,
+        accountId: this.accountId,
         tokenAddress: collectionMeta.contractAddress,
         requestType: sdk.OffchainNFTFeeReqType.NFT_MINT,
       },
-      accountInfo.apiKey
+      this.apiKey
     );
 
     return fee;
@@ -270,14 +275,13 @@ export class LoopringService {
     } = params;
     const isMetadataValid = validateMetadata(metadata);
     const collectionMeta = await this.getCollectionMeta(
-      accountInfo,
       nftTokenAddress
     );
 
     if (!isMetadataValid) return console.log('Invalid Metadata');
     if (!collectionMeta) return;
 
-    const fee = await this.getNFTOffchainFeeAmt(accountInfo, collectionMeta);
+    const fee = await this.getNFTOffchainFeeAmt(collectionMeta);
 
     const metadataCID = await pinJSONToIPFS(metadata);
 

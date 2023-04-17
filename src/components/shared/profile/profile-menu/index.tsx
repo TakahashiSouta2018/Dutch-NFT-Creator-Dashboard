@@ -12,13 +12,13 @@ import { setIsConnected } from '@/ducks';
 import useNFTHook from '@/hooks/useNFTHook';
 
 import * as Icons from '@/common/Icons';
-import MintingModal from '@/components/create/minting';
 import { Button, IconButton } from '@/common';
 
 // ----- connect modal ----- //
 import { setIsConnectionModalOpen } from '@/ducks';
 
 import * as DutchC from './styles';
+import MintingModal from '@/components/create/shared/MintingModal';
 
 interface ProfileMenuButtonProps {
   onToggle: () => void;

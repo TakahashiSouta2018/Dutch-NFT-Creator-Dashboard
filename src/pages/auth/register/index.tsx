@@ -1,5 +1,5 @@
 import RegisterHome from '@/components/auth/register';
-import { AppLayout, CreateBulkMintHome } from '@/components';
+import { AppLayout } from '@/components';
 
 export default function Register() {
   return (

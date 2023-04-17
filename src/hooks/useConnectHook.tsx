@@ -81,11 +81,13 @@ const useConnectHook = () => {
         apiKey: accountDetails?.apiKey,
         account: connectedAccount,
         chainId: connectedChainId,
+        accountId: accountDetails?.accInfo.accountId
       })
     );
 
     setCookie('ACCOUNT', connectedAccount);
     setCookie('APIKEY', accountDetails?.apiKey);
+    setCookie('ACCOUNTID', accountDetails?.accInfo.accountId);
 
     await initUserData(accountDetails as AccountInfoI);
   };

@@ -1,9 +1,10 @@
 import { toast } from 'react-toastify';
 import { useAppSelector } from '@/redux/store';
 import NFTManagementService from '@/services/NFTManagement.service';
-import { AccountInfoI, UsageStatusEnum, UserListI } from '@/types';
+import { UsageStatusEnum, UserListI } from '@/types';
 import { shallowEqual } from 'react-redux';
 import useCollectionHook from './useCollectionHook';
+import { DashboardPageReducerI } from '@/components/dashboard/ducks';
 
 const useNFTManagement = () => {
   const nftManagement = new NFTManagementService();
@@ -14,7 +15,7 @@ const useNFTManagement = () => {
   }, shallowEqual);
 
   const { selectedNFTs } = useAppSelector((state) => {
-    const { selectedNFTs } = state.dashboardPageReducer;
+    const { selectedNFTs } = state.dashboardPageReducer as DashboardPageReducerI;
     return { selectedNFTs };
   }, shallowEqual);
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { Table, TBody, THead, TR, TD } from '@/common';
 import { toast } from 'react-toastify';
 
-import CopyNFTId from '@/components/dashboard/copy-nft-id';
 import * as Icons from '@/common';
 
 import { NFTI, TabTypeT } from '@/types';
@@ -14,6 +13,7 @@ import {
 } from '@/components/dashboard/ducks';
 import useNFTManagement from '@/hooks/useNFTManagement';
 import useCollectionHook from '@/hooks/useCollectionHook';
+import CopyNFTId from '../../CopyNFTId';
 
 interface NFTListProps {
   lists: NFTI[];

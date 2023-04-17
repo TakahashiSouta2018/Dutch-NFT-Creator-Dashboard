@@ -102,7 +102,6 @@ export interface DraftNFTI {
 }
 
 export interface UserCollectionI {
-  accountInfo: AccountInfoI;
   offset?: number;
   limit?: number;
   tokenAddress?: string;

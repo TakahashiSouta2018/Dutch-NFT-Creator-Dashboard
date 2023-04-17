@@ -14,13 +14,14 @@ import { useLazyQuery } from '@apollo/client';
 import { NFT_ID_TRANSACTIONS } from '@/graphql/queries';
 import { useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
-import { TrackListTypeEnum } from '../../ducks';
+import { DashboardPageReducerI, TrackListTypeEnum } from '../../ducks';
 import { LoopringService } from '@/lib/LoopringService';
 import { AnalyticPieChartDataI, TradeNFTI } from '@/types';
 import { ethers } from 'ethers';
 import { AllTransactionsI, getTradeNftsUtils } from '@/helpers';
 
 import * as DutchC from './styles';
+import { WebAppReducerI } from '@/ducks';
 
 const transOptions = [
   {
@@ -151,13 +152,13 @@ const NFTTracking = () => {
   );
 
   const { trackList } = useAppSelector((state) => {
-    const { trackList } = state.dashboardPageReducer;
+    const { trackList } = state.dashboardPageReducer as DashboardPageReducerI;
     return { trackList };
   }, shallowEqual);
 
-  const { accountInfo } = useAppSelector((state) => {
-    const { accountInfo } = state.webAppReducer;
-    return { accountInfo };
+  const { account } = useAppSelector((state) => {
+    const { account } = state.webAppReducer as WebAppReducerI;
+    return { account };
   }, shallowEqual);
 
   const loopringService = new LoopringService();
@@ -181,7 +182,7 @@ const NFTTracking = () => {
           allTransactions,
         } = getTradeNftsUtils(
           data.tradeNFTs,
-          String(accountInfo?.accInfo.owner)
+          String(account)
         );
 
         setLrcTotalRoyalty(totalRoyatliesLRC);
@@ -214,17 +215,15 @@ const NFTTracking = () => {
         .map((item) => item.id);
 
       if (collectionIds.length > 0) {
-        if (!accountInfo) return;
 
         const nftsInfo = await loopringService.getUserNFTCollection({
-          accountInfo,
           tokensAddress: collectionIds,
           offset: 0,
           limit: 50,
         });
 
         if (nftsInfo && nftsInfo.nfts && nftsInfo.nfts.length > 0) {
-          ids = nftsInfo.nfts.map((nft) => nft.nftId);
+          ids = nftsInfo.nfts.map((nft) => nft.nftID);
         }
       } else {
         ids = selectedTrackLists.map((item) => item.id);

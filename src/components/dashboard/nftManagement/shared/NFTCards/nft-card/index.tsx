@@ -7,13 +7,13 @@ import { CreateNftManagementI } from '@/types';
 import * as DutchC from './styles';
 import { useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
-import CopyNFTId from '@/components/dashboard/copy-nft-id';
 import {
   ShortcutContextMenu,
   ShortcutContextMenuItem,
 } from '@/components/shared/shortcut-context-menu';
 import { DashboardPageReducerI } from '@/components/dashboard/ducks';
 import { getIpfsHttpUrl } from '@/lib/pinata';
+import CopyNFTId from '../../CopyNFTId';
 
 interface NFTCardProps extends CreateNftManagementI {
   type: 'all' | 'collections' | 'archives' | 'bank0x';
