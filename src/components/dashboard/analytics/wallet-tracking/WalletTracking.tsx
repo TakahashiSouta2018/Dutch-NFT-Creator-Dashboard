@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Datepicker from 'react-tailwindcss-datepicker';
+import { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 
 import * as DutchC from './styles';
 import { Table, THead, TBody, TR, TD } from '@/common';
@@ -83,6 +85,16 @@ const WalletTracking = () => {
     id: 4,
     slug: 'All',
   });
+  const [customDateRange, setCustomDateRange] = useState<DateValueType>({
+    startDate: new Date(),
+    endDate: new Date(),
+  });
+
+  const handleValueChange = (newValue: DateValueType) => {
+    console.log('newValue:', newValue);
+    setCustomDateRange(newValue);
+  };
+
   return (
     <DutchC.WalletTrackingWrapper>
       <DutchC.WalletTrackingContainer>
@@ -102,7 +114,15 @@ const WalletTracking = () => {
                   />
                 ))}
               </div>
-              <Accordion>Custom</Accordion>
+              <Accordion label="Custom">
+                <Datepicker
+                  inputClassName="button bg-white"
+                  value={customDateRange}
+                  onChange={handleValueChange}
+                  showShortcuts={true}
+                  showFooter={true}
+                />
+              </Accordion>
             </DutchC.DaySwitchWrapper>
             <p className="text-xs text-black/70 dark:text-white/70">
               The tracking shown is according to the timeline selected.
