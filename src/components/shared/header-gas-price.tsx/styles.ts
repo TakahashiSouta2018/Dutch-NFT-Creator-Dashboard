@@ -7,8 +7,7 @@ export const GasInfoWrapper = styled.div.attrs({
 export const GasInfoButtonWrapper = styled.button.attrs<{
   className?: string;
 }>({
-  className:
-    'px-2 py-1.5 flex items-center justify-between gap-x-2.5 w-[170px]',
+  className: 'flex gap-2',
 })``;
 
 export const GasInfo = styled.div.attrs({

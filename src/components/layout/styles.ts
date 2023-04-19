@@ -41,7 +41,7 @@ export const ComingSoon = styled.span.attrs({
 })``;
 
 export const RightActions = styled.div.attrs({
-  className: 'flex items-center space-x-8 ml-auto',
+  className: 'flex items-center ml-auto gap-8',
 })``;
 
 // search
