@@ -187,7 +187,9 @@ const AnalyticsSideBar: React.FC<AnalyticsSideBarProps> = ({
             )}
             <SearchInput
               placeholder={
-                currentTracking ? 'Wallet id or ENS' : 'Collection name or id'
+                currentTracking
+                  ? 'Wallet address or ENS'
+                  : 'Collection name or id'
               }
             />
             <DutchC.TrackListWrapper>
