@@ -48,12 +48,12 @@ interface DataType {
   to: string;
   sold?: { value: number; id: string };
   bought?: { value: number; id: string };
-  value: number;
-  gas: { value: number; id: string };
+  value?: number;
+  gas?: { value: number; id: string };
   time: string;
 }
 
-const mockDataTable = [
+const mockDataTable: DataType[] = [
   {
     dir: 'in',
     type: 'deposit',
@@ -263,7 +263,7 @@ export const WalletTrackingTransactionView = () => {
               searchInputPlaceholder="Token"
               isPaginatiable
             />
-            {!analyticsTableData.length && (
+            {!mockDataTable.length && (
               <div className="absolute left-1/2 -translate-x-1/2 bottom-0 dark:text-white">
                 No data available
               </div>
@@ -283,7 +283,7 @@ export const WalletTrackingTransactionView = () => {
                 </TR>
               </THead>
               <TBody className="text-sm">
-                {analyticsTableData?.map((item: DataType, index) => (
+                {mockDataTable?.map((item: DataType, index) => (
                   <TR key={index}>
                     <TD>
                       <InOrOut value={item.dir} />

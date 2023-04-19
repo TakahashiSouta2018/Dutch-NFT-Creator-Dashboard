@@ -52,33 +52,32 @@ interface DataType {
   value: number;
 }
 
-const mockDataHolding: DataType[] = [];
-// [
-//   {
-//     token: 'Ether',
-//     lrcId: 'eth',
-//     symbol: 'ETH',
-//     quantity: 0.243,
-//     price: 234.202,
-//     value: 242.242231,
-//   },
-//   {
-//     token: 'Loopring',
-//     lrcId: 'lrc',
-//     symbol: 'LRC',
-//     quantity: 0.243,
-//     price: 234.202,
-//     value: 242.242231,
-//   },
-//   {
-//     token: 'USD Coin',
-//     lrcId: 'usdc',
-//     symbol: 'USDC',
-//     quantity: 0.243,
-//     price: 234.202,
-//     value: 242.242231,
-//   },
-// ];
+const mockDataHolding: DataType[] = [
+  {
+    token: 'Ether',
+    lrcId: 'eth',
+    symbol: 'ETH',
+    quantity: 0.243,
+    price: 234.202,
+    value: 242.242231,
+  },
+  {
+    token: 'Loopring',
+    lrcId: 'lrc',
+    symbol: 'LRC',
+    quantity: 0.243,
+    price: 234.202,
+    value: 242.242231,
+  },
+  {
+    token: 'USD Coin',
+    lrcId: 'usdc',
+    symbol: 'USDC',
+    quantity: 0.243,
+    price: 234.202,
+    value: 242.242231,
+  },
+];
 
 const WalletTracking = () => {
   const [currentDayOption, setCurrentDayOption] = useState({
