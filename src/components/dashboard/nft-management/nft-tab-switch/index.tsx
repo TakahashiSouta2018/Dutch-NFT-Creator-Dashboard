@@ -5,7 +5,6 @@ import NFTAll from '../nft-all';
 import NFTCollections from '../nft-collections';
 import NFTLists from '../nft-list';
 import NFTArchives from '../nft-archives';
-import NFTBank0x from '../nft-bank0x';
 
 interface SwitchProps {
   currentTab: string;
@@ -36,8 +35,6 @@ const NFTTabSwitch: React.FC<SwitchProps> = ({
         return <NFTCollections />;
       case 'ARCHIVE':
         return <NFTArchives />;
-      case 'BANK0X':
-        return <NFTBank0x />;
     }
   };
   return <div>{tabSwitch(currentTab)}</div>;

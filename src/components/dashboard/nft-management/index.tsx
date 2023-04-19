@@ -32,7 +32,7 @@ import { shallowEqual } from 'react-redux';
 import NFTCard from '../cards/nft-card';
 import { ContentLayout } from '@/components/layout';
 
-type WIDEFILTER = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE' | 'BANK0X';
+type WIDEFILTER = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE';
 
 type WIDEFILTERTYPE = {
   label: string;
@@ -114,12 +114,6 @@ const wideFilters: WIDEFILTERTYPE[][] = [
     {
       label: 'Archives(2)',
       slug: 'ARCHIVE',
-    },
-  ],
-  [
-    {
-      label: 'BANK0x(1)',
-      slug: 'BANK0X',
     },
   ],
 ];
