@@ -39,7 +39,7 @@ export const ProfileMenuNFTWrapper = styled.div.attrs({
 })``;
 
 export const ProfileMenuNFTPriceWrapper = styled.div.attrs({
-  className: 'flex flex-col items-end truncate max-w-[40%] font-bold',
+  className: 'flex flex-col items-end font-bold',
 })``;
 
 export const ProfileMenuNFTPriceEthWrapper = styled.div.attrs({
