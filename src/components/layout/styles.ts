@@ -74,7 +74,7 @@ export const HeaderUserAddress = styled.p.attrs({
 
 export const ContentLayoutWrapper = styled.div.attrs({
   className:
-    'relative flex flex-col overflow-x-hidden items-start min-h-full px-6',
+    'relative flex flex-col overflow-y-auto min-h-[850px] overflow-x-hidden items-start min-h-full px-6',
 })``;
 
 export const ContentLayoutBody = styled.div.attrs({
