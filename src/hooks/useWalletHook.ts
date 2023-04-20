@@ -7,6 +7,7 @@ import {
 import { useAppDispatch } from '@/redux/store';
 import { ConnectorNames } from '@loopring-web/loopring-sdk';
 import { connectProvides, walletServices } from '@loopring-web/web3-provider';
+import { deleteCookie } from 'cookies-next';
 
 const useWalletHook = () => {
   const dispatch = useAppDispatch();
@@ -14,6 +15,9 @@ const useWalletHook = () => {
   const disconnectAccount = () => {
     walletServices.sendDisconnect('', 'disconnect');
     dispatch(setIsConnected(false));
+    deleteCookie("ACCOUNT")
+    deleteCookie("APIKEY")
+    deleteCookie("ACCOUNTID")
   };
 
   const connectAccount = async (

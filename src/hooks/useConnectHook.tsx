@@ -25,9 +25,11 @@ import { CHAINS, switchNetwork } from '@/helpers/chain';
 import useCollectionHook from './useCollectionHook';
 import { AccountInfoI, CollectionI } from '@/types';
 import { getCookies, setCookie, deleteCookie } from 'cookies-next';
+import useWalletHook from './useWalletHook';
 
 const useConnectHook = () => {
   const { getUserCollection } = useCollectionHook();
+  const { disconnectAccount } = useWalletHook();
 
   const loopringService = useMemo(() => new LoopringService(), []);
   const dispatch = useAppDispatch();
@@ -48,6 +50,7 @@ const useConnectHook = () => {
       connectedChainId === configuredChainId
     ) {
       dispatch(setDisconnectAccount(null));
+      disconnectAccount();
     }
 
     if (connectedChainId !== configuredChainId) {

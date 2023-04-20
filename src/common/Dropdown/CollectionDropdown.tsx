@@ -25,7 +25,7 @@ const CollectionDropdown: React.FC<CollectionDropdownI> = ({
   const { getCollectionNames, getUserCollectionNFTs } = useCollectionHook();
 
   const [selectedCollectionName, setSelectedCollectionName] =
-    useState<string>('');
+    useState<string>('No collection found');
 
   const { account, userCollection } = useAppSelector((state) => {
     const { account, userCollection } = state.webAppReducer as WebAppReducerI;

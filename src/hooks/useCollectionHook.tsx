@@ -2,28 +2,45 @@ import { toast } from 'react-toastify';
 
 import { LoopringService } from '@/lib/LoopringService';
 import { pinFileToIPFS } from '@/lib/pinata';
-import { useAppSelector } from '@/redux/store';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { AccountInfoI, CollectionI, CollectionObjectI, NFTI } from '@/types';
 import { useRouter } from 'next/router';
 import { shallowEqual } from 'react-redux';
 import LoopringApi from '@/services/LoopringApi.service';
-import { WebAppReducerI } from '@/ducks';
+import { WebAppReducerI, setUserCollection } from '@/ducks';
 import { DashboardPageReducerI } from '@/components/dashboard/ducks';
 import assert from 'assert';
 import useWalletHook from './useWalletHook';
+import { useEffect } from 'react';
 
 const useCollectionHook = () => {
+  const dispatch = useAppDispatch();
   const { push } = useRouter();
   const { connectAccount } = useWalletHook();
 
   const loopringService = new LoopringService();
   const loopringApiService = new LoopringApi();
 
-  const { account, userCollection, walletType } = useAppSelector((state) => {
-    const { account, userCollection, walletType } =
+  const { account, userCollection, walletType, apiKey } = useAppSelector((state) => {
+    const { account, userCollection, walletType, apiKey } =
       state.webAppReducer as WebAppReducerI;
-    return { account, userCollection, walletType };
+    return { account, userCollection, walletType, apiKey };
   }, shallowEqual);
+
+  useEffect(() => {
+    const initUserCollection = async () => {
+      if (account && apiKey) {
+        const collections = await getUserCollection(
+          account,
+          apiKey
+        );
+        if (collections) {
+          dispatch(setUserCollection(collections));
+        }
+      }
+    };
+    initUserCollection();
+  }, [account, apiKey])
 
   const createCollection = async (collectionObject: CollectionObjectI) => {
     assert(account, 'account === null');

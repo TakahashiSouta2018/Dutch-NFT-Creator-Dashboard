@@ -99,6 +99,11 @@ const SideFilter: React.FC<SideFilterProps> = ({
     if (nfts) dispatch(setManagementNFTs(nfts));
   };
 
+  console.log({ nftAttributes });
+
+  const hasNFTAttributes = nftAttributes && Object.keys(nftAttributes).length > 0;
+  
+
   return (
     <div
       className={`
@@ -172,7 +177,7 @@ const SideFilter: React.FC<SideFilterProps> = ({
         <div className="flex justify-between p-2">
           <div className="font-bold text-black/70">Properties</div>
 
-          {nftAttributes && (
+          {hasNFTAttributes && (
             <div className="flex gap-2 items-center">
               <div className="text-xs text-black/70 font-normal">
                 {Object.keys(nftAttributes)[0]}
@@ -182,7 +187,7 @@ const SideFilter: React.FC<SideFilterProps> = ({
           )}
         </div>
 
-        {nftAttributes && (
+        {hasNFTAttributes && (
           <>
             <SearchInput
               placeholder="Search"
@@ -213,7 +218,7 @@ const SideFilter: React.FC<SideFilterProps> = ({
         )}
       </div>
 
-      {nftAttributes && Object.keys(nftAttributes).length > 1 && (
+      {hasNFTAttributes && Object.keys(nftAttributes).length > 1 && (
         <div className="px-2 py-1 flex flex-col gap-2 p-2">
           {Object.keys(nftAttributes).map((key, index) => {
             if (index !== 0) {
