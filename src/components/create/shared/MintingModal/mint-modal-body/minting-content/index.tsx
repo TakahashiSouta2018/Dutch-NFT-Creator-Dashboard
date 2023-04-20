@@ -15,6 +15,10 @@ import {
 import useNFTHook from '@/hooks/useNFTHook';
 import { sleep } from '@loopring-web/loopring-sdk';
 import { handleNFTPropertiesAttributes } from '@/lib/metadata';
+import { toast } from 'react-toastify';
+import { WebAppReducerI } from '@/ducks';
+import assert from 'assert';
+import useWalletHook from '@/hooks/useWalletHook';
 
 interface MintModalPropsI {
   isDepositFund: boolean;
@@ -39,11 +43,12 @@ const Minting: React.FC<MintModalPropsI> = ({
       };
     }, shallowEqual);
 
-  const { walletType, accountInfo } = useAppSelector((state) => {
-    const { walletType, accountInfo } = state.webAppReducer;
-    return { walletType, accountInfo };
+  const { walletType, account } = useAppSelector((state) => {
+    const { walletType, account } = state.webAppReducer as WebAppReducerI;
+    return { walletType, account };
   }, shallowEqual);
 
+  const { connectAccount } = useWalletHook();
   const { deleteDraftNFT } = useNFTHook();
 
   const loopringService = new LoopringService();
@@ -62,9 +67,19 @@ const Minting: React.FC<MintModalPropsI> = ({
   useEffect(() => {}, [mintingNfts]);
 
   const handleStartMint = async () => {
-    if (!accountInfo) return;
+    assert(account, "account === null");
 
     dispatch(setMintModalActiveStep(1));
+
+    await connectAccount(walletType, true);
+
+    const accountDetails = await loopringService.unlockAccount(
+      account,
+      walletType
+    );
+
+    if (!accountDetails) return toast.error("Signing failed")
+
     for (let i = 0; i < selectedDraftNFTs.length; i++) {
       const selectedDraftNft = selectedDraftNFTs[i];
       try {
@@ -85,7 +100,7 @@ const Minting: React.FC<MintModalPropsI> = ({
         };
 
         const res = await loopringService.mintNFT({
-          accountInfo,
+          accountInfo: accountDetails,
           walletType,
           metadata: nftData,
           amount: selectedDraftNft.amount,

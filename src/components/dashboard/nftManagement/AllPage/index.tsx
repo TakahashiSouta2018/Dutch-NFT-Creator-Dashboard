@@ -2,38 +2,47 @@ import React, { useState, useCallback } from 'react';
 import { CreateNftManagementI } from '@/types';
 import NFTAllByCard from './AllByCard';
 import NFTAllByTable from './ALLByTable';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { DashboardPageReducerI, setManagementNFTs } from '../../ducks';
+import { shallowEqual } from 'react-redux';
 
 interface NFTAllProps {
   tableListSwtich: number;
-  listNfts: CreateNftManagementI[];
 }
 
 const AllPage: React.FC<NFTAllProps> = ({
   tableListSwtich,
-  listNfts,
 }): JSX.Element => {
-  const [NFTs, setNFTs] = useState<CreateNftManagementI[]>(listNfts);
+  const dispatch = useAppDispatch();
+
+  // const [NFTs, setNFTs] = useState<CreateNftManagementI[]>(listNfts);
+
+  const { managementNFTs } = useAppSelector((state) => {
+    const { managementNFTs } =
+      state.dashboardPageReducer as DashboardPageReducerI;
+    return { managementNFTs };
+  }, shallowEqual);
 
   const onNFTSelect = useCallback(
     (nftId: string) => {
-      const index = NFTs.findIndex((nft) => nft.nftId === nftId);
-      const nft = NFTs.find((nft) => nft.nftId === nftId);
+      const index = managementNFTs.findIndex((nft) => nft.nftId === nftId);
+      const nft = managementNFTs.find((nft) => nft.nftId === nftId);
       if (nft) {
-        setNFTs([
-          ...NFTs.slice(0, index),
+        dispatch(setManagementNFTs([
+          ...managementNFTs.slice(0, index),
           {
             ...nft,
           },
-          ...NFTs.slice(index + 1),
-        ]);
+          ...managementNFTs.slice(index + 1),
+        ]));
       }
     },
-    [NFTs]
+    [managementNFTs]
   );
 
   if (tableListSwtich)
-    return <NFTAllByTable NFTs={NFTs} onNFTSelect={onNFTSelect} />;
-  else return <NFTAllByCard NFTs={NFTs} onNFTSelect={onNFTSelect} />;
+    return <NFTAllByTable NFTs={managementNFTs} onNFTSelect={onNFTSelect} />;
+  else return <NFTAllByCard NFTs={managementNFTs} onNFTSelect={onNFTSelect} />;
 };
 
 export default AllPage;

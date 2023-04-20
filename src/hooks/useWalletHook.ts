@@ -16,9 +16,11 @@ const useWalletHook = () => {
     dispatch(setIsConnected(false));
   };
 
-  const connectAccount = async (connectorName: ConnectorNames) => {
-    disconnectAccount();
-    dispatch(setIsConnectionLoading(true));
+  const connectAccount = async (connectorName: ConnectorNames, signOnly?: boolean) => {
+    if (!signOnly) {
+      disconnectAccount();
+      dispatch(setIsConnectionLoading(true));
+    }
 
     switch (connectorName) {
       case ConnectorNames.Coinbase:
@@ -37,9 +39,11 @@ const useWalletHook = () => {
         await connectProvides.MetaMask({});
         break;
     }
-    dispatch(setIsConnectionLoading(false));
-    dispatch(setIsConnectionModalOpen(false));
-    dispatch(setWalletType(connectorName));
+    if (!signOnly) {
+      dispatch(setIsConnectionLoading(false));
+      dispatch(setIsConnectionModalOpen(false));
+      dispatch(setWalletType(connectorName));
+    }
   };
 
   return { connectAccount, disconnectAccount };

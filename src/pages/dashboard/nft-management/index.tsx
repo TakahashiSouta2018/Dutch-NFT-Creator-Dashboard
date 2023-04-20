@@ -1,19 +1,21 @@
 // components
 import { AppLayout } from '@/components';
-import { DashboardPageReducerI } from '@/components/dashboard/ducks';
+import { DashboardPageReducerI, setManagementNFTs } from '@/components/dashboard/ducks';
 import AllPage from '@/components/dashboard/nftManagement/AllPage';
 import SyncNFTs from '@/components/dashboard/nftManagement/AllPage/SyncNFTs';
 import Header from '@/components/dashboard/nftManagement/shared/Header';
-import { useAppSelector, wrapper } from '@/redux/store';
+import { useAppDispatch, useAppSelector, wrapper } from '@/redux/store';
 import NFTManagementService from '@/services/NFTManagement.service';
 import { CreateNftManagementI, UsageStatusEnum } from '@/types';
 
 import { getCookie } from 'cookies-next';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 
 const AllNfts = ({ nfts }: { nfts: CreateNftManagementI[] }) => {
+  const dispatch = useAppDispatch();
+
   const [showSyncModal, setShowSyncModal] = useState<boolean>(false);
   const [tableListSwtich, setTableListSwtich] = useState<number>(0);
 
@@ -23,13 +25,18 @@ const AllNfts = ({ nfts }: { nfts: CreateNftManagementI[] }) => {
     return { collectionNfts };
   }, shallowEqual);
 
+  useEffect(()=>{
+    dispatch(setManagementNFTs(nfts));
+  }, [])
+
+
   return (
     <AppLayout>
       <Header
         tableListSwtich={tableListSwtich}
         setTableListSwtich={setTableListSwtich}
       />
-      <AllPage tableListSwtich={tableListSwtich} listNfts={nfts} />
+      <AllPage tableListSwtich={tableListSwtich} />
 
       <SyncNFTs
         currentTab={'ALL'}

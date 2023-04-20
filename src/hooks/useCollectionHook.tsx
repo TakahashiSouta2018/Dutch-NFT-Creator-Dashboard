@@ -9,29 +9,44 @@ import { shallowEqual } from 'react-redux';
 import LoopringApi from '@/services/LoopringApi.service';
 import { WebAppReducerI } from '@/ducks';
 import { DashboardPageReducerI } from '@/components/dashboard/ducks';
+import assert from 'assert';
+import useWalletHook from './useWalletHook';
 
 const useCollectionHook = () => {
   const { push } = useRouter();
+  const { connectAccount } = useWalletHook();
+
   const loopringService = new LoopringService();
   const loopringApiService = new LoopringApi();
 
-  const { accountInfo, userCollection } = useAppSelector((state) => {
-    const { accountInfo, userCollection } = state.webAppReducer;
-    return { accountInfo, userCollection };
+  const { account, userCollection, walletType } = useAppSelector((state) => {
+    const { account, userCollection, walletType } = state.webAppReducer as WebAppReducerI;
+    return { account, userCollection, walletType };
   }, shallowEqual);
 
   const createCollection = async (collectionObject: CollectionObjectI) => {
+    assert(account, "account === null");
+
+    await connectAccount(walletType, true);
+
+    const accountDetails = await loopringService.unlockAccount(
+      account,
+      walletType
+    );
+
+    if (!accountDetails) return toast.error("Signing failed")
+
     const imagesUrl = await pinFileToIPFS([
       collectionObject.avatar,
       collectionObject.banner,
       collectionObject.tileUri,
     ]);
 
-    if (!imagesUrl || !accountInfo) {
+    if (!imagesUrl || !accountDetails) {
       return;
     }
 
-    const res = await loopringService.createCollection(accountInfo, {
+    const res = await loopringService.createCollection(accountDetails, {
       ...collectionObject,
       avatar: `ipfs://${imagesUrl[0]}`,
       banner: `ipfs://${imagesUrl[1]}`,
@@ -68,7 +83,7 @@ const useCollectionHook = () => {
 
       let nfts: NFTI[] = [];
 
-      if (res?.data?.data?.collections) {
+      if (res?.data?.data?.nfts) {
         nfts = res.data.data.nfts;
       }
 

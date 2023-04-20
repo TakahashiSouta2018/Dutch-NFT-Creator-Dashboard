@@ -20,6 +20,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
 import useNFTManagement from '@/hooks/useNFTManagement';
 import {
+  resetSelectedNfts,
   setCollectionNfts,
   setSelectedNfts,
 } from '@/components/dashboard/ducks';
@@ -60,7 +61,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
         await syncNft(listName);
       }
 
-      dispatch(setSelectedNfts([]));
+      dispatch(resetSelectedNfts(null));
       dispatch(setCollectionNfts([]));
 
       onClose();

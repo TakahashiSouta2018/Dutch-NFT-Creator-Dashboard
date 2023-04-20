@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // components
 import { Breadcrumb, Guide } from '@/components/shared';
@@ -78,6 +78,9 @@ const Header = ({
   const { theme } = useTheme();
   const { pathname } = useRouter();
 
+  const [showFilterModal, setShowFilterModal] = useState<boolean>(false);
+
+
   const isActive = (url: string) => pathname === url;
 
   const isAll = pathname === tabItems[0][0].url;
@@ -119,16 +122,16 @@ const Header = ({
             </div>
 
             <div className="flex space-x-2 items-start w-full">
-              <SideFilter openFilter={true} onFilter={() => {}} />
+              <SideFilter openFilter={showFilterModal} onFilter={() => setShowFilterModal(prevState => !prevState)} />
 
               <div className="flex flex-col w-full gap-4">
                 <div className="flex justify-between py-4">
                   <div className="flex gap-2 self-stretch items-center">
-                    {false && (
+                    {!showFilterModal && isAll && (
                       <IconButton
                         icon="funnel"
                         rounded
-                        onClick={() => console.log('he')}
+                        onClick={() => setShowFilterModal(true)}
                       />
                     )}
 

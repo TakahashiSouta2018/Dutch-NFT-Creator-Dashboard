@@ -88,12 +88,14 @@ const ContentMintFee: React.FC<ContentMintFeePropsI> = ({
       }, 0);
 
       const userBalance = await loopringService.getLayer2Balance();
-      const userEthBalance = ethers.utils.formatUnits(userBalance[0].total, 18);
-
-      setBalanceCheck({
-        totalBalance: userEthBalance,
-        isDisabled: totalFee > Number(userEthBalance),
-      });
+      if (userBalance) {
+        const userEthBalance = ethers.utils.formatUnits(userBalance[0].total, 18);
+  
+        setBalanceCheck({
+          totalBalance: userEthBalance,
+          isDisabled: totalFee > Number(userEthBalance),
+        });
+      }
     })();
   }, [selectedDraftNFTs.length]);
 
