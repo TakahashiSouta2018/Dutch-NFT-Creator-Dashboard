@@ -120,7 +120,7 @@ const CreateBulkMintHome: React.FC = () => {
 
   return (
     <DutchC.CreateWrapper>
-      <DutchC.CreateBulkMintWrapper open={open ? 1 : 0}>
+      <DutchC.CreateBulkMintWrapper>
         <DutchC.CreateBulkMintContent>
           <Breadcrumb />
 
@@ -249,15 +249,6 @@ const CreateBulkMintHome: React.FC = () => {
       </DutchC.CreateBulkMintWrapper>
 
       <MintingModal className="!max-w-xl" />
-
-      <DutchC.GuideInfoIconWrapper onClick={toggleGuide}>
-        <Icons.IInformationCircle
-          variant="solid"
-          size="large"
-          color={theme === 'light' ? 'black' : 'white'}
-        />
-      </DutchC.GuideInfoIconWrapper>
-      <Guide open={open} />
     </DutchC.CreateWrapper>
   );
 };

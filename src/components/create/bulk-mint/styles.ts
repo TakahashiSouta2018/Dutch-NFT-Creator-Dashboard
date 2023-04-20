@@ -13,10 +13,7 @@ export const CreateWrapper = styled.div.attrs({
 // --- Main Content
 export const CreateBulkMintWrapper = styled.div.attrs({
   className: 'flex transition-all',
-})`
-  ${(p: CreateBulkMintWrapperProps) =>
-    p.open ? 'width: 83.333333%;' : 'width: 100%;'}
-`;
+})``;
 
 export const CreateBulkMintContent = styled.div.attrs({
   className: 'flex flex-col w-full',

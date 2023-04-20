@@ -25,6 +25,8 @@ import {
   setSelectedDraftNFTs,
 } from './ducks';
 
+import { ContentLayout } from '../layout';
+
 type DraftNFTProps = DraftNFTResponseI & {
   onSelect: () => void;
 };
@@ -90,87 +92,64 @@ const CreateHome: React.FC = () => {
       .length > 0;
 
   return (
-    <DutchC.CreateWrapper>
-      {/* --- NFT mint modal */}
+    <ContentLayout>
       <MintingModal className="max-w-xl" />
+      <DutchC.CreateContentHeader>
+        <DutchC.CreateContentLeft>
+          <DutchC.CreateContentTitle>Drafted NFTs</DutchC.CreateContentTitle>
+          <DutchC.CreateContentSubTitle>
+            NFTs that you have uploaded in DUTCH0x but not minted yet will show
+            here.
+          </DutchC.CreateContentSubTitle>
+          <DutchC.CreateContentCollection>
+            <CollectionDropdown
+              selectedCollectionAddress={selectedCollectionAddress}
+              setSelectedCollectionAddress={setSelectedCollectionAddress}
+            />
+          </DutchC.CreateContentCollection>
+        </DutchC.CreateContentLeft>
 
-      <DutchC.CreateContentWrapper open={open ? 1 : 0}>
-        <DutchC.CreateContent>
-          <Breadcrumb />
-          <DutchC.CreateContentHeader>
-            <DutchC.CreateContentLeft>
-              <DutchC.CreateContentTitle>
-                Drafted NFTs
-              </DutchC.CreateContentTitle>
-              <DutchC.CreateContentSubTitle>
-                NFTs that you have uploaded in DUTCH0x but not minted yet will
-                show here.
-              </DutchC.CreateContentSubTitle>
-              <DutchC.CreateContentCollection>
-                <CollectionDropdown
-                  selectedCollectionAddress={selectedCollectionAddress}
-                  setSelectedCollectionAddress={setSelectedCollectionAddress}
-                />
-              </DutchC.CreateContentCollection>
-            </DutchC.CreateContentLeft>
-
-            <DutchC.CreateContentHeaderActions>
-              <Button>
-                <Link href="/create/create-collection">Create Collection</Link>
-              </Button>
-              <Button>
-                <Link href="/create/draft-nft">Draft NFT</Link>
-              </Button>
-              <Button>
-                <Link href="/create/bulk-mint">Bulk NFT</Link>
-              </Button>
-            </DutchC.CreateContentHeaderActions>
-          </DutchC.CreateContentHeader>
-
-          <DutchC.CreateContentBody>
-            {/* No items */}
-            {/* <DutchC.CreateContentNoItems>
+        <DutchC.CreateContentHeaderActions>
+          <Button>
+            <Link href="/create/create-collection">Create Collection</Link>
+          </Button>
+          <Button>
+            <Link href="/create/draft-nft">Draft NFT</Link>
+          </Button>
+          <Button>
+            <Link href="/create/bulk-mint">Bulk NFT</Link>
+          </Button>
+        </DutchC.CreateContentHeaderActions>
+      </DutchC.CreateContentHeader>
+      <DutchC.CreateContentBody>
+        {/* No items */}
+        {/* <DutchC.CreateContentNoItems>
               <span className="dark:text-white/50">No items to show here.</span>
             </DutchC.CreateContentNoItems> */}
-            {/* If some draft nfts are avaiable to show */}
-            <DutchC.CreateContentTools>
-              <SearchInput />
+        {/* If some draft nfts are avaiable to show */}
+        <DutchC.CreateContentTools>
+          <SearchInput />
 
-              {isDraftNtSelected && (
-                <Button onClick={() => dispatch(setMintModalIsOpen(true))}>
-                  Mint Selected NFTs
-                </Button>
-              )}
-              {draftNFTs.length > 0 && (
-                <Button onClick={handleMintAll}>Mint all NFTs</Button>
-              )}
-            </DutchC.CreateContentTools>
-            <DutchC.CreateContentDraftNFTs>
-              {draftNFTs.map((nft: DraftNFTResponseI) => (
-                <DraftNFT
-                  key={nft.id}
-                  onSelect={() => onNFTSelect(nft.id)}
-                  {...nft}
-                />
-              ))}
-            </DutchC.CreateContentDraftNFTs>
-          </DutchC.CreateContentBody>
-        </DutchC.CreateContent>
-      </DutchC.CreateContentWrapper>
-
-      {/* toggle guide */}
-      <DutchC.GuideInfoIconWrapper
-        onClick={toggleGuide}
-        className={open ? 'right-10' : 'right-6'}
-      >
-        <Icons.IInformationCircle
-          variant="solid"
-          size="large"
-          color={theme === 'light' ? 'black' : 'white'}
-        />
-      </DutchC.GuideInfoIconWrapper>
-      <Guide open={open} />
-    </DutchC.CreateWrapper>
+          {isDraftNtSelected && (
+            <Button onClick={() => dispatch(setMintModalIsOpen(true))}>
+              Mint Selected NFTs
+            </Button>
+          )}
+          {draftNFTs.length > 0 && (
+            <Button onClick={handleMintAll}>Mint all NFTs</Button>
+          )}
+        </DutchC.CreateContentTools>
+        <DutchC.CreateContentDraftNFTs>
+          {draftNFTs.map((nft: DraftNFTResponseI) => (
+            <DraftNFT
+              key={nft.id}
+              onSelect={() => onNFTSelect(nft.id)}
+              {...nft}
+            />
+          ))}
+        </DutchC.CreateContentDraftNFTs>
+      </DutchC.CreateContentBody>
+    </ContentLayout>
   );
 };
 

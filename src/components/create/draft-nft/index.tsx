@@ -22,6 +22,7 @@ import { pinFileToIPFS } from '@/lib/pinata';
 import CollectionDropdown from '@/common/Dropdown/CollectionDropdown';
 import { useRouter } from 'next/router';
 import { Input } from '@/common/Input/styles';
+import { ContentLayout } from '@/components/layout';
 
 // types
 type NFTPropertyT = {
@@ -118,133 +119,116 @@ const CreateDraftNFTHome: React.FC = () => {
   };
 
   return (
-    <DutchC.CreateWrapper>
-      <DutchC.CreateDraftNFTWrapper open={open ? 1 : 0}>
-        <DutchC.CreateDraftNFTContent>
-          <Breadcrumb />
+    <ContentLayout>
+      <DutchC.CreateDraftNFTContentBody>
+        <DutchC.CreateDraftNFTHeader>
+          Add NFTs Metadata
+        </DutchC.CreateDraftNFTHeader>
 
-          <DutchC.CreateDraftNFTContentBody>
-            <DutchC.CreateDraftNFTHeader>
-              Add NFTs Metadata
-            </DutchC.CreateDraftNFTHeader>
+        {/* Collection Selector */}
+        <DutchC.CreateDraftNFTCollectionSelectWrapper>
+          <CollectionDropdown
+            selectedCollectionAddress={selectedCollectionAddress}
+            setSelectedCollectionAddress={setSelectedCollectionAddress}
+          />
+        </DutchC.CreateDraftNFTCollectionSelectWrapper>
 
-            {/* Collection Selector */}
-            <DutchC.CreateDraftNFTCollectionSelectWrapper>
-              <CollectionDropdown
-                selectedCollectionAddress={selectedCollectionAddress}
-                setSelectedCollectionAddress={setSelectedCollectionAddress}
+        <DutchC.CreateDraftNFTContentMain>
+          {/* Media Upload */}
+          <DutchC.CreateDraftNFTMediaUploadWrapper>
+            <DutchC.CreateDraftNFTMediaUploadLabel>
+              <span className="font-medium dark:text-white/70">Media*</span>
+              <span className="dark:text-white/70 truncate">
+                (Supported: JPG, PNG, GIF, WEBP, WEBM, MP4, GLB, GLTF)
+              </span>
+            </DutchC.CreateDraftNFTMediaUploadLabel>
+
+            <DutchC.CreateDraftNFTMediaUpload>
+              <MediaUpload
+                variant="default"
+                setImageUrl={setMedia}
+                imageUrl={media}
+                name="media"
               />
-            </DutchC.CreateDraftNFTCollectionSelectWrapper>
+            </DutchC.CreateDraftNFTMediaUpload>
+          </DutchC.CreateDraftNFTMediaUploadWrapper>
 
-            <DutchC.CreateDraftNFTContentMain>
-              {/* Media Upload */}
-              <DutchC.CreateDraftNFTMediaUploadWrapper>
-                <DutchC.CreateDraftNFTMediaUploadLabel>
-                  <span className="font-medium dark:text-white/70">Media*</span>
-                  <span className="dark:text-white/70 truncate">
-                    (Supported: JPG, PNG, GIF, WEBP, WEBM, MP4, GLB, GLTF)
-                  </span>
-                </DutchC.CreateDraftNFTMediaUploadLabel>
+          {/* Detail Edit */}
+          <DutchC.CreateDraftNFTContentMainMiddle>
+            {/* Name */}
+            <TextInput
+              label="Name"
+              onChange={handleChange}
+              value={values.name}
+              name="name"
+            />
+            {/* Amount */}
+            <TextInput
+              type="number"
+              label="Amount"
+              helper="Max: 100,000"
+              min={1}
+              max={100000}
+              onChange={handleChange}
+              value={values.amount}
+              name="amount"
+            />
+            {/* Royalty (%) */}
+            <TextInput
+              type="number"
+              label="Royalty (%)"
+              helper="Max: 10"
+              min={1}
+              max={10}
+              onChange={handleChange}
+              value={values.royalty}
+              name="royalty"
+            />
 
-                <DutchC.CreateDraftNFTMediaUpload>
-                  <MediaUpload
-                    variant="default"
-                    setImageUrl={setMedia}
-                    imageUrl={media}
-                    name="media"
-                  />
-                </DutchC.CreateDraftNFTMediaUpload>
-              </DutchC.CreateDraftNFTMediaUploadWrapper>
+            {/* Properties */}
+            <DutchC.CreateDraftNFTPropertiesWrapper>
+              <DutchC.CreateDraftNFTPropertiesLabel>
+                Properties
+              </DutchC.CreateDraftNFTPropertiesLabel>
 
-              {/* Detail Edit */}
-              <DutchC.CreateDraftNFTContentMainMiddle>
-                {/* Name */}
-                <TextInput
-                  label="Name"
-                  onChange={handleChange}
-                  value={values.name}
-                  name="name"
+              {/* list */}
+              {properties.map((property, index) => (
+                <NFTProperty
+                  key={index}
+                  onRemove={() => handleRemoveProperty(index)}
+                  {...property}
                 />
-                {/* Amount */}
-                <TextInput
-                  type="number"
-                  label="Amount"
-                  helper="Max: 100,000"
-                  min={1}
-                  max={100000}
-                  onChange={handleChange}
-                  value={values.amount}
-                  name="amount"
-                />
-                {/* Royalty (%) */}
-                <TextInput
-                  type="number"
-                  label="Royalty (%)"
-                  helper="Max: 10"
-                  min={1}
-                  max={10}
-                  onChange={handleChange}
-                  value={values.royalty}
-                  name="royalty"
-                />
+              ))}
 
-                {/* Properties */}
-                <DutchC.CreateDraftNFTPropertiesWrapper>
-                  <DutchC.CreateDraftNFTPropertiesLabel>
-                    Properties
-                  </DutchC.CreateDraftNFTPropertiesLabel>
+              <DutchC.CreateDraftNFTPropertiesAdd onClick={handleAddProperty}>
+                + Add property
+              </DutchC.CreateDraftNFTPropertiesAdd>
+            </DutchC.CreateDraftNFTPropertiesWrapper>
 
-                  {/* list */}
-                  {properties.map((property, index) => (
-                    <NFTProperty
-                      key={index}
-                      onRemove={() => handleRemoveProperty(index)}
-                      {...property}
-                    />
-                  ))}
+            {/* Actions */}
+            <DutchC.CreateDraftNFTActions>
+              <Button
+                type="button"
+                loading={isLoading}
+                onClick={handleCreateDraftNFT}
+              >
+                Save Draft
+              </Button>
+              <OutlineButton>Cancel</OutlineButton>
+            </DutchC.CreateDraftNFTActions>
+          </DutchC.CreateDraftNFTContentMainMiddle>
 
-                  <DutchC.CreateDraftNFTPropertiesAdd
-                    onClick={handleAddProperty}
-                  >
-                    + Add property
-                  </DutchC.CreateDraftNFTPropertiesAdd>
-                </DutchC.CreateDraftNFTPropertiesWrapper>
-
-                {/* Actions */}
-                <DutchC.CreateDraftNFTActions>
-                  <Button
-                    type="button"
-                    loading={isLoading}
-                    onClick={handleCreateDraftNFT}
-                  >
-                    Save Draft
-                  </Button>
-                  <OutlineButton>Cancel</OutlineButton>
-                </DutchC.CreateDraftNFTActions>
-              </DutchC.CreateDraftNFTContentMainMiddle>
-
-              {/* Description */}
-              <TextArea
-                label="Description"
-                placeholder="Describe your NFT"
-                onChange={handleChange}
-                value={values.description}
-                name="description"
-              />
-            </DutchC.CreateDraftNFTContentMain>
-          </DutchC.CreateDraftNFTContentBody>
-        </DutchC.CreateDraftNFTContent>
-      </DutchC.CreateDraftNFTWrapper>
-
-      <DutchC.GuideInfoIconWrapper onClick={toggleGuide}>
-        <Icons.IInformationCircle
-          variant="solid"
-          size="large"
-          color={theme === 'light' ? 'black' : 'white'}
-        />
-      </DutchC.GuideInfoIconWrapper>
-      <Guide open={open} />
-    </DutchC.CreateWrapper>
+          {/* Description */}
+          <TextArea
+            label="Description"
+            placeholder="Describe your NFT"
+            onChange={handleChange}
+            value={values.description}
+            name="description"
+          />
+        </DutchC.CreateDraftNFTContentMain>
+      </DutchC.CreateDraftNFTContentBody>
+    </ContentLayout>
   );
 };
 
