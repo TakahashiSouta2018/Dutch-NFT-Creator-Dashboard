@@ -15,9 +15,9 @@ const useWalletHook = () => {
   const disconnectAccount = () => {
     walletServices.sendDisconnect('', 'disconnect');
     dispatch(setIsConnected(false));
-    deleteCookie("ACCOUNT")
-    deleteCookie("APIKEY")
-    deleteCookie("ACCOUNTID")
+    deleteCookie('ACCOUNT');
+    deleteCookie('APIKEY');
+    deleteCookie('ACCOUNTID');
   };
 
   const connectAccount = async (

@@ -21,26 +21,26 @@ const useCollectionHook = () => {
   const loopringService = new LoopringService();
   const loopringApiService = new LoopringApi();
 
-  const { account, userCollection, walletType, apiKey } = useAppSelector((state) => {
-    const { account, userCollection, walletType, apiKey } =
-      state.webAppReducer as WebAppReducerI;
-    return { account, userCollection, walletType, apiKey };
-  }, shallowEqual);
+  const { account, userCollection, walletType, apiKey } = useAppSelector(
+    (state) => {
+      const { account, userCollection, walletType, apiKey } =
+        state.webAppReducer as WebAppReducerI;
+      return { account, userCollection, walletType, apiKey };
+    },
+    shallowEqual
+  );
 
   useEffect(() => {
     const initUserCollection = async () => {
       if (account && apiKey) {
-        const collections = await getUserCollection(
-          account,
-          apiKey
-        );
+        const collections = await getUserCollection(account, apiKey);
         if (collections) {
           dispatch(setUserCollection(collections));
         }
       }
     };
     initUserCollection();
-  }, [account, apiKey])
+  }, [account, apiKey]);
 
   const createCollection = async (collectionObject: CollectionObjectI) => {
     assert(account, 'account === null');

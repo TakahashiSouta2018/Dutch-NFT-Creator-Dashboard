@@ -101,8 +101,8 @@ const SideFilter: React.FC<SideFilterProps> = ({
 
   console.log({ nftAttributes });
 
-  const hasNFTAttributes = nftAttributes && Object.keys(nftAttributes).length > 0;
-  
+  const hasNFTAttributes =
+    nftAttributes && Object.keys(nftAttributes).length > 0;
 
   return (
     <div
