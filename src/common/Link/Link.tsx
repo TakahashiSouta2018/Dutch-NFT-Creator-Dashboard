@@ -11,17 +11,11 @@ type LinkProps = LinkWrapperProps & {
   href: string;
   children: React.ReactNode;
   size?: LinkSizes;
-  active: boolean;
 };
 
-const Link: React.FC<LinkProps> = ({
-  href,
-  active,
-  children,
-  size = 'large',
-}) => {
+const Link: React.FC<LinkProps> = ({ href, children, size = 'large' }) => {
   return (
-    <DutchC.LinkWrapper href={href} active={active} size={size}>
+    <DutchC.LinkWrapper href={href} size={size}>
       {children}
     </DutchC.LinkWrapper>
   );

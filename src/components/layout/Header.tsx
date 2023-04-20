@@ -24,8 +24,8 @@ import AvatarIcon from '@/assets/avatar.png';
 const menus: Menu[] = [
   {
     name: 'Dashboard',
-    path: '/dashboard',
-    slug: 'dashboard',
+    path: '/',
+    slug: '',
   },
   {
     name: 'Create',
