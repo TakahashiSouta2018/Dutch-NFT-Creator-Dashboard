@@ -58,14 +58,22 @@ export const dashboardPageReducer: Slice<DashboardPageReducerI> = createSlice({
     setTrackList: (state, action: PayloadAction<TrackListI[]>) => {
       state.trackList = action.payload;
     },
-    setManagementNFTs: (state, action: PayloadAction<CreateNftManagementI[]>) => {
+    setManagementNFTs: (
+      state,
+      action: PayloadAction<CreateNftManagementI[]>
+    ) => {
       state.managementNFTs = action.payload;
     },
-  }
+  },
 });
 
-export const { setSelectedNfts, setCollectionNfts, setTrackList, resetSelectedNfts, setManagementNFTs } =
-  dashboardPageReducer.actions;
+export const {
+  setSelectedNfts,
+  setCollectionNfts,
+  setTrackList,
+  resetSelectedNfts,
+  setManagementNFTs,
+} = dashboardPageReducer.actions;
 
 // Other code such as selectors can use the imported `RootStateT` type
 export const selectCreatePage = (state: RootStateT): DashboardPageReducerI =>

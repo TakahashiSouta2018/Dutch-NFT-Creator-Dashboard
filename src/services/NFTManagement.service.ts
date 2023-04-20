@@ -16,12 +16,23 @@ export default class NFTManagementService extends Service<any> {
     return this.postRequest(``, { ...createNftManagement });
   }
 
-  public getUserNFTByAvailablity(ownerAddress: string, amount: number, available: number) {
-    return this.getRequest(`findByAvailablity?ownerAddress=${ownerAddress}&amount=${amount}&available=${available}`);
+  public getUserNFTByAvailablity(
+    ownerAddress: string,
+    amount: number,
+    available: number
+  ) {
+    return this.getRequest(
+      `findByAvailablity?ownerAddress=${ownerAddress}&amount=${amount}&available=${available}`
+    );
   }
 
-  public getUserNFTByCollection(ownerAddress: string, collectionAddress: string) {
-    return this.getRequest(`findByCollection?ownerAddress=${ownerAddress}&collectionAddress=${collectionAddress}`);
+  public getUserNFTByCollection(
+    ownerAddress: string,
+    collectionAddress: string
+  ) {
+    return this.getRequest(
+      `findByCollection?ownerAddress=${ownerAddress}&collectionAddress=${collectionAddress}`
+    );
   }
 
   public getUserNftId(ownerAddress: string, nftId: string) {
@@ -33,7 +44,9 @@ export default class NFTManagementService extends Service<any> {
   }
 
   public getUserNFTByAttribute(ownerAddress: string, attributeValue: string) {
-    return this.getRequest(`findByAttribute?ownerAddress=${ownerAddress}&attributeValue=${attributeValue}`);
+    return this.getRequest(
+      `findByAttribute?ownerAddress=${ownerAddress}&attributeValue=${attributeValue}`
+    );
   }
 
   public getUserNftList(ownerAddress: string) {

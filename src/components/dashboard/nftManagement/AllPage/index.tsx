@@ -10,9 +10,7 @@ interface NFTAllProps {
   tableListSwtich: number;
 }
 
-const AllPage: React.FC<NFTAllProps> = ({
-  tableListSwtich,
-}): JSX.Element => {
+const AllPage: React.FC<NFTAllProps> = ({ tableListSwtich }): JSX.Element => {
   const dispatch = useAppDispatch();
 
   // const [NFTs, setNFTs] = useState<CreateNftManagementI[]>(listNfts);
@@ -28,13 +26,15 @@ const AllPage: React.FC<NFTAllProps> = ({
       const index = managementNFTs.findIndex((nft) => nft.nftId === nftId);
       const nft = managementNFTs.find((nft) => nft.nftId === nftId);
       if (nft) {
-        dispatch(setManagementNFTs([
-          ...managementNFTs.slice(0, index),
-          {
-            ...nft,
-          },
-          ...managementNFTs.slice(index + 1),
-        ]));
+        dispatch(
+          setManagementNFTs([
+            ...managementNFTs.slice(0, index),
+            {
+              ...nft,
+            },
+            ...managementNFTs.slice(index + 1),
+          ])
+        );
       }
     },
     [managementNFTs]

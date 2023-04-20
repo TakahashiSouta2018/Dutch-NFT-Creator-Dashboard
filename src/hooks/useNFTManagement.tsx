@@ -4,7 +4,11 @@ import NFTManagementService from '@/services/NFTManagement.service';
 import { CreateNftManagementI, UsageStatusEnum, UserListI } from '@/types';
 import { shallowEqual } from 'react-redux';
 import useCollectionHook from './useCollectionHook';
-import { DashboardPageReducerI, setCollectionNfts, setSelectedNfts } from '@/components/dashboard/ducks';
+import {
+  DashboardPageReducerI,
+  setCollectionNfts,
+  setSelectedNfts,
+} from '@/components/dashboard/ducks';
 
 const useNFTManagement = () => {
   const nftManagement = new NFTManagementService();
@@ -25,37 +29,48 @@ const useNFTManagement = () => {
 
   const syncNft = async (listName: string) => {
     try {
-      const nfts: CreateNftManagementI[] = selectedNFTs.filter(selectedNFT => selectedNFT.nftID).map((selectedNFT) => {
+      const nfts: CreateNftManagementI[] = selectedNFTs
+        .filter((selectedNFT) => selectedNFT.nftID)
+        .map((selectedNFT) => {
+          let properties = [
+            {
+              key: '',
+              value: '',
+            },
+          ];
 
-        let properties = [{
-          key: '',
-          value: ''
-        }];
+          if (
+            selectedNFT &&
+            selectedNFT.metadata &&
+            selectedNFT.metadata.attributes
+          ) {
+            properties = selectedNFT?.metadata.attributes.map((attribute) => {
+              return {
+                key: String(attribute.trait_type),
+                value: String(attribute.value),
+              };
+            });
+          }
 
-        if (selectedNFT && selectedNFT.metadata && selectedNFT.metadata.attributes) {
-
-          properties = selectedNFT?.metadata.attributes.map((attribute) => {
-            return {
-              key: String(attribute.trait_type),
-              value: String(attribute.value)
-            }
-          });
-        }
-        
-        return {
-          collectionAddress: selectedNFT.tokenAddress,
-          collectionName: getCollectionNameByAddress(selectedNFT.tokenAddress),
-          name: String(selectedNFT?.metadata?.name),
-          amount: String(selectedNFT.amount),
-          nftId: selectedNFT.nftID,
-          available: selectedNFT && selectedNFT.slots ? selectedNFT.slots[0].balance : "",
-          description: String(selectedNFT?.metadata?.description),
-          image: selectedNFT?.metadata?.image,
-          listName,
-          owner: account,
-          properties
-        };
-      });      
+          return {
+            collectionAddress: selectedNFT.tokenAddress,
+            collectionName: getCollectionNameByAddress(
+              selectedNFT.tokenAddress
+            ),
+            name: String(selectedNFT?.metadata?.name),
+            amount: String(selectedNFT.amount),
+            nftId: selectedNFT.nftID,
+            available:
+              selectedNFT && selectedNFT.slots
+                ? selectedNFT.slots[0].balance
+                : '',
+            description: String(selectedNFT?.metadata?.description),
+            image: selectedNFT?.metadata?.image,
+            listName,
+            owner: account,
+            properties,
+          };
+        });
 
       const { response, data } = await nftManagement.syncNFT(nfts);
 
@@ -66,7 +81,11 @@ const useNFTManagement = () => {
     }
   };
 
-  const getUserNFTByAvailablity = async (user: string, amount: number, available: number) => {
+  const getUserNFTByAvailablity = async (
+    user: string,
+    amount: number,
+    available: number
+  ) => {
     try {
       const { response, data } = await nftManagement.getUserNFTByAvailablity(
         user,
@@ -86,7 +105,7 @@ const useNFTManagement = () => {
     try {
       const { response, data } = await nftManagement.getUserNFTByAttribute(
         user,
-        value,
+        value
       );
       if (data && data.data) {
         return data.data.nfts;
@@ -97,11 +116,14 @@ const useNFTManagement = () => {
     }
   };
 
-  const getUserNFTByCollection = async (user: string, collectionAddress: string) => {
+  const getUserNFTByCollection = async (
+    user: string,
+    collectionAddress: string
+  ) => {
     try {
       const { response, data } = await nftManagement.getUserNFTByCollection(
         user,
-        collectionAddress,
+        collectionAddress
       );
       if (data && data.data) {
         return data.data.nfts;
@@ -130,7 +152,7 @@ const useNFTManagement = () => {
   const getAllUserNFTAttribute = async (user: string) => {
     try {
       const { response, data } = await nftManagement.getAllUserNFTAttribute(
-        user,
+        user
       );
       if (data && data.data) {
         return data.data.attributes;

@@ -67,7 +67,7 @@ const Minting: React.FC<MintModalPropsI> = ({
   useEffect(() => {}, [mintingNfts]);
 
   const handleStartMint = async () => {
-    assert(account, "account === null");
+    assert(account, 'account === null');
 
     dispatch(setMintModalActiveStep(1));
 
@@ -78,7 +78,7 @@ const Minting: React.FC<MintModalPropsI> = ({
       walletType
     );
 
-    if (!accountDetails) return toast.error("Signing failed")
+    if (!accountDetails) return toast.error('Signing failed');
 
     for (let i = 0; i < selectedDraftNFTs.length; i++) {
       const selectedDraftNft = selectedDraftNFTs[i];

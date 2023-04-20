@@ -20,12 +20,13 @@ const useCollectionHook = () => {
   const loopringApiService = new LoopringApi();
 
   const { account, userCollection, walletType } = useAppSelector((state) => {
-    const { account, userCollection, walletType } = state.webAppReducer as WebAppReducerI;
+    const { account, userCollection, walletType } =
+      state.webAppReducer as WebAppReducerI;
     return { account, userCollection, walletType };
   }, shallowEqual);
 
   const createCollection = async (collectionObject: CollectionObjectI) => {
-    assert(account, "account === null");
+    assert(account, 'account === null');
 
     await connectAccount(walletType, true);
 
@@ -34,7 +35,7 @@ const useCollectionHook = () => {
       walletType
     );
 
-    if (!accountDetails) return toast.error("Signing failed")
+    if (!accountDetails) return toast.error('Signing failed');
 
     const imagesUrl = await pinFileToIPFS([
       collectionObject.avatar,

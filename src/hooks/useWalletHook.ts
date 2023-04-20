@@ -16,7 +16,10 @@ const useWalletHook = () => {
     dispatch(setIsConnected(false));
   };
 
-  const connectAccount = async (connectorName: ConnectorNames, signOnly?: boolean) => {
+  const connectAccount = async (
+    connectorName: ConnectorNames,
+    signOnly?: boolean
+  ) => {
     if (!signOnly) {
       disconnectAccount();
       dispatch(setIsConnectionLoading(true));

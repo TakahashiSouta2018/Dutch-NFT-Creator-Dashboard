@@ -16,23 +16,33 @@ interface SideFilterProps {
 
 enum MintRangeEnum {
   AMOUNT,
-  AVAILABLE
+  AVAILABLE,
 }
-
 
 const SideFilter: React.FC<SideFilterProps> = ({
   openFilter,
   onFilter,
 }): JSX.Element => {
   const dispatch = useAppDispatch();
-  const { getUserNFTByAvailablity, getUserNFTByCollection, getAllUserNFTAttribute, getUserNFTByAttribute } = useNFTManagement();
+  const {
+    getUserNFTByAvailablity,
+    getUserNFTByCollection,
+    getAllUserNFTAttribute,
+    getUserNFTByAttribute,
+  } = useNFTManagement();
 
-  const [mintRange, setMintRange] = useState<{ amount: number, available: number }>({ amount: 1000, available: 0 });
+  const [mintRange, setMintRange] = useState<{
+    amount: number;
+    available: number;
+  }>({ amount: 1000, available: 0 });
 
+  const [firstAttributeSearchInput, setFirstAttributeSearchInput] =
+    useState<string>('');
 
-  const [firstAttributeSearchInput, setFirstAttributeSearchInput] = useState<string>('');
-
-  const [nftAttributes, setNftAttributes] = useState<Record<string, string[]> | null>(null);
+  const [nftAttributes, setNftAttributes] = useState<Record<
+    string,
+    string[]
+  > | null>(null);
 
   const { account, userCollection } = useAppSelector((state) => {
     const { account, userCollection } = state.webAppReducer as WebAppReducerI;
@@ -44,18 +54,18 @@ const SideFilter: React.FC<SideFilterProps> = ({
       if (account) {
         const attributes = await getAllUserNFTAttribute(account);
         if (attributes) {
-          setNftAttributes(attributes)
+          setNftAttributes(attributes);
         }
       }
-    })()
-  }, [account])
-
+    })();
+  }, [account]);
 
   const handleRangeSet = async (value: number, type: MintRangeEnum) => {
     const amount = type === MintRangeEnum.AMOUNT ? value : mintRange.amount;
-    const available = type === MintRangeEnum.AVAILABLE ? value : mintRange.available;
+    const available =
+      type === MintRangeEnum.AVAILABLE ? value : mintRange.available;
 
-    assert(account, "account === null")
+    assert(account, 'account === null');
 
     const nfts = await getUserNFTByAvailablity(account, amount, available);
 
@@ -64,32 +74,30 @@ const SideFilter: React.FC<SideFilterProps> = ({
     if (nfts) dispatch(setManagementNFTs(nfts));
 
     if (type === MintRangeEnum.AMOUNT) {
-      setMintRange(prevState => ({ ...prevState, amount: Number(value) }))
-    }
-    else setMintRange(prevState => ({ ...prevState, available: Number(value) }))
-  }
-
+      setMintRange((prevState) => ({ ...prevState, amount: Number(value) }));
+    } else
+      setMintRange((prevState) => ({ ...prevState, available: Number(value) }));
+  };
 
   const handleSelectCollection = async (collectionAddress: string) => {
-    assert(account, "account === null")
+    assert(account, 'account === null');
 
     const nfts = await getUserNFTByCollection(account, collectionAddress);
 
     console.log({ nfts });
 
     if (nfts) dispatch(setManagementNFTs(nfts));
-  }
-
+  };
 
   const handleSelectAttribute = async (value: string) => {
-    assert(account, "account === null")
+    assert(account, 'account === null');
 
     const nfts = await getUserNFTByAttribute(account, value);
 
     console.log({ nfts });
 
     if (nfts) dispatch(setManagementNFTs(nfts));
-  }
+  };
 
   return (
     <div
@@ -115,13 +123,17 @@ const SideFilter: React.FC<SideFilterProps> = ({
 
         <div className="flex gap-2 items-center">
           <TextInput
-            onChange={(e) => handleRangeSet(Number(e.target.value), MintRangeEnum.AVAILABLE)}
+            onChange={(e) =>
+              handleRangeSet(Number(e.target.value), MintRangeEnum.AVAILABLE)
+            }
             placeholder="25"
             className="dark:bg-white dark:text-black dark:placeholder:text-black  dark:accent-white"
           />
           <div className="font-bold text-black/70">to</div>
           <TextInput
-            onChange={(e) => handleRangeSet(Number(e.target.value), MintRangeEnum.AMOUNT)}
+            onChange={(e) =>
+              handleRangeSet(Number(e.target.value), MintRangeEnum.AMOUNT)
+            }
             placeholder="30"
             className="dark:bg-white dark:text-black dark:placeholder:text-black  dark:accent-white"
           />
@@ -141,7 +153,9 @@ const SideFilter: React.FC<SideFilterProps> = ({
             <div className="px-2 py-1 flex gap-2 items-center" key={index}>
               <TextInput
                 type="checkbox"
-                onChange={() => handleSelectCollection(collection.collectionAddress)}
+                onChange={() =>
+                  handleSelectCollection(collection.collectionAddress)
+                }
                 className={
                   'dark:bg-white dark:text-black/100 dark:placeholder:text-black dark:border-black dark:accent-white'
                 }
@@ -160,7 +174,9 @@ const SideFilter: React.FC<SideFilterProps> = ({
 
           {nftAttributes && (
             <div className="flex gap-2 items-center">
-              <div className="text-xs text-black/70 font-normal">{Object.keys(nftAttributes)[0]}</div>
+              <div className="text-xs text-black/70 font-normal">
+                {Object.keys(nftAttributes)[0]}
+              </div>
               <Icons.IChevronUp />
             </div>
           )}
@@ -176,34 +192,28 @@ const SideFilter: React.FC<SideFilterProps> = ({
               }
             />
             <div className="flex flex-col gap-2 p-2">
-
-              {
-                Object.values(nftAttributes)[0]
-                .map((value) => (
-                  <div className="px-2 py-1 flex gap-2 items-center" key={value}>
-                    <TextInput
-                      type="checkbox"
-                      onChange={() => handleSelectAttribute(value)}
-                      className={
-                        'dark:bg-white dark:text-black/100 dark:placeholder:text-black dark:border-black dark:accent-white'
-                      }
-                    />
-                    <div className="overflow-hidden font-bold text-black/70">
-                      {value}
-                    </div>
+              {Object.values(nftAttributes)[0].map((value) => (
+                <div className="px-2 py-1 flex gap-2 items-center" key={value}>
+                  <TextInput
+                    type="checkbox"
+                    onChange={() => handleSelectAttribute(value)}
+                    className={
+                      'dark:bg-white dark:text-black/100 dark:placeholder:text-black dark:border-black dark:accent-white'
+                    }
+                  />
+                  <div className="overflow-hidden font-bold text-black/70">
+                    {value}
                   </div>
+                </div>
               ))}
 
               {/* <div className="px-2 py-1 flex gap-2 items-center">View more</div> */}
             </div>
           </>
         )}
-
-    
-
       </div>
 
-      {nftAttributes && Object.keys(nftAttributes).length > 1 &&(
+      {nftAttributes && Object.keys(nftAttributes).length > 1 && (
         <div className="px-2 py-1 flex flex-col gap-2 p-2">
           {Object.keys(nftAttributes).map((key, index) => {
             if (index !== 0) {
@@ -223,7 +233,10 @@ const SideFilter: React.FC<SideFilterProps> = ({
                     />
                     <div className="flex flex-col gap-2 p-2">
                       {Object.values(nftAttributes)[index].map((value) => (
-                        <div className="px-2 py-1 flex gap-2 items-center" key={value}>
+                        <div
+                          className="px-2 py-1 flex gap-2 items-center"
+                          key={value}
+                        >
                           <TextInput
                             type="checkbox"
                             onChange={() => handleSelectAttribute(value)}
@@ -241,13 +254,11 @@ const SideFilter: React.FC<SideFilterProps> = ({
                     </div>
                   </>
                 </>
-              )
+              );
             }
-          }
-          )}
+          })}
         </div>
       )}
-
     </div>
   );
 };

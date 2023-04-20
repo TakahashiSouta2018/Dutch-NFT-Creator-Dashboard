@@ -23,8 +23,8 @@ const useNFTHook = () => {
 
   const createDraftNFT = async (draftNFT: Omit<DraftNFTI, 'owner'>) => {
     try {
-      assert(account, "account === null");
-      
+      assert(account, 'account === null');
+
       const { response, data } = await draftNFTService.createDraftNFT({
         ...draftNFT,
         owner: account,
@@ -38,7 +38,7 @@ const useNFTHook = () => {
 
   const deleteDraftNFT = async (id: number) => {
     try {
-      assert(account, "account === null");
+      assert(account, 'account === null');
 
       const { response, data } = await draftNFTService.deleteDraftNFT({
         id,
@@ -53,7 +53,7 @@ const useNFTHook = () => {
 
   const getCollectionDraftNFT = async (collectionAddress: string) => {
     try {
-      assert(account, "account === null");
+      assert(account, 'account === null');
 
       const { response, data } = await draftNFTService.getCollectionDraftNFT(
         collectionAddress,

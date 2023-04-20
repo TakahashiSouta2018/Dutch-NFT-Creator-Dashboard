@@ -1,6 +1,9 @@
 // components
 import { AppLayout } from '@/components';
-import { DashboardPageReducerI, setManagementNFTs } from '@/components/dashboard/ducks';
+import {
+  DashboardPageReducerI,
+  setManagementNFTs,
+} from '@/components/dashboard/ducks';
 import AllPage from '@/components/dashboard/nftManagement/AllPage';
 import SyncNFTs from '@/components/dashboard/nftManagement/AllPage/SyncNFTs';
 import Header from '@/components/dashboard/nftManagement/shared/Header';
@@ -25,10 +28,9 @@ const AllNfts = ({ nfts }: { nfts: CreateNftManagementI[] }) => {
     return { collectionNfts };
   }, shallowEqual);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(setManagementNFTs(nfts));
-  }, [])
-
+  }, []);
 
   return (
     <AppLayout>
