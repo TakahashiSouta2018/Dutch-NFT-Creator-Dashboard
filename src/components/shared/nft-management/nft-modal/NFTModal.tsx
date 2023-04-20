@@ -31,6 +31,7 @@ interface NFTModalProp {
   lists: NFTI[];
   currentTab: TabTypeT;
   showSyncModal: boolean;
+  setIsSynced?: () => void;
 }
 
 interface SwitchProps {
@@ -63,6 +64,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
   lists,
   currentTab,
   showSyncModal,
+  setIsSynced,
 }) => {
   const { push } = useRouter();
   const dispatch = useAppDispatch();
@@ -84,7 +86,8 @@ const NFTModal: React.FC<NFTModalProp> = ({
         return toast('Add a list name', { type: 'info' });
 
       if (currentTab === 'ALL' || currentTab === 'LIST') {
-        await syncNft(listName);
+        // await syncNft(listName);
+        setIsSynced && setIsSynced();
       }
 
       dispatch(setSelectedNfts([]));

@@ -31,6 +31,8 @@ import { useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
 import NFTCard from '../cards/nft-card';
 import { ContentLayout } from '@/components/layout';
+import { CopyNFTIdTooltip } from '../copy-nft-id/styles';
+import { Tooltip } from '@/common/Tooltip';
 
 type WIDEFILTER = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE';
 
@@ -100,19 +102,19 @@ type WIDEFILTERTYPE = {
 const wideFilters: WIDEFILTERTYPE[][] = [
   [
     {
-      label: 'All(5)',
+      label: 'All (5)',
       slug: 'ALL',
     },
     {
-      label: 'Lists(5)',
+      label: 'Lists (5)',
       slug: 'LIST',
     },
     {
-      label: 'Collections(2)',
+      label: 'Collections (2)',
       slug: 'COLLECTION',
     },
     {
-      label: 'Archives(2)',
+      label: 'Archives (2)',
       slug: 'ARCHIVE',
     },
   ],
@@ -127,7 +129,7 @@ const NFTManagement: React.FC = () => {
   const [tableListSwtich, setTableListSwitch] = useState(0);
   const [showSyncModal, setShowSyncModal] = useState(false);
   const [showCreateListModal, setShowCreatListModal] = useState(false);
-
+  const [isSynced, setIsSynced] = useState(false);
   const { isConnected } = useAppSelector((state) => state.webAppReducer);
 
   const { collectionNfts } = useAppSelector((state) => {
@@ -142,14 +144,12 @@ const NFTManagement: React.FC = () => {
   if (!mounted) {
     return null;
   }
-  const toggleGuide = () => {
-    setOpen((open) => !open);
-  };
 
   const toggleFilter = () => {
     setOpenFilter(!openFilter);
   };
 
+  console.log('isSynced---', isSynced);
   return (
     <ContentLayout>
       <DutchC.NFTManagementContentBody>
@@ -177,9 +177,11 @@ const NFTManagement: React.FC = () => {
             ))}
           </TabContainer>
           {/* Sync Action */}
-          <OutlineButton leftIcon="arrow-down-on-square" color="black">
-            Sync NFTs
-          </OutlineButton>
+          <Tooltip
+            action={() => {
+              setShowSyncModal(true);
+            }}
+          />
         </DutchC.NFTManagementTopTool>
         {/* Sub Toolbar */}
         {/* left */}
@@ -212,28 +214,29 @@ const NFTManagement: React.FC = () => {
               </DutchC.NFTManagementSubToolLeft>
               <DutchC.NFTManagementSubToolRight>
                 {(currentWideFilter === 'ALL' ||
-                  currentWideFilter === 'ARCHIVE') && (
-                  <ShortcutContextMenu position="BR">
-                    <ShortcutContextMenuItem
-                      text="Find Holders"
-                      onClick={() => {
-                        console.log('234567890');
-                      }}
-                    />
-                    <ShortcutContextMenuItem
-                      text="Show Sales"
-                      onClick={() => {
-                        console.log('234567890');
-                      }}
-                    />
-                    <ShortcutContextMenuItem
-                      text="Move to Achieves"
-                      onClick={() => {
-                        console.log('234567890');
-                      }}
-                    />
-                  </ShortcutContextMenu>
-                )}
+                  currentWideFilter === 'ARCHIVE') &&
+                  !isSynced && (
+                    <ShortcutContextMenu position="BR">
+                      <ShortcutContextMenuItem
+                        text="Find Holders"
+                        onClick={() => {
+                          console.log('234567890');
+                        }}
+                      />
+                      <ShortcutContextMenuItem
+                        text="Show Sales"
+                        onClick={() => {
+                          console.log('234567890');
+                        }}
+                      />
+                      <ShortcutContextMenuItem
+                        text="Move to Achieves"
+                        onClick={() => {
+                          console.log('234567890');
+                        }}
+                      />
+                    </ShortcutContextMenu>
+                  )}
 
                 {(currentWideFilter === 'ALL' ||
                   currentWideFilter === 'LIST' ||
@@ -275,12 +278,15 @@ const NFTManagement: React.FC = () => {
                 setShowCreatListModal(true);
               }}
             />
-            {!isConnected && (
+            {!isSynced && (
               <SyncNFTs
                 currentTab={currentWideFilter}
                 showSyncModal={showSyncModal}
                 setShowSyncModal={(flag) => {
                   setShowSyncModal(flag);
+                }}
+                setIsSynced={() => {
+                  setIsSynced(true);
                 }}
                 nftList={collectionNfts}
               />

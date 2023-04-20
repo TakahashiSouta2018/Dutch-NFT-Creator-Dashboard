@@ -25,7 +25,6 @@ const Breadcrumb: React.FC = () => {
     pathArray.shift();
 
     pathArray = pathArray.filter((path) => path !== '');
-    console.log('--', pathArray);
     const breadcrumbs: BreadCrumbItemT[] = pathArray.map((path, index) => {
       const href = '/' + pathArray.slice(0, index + 1).join('/');
       return {
@@ -37,7 +36,6 @@ const Breadcrumb: React.FC = () => {
     setBreadcrumbs(breadcrumbs);
   }, [router.asPath]);
 
-  console.log('-----', breadcrumbs);
   return (
     <DutchC.BreadcrumbWrapper>
       <DutchC.BreadcrumbItem href="/">
