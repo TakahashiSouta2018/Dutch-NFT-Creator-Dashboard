@@ -15,9 +15,14 @@ import useNFTManagement from '@/hooks/useNFTManagement';
 interface NFTListProps {
   lists: NFTI[];
   currentTab: TabTypeT;
+  isSelectedTable?: boolean;
 }
 
-const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
+const NFTList: React.FC<NFTListProps> = ({
+  lists,
+  currentTab,
+  isSelectedTable,
+}) => {
   const dispatch = useAppDispatch();
   const { getUserNftId } = useNFTManagement();
 
@@ -52,7 +57,7 @@ const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
           </TD>
           {currentTab !== 'LIST' && <TD>Sr</TD>}
           <TD>Name</TD>
-          {selected && <TD>Collection</TD>}
+          {isSelectedTable && <TD>Collection</TD>}
           <TD>Mint Count</TD>
           {currentTab !== 'LIST' && <TD>Burned</TD>}
           <TD>NFT id</TD>
@@ -75,11 +80,13 @@ const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
               </TD>
               {currentTab !== 'LIST' && <TD>{index}</TD>}
               <TD>{list?.metadata?.name}</TD>
-              <TD>
-                <DutchC.TextEllipsis>
-                  {list?.collectionInfo?.name}
-                </DutchC.TextEllipsis>
-              </TD>
+              {isSelectedTable && (
+                <TD>
+                  <DutchC.TextEllipsis>
+                    {list?.collectionInfo?.name}
+                  </DutchC.TextEllipsis>
+                </TD>
+              )}
               <TD>{list.total}</TD>
               {currentTab !== 'LIST' && <TD>{list.locked ? 'Yes' : 'No'}</TD>}
               <TD>

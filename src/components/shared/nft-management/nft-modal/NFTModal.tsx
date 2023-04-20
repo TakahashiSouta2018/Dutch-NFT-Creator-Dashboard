@@ -49,11 +49,11 @@ export const NFTListSwitch: React.FC<SwitchProps> = ({
     <TabContainer>
       <TabGroup>
         <Tab active={selected} slug="ALL" onClick={onAll}>
-          All{`(5)`}
+          All{` (5)`}
         </Tab>
-        {/* <Tab active={!selected} slug="ALL" onClick={onSelected}>
-          Selected{`(3)`}
-        </Tab> */}
+        <Tab active={!selected} slug="LIST" onClick={onSelected}>
+          Selected{` (3)`}
+        </Tab>
       </TabGroup>
     </TabContainer>
   );
@@ -72,6 +72,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
 
   const [listName, setListName] = useState<string>('');
   const [selected, setSelected] = useState<boolean>(true);
+  const [isSelectedTable, setIsSelectedTable] = useState(false);
   const [selectedCollectionAddress, setSelectedCollectionAddress] =
     useState<string>('');
 
@@ -133,16 +134,20 @@ const NFTModal: React.FC<NFTModalProp> = ({
             </div>
           </div>
           <NFTListSwitch
-            selected={selected}
+            selected={!isSelectedTable}
             onAll={() => {
-              setSelected(true);
+              setIsSelectedTable(false);
             }}
             onSelected={() => {
-              setSelected(false);
+              setIsSelectedTable(true);
             }}
           />
           <SearchInput placeholder="NFT name or id" />
-          <NFTList lists={lists} currentTab={currentTab} />
+          <NFTList
+            lists={lists}
+            currentTab={currentTab}
+            isSelectedTable={isSelectedTable}
+          />
           <DutchC.NFTModalFooterWrapper>
             <OutlineButton
               onClick={(e) => {
