@@ -196,7 +196,16 @@ const NFTManagement: React.FC = () => {
             <DutchC.NFTManagementSubTool>
               <DutchC.NFTManagementSubToolLeft>
                 {!openFilter && (
-                  <IconButton icon="funnel" rounded onClick={toggleFilter} />
+                  // <IconButton icon="funnel" rounded onClick={toggleFilter} />
+                  <div
+                    onClick={toggleFilter}
+                    className="cursor-pointer p-2 border border-black/10 dark:border-white/10 rounded-lg"
+                  >
+                    <Icons.IFunnel
+                      variant="outline"
+                      color={theme === 'light' ? 'black' : 'white'}
+                    />
+                  </div>
                 )}
                 <SearchInput placeholder="NFT name or id" />
                 <SortSelect />
@@ -242,8 +251,8 @@ const NFTManagement: React.FC = () => {
                   currentWideFilter === 'LIST' ||
                   currentWideFilter === 'ARCHIVE') && (
                   <Button
-                    className="bg-black/90 text-opacity-100 text-bold"
-                    disabled={false}
+                    className=""
+                    disabled={isSynced ? false : true}
                     leftIcon={currentWideFilter === 'LIST' ? 'plus' : undefined}
                     onClick={() => {
                       setShowCreatListModal(true);

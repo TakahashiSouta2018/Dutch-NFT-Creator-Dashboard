@@ -3,16 +3,12 @@ import * as DutchC from './styles';
 
 const initialSortList = [
   {
-    name: 'Today',
-    value: 'today',
+    name: 'Newest First',
+    value: 'newest',
   },
   {
-    name: '1 Week',
-    value: 'oneWeek',
-  },
-  {
-    name: '2 Weeks',
-    value: 'twoWeeks',
+    name: 'Oldest First',
+    value: 'oldest',
   },
 ];
 
@@ -34,16 +30,15 @@ const SortSelect: React.FC<SortSelectType> = ({
 }) => {
   return (
     <div>
-      <div className="flex border border-gray-300 rounded-lg px-3 py-2 text-black/70 dark:border-white/10 dark:text-white/70 dark:bg-dark-surface">
+      <div className="flex border border-gray-300 rounded-lg px-3 py-2 text-black/70 dark:border-white/10 dark:text-white/70 dark:bg-dark-surface items-center">
         <div className="w-14 text-sm font-normal dark:text-white/70">
           {placeHolder}
         </div>
 
         <select
           id="states"
-          className="bg-transparent font-medium pr-2 cursor-pointer dark:text-white/70"
+          className="bg-transparent text-sm font-medium pr-2 cursor-pointer dark:text-white/70"
         >
-          <option className="text-black">{title}</option>
           {!!sortList.length &&
             sortList.map((item) => (
               <option key={item.name} value={item.value} className="text-black">
