@@ -161,7 +161,7 @@ export const WalletTrackingTransactionView = () => {
               </div>
               <Accordion label="Custom">
                 <Datepicker
-                  inputClassName="button bg-white"
+                  inputClassName="button bg-white w-3/4"
                   value={customDateRange}
                   onChange={handleValueChange}
                   showShortcuts={true}
