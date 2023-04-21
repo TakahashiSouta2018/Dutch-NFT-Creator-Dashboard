@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Datepicker from 'react-tailwindcss-datepicker';
-import { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
+import {
+  DateValueType,
+  PopoverDirectionType,
+} from 'react-tailwindcss-datepicker/dist/types';
 import { OutlineButton, Dropdown } from '@/common';
 import { OptionSwitch } from '../option-switch';
 import { Accordion } from '@/common/Accordion';
@@ -281,7 +284,9 @@ const NFTTracking = () => {
             </div>
             <Accordion label="Custom">
               <Datepicker
-                inputClassName="button bg-white"
+                inputClassName="button bg-white w-[150px] lg:w-[250px]"
+                toggleClassName="hidden"
+                containerClassName="w-fit"
                 value={customDateRange}
                 onChange={handleValueChange}
                 showShortcuts={true}
