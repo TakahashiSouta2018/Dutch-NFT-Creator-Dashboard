@@ -23,13 +23,15 @@ const Archive = ({ nfts }: { nfts: CreateNftManagementI[] }) => {
 
   useEffect(() => {
     const handleSearchText = () => {
-      const filterNfts = nfts.filter((nft) => (nft.nftId.toLowerCase().includes(searchText.toLowerCase())) ||
-        (nft.name.toLowerCase().includes(searchText.toLowerCase()))
+      const filterNfts = nfts.filter(
+        (nft) =>
+          nft.nftId.toLowerCase().includes(searchText.toLowerCase()) ||
+          nft.name.toLowerCase().includes(searchText.toLowerCase())
       );
       dispatch(setManagementNFTs(filterNfts));
     };
-    handleSearchText()
-  }, [searchText])
+    handleSearchText();
+  }, [searchText]);
 
   return (
     <AppLayout>

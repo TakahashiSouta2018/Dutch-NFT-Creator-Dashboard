@@ -3,9 +3,7 @@ import NFTManagementService from '@/services/NFTManagement.service';
 import { CreateNftManagementI, UsageStatusEnum, UserListI } from '@/types';
 import { shallowEqual } from 'react-redux';
 import useCollectionHook from './useCollectionHook';
-import {
-  DashboardPageReducerI,
-} from '@/components/dashboard/ducks';
+import { DashboardPageReducerI } from '@/components/dashboard/ducks';
 import assert from 'assert';
 import { WebAppReducerI } from '@/ducks';
 
@@ -20,7 +18,7 @@ const useNFTManagement = () => {
   const nftManagement = new NFTManagementService();
 
   const { account } = useAppSelector((state) => {
-    const {account } = state.webAppReducer as WebAppReducerI;
+    const { account } = state.webAppReducer as WebAppReducerI;
     return { account };
   }, shallowEqual);
 
@@ -34,7 +32,7 @@ const useNFTManagement = () => {
 
   const syncNft = async (listName: string) => {
     try {
-      assert(account, "account == null");
+      assert(account, 'account == null');
 
       const nfts: CreateNftManagementI[] = selectedNFTs
         .filter((selectedNFT) => selectedNFT.nftID)
@@ -158,9 +156,7 @@ const useNFTManagement = () => {
 
   const getUserNftCount = async (user: string) => {
     try {
-      const { response, data } = await nftManagement.getUserNftCount(
-        user,
-      );
+      const { response, data } = await nftManagement.getUserNftCount(user);
       if (data && data.data) {
         return data.data.counts as NFTCountI;
       }
@@ -185,10 +181,8 @@ const useNFTManagement = () => {
   };
 
   const getUserNftList = async (user: string) => {
-    try {     
-      const { response, data } = await nftManagement.getUserNftList(
-        user
-      );
+    try {
+      const { response, data } = await nftManagement.getUserNftList(user);
       if (data && data.data) {
         return data.data.nfts as UserListI[];
       }
@@ -200,7 +194,6 @@ const useNFTManagement = () => {
 
   const getUserCollectionList = async (user: string) => {
     try {
-
       const { response, data } = await nftManagement.getUserCollectionList(
         user
       );
@@ -215,10 +208,7 @@ const useNFTManagement = () => {
 
   const getUserNftId = async (user: string, nftId: string) => {
     try {
-      const { response, data } = await nftManagement.getUserNftId(
-        user,
-        nftId
-      );
+      const { response, data } = await nftManagement.getUserNftId(user, nftId);
 
       console.log(data.data);
 

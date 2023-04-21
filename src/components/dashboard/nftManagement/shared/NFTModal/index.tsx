@@ -55,18 +55,20 @@ const NFTModal: React.FC<NFTModalProp> = ({
   }, shallowEqual);
 
   useEffect(() => {
-    setNFTs(lists)
-  }, [lists.length])
+    setNFTs(lists);
+  }, [lists.length]);
 
   useEffect(() => {
     const handleSearchText = () => {
-      const filterNfts = lists.filter((nft) => (nft.nftID.toLowerCase().includes(searchText.toLowerCase())) ||
-        (nft.metadata.name.toLowerCase().includes(searchText.toLowerCase()))
+      const filterNfts = lists.filter(
+        (nft) =>
+          nft.nftID.toLowerCase().includes(searchText.toLowerCase()) ||
+          nft.metadata.name.toLowerCase().includes(searchText.toLowerCase())
       );
       setNFTs(filterNfts);
     };
-    handleSearchText()
-  }, [searchText])
+    handleSearchText();
+  }, [searchText]);
 
   const handleSubmitButtonClick = async () => {
     try {
@@ -81,7 +83,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
       dispatch(setCollectionNfts([]));
 
       onClose();
-      window.location.reload()
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -98,9 +100,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
       >
         <div className="flex pr-2 items-center bg-black/10 rounded-md">
           <IconButton icon="document" />
-          <p className="text-sm text-black/70 dark:text-white">
-            {account}
-          </p>
+          <p className="text-sm text-black/70 dark:text-white">{account}</p>
         </div>
       </ModalHead>
       <ModalBody>
@@ -127,7 +127,10 @@ const NFTModal: React.FC<NFTModalProp> = ({
             </TabGroup>
           </TabContainer>
 
-          <SearchInput onChange={(e) => setSearchText(e.target.value)} placeholder="NFT name or id" />
+          <SearchInput
+            onChange={(e) => setSearchText(e.target.value)}
+            placeholder="NFT name or id"
+          />
 
           <NFTList lists={NFTS} currentTab={currentTab} />
 

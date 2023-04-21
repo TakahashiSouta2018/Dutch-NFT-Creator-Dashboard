@@ -18,17 +18,18 @@ const List = ({ nfts }: { nfts: UserListI[] }) => {
   const [tableListSwtich, setTableListSwtich] = useState<number>(0);
 
   useEffect(() => {
-    setListNfts(nfts)
-  }, [nfts.length])
+    setListNfts(nfts);
+  }, [nfts.length]);
 
   useEffect(() => {
     const handleSearchText = () => {
-      const filterNfts = nfts.filter((nft) => (nft.listName.toLowerCase().includes(searchText.toLowerCase())));
+      const filterNfts = nfts.filter((nft) =>
+        nft.listName.toLowerCase().includes(searchText.toLowerCase())
+      );
       setListNfts(filterNfts);
     };
-    handleSearchText()
-  }, [searchText])
-  
+    handleSearchText();
+  }, [searchText]);
 
   return (
     <AppLayout>

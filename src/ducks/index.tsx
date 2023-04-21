@@ -1,5 +1,5 @@
 import { RootStateT } from '@/redux/store';
-import { AccountInfoI, CollectionI } from '@/types';
+import { CollectionI } from '@/types';
 import { ConnectorNames } from '@loopring-web/loopring-sdk';
 import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';

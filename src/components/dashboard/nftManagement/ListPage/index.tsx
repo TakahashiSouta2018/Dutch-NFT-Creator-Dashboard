@@ -20,7 +20,6 @@ const ListPage: React.FC<NFTListProps> = ({
   showSyncModal,
   setShowSyncModal,
 }): JSX.Element => {
-
   const { collectionNfts } = useAppSelector((state) => {
     const { collectionNfts } =
       state.dashboardPageReducer as DashboardPageReducerI;

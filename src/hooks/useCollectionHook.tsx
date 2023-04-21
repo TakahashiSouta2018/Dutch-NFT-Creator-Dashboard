@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { LoopringService } from '@/lib/LoopringService';
 import { pinFileToIPFS } from '@/lib/pinata';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
-import { AccountInfoI, CollectionI, CollectionObjectI, NFTI } from '@/types';
+import { CollectionI, CollectionObjectI, NFTI } from '@/types';
 import { useRouter } from 'next/router';
 import { shallowEqual } from 'react-redux';
 import LoopringApi from '@/services/LoopringApi.service';

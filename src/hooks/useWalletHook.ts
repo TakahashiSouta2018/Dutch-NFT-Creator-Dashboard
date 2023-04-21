@@ -22,7 +22,6 @@ const useWalletHook = () => {
     return { account, apiKey };
   }, shallowEqual);
 
-
   const disconnectAccount = () => {
     walletServices.sendDisconnect('', 'disconnect');
     dispatch(setIsConnected(false));
@@ -48,7 +47,7 @@ const useWalletHook = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const connectAccount = async (
     connectorName: ConnectorNames,

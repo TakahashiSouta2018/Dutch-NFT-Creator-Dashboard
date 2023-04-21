@@ -47,7 +47,7 @@ const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
   };
 
   const handleSelectNft = async (list: NFTI) => {
-    assert(account, "account === null");
+    assert(account, 'account === null');
 
     const nft = await getUserNftId(account, list.nftID);
     if (nft && currentTab === 'ALL') {

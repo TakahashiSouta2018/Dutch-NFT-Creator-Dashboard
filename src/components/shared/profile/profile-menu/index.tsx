@@ -107,7 +107,6 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
     dispatch(setMintModalIsOpen(true));
   };
 
-
   const ref = useDetectClickOutside({ onTriggered: handleClose });
 
   return (

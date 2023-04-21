@@ -23,8 +23,8 @@ import useConnectHelper, {
 } from '../helpers/useConnectHelper';
 import { CHAINS, switchNetwork } from '@/helpers/chain';
 import useCollectionHook from './useCollectionHook';
-import { AccountInfoI, CollectionI } from '@/types';
-import { getCookies, setCookie, deleteCookie } from 'cookies-next';
+import { AccountInfoI } from '@/types';
+import { setCookie } from 'cookies-next';
 import useWalletHook from './useWalletHook';
 
 const useConnectHook = () => {
@@ -79,7 +79,6 @@ const useConnectHook = () => {
       walletType
     );
 
-
     dispatch(
       setConnectAccount({
         apiKey: accountDetails?.apiKey,
@@ -92,8 +91,6 @@ const useConnectHook = () => {
     const userWalletInfo = await getUserWalletInfo();
 
     console.log({ userWalletInfo });
-    
-
 
     setCookie('ACCOUNT', connectedAccount);
     setCookie('APIKEY', accountDetails?.apiKey);

@@ -53,7 +53,7 @@ const tabItems = [
       slug: TabNameEnum.ARCHIVE,
       url: '/dashboard/nft-management/archive',
     },
-  ]
+  ],
 ];
 
 interface PropsI {
@@ -98,10 +98,10 @@ const Header = ({
     (async () => {
       const data = await getUserNftCount(account);
       if (data) {
-        setNftCount(data)
+        setNftCount(data);
       }
-    })()
-  }, [account])
+    })();
+  }, [account]);
 
   const getLabel = (label: TabNameEnum) => {
     if (label === TabNameEnum.ALL) {
@@ -113,14 +113,13 @@ const Header = ({
     } else {
       return `Lists(${nftCount?.list})`;
     }
-  }
+  };
 
   const searchPlaceHolder = () => {
-    if (isList) return "List name"
-    else if (isCollection) return "Collection name"
-    else return "NFT name or id"
-  }
-
+    if (isList) return 'List name';
+    else if (isCollection) return 'Collection name';
+    else return 'NFT name or id';
+  };
 
   return (
     <div className="relative flex px-6 overflow-hidden">
@@ -149,8 +148,9 @@ const Header = ({
               </TabContainer>
 
               {isAll && (
-                <OutlineButton 
-                  leftIcon="arrow-down-on-square" color="black"
+                <OutlineButton
+                  leftIcon="arrow-down-on-square"
+                  color="black"
                   onClick={(e) => setShowSyncModal?.(true)}
                 >
                   Sync NFTs
@@ -175,7 +175,10 @@ const Header = ({
                       />
                     )}
 
-                    <SearchInput onChange={(e) => setSearchText?.(e.target.value)} placeholder={searchPlaceHolder()} />
+                    <SearchInput
+                      onChange={(e) => setSearchText?.(e.target.value)}
+                      placeholder={searchPlaceHolder()}
+                    />
                     <SortSelect />
 
                     {isUrlListOrAll && (

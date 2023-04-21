@@ -62,8 +62,7 @@ const SideFilter: React.FC<SideFilterProps> = ({
 
   const handleRangeSet = async (value: number, type: MintRangeEnum) => {
     const min = type === MintRangeEnum.MIN ? value : mintRange.amount;
-    const available =
-      type === MintRangeEnum.MAX ? value : mintRange.available;
+    const available = type === MintRangeEnum.MAX ? value : mintRange.available;
 
     assert(account, 'account === null');
 
