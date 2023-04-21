@@ -26,7 +26,7 @@ const Accordion: React.FC<{
         {label}
       </div>
       {isOpen && (
-        <div className="absolute z-100 opacity-100 top-[45px] left-0 bg-gray-100 border-2 w-[500px] p-5 rounded-lg shadow">
+        <div className="absolute z-100 opacity-100 top-[45px] right-0 bg-gray-100 border-2 text-[10px] xl:text-base p-5 rounded-lg shadow">
           {children}
         </div>
       )}
