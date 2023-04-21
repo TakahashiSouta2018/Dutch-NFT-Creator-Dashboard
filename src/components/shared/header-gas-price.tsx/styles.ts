@@ -7,8 +7,7 @@ export const GasInfoWrapper = styled.div.attrs({
 export const GasInfoButtonWrapper = styled.button.attrs<{
   className?: string;
 }>({
-  className:
-    'px-2 py-1.5 flex items-center justify-between gap-x-2.5 w-[170px]',
+  className: 'flex gap-2',
 })``;
 
 export const GasInfo = styled.div.attrs({
@@ -39,7 +38,7 @@ export const ProfileMenuNFTWrapper = styled.div.attrs({
 })``;
 
 export const ProfileMenuNFTPriceWrapper = styled.div.attrs({
-  className: 'flex flex-col items-end truncate max-w-[40%] font-bold',
+  className: 'flex flex-col items-end font-bold',
 })``;
 
 export const ProfileMenuNFTPriceEthWrapper = styled.div.attrs({

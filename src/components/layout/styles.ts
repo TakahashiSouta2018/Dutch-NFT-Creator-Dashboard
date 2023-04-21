@@ -8,7 +8,7 @@ type ContentLayoutProps = {
 // components
 // --- App Layout
 export const AppWrapper = styled.div.attrs({
-  className: 'max-w-wide mx-auto',
+  className: 'max-w-wide mx-auto relative pb-16 min-h-screen',
 })``;
 
 export const ContentWrapper = styled.div.attrs({
@@ -41,7 +41,7 @@ export const ComingSoon = styled.span.attrs({
 })``;
 
 export const RightActions = styled.div.attrs({
-  className: 'flex items-center space-x-8 ml-auto',
+  className: 'flex items-center ml-auto gap-8',
 })``;
 
 // search
@@ -74,7 +74,7 @@ export const HeaderUserAddress = styled.p.attrs({
 
 export const ContentLayoutWrapper = styled.div.attrs({
   className:
-    'relative flex flex-col overflow-x-hidden items-start min-h-full px-6',
+    'relative flex flex-col overflow-y-auto min-h-[800px] overflow-x-hidden items-start min-h-full px-6 pb-16',
 })``;
 
 export const ContentLayoutBody = styled.div.attrs({

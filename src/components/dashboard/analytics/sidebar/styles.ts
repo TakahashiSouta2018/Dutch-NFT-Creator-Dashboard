@@ -9,7 +9,7 @@ export const SideBarBg = styled.div.attrs({
 })``;
 
 export const SideBarMain = styled.div.attrs({
-  className: 'absolute left-0 w-[265px] max-h-[800px] overflow-y-auto',
+  className: 'fixed left-6 w-[265px] max-h-[800px] overflow-y-auto',
 })``;
 
 export const SideBarHeader = styled.div.attrs({

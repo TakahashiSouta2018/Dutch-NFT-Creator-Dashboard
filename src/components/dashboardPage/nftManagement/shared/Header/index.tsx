@@ -28,7 +28,6 @@ enum TabNameEnum {
   LIST = 'LIST',
   COLLECTION = 'COLLECTION',
   ARCHIVE = 'ARCHIVE',
-  BANK0X = 'BANK0X',
 }
 
 const tabItems = [
@@ -52,13 +51,6 @@ const tabItems = [
       label: 'Archives(2)',
       slug: TabNameEnum.ARCHIVE,
       url: '/dummy/nft-management/archive',
-    },
-  ],
-  [
-    {
-      label: 'BANK0x(1)',
-      slug: TabNameEnum.BANK0X,
-      url: '/dummy/nft-management/bank0x',
     },
   ],
 ];

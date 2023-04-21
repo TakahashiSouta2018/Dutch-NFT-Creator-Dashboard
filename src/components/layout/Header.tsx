@@ -38,9 +38,9 @@ const menus: Menu[] = [
     slug: 'marketplace',
   },
   {
-    name: 'Learn',
-    path: '/learn',
-    slug: 'learn',
+    name: 'Roadmap',
+    path: '/roadmap',
+    slug: 'roadmap',
   },
 ];
 
