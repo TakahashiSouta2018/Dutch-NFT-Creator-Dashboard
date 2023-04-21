@@ -87,7 +87,7 @@ const NFTAllByTable: React.FC<NFTAllByTableProps> = ({
                 </div>
               </TD>
               <TD>{list.collectionName}</TD>
-              <TD>{`${0}/${list.amount}`}</TD>
+              <TD>{`${list.available}/${list.amount}`}</TD>
               <TD>
                 <div className="flex justify-between">
                   <div className="flex items-center gap-1 px-2 border border-black/10 rounded-md">

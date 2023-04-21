@@ -26,6 +26,7 @@ const NFTCard: React.FC<NFTCardProps> = ({
   image,
   name,
   amount,
+  available,
   description,
   onSelect,
 }) => {
@@ -60,7 +61,7 @@ const NFTCard: React.FC<NFTCardProps> = ({
           color={theme === 'light' ? 'black' : 'white'}
           size="large"
         ></Icons.IEye>
-        {`${0}/${amount}`}
+        {`${available}/${amount}`}
       </DutchC.NFTUnitBadge>
       <div className="absolute top-4 left-4 flex items-center justify-center w-5 h-5 rounded-full">
         {isSelected(nftId) ? (

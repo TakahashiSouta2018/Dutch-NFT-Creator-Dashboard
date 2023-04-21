@@ -29,7 +29,7 @@ import useWalletHook from './useWalletHook';
 
 const useConnectHook = () => {
   const { getUserCollection } = useCollectionHook();
-  const { disconnectAccount } = useWalletHook();
+  const { disconnectAccount, getUserWalletInfo } = useWalletHook();
 
   const loopringService = useMemo(() => new LoopringService(), []);
   const dispatch = useAppDispatch();
@@ -79,6 +79,7 @@ const useConnectHook = () => {
       walletType
     );
 
+
     dispatch(
       setConnectAccount({
         apiKey: accountDetails?.apiKey,
@@ -87,6 +88,12 @@ const useConnectHook = () => {
         accountId: accountDetails?.accInfo.accountId,
       })
     );
+
+    const userWalletInfo = await getUserWalletInfo();
+
+    console.log({ userWalletInfo });
+    
+
 
     setCookie('ACCOUNT', connectedAccount);
     setCookie('APIKEY', accountDetails?.apiKey);

@@ -18,11 +18,11 @@ export default class NFTManagementService extends Service<any> {
 
   public getUserNFTByAvailablity(
     ownerAddress: string,
-    amount: number,
-    available: number
+    min: number,
+    max: number
   ) {
     return this.getRequest(
-      `findByAvailablity?ownerAddress=${ownerAddress}&amount=${amount}&available=${available}`
+      `findByAvailablity?ownerAddress=${ownerAddress}&min=${min}&max=${max}`
     );
   }
 
@@ -51,6 +51,10 @@ export default class NFTManagementService extends Service<any> {
 
   public getUserNftList(ownerAddress: string) {
     return this.getRequest(`list/${ownerAddress}`);
+  }
+
+  public getUserNftCount(ownerAddress: string) {
+    return this.getRequest(`nft-count/${ownerAddress}`);
   }
 
   public getUserCollectionList(ownerAddress: string) {

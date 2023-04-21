@@ -15,8 +15,8 @@ interface SideFilterProps {
 }
 
 enum MintRangeEnum {
-  AMOUNT,
-  AVAILABLE,
+  MIN,
+  MAX,
 }
 
 const SideFilter: React.FC<SideFilterProps> = ({
@@ -61,19 +61,19 @@ const SideFilter: React.FC<SideFilterProps> = ({
   }, [account]);
 
   const handleRangeSet = async (value: number, type: MintRangeEnum) => {
-    const amount = type === MintRangeEnum.AMOUNT ? value : mintRange.amount;
+    const min = type === MintRangeEnum.MIN ? value : mintRange.amount;
     const available =
-      type === MintRangeEnum.AVAILABLE ? value : mintRange.available;
+      type === MintRangeEnum.MAX ? value : mintRange.available;
 
     assert(account, 'account === null');
 
-    const nfts = await getUserNFTByAvailablity(account, amount, available);
+    const nfts = await getUserNFTByAvailablity(account, min, available);
 
     console.log({ nfts });
 
     if (nfts) dispatch(setManagementNFTs(nfts));
 
-    if (type === MintRangeEnum.AMOUNT) {
+    if (type === MintRangeEnum.MIN) {
       setMintRange((prevState) => ({ ...prevState, amount: Number(value) }));
     } else
       setMintRange((prevState) => ({ ...prevState, available: Number(value) }));
@@ -129,7 +129,7 @@ const SideFilter: React.FC<SideFilterProps> = ({
         <div className="flex gap-2 items-center">
           <TextInput
             onChange={(e) =>
-              handleRangeSet(Number(e.target.value), MintRangeEnum.AVAILABLE)
+              handleRangeSet(Number(e.target.value), MintRangeEnum.MIN)
             }
             placeholder="25"
             className="dark:bg-white dark:text-black dark:placeholder:text-black  dark:accent-white"
@@ -137,7 +137,7 @@ const SideFilter: React.FC<SideFilterProps> = ({
           <div className="font-bold text-black/70">to</div>
           <TextInput
             onChange={(e) =>
-              handleRangeSet(Number(e.target.value), MintRangeEnum.AMOUNT)
+              handleRangeSet(Number(e.target.value), MintRangeEnum.MAX)
             }
             placeholder="30"
             className="dark:bg-white dark:text-black dark:placeholder:text-black  dark:accent-white"

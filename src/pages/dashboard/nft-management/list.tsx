@@ -1,32 +1,39 @@
 // components
 import { AppLayout } from '@/components';
-import { DashboardPageReducerI } from '@/components/dashboard/ducks';
 import ListPage from '@/components/dashboard/nftManagement/ListPage';
 import Header from '@/components/dashboard/nftManagement/shared/Header';
-import { useAppSelector, wrapper } from '@/redux/store';
+import { wrapper } from '@/redux/store';
 import NFTManagementService from '@/services/NFTManagement.service';
 import { UserListI } from '@/types';
 
 import { getCookie } from 'cookies-next';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import { useState } from 'react';
-import { shallowEqual } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 const List = ({ nfts }: { nfts: UserListI[] }) => {
+  const [listNfts, setListNfts] = useState<UserListI[]>([]);
+
+  const [searchText, setSearchText] = useState<string>('');
   const [showSyncModal, setShowSyncModal] = useState<boolean>(false);
   const [tableListSwtich, setTableListSwtich] = useState<number>(0);
 
-  const { collectionNfts } = useAppSelector((state) => {
-    const { collectionNfts } =
-      state.dashboardPageReducer as DashboardPageReducerI;
-    return { collectionNfts };
-  }, shallowEqual);
+  useEffect(() => {
+    setListNfts(nfts)
+  }, [nfts.length])
 
-  console.log({ collectionNfts });
+  useEffect(() => {
+    const handleSearchText = () => {
+      const filterNfts = nfts.filter((nft) => (nft.listName.toLowerCase().includes(searchText.toLowerCase())));
+      setListNfts(filterNfts);
+    };
+    handleSearchText()
+  }, [searchText])
+  
 
   return (
     <AppLayout>
       <Header
+        setSearchText={setSearchText}
         tableListSwtich={tableListSwtich}
         setTableListSwtich={setTableListSwtich}
         setShowCreatListModal={setShowSyncModal}
@@ -34,7 +41,7 @@ const List = ({ nfts }: { nfts: UserListI[] }) => {
 
       <ListPage
         tableListSwtich={tableListSwtich}
-        listNfts={nfts}
+        listNfts={listNfts}
         setShowSyncModal={setShowSyncModal}
         showSyncModal={showSyncModal}
       />

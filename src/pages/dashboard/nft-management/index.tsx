@@ -7,6 +7,8 @@ import {
 import AllPage from '@/components/dashboard/nftManagement/AllPage';
 import SyncNFTs from '@/components/dashboard/nftManagement/AllPage/SyncNFTs';
 import Header from '@/components/dashboard/nftManagement/shared/Header';
+import { NFTModal } from '@/components/shared/nft-management/nft-modal';
+import useWalletHook from '@/hooks/useWalletHook';
 import { useAppDispatch, useAppSelector, wrapper } from '@/redux/store';
 import NFTManagementService from '@/services/NFTManagement.service';
 import { CreateNftManagementI, UsageStatusEnum } from '@/types';
@@ -18,6 +20,7 @@ import { shallowEqual } from 'react-redux';
 
 const AllNfts = ({ nfts }: { nfts: CreateNftManagementI[] }) => {
   const dispatch = useAppDispatch();
+  const [searchText, setSearchText] = useState<string>('');
 
   const [showSyncModal, setShowSyncModal] = useState<boolean>(false);
   const [tableListSwtich, setTableListSwtich] = useState<number>(0);
@@ -30,22 +33,46 @@ const AllNfts = ({ nfts }: { nfts: CreateNftManagementI[] }) => {
 
   useEffect(() => {
     dispatch(setManagementNFTs(nfts));
-  }, []);
+  }, [nfts.length]);
+
+  useEffect(() => {
+    const handleSearchText = () => {
+      const filterNfts = nfts.filter((nft) => (nft.nftId.toLowerCase().includes(searchText.toLowerCase())) ||
+        (nft.name.toLowerCase().includes(searchText.toLowerCase()))
+      );
+      dispatch(setManagementNFTs(filterNfts));
+    };
+    handleSearchText()
+  }, [searchText])
 
   return (
     <AppLayout>
       <Header
+        setShowSyncModal={setShowSyncModal}
+        setSearchText={setSearchText}
         tableListSwtich={tableListSwtich}
         setTableListSwtich={setTableListSwtich}
       />
       <AllPage tableListSwtich={tableListSwtich} />
 
-      <SyncNFTs
-        currentTab={'ALL'}
+      {nfts.length === 0 && (
+        <SyncNFTs
+          currentTab={'ALL'}
+          showSyncModal={showSyncModal}
+          setShowSyncModal={(flag) => setShowSyncModal(flag)}
+          nftList={collectionNfts}
+        />
+      )}
+
+      <NFTModal
+        onClose={() => {
+          setShowSyncModal(false);
+        }}
+        lists={collectionNfts}
+        currentTab={"ALL"}
         showSyncModal={showSyncModal}
-        setShowSyncModal={(flag) => setShowSyncModal(flag)}
-        nftList={collectionNfts}
       />
+
     </AppLayout>
   );
 };

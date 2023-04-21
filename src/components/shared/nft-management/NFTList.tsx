@@ -15,6 +15,8 @@ import {
 import useNFTManagement from '@/hooks/useNFTManagement';
 import useCollectionHook from '@/hooks/useCollectionHook';
 import CopyNFTId from '@/components/dashboard/nftManagement/shared/CopyNFTId';
+import { WebAppReducerI } from '@/ducks';
+import assert from 'assert';
 
 interface NFTListProps {
   lists: NFTI[];
@@ -32,6 +34,11 @@ const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
     return { selectedNFTs };
   }, shallowEqual);
 
+  const { account } = useAppSelector((state) => {
+    const { account } = state.webAppReducer as WebAppReducerI;
+    return { account };
+  }, shallowEqual);
+
   const isSelected = (nftId: string) => {
     return (
       selectedNFTs.filter((selectedNFT) => selectedNFT.nftID === nftId).length >
@@ -40,7 +47,9 @@ const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
   };
 
   const handleSelectNft = async (list: NFTI) => {
-    const nft = await getUserNftId(list.nftID);
+    assert(account, "account === null");
+
+    const nft = await getUserNftId(account, list.nftID);
     if (nft && currentTab === 'ALL') {
       return toast('NFT already added to management', { type: 'info' });
     }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // components
 import { Breadcrumb, Guide } from '@/components/shared';
@@ -23,6 +23,9 @@ import { useTheme } from 'next-themes';
 import * as Icons from '@/common/Icons';
 import SideFilter from './SideFilter';
 import { CreateNftManagementI } from '@/types';
+import useNFTManagement, { NFTCountI } from '@/hooks/useNFTManagement';
+import { useAppSelector } from '@/redux/store';
+import { shallowEqual } from 'react-redux';
 
 enum TabNameEnum {
   ALL = 'ALL',
@@ -35,59 +38,89 @@ enum TabNameEnum {
 const tabItems = [
   [
     {
-      label: 'All(5)',
       slug: TabNameEnum.ALL,
       url: '/dashboard/nft-management',
     },
     {
-      label: 'Lists(5)',
       slug: TabNameEnum.LIST,
       url: '/dashboard/nft-management/list',
     },
     {
-      label: 'Collections(2)',
       slug: TabNameEnum.COLLECTION,
       url: '/dashboard/nft-management/collection',
     },
     {
-      label: 'Archives(2)',
       slug: TabNameEnum.ARCHIVE,
       url: '/dashboard/nft-management/archive',
     },
-  ],
-  [
-    {
-      label: 'BANK0x(1)',
-      slug: TabNameEnum.BANK0X,
-      url: '/dashboard/nft-management/bank0x',
-    },
-  ],
+  ]
 ];
 
 interface PropsI {
   tableListSwtich: number;
+  setShowSyncModal?: (flag: boolean) => void;
+  setSearchText?: React.Dispatch<React.SetStateAction<string>>;
   setTableListSwtich: React.Dispatch<React.SetStateAction<number>>;
   setShowCreatListModal?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Header = ({
+  setSearchText,
   setTableListSwtich,
   setShowCreatListModal,
+  setShowSyncModal,
   tableListSwtich,
 }: PropsI) => {
+  const { getUserNftCount } = useNFTManagement();
+
   const { theme } = useTheme();
   const { pathname } = useRouter();
 
   const [showFilterModal, setShowFilterModal] = useState<boolean>(false);
+  const [nftCount, setNftCount] = useState<NFTCountI | null>(null);
+
+  const { account } = useAppSelector((state) => {
+    const { account } = state.webAppReducer;
+    return { account };
+  }, shallowEqual);
 
   const isActive = (url: string) => pathname === url;
 
   const isAll = pathname === tabItems[0][0].url;
   const isList = pathname === tabItems[0][1].url;
+  const isCollection = pathname === tabItems[0][2].url;
   const isArchive = pathname === tabItems[0][3].url;
 
   const isUrlListOrAll = isList || isAll;
   const isUrlArchiveOrAll = isArchive || isAll;
+
+  useEffect(() => {
+    (async () => {
+      const data = await getUserNftCount(account);
+      if (data) {
+        setNftCount(data)
+      }
+    })()
+  }, [account])
+
+  const getLabel = (label: TabNameEnum) => {
+    if (label === TabNameEnum.ALL) {
+      return `All(${nftCount?.all})`;
+    } else if (label === TabNameEnum.ARCHIVE) {
+      return `Archives(${nftCount?.archive})`;
+    } else if (label === TabNameEnum.COLLECTION) {
+      return `Collections(${nftCount?.collection})`;
+    } else {
+      return `Lists(${nftCount?.list})`;
+    }
+  }
+
+  const searchPlaceHolder = () => {
+    if (isList) return "List name"
+    else if (isCollection) return "Collection name"
+    else return "NFT name or id"
+  }
+
 
   return (
     <div className="relative flex px-6 overflow-hidden">
@@ -107,7 +140,7 @@ const Header = ({
                           active={isActive(tab.url)}
                           slug={tab.slug}
                         >
-                          {tab.label}
+                          {getLabel(tab.slug)}
                         </Tab>
                       </Link>
                     ))}
@@ -115,9 +148,14 @@ const Header = ({
                 ))}
               </TabContainer>
 
-              <OutlineButton leftIcon="arrow-down-on-square" color="black">
-                Sync NFTs
-              </OutlineButton>
+              {isAll && (
+                <OutlineButton 
+                  leftIcon="arrow-down-on-square" color="black"
+                  onClick={(e) => setShowSyncModal?.(true)}
+                >
+                  Sync NFTs
+                </OutlineButton>
+              )}
             </div>
 
             <div className="flex space-x-2 items-start w-full">
@@ -137,7 +175,7 @@ const Header = ({
                       />
                     )}
 
-                    <SearchInput placeholder="NFT name or id" />
+                    <SearchInput onChange={(e) => setSearchText?.(e.target.value)} placeholder={searchPlaceHolder()} />
                     <SortSelect />
 
                     {isUrlListOrAll && (

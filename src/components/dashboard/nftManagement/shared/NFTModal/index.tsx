@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import {
   Button,
@@ -25,6 +25,7 @@ import {
   setSelectedNfts,
 } from '@/components/dashboard/ducks';
 import { useRouter } from 'next/router';
+import { WebAppReducerI } from '@/ducks';
 
 interface NFTModalProp {
   onClose: () => void;
@@ -39,18 +40,33 @@ const NFTModal: React.FC<NFTModalProp> = ({
   currentTab,
   showSyncModal,
 }) => {
-  const { push } = useRouter();
   const dispatch = useAppDispatch();
   const { syncNft } = useNFTManagement();
 
+  const [NFTS, setNFTs] = useState<NFTI[]>([]);
+  const [searchText, setSearchText] = useState<string>('');
   const [listName, setListName] = useState<string>('');
   const [selectedCollectionAddress, setSelectedCollectionAddress] =
     useState<string>('');
 
-  const { accountInfo } = useAppSelector((state) => {
-    const { accountInfo } = state.webAppReducer;
-    return { accountInfo };
+  const { account } = useAppSelector((state) => {
+    const { account } = state.webAppReducer as WebAppReducerI;
+    return { account };
   }, shallowEqual);
+
+  useEffect(() => {
+    setNFTs(lists)
+  }, [lists.length])
+
+  useEffect(() => {
+    const handleSearchText = () => {
+      const filterNfts = lists.filter((nft) => (nft.nftID.toLowerCase().includes(searchText.toLowerCase())) ||
+        (nft.metadata.name.toLowerCase().includes(searchText.toLowerCase()))
+      );
+      setNFTs(filterNfts);
+    };
+    handleSearchText()
+  }, [searchText])
 
   const handleSubmitButtonClick = async () => {
     try {
@@ -65,7 +81,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
       dispatch(setCollectionNfts([]));
 
       onClose();
-      push('/dashboard/nft-management');
+      window.location.reload()
     } catch (error) {
       console.log(error);
     }
@@ -83,7 +99,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
         <div className="flex pr-2 items-center bg-black/10 rounded-md">
           <IconButton icon="document" />
           <p className="text-sm text-black/70 dark:text-white">
-            {accountInfo?.accInfo.owner}
+            {account}
           </p>
         </div>
       </ModalHead>
@@ -111,9 +127,9 @@ const NFTModal: React.FC<NFTModalProp> = ({
             </TabGroup>
           </TabContainer>
 
-          <SearchInput placeholder="NFT name or id" />
+          <SearchInput onChange={(e) => setSearchText(e.target.value)} placeholder="NFT name or id" />
 
-          <NFTList lists={lists} currentTab={currentTab} />
+          <NFTList lists={NFTS} currentTab={currentTab} />
 
           <div className="flex justify-end gap-3">
             <OutlineButton

@@ -13,8 +13,6 @@ interface NFTAllProps {
 const AllPage: React.FC<NFTAllProps> = ({ tableListSwtich }): JSX.Element => {
   const dispatch = useAppDispatch();
 
-  // const [NFTs, setNFTs] = useState<CreateNftManagementI[]>(listNfts);
-
   const { managementNFTs } = useAppSelector((state) => {
     const { managementNFTs } =
       state.dashboardPageReducer as DashboardPageReducerI;

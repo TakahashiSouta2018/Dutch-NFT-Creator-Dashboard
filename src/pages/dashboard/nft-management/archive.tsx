@@ -1,25 +1,44 @@
 // components
 import { AppLayout } from '@/components';
+import { setManagementNFTs } from '@/components/dashboard/ducks';
 import ArchivePage from '@/components/dashboard/nftManagement/ArchivePage';
 import Header from '@/components/dashboard/nftManagement/shared/Header';
-import { wrapper } from '@/redux/store';
+import { useAppDispatch, wrapper } from '@/redux/store';
 import NFTManagementService from '@/services/NFTManagement.service';
 import { CreateNftManagementI, UsageStatusEnum } from '@/types';
 
 import { getCookie } from 'cookies-next';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Archive = ({ nfts }: { nfts: CreateNftManagementI[] }) => {
+  const dispatch = useAppDispatch();
+
+  const [searchText, setSearchText] = useState<string>('');
   const [tableListSwtich, setTableListSwtich] = useState<number>(0);
+
+  useEffect(() => {
+    dispatch(setManagementNFTs(nfts));
+  }, [nfts.length]);
+
+  useEffect(() => {
+    const handleSearchText = () => {
+      const filterNfts = nfts.filter((nft) => (nft.nftId.toLowerCase().includes(searchText.toLowerCase())) ||
+        (nft.name.toLowerCase().includes(searchText.toLowerCase()))
+      );
+      dispatch(setManagementNFTs(filterNfts));
+    };
+    handleSearchText()
+  }, [searchText])
 
   return (
     <AppLayout>
       <Header
+        setSearchText={setSearchText}
         tableListSwtich={tableListSwtich}
         setTableListSwtich={setTableListSwtich}
       />
-      <ArchivePage listNfts={nfts} />
+      <ArchivePage />
     </AppLayout>
   );
 };

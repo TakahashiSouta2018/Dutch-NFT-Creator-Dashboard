@@ -19,6 +19,7 @@ import { setIsConnectionModalOpen } from '@/ducks';
 
 import * as DutchC from './styles';
 import MintingModal from '@/components/create/shared/MintingModal';
+import useWalletHook from '@/hooks/useWalletHook';
 
 interface ProfileMenuButtonProps {
   onToggle: () => void;
@@ -85,6 +86,7 @@ export const ProfileMenuButton: React.FC<ProfileMenuButtonProps> = ({
 };
 
 const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
+  const { disconnectAccount } = useWalletHook();
   const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const { isConnected } = useAppSelector((state) => state.webAppReducer);
@@ -105,10 +107,6 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
     dispatch(setMintModalIsOpen(true));
   };
 
-  const handleLogout = () => {
-    dispatch(setIsConnected(false));
-    setIsOpen(false);
-  };
 
   const ref = useDetectClickOutside({ onTriggered: handleClose });
 
@@ -227,7 +225,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
               <IconButton
                 className="w-5 h-5"
                 icon={'arrow-right-on-rectangle'}
-                onClick={handleLogout}
+                onClick={disconnectAccount}
               />
             </DutchC.ProfileMenuFooterItem>
           )}

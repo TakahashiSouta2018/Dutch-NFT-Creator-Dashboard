@@ -1,22 +1,27 @@
-import { toast } from 'react-toastify';
-import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { useAppSelector } from '@/redux/store';
 import NFTManagementService from '@/services/NFTManagement.service';
 import { CreateNftManagementI, UsageStatusEnum, UserListI } from '@/types';
 import { shallowEqual } from 'react-redux';
 import useCollectionHook from './useCollectionHook';
 import {
   DashboardPageReducerI,
-  setCollectionNfts,
-  setSelectedNfts,
 } from '@/components/dashboard/ducks';
+import assert from 'assert';
+import { WebAppReducerI } from '@/ducks';
+
+export interface NFTCountI {
+  all: number;
+  archive: number;
+  collection: number;
+  list: number;
+}
 
 const useNFTManagement = () => {
   const nftManagement = new NFTManagementService();
-  const dispatch = useAppDispatch();
 
-  const { accountInfo, account } = useAppSelector((state) => {
-    const { accountInfo, account } = state.webAppReducer;
-    return { accountInfo, account };
+  const { account } = useAppSelector((state) => {
+    const {account } = state.webAppReducer as WebAppReducerI;
+    return { account };
   }, shallowEqual);
 
   const { selectedNFTs } = useAppSelector((state) => {
@@ -29,6 +34,8 @@ const useNFTManagement = () => {
 
   const syncNft = async (listName: string) => {
     try {
+      assert(account, "account == null");
+
       const nfts: CreateNftManagementI[] = selectedNFTs
         .filter((selectedNFT) => selectedNFT.nftID)
         .map((selectedNFT) => {
@@ -149,6 +156,20 @@ const useNFTManagement = () => {
     }
   };
 
+  const getUserNftCount = async (user: string) => {
+    try {
+      const { response, data } = await nftManagement.getUserNftCount(
+        user,
+      );
+      if (data && data.data) {
+        return data.data.counts as NFTCountI;
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getAllUserNFTAttribute = async (user: string) => {
     try {
       const { response, data } = await nftManagement.getAllUserNFTAttribute(
@@ -163,14 +184,10 @@ const useNFTManagement = () => {
     }
   };
 
-  const getUserNftList = async () => {
-    try {
-      if (!accountInfo) {
-        toast('Account not connected', { type: 'error' });
-        return null;
-      }
+  const getUserNftList = async (user: string) => {
+    try {     
       const { response, data } = await nftManagement.getUserNftList(
-        accountInfo?.accInfo.owner
+        user
       );
       if (data && data.data) {
         return data.data.nfts as UserListI[];
@@ -181,14 +198,11 @@ const useNFTManagement = () => {
     }
   };
 
-  const getUserCollectionList = async () => {
+  const getUserCollectionList = async (user: string) => {
     try {
-      if (!accountInfo) {
-        toast('Account not connected', { type: 'error' });
-        return null;
-      }
+
       const { response, data } = await nftManagement.getUserCollectionList(
-        accountInfo?.accInfo.owner
+        user
       );
       if (data && data.data) {
         return data.data.nfts as UserListI[];
@@ -199,12 +213,10 @@ const useNFTManagement = () => {
     }
   };
 
-  const getUserNftId = async (nftId: string) => {
+  const getUserNftId = async (user: string, nftId: string) => {
     try {
-      if (!accountInfo)
-        return toast('Account not connected', { type: 'error' });
       const { response, data } = await nftManagement.getUserNftId(
-        accountInfo?.accInfo.owner,
+        user,
         nftId
       );
 
@@ -224,6 +236,7 @@ const useNFTManagement = () => {
     getUserNfts,
     getUserNftId,
     getUserNftList,
+    getUserNftCount,
     getUserCollectionList,
     getUserNFTByAttribute,
     getUserNFTByCollection,

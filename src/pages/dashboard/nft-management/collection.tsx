@@ -1,36 +1,42 @@
 // components
 import { AppLayout } from '@/components';
-import { DashboardPageReducerI } from '@/components/dashboard/ducks';
 import CollectionPage from '@/components/dashboard/nftManagement/CollectionPage';
 import Header from '@/components/dashboard/nftManagement/shared/Header';
-import { useAppSelector, wrapper } from '@/redux/store';
+import { wrapper } from '@/redux/store';
 import NFTManagementService from '@/services/NFTManagement.service';
 import { UserListI } from '@/types';
 
 import { getCookie } from 'cookies-next';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import { useState } from 'react';
-import { shallowEqual } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 const Collection = ({ nfts }: { nfts: UserListI[] }) => {
+  const [listNfts, setListNfts] = useState<UserListI[]>([]);
+  const [searchText, setSearchText] = useState<string>('');
   const [tableListSwtich, setTableListSwtich] = useState<number>(0);
 
-  const { collectionNfts } = useAppSelector((state) => {
-    const { collectionNfts } =
-      state.dashboardPageReducer as DashboardPageReducerI;
-    return { collectionNfts };
-  }, shallowEqual);
 
-  console.log({ collectionNfts });
+  useEffect(() => {
+    setListNfts(nfts)
+  }, [nfts.length])
+
+  useEffect(() => {
+    const handleSearchText = () => {
+      const filterNfts = nfts.filter((nft) => (nft.collectionName.toLowerCase().includes(searchText.toLowerCase())));
+      setListNfts(filterNfts);
+    };
+    handleSearchText()
+  }, [searchText])
 
   return (
     <AppLayout>
       <Header
+        setSearchText={setSearchText}
         tableListSwtich={tableListSwtich}
         setTableListSwtich={setTableListSwtich}
       />
 
-      <CollectionPage listNfts={nfts} />
+      <CollectionPage listNfts={listNfts} />
     </AppLayout>
   );
 };

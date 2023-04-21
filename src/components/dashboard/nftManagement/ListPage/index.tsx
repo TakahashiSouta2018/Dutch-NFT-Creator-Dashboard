@@ -20,7 +20,6 @@ const ListPage: React.FC<NFTListProps> = ({
   showSyncModal,
   setShowSyncModal,
 }): JSX.Element => {
-  const [NFTs, setNFTs] = useState<UserListI[]>(listNfts);
 
   const { collectionNfts } = useAppSelector((state) => {
     const { collectionNfts } =
@@ -33,14 +32,14 @@ const ListPage: React.FC<NFTListProps> = ({
   if (tableListSwtich)
     tabContent = (
       <NFTListByTable
-        multiNFTs={NFTs}
+        multiNFTs={listNfts}
         onShowListModal={() => setShowSyncModal(false)}
       />
     );
   else
     tabContent = (
       <NFTListByCard
-        multiNFTs={NFTs}
+        multiNFTs={listNfts}
         onShowListModal={() => setShowSyncModal(false)}
       />
     );
