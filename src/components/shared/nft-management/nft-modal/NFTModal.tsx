@@ -109,9 +109,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
       >
         <DutchC.NFTWalletAddress>
           <IconButton icon="document" />
-          <p className="text-sm text-black/70 dark:text-white">
-            {account}
-          </p>
+          <p className="text-sm text-black/70 dark:text-white">{account}</p>
         </DutchC.NFTWalletAddress>
       </ModalHead>
       <ModalBody>
