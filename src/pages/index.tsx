@@ -1,8 +1,8 @@
-import React from 'react';
-
-// components
-import { DashBoardHome } from '@/components';
+import MobileDashboardPage from '@/components/dashboard/dashboardPage/MobileDashboardPage';
+import DesktopDashboardPage from '@/components/dashboard/dashboardPage/DesktopDashboardPage';
+import { isMobile } from 'react-device-detect';
 
 export default function Dashboard() {
-  return <DashBoardHome />;
+  if (isMobile) return <MobileDashboardPage />;
+  else return <DesktopDashboardPage />;
 }

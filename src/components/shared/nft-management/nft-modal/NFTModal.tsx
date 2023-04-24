@@ -25,6 +25,7 @@ import {
   setSelectedNfts,
 } from '@/components/dashboard/ducks';
 import { useRouter } from 'next/router';
+import { WebAppReducerI } from '@/ducks';
 
 interface NFTModalProp {
   onClose: () => void;
@@ -76,9 +77,9 @@ const NFTModal: React.FC<NFTModalProp> = ({
   const [selectedCollectionAddress, setSelectedCollectionAddress] =
     useState<string>('');
 
-  const { accountInfo } = useAppSelector((state) => {
-    const { accountInfo } = state.webAppReducer;
-    return { accountInfo };
+  const { account } = useAppSelector((state) => {
+    const { account } = state.webAppReducer as WebAppReducerI;
+    return { account };
   }, shallowEqual);
 
   const handleSubmitButtonClick = async () => {
@@ -112,9 +113,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
       >
         <DutchC.NFTWalletAddress>
           <IconButton icon="document" />
-          <p className="text-sm text-black/70 dark:text-white">
-            {accountInfo?.accInfo.owner}
-          </p>
+          <p className="text-sm text-black/70 dark:text-white">{account}</p>
         </DutchC.NFTWalletAddress>
       </ModalHead>
       <ModalBody>
@@ -143,11 +142,9 @@ const NFTModal: React.FC<NFTModalProp> = ({
             }}
           />
           <SearchInput placeholder="NFT name or id" />
-          <NFTList
-            lists={lists}
-            currentTab={currentTab}
-            isSelectedTable={isSelectedTable}
-          />
+
+          <NFTList lists={lists} currentTab={currentTab} />
+
           <DutchC.NFTModalFooterWrapper>
             <OutlineButton
               onClick={(e) => {

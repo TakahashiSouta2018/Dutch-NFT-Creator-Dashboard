@@ -9,23 +9,25 @@ import { useAppDispatch, useAppSelector } from '@/redux/store';
 import DraftNFTService from '@/services/DraftNFTService.service';
 import { DraftNFTI } from '@/types';
 import { shallowEqual } from 'react-redux';
+import { WebAppReducerI } from '@/ducks';
+import assert from 'assert';
 
 const useNFTHook = () => {
   const dispatch = useAppDispatch();
   const draftNFTService = new DraftNFTService();
 
-  const { accountInfo } = useAppSelector((state) => {
-    const { accountInfo } = state.webAppReducer;
-    return { accountInfo };
+  const { account } = useAppSelector((state) => {
+    const { account } = state.webAppReducer as WebAppReducerI;
+    return { account };
   }, shallowEqual);
 
   const createDraftNFT = async (draftNFT: Omit<DraftNFTI, 'owner'>) => {
     try {
-      if (!accountInfo)
-        return toast('Account not connected', { type: 'error' });
+      assert(account, 'account === null');
+
       const { response, data } = await draftNFTService.createDraftNFT({
         ...draftNFT,
-        owner: accountInfo?.accInfo.owner,
+        owner: account,
       });
       if (data && data.data) return data.data;
       else return null;
@@ -36,11 +38,11 @@ const useNFTHook = () => {
 
   const deleteDraftNFT = async (id: number) => {
     try {
-      if (!accountInfo)
-        return toast('Account not connected', { type: 'error' });
+      assert(account, 'account === null');
+
       const { response, data } = await draftNFTService.deleteDraftNFT({
         id,
-        ownerAddress: accountInfo?.accInfo.owner,
+        ownerAddress: account,
       });
       if (data && data.data) return data.data;
       else return null;
@@ -51,16 +53,19 @@ const useNFTHook = () => {
 
   const getCollectionDraftNFT = async (collectionAddress: string) => {
     try {
-      if (!accountInfo)
-        return toast('Account not connected', { type: 'error' });
+      assert(account, 'account === null');
+
       const { response, data } = await draftNFTService.getCollectionDraftNFT(
         collectionAddress,
-        accountInfo?.accInfo.owner
+        account
       );
+
+      console.log({ dfdffd: data });
+
       if (data && data.data) {
         return data.data.nft;
       }
-      return null;
+      return [];
     } catch (error) {
       console.log(error);
     }

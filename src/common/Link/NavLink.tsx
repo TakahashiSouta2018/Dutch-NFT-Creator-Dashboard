@@ -12,7 +12,7 @@ type NavLinkProps = {
 
 const NavLink: React.FC<NavLinkProps> = ({ href, isActive, children }) => {
   return (
-    <DutchC.NavLinkWrapper href={href} active={isActive}>
+    <DutchC.NavLinkWrapper href={href}>
       {children}
       {isActive && <DutchC.NavLinkDecoration />}
     </DutchC.NavLinkWrapper>

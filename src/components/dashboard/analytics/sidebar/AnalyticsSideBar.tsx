@@ -5,10 +5,17 @@ import { Unit } from './unit';
 import { OptionSwitch } from '../option-switch';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
-import { TrackListI, TrackListTypeEnum, setTrackList } from '../../ducks';
+import {
+  DashboardPageReducerI,
+  TrackListI,
+  TrackListTypeEnum,
+  setTrackList,
+} from '../../ducks';
 import { LoopringService } from '@/lib/LoopringService';
 
 import * as DutchC from './styles';
+import useCollectionHook from '@/hooks/useCollectionHook';
+import { WebAppReducerI } from '@/ducks';
 
 const options = [
   {
@@ -30,7 +37,7 @@ const AnalyticsSideBar: React.FC<AnalyticsSideBarProps> = ({
   currentTracking,
   onCurrentTracking,
 }) => {
-  const { isConnected } = useAppSelector((state) => state.webAppReducer);
+  const { getUserCollectionNFTs } = useCollectionHook();
 
   const [trackBy, setTrackBy] = useState({
     id: 0,
@@ -39,24 +46,22 @@ const AnalyticsSideBar: React.FC<AnalyticsSideBarProps> = ({
   const [currentCrypto, setCurrentCrypto] = useState('0');
   const [currentFiat, setCurrentFiat] = useState('0');
 
-  const loopringService = new LoopringService();
   const dispatch = useAppDispatch();
 
-  const { accountInfo, userCollection } = useAppSelector((state) => {
-    const { accountInfo, userCollection } = state.webAppReducer;
-    return { accountInfo, userCollection };
+  const { account, isConnected, userCollection } = useAppSelector((state) => {
+    const { account, isConnected, userCollection } =
+      state.webAppReducer as WebAppReducerI;
+    return { account, isConnected, userCollection };
   }, shallowEqual);
 
   const { trackList } = useAppSelector((state) => {
-    const { trackList } = state.dashboardPageReducer;
+    const { trackList } = state.dashboardPageReducer as DashboardPageReducerI;
     return { trackList };
   }, shallowEqual);
 
   useEffect(() => {
     (async () => {
       try {
-        if (!accountInfo) return;
-
         let list: TrackListI[] = [];
         if (trackBy.id === 0) {
           list = userCollection.map((item: any, i: number) => {
@@ -71,28 +76,26 @@ const AnalyticsSideBar: React.FC<AnalyticsSideBarProps> = ({
             };
           });
         } else {
-          const collectionAddresses = userCollection.map(
-            (item: any) => item.collectionAddress
-          );
-          const nftsInfo = await loopringService.getUserNFTCollection({
-            accountInfo,
-            tokensAddress: collectionAddresses,
-            offset: 0,
-            limit: 50,
-          });
+          const collectionAddresses = userCollection
+            .map((item) => item.collectionAddress)
+            .join(',');
 
-          if (nftsInfo && nftsInfo.nfts && nftsInfo.nfts.length > 0) {
-            list = nftsInfo.nfts.map((item, i) => {
-              const isSelected = i === 0;
-              return {
-                id: item.nftId,
-                type: TrackListTypeEnum.NFT,
-                avatar: item.metadata.image,
-                title: item.metadata.name,
-                content: '',
-                isSelected: isSelected,
-              };
-            });
+          const nftsInfo = await getUserCollectionNFTs(
+            String(account),
+            collectionAddresses
+          );
+
+          console.log({ nftsInfo });
+
+          if (nftsInfo) {
+            list = nftsInfo.map((item, i) => ({
+              id: item.nftID,
+              type: TrackListTypeEnum.NFT,
+              avatar: item.metadata.image,
+              title: item.metadata.name,
+              content: '',
+              isSelected: i === 0,
+            }));
           }
         }
         dispatch(setTrackList(list));
@@ -123,6 +126,8 @@ const AnalyticsSideBar: React.FC<AnalyticsSideBarProps> = ({
     dispatch(setTrackList([]));
     setTrackBy(option);
   };
+
+  console.log({ trackList });
 
   return (
     <DutchC.SideBarWrapper>
@@ -193,18 +198,17 @@ const AnalyticsSideBar: React.FC<AnalyticsSideBarProps> = ({
               }
             />
             <DutchC.TrackListWrapper>
-              {!!trackList &&
-                trackList.map((item: TrackListI, i: number) => (
-                  <Unit
-                    key={i}
-                    id={i}
-                    avatar={item.avatar}
-                    title={item.title}
-                    content={item.content}
-                    isSelected={item.isSelected}
-                    onSelected={handleSelected}
-                  />
-                ))}
+              {trackList.map((item, i) => (
+                <Unit
+                  key={i}
+                  id={i}
+                  avatar={item.avatar}
+                  title={item.title}
+                  content={item.content}
+                  isSelected={item.isSelected}
+                  onSelected={handleSelected}
+                />
+              ))}
             </DutchC.TrackListWrapper>
           </DutchC.TrackWrapper>
           <DutchC.DownloadFullReport>

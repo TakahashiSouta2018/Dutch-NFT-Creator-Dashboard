@@ -22,10 +22,10 @@ import * as DutchC from './styles';
 
 import { Logout } from './alert-modals';
 import { PhotoEdit } from './photo-edit-modal';
-import DepositFundModal from '../create/minting/DepositFundModal';
 
 import { useAppDispatch } from '@/redux/store';
 import { setDepositModalIsOpen } from '../create/ducks';
+import DepositFundModal from '../create/shared/MintingModal/DepositFundModal';
 
 const timeOptions = [
   {

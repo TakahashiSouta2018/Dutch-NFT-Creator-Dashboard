@@ -102,14 +102,12 @@ export interface DraftNFTI {
 }
 
 export interface UserCollectionI {
-  accountInfo: AccountInfoI;
   offset?: number;
   limit?: number;
   tokenAddress?: string;
   isMintable?: boolean;
 }
 export interface CollectionNFTI {
-  accountInfo: AccountInfoI;
   offset: number;
   limit: number;
   tokensAddress: string[];

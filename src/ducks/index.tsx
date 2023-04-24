@@ -1,5 +1,5 @@
 import { RootStateT } from '@/redux/store';
-import { AccountInfoI, CollectionI } from '@/types';
+import { CollectionI } from '@/types';
 import { ConnectorNames } from '@loopring-web/loopring-sdk';
 import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
@@ -11,6 +11,7 @@ export interface WebAppReducerI {
   apiKey: string | null;
   account: string | null;
   chainId: number | null;
+  accountId: number | null;
   connectionError: boolean;
   isConnectionLoading: boolean;
   isConnectionModalOpen: boolean;
@@ -20,6 +21,7 @@ export interface ConnectedAccountI {
   apiKey: string;
   account: string;
   chainId: number;
+  accountId: number;
 }
 
 // Define the initial state using that type
@@ -33,6 +35,7 @@ const initialState: WebAppReducerI = {
   isConnectionLoading: false,
   isConnectionModalOpen: false,
   userCollection: [],
+  accountId: null,
 };
 
 export const webAppReducer: Slice<WebAppReducerI> = createSlice({
@@ -68,12 +71,14 @@ export const webAppReducer: Slice<WebAppReducerI> = createSlice({
       state.chainId = null;
       state.account = null;
       state.apiKey = null;
+      state.accountId = null;
       state.isConnected = false;
     },
     setConnectAccount: (state, action: PayloadAction<ConnectedAccountI>) => {
       state.chainId = action.payload.chainId;
       state.account = action.payload.account;
       state.apiKey = action.payload.apiKey;
+      state.accountId = action.payload.accountId;
       state.isConnected = true;
       state.isConnectionLoading = false;
       state.isConnectionModalOpen = false;

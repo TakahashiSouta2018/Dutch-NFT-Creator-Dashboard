@@ -1,7 +1,8 @@
 import React from 'react';
 
 // components
-import { AppLayout, DashboardSubNav, AnalyticsHome } from '@/components';
+import { AppLayout } from '@/components';
+import AnalyticsHome from '@/components/dashboard/analytics';
 
 export default function Sales() {
   return (

@@ -6,10 +6,8 @@ export default class NFTManagementService extends Service<any> {
     super('/nftManagement');
   }
 
-  public syncNFT(
-    createNftManagement: Omit<CreateNftManagementI, 'id' | 'createdAt'>
-  ) {
-    return this.postRequest(``, { ...createNftManagement });
+  public syncNFT(createNftManagements: CreateNftManagementI[]) {
+    return this.postRequest(``, { data: [...createNftManagements] });
   }
 
   public manageNFT(
@@ -18,12 +16,45 @@ export default class NFTManagementService extends Service<any> {
     return this.postRequest(``, { ...createNftManagement });
   }
 
+  public getUserNFTByAvailablity(
+    ownerAddress: string,
+    min: number,
+    max: number
+  ) {
+    return this.getRequest(
+      `findByAvailablity?ownerAddress=${ownerAddress}&min=${min}&max=${max}`
+    );
+  }
+
+  public getUserNFTByCollection(
+    ownerAddress: string,
+    collectionAddress: string
+  ) {
+    return this.getRequest(
+      `findByCollection?ownerAddress=${ownerAddress}&collectionAddress=${collectionAddress}`
+    );
+  }
+
   public getUserNftId(ownerAddress: string, nftId: string) {
     return this.getRequest(`nft/${ownerAddress}/${nftId}`);
   }
 
+  public getAllUserNFTAttribute(ownerAddress: string) {
+    return this.getRequest(`userNftAttribute/${ownerAddress}`);
+  }
+
+  public getUserNFTByAttribute(ownerAddress: string, attributeValue: string) {
+    return this.getRequest(
+      `findByAttribute?ownerAddress=${ownerAddress}&attributeValue=${attributeValue}`
+    );
+  }
+
   public getUserNftList(ownerAddress: string) {
     return this.getRequest(`list/${ownerAddress}`);
+  }
+
+  public getUserNftCount(ownerAddress: string) {
+    return this.getRequest(`nft-count/${ownerAddress}`);
   }
 
   public getUserCollectionList(ownerAddress: string) {

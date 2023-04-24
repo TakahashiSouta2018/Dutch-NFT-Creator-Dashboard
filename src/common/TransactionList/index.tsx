@@ -5,10 +5,11 @@ import * as DutchC from './styles';
 import { getIpfsHttpUrl } from '@/lib/pinata';
 import { useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
+import { CreatePageReducerI } from '@/components/create/ducks';
 
 const TransactionList: React.FC = () => {
   const { mintingNfts } = useAppSelector((state) => {
-    const { mintModal } = state.createPageReducer;
+    const { mintModal } = state.createPageReducer as CreatePageReducerI;
     return { mintingNfts: mintModal.mintingNfts };
   }, shallowEqual);
 

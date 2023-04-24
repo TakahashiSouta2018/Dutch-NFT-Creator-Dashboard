@@ -56,7 +56,7 @@ export interface NFTCollectionInfo {
   extra: Extra;
 }
 
-export interface NFTI {
+export interface NFTI_Deprecated {
   id: number;
   accountId: number;
   tokenId: number;
@@ -76,10 +76,29 @@ export interface NFTI {
   metadata: NftDataI;
 }
 
+export interface SlotI {
+  balance: string;
+}
+
+export interface NFTI {
+  id: number;
+  amount: number;
+  nftID: string;
+  nftType: string;
+  tokenAddress: string;
+  slots: SlotI[];
+  metadata: NftDataI;
+}
+
+export interface PropertyI {
+  key: any;
+  value: any;
+}
+
 export interface CreateNftManagementI {
-  id: string;
+  id?: string;
   owner: string;
-  accountId: string;
+  accountId?: string;
   name: string;
   description: string;
   collectionName: string;
@@ -87,7 +106,9 @@ export interface CreateNftManagementI {
   amount: string;
   image: string;
   nftId: string;
-  nftData: string;
+  available: string;
+  nftData?: string;
+  properties: PropertyI[];
   listName: string | null;
   createdAt?: Date | string;
 }

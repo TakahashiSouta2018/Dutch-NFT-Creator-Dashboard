@@ -6,7 +6,7 @@ export default function createHeaders(
     'Content-Type': contentType,
     Accept: '*/*',
     'Access-Control-Allow-Headers': '*',
-    ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
+    ...(accessToken && { Authorization: `${accessToken}` }),
   };
 
   return headers;

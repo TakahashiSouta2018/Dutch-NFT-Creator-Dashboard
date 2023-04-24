@@ -23,11 +23,13 @@ import useConnectHelper, {
 } from '../helpers/useConnectHelper';
 import { CHAINS, switchNetwork } from '@/helpers/chain';
 import useCollectionHook from './useCollectionHook';
-import { AccountInfoI, CollectionI } from '@/types';
-import { getCookies, setCookie, deleteCookie } from 'cookies-next';
+import { AccountInfoI } from '@/types';
+import { setCookie } from 'cookies-next';
+import useWalletHook from './useWalletHook';
 
 const useConnectHook = () => {
   const { getUserCollection } = useCollectionHook();
+  const { disconnectAccount, getUserWalletInfo } = useWalletHook();
 
   const loopringService = useMemo(() => new LoopringService(), []);
   const dispatch = useAppDispatch();
@@ -48,6 +50,7 @@ const useConnectHook = () => {
       connectedChainId === configuredChainId
     ) {
       dispatch(setDisconnectAccount(null));
+      disconnectAccount();
     }
 
     if (connectedChainId !== configuredChainId) {
@@ -81,23 +84,33 @@ const useConnectHook = () => {
         apiKey: accountDetails?.apiKey,
         account: connectedAccount,
         chainId: connectedChainId,
+        accountId: accountDetails?.accInfo.accountId,
       })
     );
 
+    const userWalletInfo = await getUserWalletInfo();
+
+    console.log({ userWalletInfo });
+
     setCookie('ACCOUNT', connectedAccount);
     setCookie('APIKEY', accountDetails?.apiKey);
+    setCookie('ACCOUNTID', accountDetails?.accInfo.accountId);
 
-    // await initUserData(accountDetails as AccountInfoI);
+    await initUserData(accountDetails as AccountInfoI);
   };
 
-  // const initUserData = async (accountDetails: AccountInfoI) => {
-  //   // set user collections
-  //   {
-  //     const collectionResponse = await getUserCollection(accountDetails);
-  //     if (collectionResponse && collectionResponse.collections)
-  //       dispatch(setUserCollection(collectionResponse.collections));
-  //   }
-  // };
+  const initUserData = async (accountDetails: AccountInfoI) => {
+    // set user collections
+    {
+      const collections = await getUserCollection(
+        accountDetails.accInfo.owner,
+        accountDetails.apiKey
+      );
+      if (collections) {
+        dispatch(setUserCollection(collections));
+      }
+    }
+  };
 
   useConnectHelper({
     handleAccountDisconnect: () => {
