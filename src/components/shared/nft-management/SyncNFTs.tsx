@@ -9,6 +9,7 @@ interface ShowSyncModalProps {
   setShowSyncModal: (flag: boolean) => void;
   nftList: NFTI[];
   currentTab: TabTypeT;
+  setIsSynced: () => void;
 }
 
 const SyncNFTs: React.FC<ShowSyncModalProps> = ({
@@ -16,6 +17,7 @@ const SyncNFTs: React.FC<ShowSyncModalProps> = ({
   setShowSyncModal,
   nftList,
   currentTab,
+  setIsSynced,
 }) => {
   return (
     <DutchC.NFTSyncWrapper
@@ -29,16 +31,16 @@ const SyncNFTs: React.FC<ShowSyncModalProps> = ({
         <DutchC.TextXL>Sync NFTs</DutchC.TextXL>
         <p>You can sync your collections and NFTs to your DUTCH0x database.</p>
       </DutchC.FlexCol>
-      {
-        <NFTModal
-          onClose={() => {
-            setShowSyncModal(false);
-          }}
-          lists={nftList}
-          currentTab={currentTab}
-          showSyncModal={showSyncModal}
-        />
-      }
+
+      <NFTModal
+        onClose={() => {
+          setShowSyncModal(false);
+        }}
+        lists={nftList}
+        currentTab={currentTab}
+        showSyncModal={showSyncModal}
+        setIsSynced={setIsSynced}
+      />
     </DutchC.NFTSyncWrapper>
   );
 };

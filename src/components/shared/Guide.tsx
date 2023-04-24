@@ -19,7 +19,7 @@ const Guide: React.FC<GuideProps> = ({ open }) => {
         <DutchC.GuideCardContent>
           The hub for managing and interacting with NFTs in your portfolio. You
           can view NFTs, create &apos;lists&apos;, manage
-          &apos;collections&apos; or BANK0x.
+          &apos;collections&apos;
         </DutchC.GuideCardContent>
 
         <DutchC.GuideCardFooter>

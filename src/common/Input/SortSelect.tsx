@@ -1,39 +1,50 @@
 import React from 'react';
 import * as DutchC from './styles';
 
-const sortList = [
+const initialSortList = [
   {
-    name: 'Today',
-    value: 'today',
+    name: 'Newest First',
+    value: 'newest',
   },
   {
-    name: '1 Week',
-    value: 'oneWeek',
-  },
-  {
-    name: '2 Weeks',
-    value: 'twoWeeks',
+    name: 'Oldest First',
+    value: 'oldest',
   },
 ];
 
-const SortSelect: React.FC = () => {
+type SortListType = {
+  name: string;
+  value: string;
+};
+
+interface SortSelectType {
+  placeHolder?: string;
+  title?: string;
+  sortList?: SortListType[];
+}
+
+const SortSelect: React.FC<SortSelectType> = ({
+  placeHolder = 'Sort By:',
+  title = 'Recently Added',
+  sortList = initialSortList,
+}) => {
   return (
     <div>
-      <div className="flex border border-gray-300 rounded-lg px-3 py-2 text-black/70 dark:border-white/10 dark:text-white/70 dark:bg-dark-surface">
+      <div className="flex border border-gray-300 rounded-lg px-3 py-2 text-black/70 dark:border-white/10 dark:text-white/70 dark:bg-dark-surface items-center">
         <div className="w-14 text-sm font-normal dark:text-white/70">
-          Sort By:
+          {placeHolder}
         </div>
 
         <select
           id="states"
-          className="bg-transparent font-medium pr-2 cursor-pointer dark:text-white/70"
+          className="bg-transparent text-sm font-medium pr-2 cursor-pointer dark:text-white/70"
         >
-          <option className="text-black">Recently Added</option>
-          {sortList.map((item) => (
-            <option key={item.name} value={item.value} className="text-black">
-              {item.name}
-            </option>
-          ))}
+          {!!sortList.length &&
+            sortList.map((item) => (
+              <option key={item.name} value={item.value} className="text-black">
+                {item.name}
+              </option>
+            ))}
         </select>
       </div>
     </div>

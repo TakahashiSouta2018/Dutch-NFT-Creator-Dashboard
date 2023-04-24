@@ -81,43 +81,47 @@ const NFTCard: React.FC<NFTCardProps> = ({
           width={230}
           height={230}
           className="aspect-square"
+          onLoad={() => {
+            console.log(true);
+          }}
         />
       )}
       <DutchC.NFTFooter>
         <DutchC.NFTDetail>
           <DutchC.NFTTitleWrapper>
             <DutchC.NFTTitle>{name}</DutchC.NFTTitle>
-            {type === 'bank0x' && (
+            {/* {type === 'bank0x' && (
               <Icons.ICheckBadge variant="solid" color="orange" size="medium" />
-            )}
+            )} */}
           </DutchC.NFTTitleWrapper>
           <DutchC.NFTDescription>{description}</DutchC.NFTDescription>
           <CopyNFTId id={nftId} type="short" />
         </DutchC.NFTDetail>
         {type !== 'collections' && (
           <ShortcutContextMenu position="TR">
-            {(type === 'bank0x' && (
-              <>
-                <ShortcutContextMenuItem
-                  text="Find Holders"
-                  onClick={() => {
-                    console.log('234567890');
-                  }}
-                />
-                <ShortcutContextMenuItem
-                  text="Show Sales"
-                  onClick={() => {
-                    console.log('234567890');
-                  }}
-                />
-                <ShortcutContextMenuItem
-                  text="Move to Achieves"
-                  onClick={() => {
-                    console.log('234567890');
-                  }}
-                />
-              </>
-            )) || (
+            {
+              // (type === 'bank0x' && (
+              //   <>
+              //     <ShortcutContextMenuItem
+              //       text="Find Holders"
+              //       onClick={() => {
+              //         console.log('234567890');
+              //       }}
+              //     />
+              //     <ShortcutContextMenuItem
+              //       text="Show Sales"
+              //       onClick={() => {
+              //         console.log('234567890');
+              //       }}
+              //     />
+              //     <ShortcutContextMenuItem
+              //       text="Move to Achieves"
+              //       onClick={() => {
+              //         console.log('234567890');
+              //       }}
+              //     />
+              //   </>
+              // )) ||
               <>
                 <ShortcutContextMenuItem
                   text="Recover"
@@ -132,7 +136,7 @@ const NFTCard: React.FC<NFTCardProps> = ({
                   }}
                 />
               </>
-            )}
+            }
           </ShortcutContextMenu>
         )}
       </DutchC.NFTFooter>

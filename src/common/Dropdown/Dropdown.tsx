@@ -20,6 +20,8 @@ interface DropdownProps {
   onSelect: (value: string, index: number) => void;
 }
 
+// const mock_options = ['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'];
+
 const Dropdown: React.FC<DropdownProps> = ({
   value = 'Color',
   options = [],

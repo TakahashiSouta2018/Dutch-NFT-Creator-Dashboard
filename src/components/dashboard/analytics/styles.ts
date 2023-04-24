@@ -9,7 +9,7 @@ export const AnalyticsContentWrapper = styled.div.attrs({
 })``;
 
 export const AnalyticsContentMain = styled.div.attrs({
-  className: 'flex-grow flex flex-col gap-6 overflow-hidden',
+  className: 'flex-grow flex flex-col gap-6 overflow-scroll',
 })``;
 
 export const ContentSwitch = styled.div.attrs({

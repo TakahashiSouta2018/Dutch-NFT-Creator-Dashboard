@@ -13,12 +13,15 @@ const NFTAllByCard: React.FC<NFTAllByCardProps> = ({
   return (
     <div className="grid grid-cols-5 gap-3">
       {NFTs.map((nft) => (
-        <NFTCard
-          key={nft.nftId}
-          onSelect={() => onNFTSelect(nft.nftId)}
-          type="all"
-          {...nft}
-        />
+        <div key={nft.nftId} className="w-[230px] h-[230px]">
+          <div className="bg-gray-300 w-full h-full" />
+          <NFTCard
+            key={nft.nftId}
+            onSelect={() => onNFTSelect(nft.nftId)}
+            type="all"
+            {...nft}
+          />
+        </div>
       ))}
     </div>
   );

@@ -24,8 +24,8 @@ import AvatarIcon from '@/assets/avatar.png';
 const menus: Menu[] = [
   {
     name: 'Dashboard',
-    path: '/dashboard',
-    slug: 'dashboard',
+    path: '/',
+    slug: '',
   },
   {
     name: 'Create',
@@ -38,9 +38,9 @@ const menus: Menu[] = [
     slug: 'marketplace',
   },
   {
-    name: 'Learn',
-    path: '/learn',
-    slug: 'learn',
+    name: 'Roadmap',
+    path: '/roadmap',
+    slug: 'roadmap',
   },
 ];
 
@@ -128,7 +128,7 @@ const Header: React.FC = () => {
             <NavLink
               key={menu.slug}
               href={menu.path}
-              active={PAGE_PATH === menu.slug ? true : false}
+              isActive={PAGE_PATH === menu.slug ? true : false}
             >
               {menu.name}
               {menu.slug === 'marketplace' && (

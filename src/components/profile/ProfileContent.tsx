@@ -23,6 +23,10 @@ import * as DutchC from './styles';
 import { Logout } from './alert-modals';
 import { PhotoEdit } from './photo-edit-modal';
 
+import { useAppDispatch } from '@/redux/store';
+import { setDepositModalIsOpen } from '../create/ducks';
+import DepositFundModal from '../create/shared/MintingModal/DepositFundModal';
+
 const timeOptions = [
   {
     key: 'Africa',
@@ -33,6 +37,7 @@ const timeOptions = [
 const ProfileContent: React.FC = () => {
   const [isLogout, setLogout] = useState(false);
   const [isPhotoEdit, setPhotoEdit] = useState(false);
+  const dispatch = useAppDispatch();
 
   return (
     <DutchC.ProfileWrapper>
@@ -151,7 +156,14 @@ const ProfileContent: React.FC = () => {
             </WalletLine>
           </DutchC.WalletFund>
           <DutchC.WalletActions>
-            <Button className="mb-7">Add Funds</Button>
+            <Button
+              className="mb-7"
+              onClick={() => {
+                dispatch(setDepositModalIsOpen(true));
+              }}
+            >
+              Add Funds
+            </Button>
             <OutlineButton
               className="mt-7"
               onClick={() => {
@@ -166,6 +178,7 @@ const ProfileContent: React.FC = () => {
 
       {/* Modals */}
 
+      <DepositFundModal />
       <Logout
         isLogout={isLogout}
         onLogout={() => {

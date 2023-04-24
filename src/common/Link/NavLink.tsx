@@ -4,17 +4,17 @@ import React from 'react';
 import * as DutchC from './styles';
 import type { LinkWrapperProps } from './styles';
 
-type NavLinkProps = LinkWrapperProps & {
+type NavLinkProps = {
   href: string;
   children: React.ReactNode;
-  active: boolean;
+  isActive: boolean;
 };
 
-const NavLink: React.FC<NavLinkProps> = ({ href, active, children }) => {
+const NavLink: React.FC<NavLinkProps> = ({ href, isActive, children }) => {
   return (
-    <DutchC.NavLinkWrapper href={href} active={active}>
+    <DutchC.NavLinkWrapper href={href}>
       {children}
-      {active && <DutchC.NavLinkDecoration />}
+      {isActive && <DutchC.NavLinkDecoration />}
     </DutchC.NavLinkWrapper>
   );
 };

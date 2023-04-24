@@ -15,35 +15,35 @@ import Analytics from '@/assets/lottie-animation/Analytics.json';
 const navItems = [
   {
     name: 'NFT Management',
-    path: '/dashboard/nft-management',
+    path: '/nft-management',
     slug: 'nft-management',
     animationData: NFT,
     bgColor: 'rgba(46, 198, 46, 0.2)',
   },
   {
     name: 'Find Holders',
-    path: '/dashboard/holders',
+    path: '/holders',
     slug: 'holders',
     animationData: FindHolders,
     bgColor: 'rgba(245, 215, 46, 0.2)',
   },
   {
     name: 'Airdrop',
-    path: '/dashboard/airdrop',
+    path: '/airdrop',
     slug: 'airdrop',
     animationData: AirDrop,
     bgColor: 'rgba(46, 196, 218, 0.2)',
   },
   {
     name: 'Trade-in',
-    path: '/dashboard/trade-in',
+    path: '/trade-in',
     slug: 'trade-in',
     animationData: TradeIn,
     bgColor: 'rgba(167, 76, 201, 0.2)',
   },
   {
     name: 'Analytics',
-    path: '/dashboard/analytics',
+    path: '/analytics',
     slug: 'analytics',
     animationData: Analytics,
     bgColor: 'rgba(255, 79, 182, 0.2)',
@@ -53,6 +53,7 @@ const navItems = [
 const Navbar: React.FC = () => {
   const router = useRouter();
 
+  console.error('---', router.asPath.split('/'));
   const PAGE_PATH = router.asPath.split('/')[2] ?? '';
 
   return (
@@ -61,7 +62,7 @@ const Navbar: React.FC = () => {
         <Link
           key={nav.slug}
           href={nav.path}
-          active={PAGE_PATH === nav.slug ? true : false}
+          // active={PAGE_PATH === nav.slug ? true : false}
           size="small"
         >
           <LottieAnimationPlayer

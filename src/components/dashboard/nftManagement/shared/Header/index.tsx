@@ -32,7 +32,6 @@ enum TabNameEnum {
   LIST = 'LIST',
   COLLECTION = 'COLLECTION',
   ARCHIVE = 'ARCHIVE',
-  BANK0X = 'BANK0X',
 }
 
 const tabItems = [
