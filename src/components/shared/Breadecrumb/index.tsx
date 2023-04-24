@@ -23,7 +23,6 @@ const Breadcrumb: React.FC = () => {
     pathArray.shift();
 
     pathArray = pathArray.filter((path) => path !== '');
-
     const breadcrumbs: BreadCrumbItemT[] = pathArray.map((path, index) => {
       const href = '/' + pathArray.slice(0, index + 1).join('/');
       return {

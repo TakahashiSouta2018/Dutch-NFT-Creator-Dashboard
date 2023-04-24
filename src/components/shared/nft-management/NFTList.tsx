@@ -21,9 +21,14 @@ import assert from 'assert';
 interface NFTListProps {
   lists: NFTI[];
   currentTab: TabTypeT;
+  isSelectedTable?: boolean;
 }
 
-const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
+const NFTList: React.FC<NFTListProps> = ({
+  lists,
+  currentTab,
+  isSelectedTable,
+}) => {
   const dispatch = useAppDispatch();
   const { getUserNftId } = useNFTManagement();
   const { getCollectionNameByAddress } = useCollectionHook();
@@ -67,7 +72,7 @@ const NFTList: React.FC<NFTListProps> = ({ lists, currentTab }) => {
           </TD>
           {currentTab !== 'LIST' && <TD>Sr</TD>}
           <TD>Name</TD>
-          {selected && <TD>Collection</TD>}
+          {isSelectedTable && <TD>Collection</TD>}
           <TD>Mint Count</TD>
           {currentTab !== 'LIST' && <TD>Burned</TD>}
           <TD>NFT id</TD>

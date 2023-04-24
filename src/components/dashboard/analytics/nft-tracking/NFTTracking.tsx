@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { OutlineButton } from '@/common';
+import Datepicker from 'react-tailwindcss-datepicker';
+import {
+  DateValueType,
+  PopoverDirectionType,
+} from 'react-tailwindcss-datepicker/dist/types';
+import { OutlineButton, Dropdown } from '@/common';
 import { OptionSwitch } from '../option-switch';
 import { Accordion } from '@/common/Accordion';
 import { AnalyticsTableSelector } from '@/components/dashboard/analytics/analytics-tables';
@@ -201,15 +206,15 @@ const NFTTracking = () => {
     },
   });
 
-  const selectedTrackLists = trackList.filter((item) => item.isSelected);
+  const selectedTrackLists = trackList.filter((item: any) => item.isSelected);
 
   useEffect(() => {
     (async () => {
       let ids: string[] = [];
 
       const collectionIds = selectedTrackLists
-        .filter((item) => item.type === TrackListTypeEnum.COLLECTION)
-        .map((item) => item.id);
+        .filter((item: any) => item.type === TrackListTypeEnum.COLLECTION)
+        .map((item: any) => item.id);
 
       if (collectionIds.length > 0) {
         const nftsInfo = await loopringService.getUserNFTCollection({
@@ -222,7 +227,7 @@ const NFTTracking = () => {
           ids = nftsInfo.nfts.map((nft) => nft.nftID);
         }
       } else {
-        ids = selectedTrackLists.map((item) => item.id);
+        ids = selectedTrackLists.map((item: any) => item.id);
       }
       getData();
       setNftIds(ids);
@@ -231,16 +236,22 @@ const NFTTracking = () => {
 
   const mockAreaData = SwitchTransOptions(currentTransOption.slug);
 
+  const [customDateRange, setCustomDateRange] = useState<DateValueType>({
+    startDate: new Date(),
+    endDate: new Date(),
+  });
+
+  const handleValueChange = (newValue: DateValueType) => {
+    console.log('newValue:', newValue);
+    setCustomDateRange(newValue);
+  };
+
   return (
     <div className="nft-tracking">
       <DutchC.ContentSwitch>
         <DutchC.ContentSwitchInner>
           <DutchC.TransactionSwitchWrapper>
-            <div
-              className={`bg-black/5 dark:bg-white/5 ${
-                false ? 'visible' : 'invisible'
-              }`}
-            >
+            <div className="bg-black/5 dark:bg-white/5">
               {transOptions.map((option, i) => (
                 <OptionSwitch
                   key={i}
@@ -266,7 +277,17 @@ const NFTTracking = () => {
                 />
               ))}
             </div>
-            <Accordion>Custom</Accordion>
+            <Accordion label="Custom">
+              <Datepicker
+                inputClassName="button bg-white w-[150px] lg:w-[250px]"
+                toggleClassName="hidden"
+                containerClassName="w-fit"
+                value={customDateRange}
+                onChange={handleValueChange}
+                showShortcuts={true}
+                showFooter={true}
+              />
+            </Accordion>
           </DutchC.DaySwitchWrapper>
         </DutchC.ContentSwitchInner>
         <DutchC.ContentIdkHead>

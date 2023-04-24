@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
 import useNFTHook from '@/hooks/useNFTHook';
 import {
+  setDepositModalIsOpen,
   setDraftNFTs,
   setMintModalIsOpen,
   setSelectedDraftNFTs,
@@ -36,7 +37,10 @@ const MintModalHead: React.FC<MintModalHeadProps> = ({
           ? 'Approve Wallet Signature'
           : 'Minting'
       }
-      onClose={() => dispatch(setMintModalIsOpen(false))}
+      onClose={() => {
+        dispatch(setMintModalIsOpen(false));
+        dispatch(setDepositModalIsOpen(false));
+      }}
       onBack={() => onMintModalClose(selectedDraftNFTs[0].collection)}
     />
   );

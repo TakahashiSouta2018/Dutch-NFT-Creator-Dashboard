@@ -1,5 +1,5 @@
 import { Table, THead, TBody, TR, TD } from '@/common';
-import { CreateNftManagementI, NFTI } from '@/types';
+import { CreateNftManagementI } from '@/types';
 import { IconButton } from '@/common';
 
 import * as Icons from '@/common';

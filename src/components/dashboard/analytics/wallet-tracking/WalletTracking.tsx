@@ -1,17 +1,24 @@
 import React, { useState } from 'react';
+import Datepicker from 'react-tailwindcss-datepicker';
+import { DateValueType } from 'react-tailwindcss-datepicker/dist/types';
 
 import * as DutchC from './styles';
 import { Table, THead, TBody, TR, TD } from '@/common';
 import { OptionSwitch } from '../option-switch';
 import { Accordion } from '@/common/Accordion';
 import { AnalyticsCard } from '../analytics-card';
-import { AnalyticsPieChart } from '../charts';
+import {
+  AnalyticsComposedChart,
+  AnalyticsPieChart,
+  GasFeeAnalyticsChart,
+} from '../charts';
 import {
   AnalyticsTableControl,
   AnalyticsTableLayout,
 } from '../analytics-tables';
 import { LRCIconSelector } from '../analytics-tables/lrc-icon-selector';
 import { WalletTrackingTransactionView } from './WalletTrackingTransactionView';
+import { TotalGasCard } from '../total-gas-card';
 
 const dayOptions = [
   {
@@ -36,7 +43,16 @@ const dayOptions = [
   },
 ];
 
-const mockDataHolding = [
+interface DataType {
+  token: string;
+  lrcId: string;
+  symbol: string;
+  quantity: number;
+  price: number;
+  value: number;
+}
+
+const mockDataHolding: DataType[] = [
   {
     token: 'Ether',
     lrcId: 'eth',
@@ -68,6 +84,16 @@ const WalletTracking = () => {
     id: 4,
     slug: 'All',
   });
+  const [customDateRange, setCustomDateRange] = useState<DateValueType>({
+    startDate: new Date(),
+    endDate: new Date(),
+  });
+
+  const handleValueChange = (newValue: DateValueType) => {
+    console.log('newValue:', newValue);
+    setCustomDateRange(newValue);
+  };
+
   return (
     <DutchC.WalletTrackingWrapper>
       <DutchC.WalletTrackingContainer>
@@ -87,7 +113,15 @@ const WalletTracking = () => {
                   />
                 ))}
               </div>
-              <Accordion>Custom</Accordion>
+              <Accordion label="Custom">
+                <Datepicker
+                  inputClassName="button bg-white w-3/4"
+                  value={customDateRange}
+                  onChange={handleValueChange}
+                  showShortcuts={true}
+                  showFooter={true}
+                />
+              </Accordion>
             </DutchC.DaySwitchWrapper>
             <p className="text-xs text-black/70 dark:text-white/70">
               The tracking shown is according to the timeline selected.
@@ -131,10 +165,19 @@ const WalletTracking = () => {
             />
           </DutchC.ContentOverviewCards>
         </DutchC.WalletTrackingUnitWrapper>
-        <DutchC.WalletTrackingUnitWrapper></DutchC.WalletTrackingUnitWrapper>
+        <DutchC.WalletTrackingUnitWrapper>
+          <div className="flex gap-2 items-center">
+            <p className="font-bold text-sm dark:white">Profit & Loss Trends</p>
+            <p className="text-xs dark:white">Apr 1, 2022 - Mar 31 2023</p>
+          </div>
+          <AnalyticsComposedChart
+            composedChartData={[]}
+            dayOption={currentDayOption.slug}
+          />
+        </DutchC.WalletTrackingUnitWrapper>
       </DutchC.WalletTrackingContainer>
       <DutchC.WalletTrackingHoldings>
-        <DutchC.WalletTrackingUnitWrapper>
+        <DutchC.WalletTrackingUnitWrapper className="flex-grow">
           <p className="font-bold dark:text-white">Holdings</p>
           <AnalyticsTableLayout>
             <AnalyticsTableControl
@@ -145,13 +188,13 @@ const WalletTracking = () => {
               searchInputPlaceholder="Token"
               isPaginatiable
             />
-            <div className="relative">
-              {!mockDataHolding && (
+            <div className="relative w-full">
+              {!mockDataHolding.length && (
                 <div className="absolute left-1/2 -translate-x-1/2 bottom-0 dark:text-white">
                   No data available
                 </div>
               )}
-              <Table className="dark:text-white text-black border rounded-xl table-fixed">
+              <Table className="dark:text-white text-black border rounded-xl table-fixed min-h-[100px]">
                 <THead className="!text-black/100 dark:!text-white/100 bg-black/10 dark:bg-white/10">
                   <TR>
                     <TD>Token</TD>
@@ -162,7 +205,7 @@ const WalletTracking = () => {
                   </TR>
                 </THead>
                 <TBody className="text-sm">
-                  {mockDataHolding?.map((item, index) => (
+                  {mockDataHolding?.map((item: DataType, index: number) => (
                     <TR key={index}>
                       <TD className="flex gap-2 items-center">
                         <LRCIconSelector id={item.lrcId} />
@@ -181,20 +224,19 @@ const WalletTracking = () => {
         </DutchC.WalletTrackingUnitWrapper>
         <DutchC.WalletTrackingUnitWrapper>
           <p className="font-bold dark:text-white">Currency Holdings by %</p>
-          <AnalyticsPieChart
-            data={[
-              { name: 'ETH', value: 1000 },
-              { name: 'LRC', value: 300 },
-              { name: 'USD', value: 500 },
-            ]}
-            totalTransaction={1800}
-          />
+          <AnalyticsPieChart data={undefined} totalTransaction={1800} />
         </DutchC.WalletTrackingUnitWrapper>
       </DutchC.WalletTrackingHoldings>
       <DutchC.WalletTrackingContainer>
         <WalletTrackingTransactionView />
       </DutchC.WalletTrackingContainer>
-      <DutchC.WalletTrackingContainer></DutchC.WalletTrackingContainer>
+      <DutchC.WalletTrackingContainer>
+        <div className="font-bold dark:white">Gas Fee Analytics</div>
+        <DutchC.GasFeeChartWrapper>
+          <TotalGasCard />
+          <GasFeeAnalyticsChart />
+        </DutchC.GasFeeChartWrapper>
+      </DutchC.WalletTrackingContainer>
     </DutchC.WalletTrackingWrapper>
   );
 };

@@ -5,6 +5,7 @@ import { HYDRATE } from 'next-redux-wrapper';
 
 const initialMintModalState = {
   isOpen: false,
+  isDepositOpen: false,
   activeStep: 0,
   mintingNfts: [],
 };
@@ -16,6 +17,7 @@ export interface UpdateMintNftStatusI {
 
 export interface MintModalI {
   isOpen: boolean;
+  isDepositOpen: boolean;
   activeStep: number;
   mintingNfts: MintingNftsI[];
 }
@@ -57,6 +59,9 @@ export const createPageReducer: Slice<CreatePageReducerI> = createSlice({
     setMintModalIsOpen: (state, action: PayloadAction<boolean>) => {
       state.mintModal.isOpen = action.payload;
     },
+    setDepositModalIsOpen: (state, action: PayloadAction<boolean>) => {
+      state.mintModal.isDepositOpen = action.payload;
+    },
     setMintingNfts: (state, action: PayloadAction<MintingNftsI[]>) => {
       state.mintModal.mintingNfts = action.payload;
     },
@@ -87,6 +92,7 @@ export const {
   setDraftNFTs,
   setMintModalActiveStep,
   setMintModalIsOpen,
+  setDepositModalIsOpen,
   setMintingNfts,
   updateMintNftStatus,
   setSelectedDraftNFTs,

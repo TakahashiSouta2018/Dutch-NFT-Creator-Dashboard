@@ -17,6 +17,7 @@ import {
   setMintModalIsOpen,
 } from '@/components/create/ducks';
 import { WebAppReducerI } from '@/ducks';
+import { DraftNFTI } from '@/types';
 
 interface ContentMintFeePropsI {
   isDepositFund: boolean;
@@ -62,7 +63,7 @@ const ContentMintFee: React.FC<ContentMintFeePropsI> = ({
   useEffect(() => {
     (async () => {
       const feeList = await Promise.all(
-        selectedDraftNFTs.map(async (nft) => {
+        selectedDraftNFTs.map(async (nft: DraftNFTI) => {
           const collectionMeta = await loopringService.getCollectionMeta(
             nft.collection
           );

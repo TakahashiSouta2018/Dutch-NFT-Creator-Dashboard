@@ -5,12 +5,11 @@ import { useDetectClickOutside } from 'react-detect-click-outside';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import {
   setDraftNFTs,
-  setMintModalIsOpen,
   setSelectedDraftNFTs,
+  setDepositModalIsOpen,
 } from '@/components/create/ducks';
 import { setIsConnected } from '@/ducks';
 import useNFTHook from '@/hooks/useNFTHook';
-
 import * as Icons from '@/common/Icons';
 import { Button, IconButton } from '@/common';
 
@@ -20,6 +19,7 @@ import { setIsConnectionModalOpen } from '@/ducks';
 import * as DutchC from './styles';
 import MintingModal from '@/components/create/shared/MintingModal';
 import useWalletHook from '@/hooks/useWalletHook';
+import DepositFundModal from '@/components/create/shared/MintingModal/DepositFundModal';
 
 interface ProfileMenuButtonProps {
   onToggle: () => void;
@@ -49,7 +49,6 @@ export const ProfileMenuButton: React.FC<ProfileMenuButtonProps> = ({
   theme = 'light',
 }) => {
   const { isConnected } = useAppSelector((state) => state.webAppReducer);
-  const dispatch = useAppDispatch();
 
   if (isConnected)
     return (
@@ -103,15 +102,14 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   }, [setTheme, theme]);
 
-  const handleMintAll = () => {
-    dispatch(setMintModalIsOpen(true));
+  const handleDepositModal = () => {
+    dispatch(setDepositModalIsOpen(true));
   };
 
   const ref = useDetectClickOutside({ onTriggered: handleClose });
 
   return (
     <DutchC.ProfileMenuWrapper ref={ref}>
-      <MintingModal className="!max-w-xl" />
       <ProfileMenuButton
         onToggle={() => {
           setIsOpen(!isOpen);
@@ -123,8 +121,8 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
       />
       <DutchC.ProfileMenu isOpen={isOpen}>
         {isConnected ? (
-          <div>
-            <DutchC.ProfileMenuHeaderWrapper>
+          <div className="flex flex-col gap-y-3">
+            <DutchC.ProfileMenuHeaderWrapper href="/profile">
               <DutchC.ProfileMenuHeaderContent>
                 <Image
                   src={props.avatar}
@@ -188,7 +186,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
                 className="w-full"
                 onClick={() => {
                   setIsOpen(false);
-                  handleMintAll();
+                  handleDepositModal();
                 }}
               >
                 Add Funds
@@ -230,6 +228,8 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
           )}
         </DutchC.ProfileMenuFooterWrapper>
       </DutchC.ProfileMenu>
+
+      <DepositFundModal />
     </DutchC.ProfileMenuWrapper>
   );
 };

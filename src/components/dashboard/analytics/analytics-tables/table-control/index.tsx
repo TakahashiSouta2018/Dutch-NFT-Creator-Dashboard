@@ -101,11 +101,6 @@ const TableControl: React.FC<TableControlProps> = (p: TableControlProps) => {
     slug: 'Collections',
   });
 
-  console.log(selectTrackingValue);
-  console.log(selectRanking);
-  console.log(searchInputValue);
-  console.log(switchOption);
-
   return (
     <>
       <DutchC.TransactionTableControlWrapper>

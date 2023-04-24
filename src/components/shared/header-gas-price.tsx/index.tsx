@@ -31,7 +31,7 @@ export const GasInfoButton: React.FC<GasInfoButtonProps> = ({
         <Icons.ICustomGas
           currentColor={theme === 'light' ? 'black' : 'white'}
         />
-        <span className="truncate w-[94px] font-bold">${price} USD</span>
+        <span className="font-bold">${price} USD</span>
       </div>
     </DutchC.GasInfoButtonWrapper>
   );

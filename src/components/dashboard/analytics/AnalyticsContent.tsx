@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AnalyticsSideBar } from './sidebar';
-import { WalletTracking } from './wallet-tracking';
 import { NFTTracking } from './nft-tracking';
+import { WalletTracking } from './wallet-tracking';
 import * as DutchC from './styles';
 
 const AnalyticsContent = () => {
@@ -10,6 +10,7 @@ const AnalyticsContent = () => {
   return (
     <DutchC.AnalyticsContentWrapper>
       <AnalyticsSideBar
+        currentTracking={currentTracking}
         onCurrentTracking={(currentValue: string) => {
           setCurrentTracking(Number(currentValue));
         }}

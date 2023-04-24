@@ -146,7 +146,7 @@ export interface MintingNftsI {
   status: MintStatusEnum;
 }
 
-export type TabTypeT = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE' | 'BANK0X';
+export type TabTypeT = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE';
 
 export interface UserListI {
   listName: string;
