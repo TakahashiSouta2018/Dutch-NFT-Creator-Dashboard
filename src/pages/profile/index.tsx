@@ -5,7 +5,7 @@ import ProfileHome from '@/components/profile';
 const Profile: NextPage = (): JSX.Element => {
   return (
     <AppLayout>
-      <ProfileHome />
+      <ProfileHome />;
     </AppLayout>
   );
 };

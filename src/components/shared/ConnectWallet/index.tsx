@@ -9,7 +9,8 @@ import ConnectionError from './ConnectionError';
 import * as DutchC from './style';
 import { shallowEqual } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
-import { setIsConnectionModalOpen } from '@/ducks';
+import { setIsConnectionLoading, setIsConnectionModalOpen } from '@/ducks';
+import { setConnectionError } from '@/ducks';
 
 const LoginOptions = [
   {
@@ -39,6 +40,8 @@ const ConnectWallet = (): JSX.Element => {
 
   const closeConnectionModal = () => {
     dispatch(setIsConnectionModalOpen(false));
+    dispatch(setConnectionError(false));
+    dispatch(setIsConnectionLoading(false));
   };
 
   let renderContent = <></>;
@@ -62,7 +65,12 @@ const ConnectWallet = (): JSX.Element => {
                 </button>
                 <DutchC.TextNormal>{option.name}</DutchC.TextNormal>
               </DutchC.Account>
-              <Button onClick={() => connectAccount(option.name)}>
+              <Button
+                onClick={() => {
+                  dispatch(setIsConnectionLoading(true));
+                  connectAccount(option.name);
+                }}
+              >
                 Connect
               </Button>
             </DutchC.AccountWrapper>

@@ -6,6 +6,7 @@ import { getIpfsHttpUrl } from '@/lib/pinata';
 import { useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
 import { CreatePageReducerI } from '@/components/create/ducks';
+import { DynamicLoader } from '../Loader';
 
 const TransactionList: React.FC = () => {
   const { mintingNfts } = useAppSelector((state) => {
@@ -15,7 +16,7 @@ const TransactionList: React.FC = () => {
 
   return (
     <DutchC.TransListWrapper>
-      {mintingNfts.map((action: any, index: number) => (
+      {mintingNfts.map((action, index) => (
         <DutchC.ListElementWrapper key={index}>
           <DutchC.ActionInfoWrapper>
             <DutchC.ActionInfoNo>{action.id}</DutchC.ActionInfoNo>
@@ -31,7 +32,12 @@ const TransactionList: React.FC = () => {
             <DutchC.StatusQueued>Queued</DutchC.StatusQueued>
           )}
           {action.status === MintStatusEnum.MINTING && (
-            <DutchC.StatusMinting>Minting</DutchC.StatusMinting>
+            <DutchC.StatusMinting>
+              <DynamicLoader width={16} color="#FF4800" />
+              <p className="text-sm font-bold text-primary-orange relative">
+                Minting
+              </p>
+            </DutchC.StatusMinting>
           )}
           {action.status === MintStatusEnum.SUCCESS && (
             <DutchC.StatusSuccess>Success</DutchC.StatusSuccess>

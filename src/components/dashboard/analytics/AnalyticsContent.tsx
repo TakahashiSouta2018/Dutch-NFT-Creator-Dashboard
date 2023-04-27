@@ -5,7 +5,7 @@ import { WalletTracking } from './wallet-tracking';
 import * as DutchC from './styles';
 
 const AnalyticsContent = () => {
-  const [currentTracking, setCurrentTracking] = useState(1);
+  const [currentTracking, setCurrentTracking] = useState(0);
 
   return (
     <DutchC.AnalyticsContentWrapper>
@@ -16,7 +16,7 @@ const AnalyticsContent = () => {
         }}
       />
       <DutchC.AnalyticsContentMain>
-        {currentTracking === 0 ? <WalletTracking /> : <NFTTracking />}
+        {currentTracking ? <WalletTracking /> : <NFTTracking />}
       </DutchC.AnalyticsContentMain>
     </DutchC.AnalyticsContentWrapper>
   );

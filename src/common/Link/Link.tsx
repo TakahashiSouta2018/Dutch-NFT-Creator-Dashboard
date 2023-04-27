@@ -2,12 +2,11 @@ import React from 'react';
 
 // components
 import * as DutchC from './styles';
-import type { LinkWrapperProps } from './styles';
 
 // types
 import { LinkSizes } from '@/types';
 
-type LinkProps = LinkWrapperProps & {
+type LinkProps = {
   href: string;
   children: React.ReactNode;
   size?: LinkSizes;

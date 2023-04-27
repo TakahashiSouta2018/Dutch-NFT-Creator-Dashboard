@@ -15,7 +15,7 @@ import {
 import { IconButton } from '@/common';
 import * as DutchC from './styles';
 import NFTList from '../NFTList';
-import { NFTI, TabTypeT } from '@/types';
+import { NFTI, NFTI_Deprecated, TabTypeT } from '@/types';
 import CollectionDropdown from '@/common/Dropdown/CollectionDropdown';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
@@ -25,11 +25,10 @@ import {
   setSelectedNfts,
 } from '@/components/dashboard/ducks';
 import { useRouter } from 'next/router';
-import { WebAppReducerI } from '@/ducks';
 
 interface NFTModalProp {
   onClose: () => void;
-  lists: NFTI[];
+  lists: NFTI_Deprecated[];
   currentTab: TabTypeT;
   showSyncModal: boolean;
   setIsSynced?: () => void;
@@ -77,9 +76,9 @@ const NFTModal: React.FC<NFTModalProp> = ({
   const [selectedCollectionAddress, setSelectedCollectionAddress] =
     useState<string>('');
 
-  const { account } = useAppSelector((state) => {
-    const { account } = state.webAppReducer as WebAppReducerI;
-    return { account };
+  const { accountInfo } = useAppSelector((state) => {
+    const { accountInfo } = state.webAppReducer;
+    return { accountInfo };
   }, shallowEqual);
 
   const handleSubmitButtonClick = async () => {
@@ -113,7 +112,9 @@ const NFTModal: React.FC<NFTModalProp> = ({
       >
         <DutchC.NFTWalletAddress>
           <IconButton icon="document" />
-          <p className="text-sm text-black/70 dark:text-white">{account}</p>
+          <p className="text-sm text-black/70 dark:text-white">
+            {accountInfo?.accInfo.owner}
+          </p>
         </DutchC.NFTWalletAddress>
       </ModalHead>
       <ModalBody>
@@ -125,7 +126,7 @@ const NFTModal: React.FC<NFTModalProp> = ({
                 <TextInput onChange={(e) => setListName(e.target.value)} />
               </div>
             )}
-            <div className="w-1/2 z-10">
+            <div className="w-1/2">
               <CollectionDropdown
                 selectedCollectionAddress={selectedCollectionAddress}
                 setSelectedCollectionAddress={setSelectedCollectionAddress}
@@ -142,9 +143,11 @@ const NFTModal: React.FC<NFTModalProp> = ({
             }}
           />
           <SearchInput placeholder="NFT name or id" />
-
-          <NFTList lists={lists} currentTab={currentTab} />
-
+          <NFTList
+            lists={lists}
+            currentTab={currentTab}
+            isSelectedTable={isSelectedTable}
+          />
           <DutchC.NFTModalFooterWrapper>
             <OutlineButton
               onClick={(e) => {

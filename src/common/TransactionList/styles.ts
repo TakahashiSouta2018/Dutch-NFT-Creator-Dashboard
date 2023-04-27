@@ -26,7 +26,7 @@ export const StatusQueued = styled.div.attrs({
 })``;
 
 export const StatusMinting = styled.div.attrs({
-  className: 'text-sm font-bold text-primary-orange relative',
+  className: 'flex items-center gap-1',
 })``;
 
 export const StatusSuccess = styled.div.attrs({

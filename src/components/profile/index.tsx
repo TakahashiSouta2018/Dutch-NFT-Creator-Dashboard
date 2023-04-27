@@ -1,6 +1,7 @@
 import React from 'react';
 import { Breadcrumb } from '../shared';
 import ProfileContent from './ProfileContent';
+import { Stepper } from '@/common';
 
 const ProfileHome: React.FC = (): JSX.Element => {
   return (

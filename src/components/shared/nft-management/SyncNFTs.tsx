@@ -2,12 +2,12 @@ import React from 'react';
 import * as Icons from '@/common';
 import * as DutchC from './styles';
 import { NFTModal } from './nft-modal';
-import { NFTI, TabTypeT } from '@/types';
+import { NFTI, TabTypeT, NFTI_Deprecated } from '@/types';
 
 interface ShowSyncModalProps {
   showSyncModal: boolean;
   setShowSyncModal: (flag: boolean) => void;
-  nftList: NFTI[];
+  nftList: NFTI_Deprecated[];
   currentTab: TabTypeT;
   setIsSynced: () => void;
 }

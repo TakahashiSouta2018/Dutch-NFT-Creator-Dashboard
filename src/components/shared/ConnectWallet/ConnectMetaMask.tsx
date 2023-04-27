@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as DutchC from './style';
-import LoadingIcon from '@/assets/loading.png';
-import Image from 'next/image';
+import { DynamicLoader } from '@/common/Loader';
 
 const ConnectMetaMask: React.FC = () => {
   return (
     <DutchC.ConnectMetaMaskWrapper>
-      <Image src={LoadingIcon} alt="connect..." />
+      <DynamicLoader />
       <DutchC.TextNormal>Connect Wallet with MetaMask...</DutchC.TextNormal>
     </DutchC.ConnectMetaMaskWrapper>
   );

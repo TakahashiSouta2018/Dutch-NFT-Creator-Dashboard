@@ -33,7 +33,7 @@ export const TabGroupWrapper = styled.div.attrs({
 // --- Tab
 export const TabWrapper = styled.div.attrs({
   className:
-    'inline-flex items-center justify-center h-10 rounded-lg px-6 whitespace-nowrap cursor-pointer transition text-black hover:bg-black/10 dark:text-white hover:bg-black/10',
+    'inline-flex items-center justify-center h-10 rounded-lg px-6 whitespace-nowrap cursor-pointer transition text-black hover:bg-black/10 dark:text-white hover:bg-white/10',
 })`
   ${(p: TabWrapperProps) =>
     p.active

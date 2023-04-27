@@ -21,6 +21,7 @@ interface MediaUploadProps {
   imageUrl: string;
   setImageUrl: (value: string) => void;
   profile?: boolean;
+  maxSize?: number;
 }
 
 const aspects = {
@@ -50,6 +51,7 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
   imageUrl,
   setImageUrl,
   profile,
+  maxSize,
 }) => {
   const { theme } = useTheme();
   const hiddenFileInput = useRef<HTMLInputElement>(null);
@@ -66,6 +68,14 @@ const MediaUpload: React.FC<MediaUploadProps> = ({
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target && e.target.files && e.target.files[0]) {
       const { size, type, name } = e.target.files[0];
+      const fileSize = Math.round(size / 1024);
+
+      if (maxSize && fileSize > maxSize) {
+        return toast.error(
+          `File size is greater than the ${maxSize / 1024} mb`
+        );
+      }
+
       if (!type.toLowerCase().match(/image\/(jpg|jpeg|png|gif)$/)) {
         toast('Selected file image must be jpg, jpeg, png or gif image only', {
           type: 'error',

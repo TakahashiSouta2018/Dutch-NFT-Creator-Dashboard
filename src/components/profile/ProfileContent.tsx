@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import AvatarIcon from '@/assets/avatar.png';
 import ProfileCardTemplate from '../shared/profile/ProfileCardTemplate';
@@ -7,7 +7,6 @@ import { Button, OutlineButton, TextInput } from '@/common';
 import { InputLabel } from '@/common/Input/styles';
 import CheckIcon from '@/assets/check.png';
 import ProfileSocialIcon from '../shared/profile/ProfileSocialIcon';
-import Select from '@/common/Input/Select';
 
 import DiscordIcon from '@/assets/social_discord.png';
 import RedditIcon from '@/assets/social_reddit.png';
@@ -22,21 +21,22 @@ import * as DutchC from './styles';
 
 import { Logout } from './alert-modals';
 import { PhotoEdit } from './photo-edit-modal';
+import DepositFundModal from '../create/minting/DepositFundModal';
 
 import { useAppDispatch } from '@/redux/store';
 import { setDepositModalIsOpen } from '../create/ducks';
-import DepositFundModal from '../create/shared/MintingModal/DepositFundModal';
+import ContentMinting from '../create/minting/mint-modal-body/minting-content/ContentMinting';
 
-const timeOptions = [
-  {
-    key: 'Africa',
-    value: '(GMT +01.00) Africa/Algiers',
-  },
-];
+import moment from 'moment-timezone';
 
 const ProfileContent: React.FC = () => {
   const [isLogout, setLogout] = useState(false);
   const [isPhotoEdit, setPhotoEdit] = useState(false);
+  const [timezone, setTimezone] = useState('');
+
+  const tzOptions = moment.tz.names();
+  console.log(tzOptions);
+
   const dispatch = useAppDispatch();
 
   return (
@@ -70,7 +70,6 @@ const ProfileContent: React.FC = () => {
               </DutchC.ProfileSettingInnerLine>
               <DutchC.ProfileSettingInnerLine>
                 <InputLabel>Timezone</InputLabel>
-                <Select options={timeOptions} />
               </DutchC.ProfileSettingInnerLine>
             </DutchC.ProfileSettingInner>
           </DutchC.ProfileSettingWrapper>

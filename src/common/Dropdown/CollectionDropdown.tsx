@@ -16,6 +16,8 @@ interface CollectionDropdownI {
   setSelectedCollectionAddress: React.Dispatch<React.SetStateAction<string>>;
 }
 
+const mockAddresses = ['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'];
+
 const CollectionDropdown: React.FC<CollectionDropdownI> = ({
   selectedCollectionAddress,
   setSelectedCollectionAddress,
@@ -66,7 +68,7 @@ const CollectionDropdown: React.FC<CollectionDropdownI> = ({
     <Dropdown
       label="Collection"
       value={selectedCollectionName}
-      options={collectionNames}
+      options={mockAddresses}
       position="BL"
       onSelect={handleSelectCollection}
     />

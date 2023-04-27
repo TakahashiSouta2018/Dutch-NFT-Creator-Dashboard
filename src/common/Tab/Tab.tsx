@@ -4,7 +4,7 @@ import { useTheme } from 'next-themes';
 // component
 import * as DutchC from './styles';
 
-type WIDEFILTER = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE';
+type WIDEFILTER = 'ALL' | 'LIST' | 'COLLECTION' | 'ARCHIVE' | 'BANK0X';
 type PROFILE_EDIT = 'FROMNFT' | 'UPLOADNEW';
 
 interface TabProps {

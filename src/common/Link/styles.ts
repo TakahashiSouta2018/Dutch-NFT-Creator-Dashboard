@@ -3,9 +3,6 @@ import Link from 'next/link';
 import { LinkSizes } from '@/types';
 
 // types
-export type LinkWrapperProps = {
-  size?: LinkSizes;
-};
 
 // components
 // --- Nav Link
@@ -19,7 +16,7 @@ export const LinkWrapper = styled(Link).attrs({
   className:
     'relative text-black/70 hover:text-black dark:text-white/70 dark:hover:text-white transition',
 })`
-  ${(p: LinkWrapperProps) =>
+  ${(p: { size?: LinkSizes }) =>
     p?.size === 'small' && 'font-size: 14px; font-weight: 500;'}
 `;
 

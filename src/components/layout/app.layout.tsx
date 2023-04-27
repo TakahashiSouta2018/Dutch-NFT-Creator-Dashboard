@@ -19,8 +19,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   return (
     <DutchC.AppWrapper>
       <Header />
-      <DutchC.ContentWrapper>{children}</DutchC.ContentWrapper>
-      <Footer />
+      <DutchC.ContentWrapper>
+        {children}
+        <Footer />
+      </DutchC.ContentWrapper>
     </DutchC.AppWrapper>
   );
 };

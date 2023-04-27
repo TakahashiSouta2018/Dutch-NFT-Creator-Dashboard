@@ -12,6 +12,7 @@ interface IconButtonProps {
   rounded?: boolean;
   className?: string;
   onClick?: (e: React.SyntheticEvent) => void;
+  id?: string;
 }
 
 const IconButton: React.FC<IconButtonProps> = ({
@@ -19,6 +20,7 @@ const IconButton: React.FC<IconButtonProps> = ({
   rounded = false,
   onClick,
   className,
+  id,
 }) => {
   const { theme } = useTheme();
   const [isPressed, setIsPressed] = useState(false);
@@ -26,6 +28,7 @@ const IconButton: React.FC<IconButtonProps> = ({
 
   return (
     <DutchC.IconButtonWrapper
+      id={id}
       className={className}
       rounded={rounded ? 1 : 0}
       // onMouseDown={() => {

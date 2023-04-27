@@ -15,7 +15,6 @@ type ButtonProps = JSX.IntrinsicElements['button'] &
     loading?: boolean;
     leftIcon?: IconType;
     rightIcon?: IconType;
-    disabled?: boolean;
   };
 
 const Button: React.FC<ButtonProps> = ({
@@ -26,7 +25,6 @@ const Button: React.FC<ButtonProps> = ({
   className,
   ref,
   loading,
-  disabled,
   ...rest
 }) => {
   const LeftIcon = leftIcon ? icons[leftIcon] : null;
@@ -37,7 +35,7 @@ const Button: React.FC<ButtonProps> = ({
       className={className}
       size={size}
       {...rest}
-      disabled={disabled}
+      disabled={loading}
     >
       {loading ? (
         <ThreeDots

@@ -8,7 +8,7 @@ import LinkedinIcon from '../../assets/social/linkedin_solid.svg';
 const Footer = () => {
   const { theme } = useTheme();
   return (
-    <div className="w-full flex justify-between mt-4 px-6 py-3 border border-black/10 dark:border-white/10">
+    <div className="absolute bottom-0 w-full flex justify-between mt-4 px-6 py-3 border border-black/10 dark:border-white/10">
       <div className="text-sm">© Rarible, Inc.</div>
       <div className="flex gap-6 items-center">
         <DiscordIcon currentColor={theme === 'dark' ? 'white' : 'black'} />

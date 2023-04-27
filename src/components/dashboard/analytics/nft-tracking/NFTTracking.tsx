@@ -19,14 +19,13 @@ import { useLazyQuery } from '@apollo/client';
 import { NFT_ID_TRANSACTIONS } from '@/graphql/queries';
 import { useAppSelector } from '@/redux/store';
 import { shallowEqual } from 'react-redux';
-import { DashboardPageReducerI, TrackListTypeEnum } from '../../ducks';
+import { TrackListTypeEnum } from '../../ducks';
 import { LoopringService } from '@/lib/LoopringService';
 import { AnalyticPieChartDataI, TradeNFTI } from '@/types';
 import { ethers } from 'ethers';
 import { AllTransactionsI, getTradeNftsUtils } from '@/helpers';
 
 import * as DutchC from './styles';
-import { WebAppReducerI } from '@/ducks';
 
 const transOptions = [
   {
@@ -157,13 +156,13 @@ const NFTTracking = () => {
   );
 
   const { trackList } = useAppSelector((state) => {
-    const { trackList } = state.dashboardPageReducer as DashboardPageReducerI;
+    const { trackList } = state.dashboardPageReducer;
     return { trackList };
   }, shallowEqual);
 
-  const { account } = useAppSelector((state) => {
-    const { account } = state.webAppReducer as WebAppReducerI;
-    return { account };
+  const { accountInfo } = useAppSelector((state) => {
+    const { accountInfo } = state.webAppReducer;
+    return { accountInfo };
   }, shallowEqual);
 
   const loopringService = new LoopringService();
@@ -185,7 +184,10 @@ const NFTTracking = () => {
           primarySales,
           secondaryTrade,
           allTransactions,
-        } = getTradeNftsUtils(data.tradeNFTs, String(account));
+        } = getTradeNftsUtils(
+          data.tradeNFTs,
+          String(accountInfo?.accInfo.owner)
+        );
 
         setLrcTotalRoyalty(totalRoyatliesLRC);
         setEthTotalRoyalty(totalRoyatliesETH);
@@ -217,15 +219,17 @@ const NFTTracking = () => {
         .map((item: any) => item.id);
 
       if (collectionIds.length > 0) {
+        if (!accountInfo) return;
+
         const nftsInfo = await loopringService.getUserNFTCollection({
           tokensAddress: collectionIds,
           offset: 0,
           limit: 50,
         });
 
-        if (nftsInfo && nftsInfo.nfts && nftsInfo.nfts.length > 0) {
-          ids = nftsInfo.nfts.map((nft) => nft.nftID);
-        }
+        // if (nftsInfo && nftsInfo.nfts && nftsInfo.nfts.length > 0) {
+        //   ids = nftsInfo.nfts.map((nft) => nft.nftId);
+        // }
       } else {
         ids = selectedTrackLists.map((item: any) => item.id);
       }
