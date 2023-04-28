@@ -140,11 +140,11 @@ const Header: React.FC = () => {
 
         <DutchC.RightActions>
           <Badge variant="dot" label="STATUS" />
-
+          {/* 
           <IconButton
             icon={theme === 'light' ? 'moon' : 'sun'}
             onClick={toggleTheme}
-          />
+          /> */}
 
           {(isConnected && <GasInfo {...GasInfoMockData} />) || (
             <DutchC.HeaderGasWrapper>
