@@ -32,7 +32,7 @@ const renderActiveShape = (props: any) => {
 const PieLegend = (props: any) => {
   const { payload } = props;
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 flex-wrap">
       {payload.reverse().map((entry: any, index: number) => (
         <div key={`item-${index}`} className="flex gap-1">
           <div

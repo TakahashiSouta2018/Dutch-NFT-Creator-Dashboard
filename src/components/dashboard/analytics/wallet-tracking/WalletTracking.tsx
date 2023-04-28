@@ -19,6 +19,7 @@ import {
 import { LRCIconSelector } from '../analytics-tables/lrc-icon-selector';
 import { WalletTrackingTransactionView } from './WalletTrackingTransactionView';
 import { TotalGasCard } from '../total-gas-card';
+import { AnalyticPieChartDataI } from '@/types';
 
 const dayOptions = [
   {
@@ -40,6 +41,17 @@ const dayOptions = [
   {
     id: 4,
     slug: 'All',
+  },
+];
+
+const holdingOptions = [
+  {
+    id: 0,
+    slug: 'Currency',
+  },
+  {
+    id: 1,
+    slug: 'Investments',
   },
 ];
 
@@ -79,6 +91,48 @@ const mockDataHolding: DataType[] = [
   },
 ];
 
+const mockPieChartDataOne: AnalyticPieChartDataI[] = [
+  {
+    name: 'ETH',
+    value: 242.242231,
+  },
+  {
+    name: 'LRC',
+    value: 242.242231,
+  },
+  {
+    name: 'USDC',
+    value: 242.242231,
+  },
+];
+
+const mockPieChartDataTwo: AnalyticPieChartDataI[] = [
+  {
+    name: 'ETH',
+    value: 242.242231,
+  },
+  {
+    name: 'LRC',
+    value: 242.242231,
+  },
+  {
+    name: 'USDC',
+    value: 242.242231,
+  },
+  {
+    name: 'USDC',
+    value: 242.242231,
+  },
+  {
+    name: 'USDC',
+    value: 242.242231,
+  },
+  {
+    name: 'USDC',
+    value: 242.242231,
+  },
+];
+
 const WalletTracking = () => {
   const [currentDayOption, setCurrentDayOption] = useState({
     id: 4,
@@ -93,6 +147,16 @@ const WalletTracking = () => {
     console.log('newValue:', newValue);
     setCustomDateRange(newValue);
   };
+
+  const [currentHoldingBy, setCurrentHoldingBy] = useState({
+    id: 0,
+    slug: 'Currency',
+  });
+
+  const [currentHolding, setCurrentHolding] = useState({
+    id: 0,
+    slug: 'Currency',
+  });
 
   return (
     <DutchC.WalletTrackingWrapper>
@@ -187,6 +251,9 @@ const WalletTracking = () => {
               isSearchable
               searchInputPlaceholder="Token"
               isPaginatiable
+              onChange={(currentHolding: any) => {
+                setCurrentHolding(currentHolding);
+              }}
             />
             <div className="relative w-full">
               {!mockDataHolding.length && (
@@ -200,7 +267,7 @@ const WalletTracking = () => {
                     <TD>Token</TD>
                     <TD>Symbol</TD>
                     <TD>Quantity</TD>
-                    <TD>Price</TD>
+                    {currentHolding.id !== 2 && <TD>Price</TD>}
                     <TD>Value</TD>
                   </TR>
                 </THead>
@@ -213,7 +280,7 @@ const WalletTracking = () => {
                       </TD>
                       <TD>{item.symbol}</TD>
                       <TD>{item.quantity}</TD>
-                      <TD>{item.price}</TD>
+                      {currentHolding.id !== 2 && <TD>{item.price}</TD>}
                       <TD>{item.value}</TD>
                     </TR>
                   ))}
@@ -224,7 +291,26 @@ const WalletTracking = () => {
         </DutchC.WalletTrackingUnitWrapper>
         <DutchC.WalletTrackingUnitWrapper>
           <p className="font-bold dark:text-white">Currency Holdings by %</p>
-          <AnalyticsPieChart data={undefined} totalTransaction={1800} />
+          <div className="flex gap-1 w-1/2">
+            {holdingOptions.map((option, i) => (
+              <OptionSwitch
+                key={i}
+                currentOption={currentHoldingBy}
+                option={option}
+                onCurrentOption={(option) => {
+                  setCurrentHoldingBy(option);
+                }}
+              />
+            ))}
+          </div>
+          <AnalyticsPieChart
+            data={
+              currentHoldingBy.id === 0
+                ? mockPieChartDataOne
+                : mockPieChartDataTwo
+            }
+            totalTransaction={1800}
+          />
         </DutchC.WalletTrackingUnitWrapper>
       </DutchC.WalletTrackingHoldings>
       <DutchC.WalletTrackingContainer>

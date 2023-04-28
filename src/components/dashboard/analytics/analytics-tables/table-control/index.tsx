@@ -26,6 +26,7 @@ interface TableControlProps {
   isRanked?: boolean;
   isResultShowable?: boolean;
   isDateShowable?: boolean;
+  onChange: (currentHolding: any) => void;
 }
 
 const switchOptions = [
@@ -36,6 +37,10 @@ const switchOptions = [
   {
     id: 1,
     slug: 'NFTs',
+  },
+  {
+    id: 2,
+    slug: 'Investments',
   },
 ];
 
@@ -119,6 +124,7 @@ const TableControl: React.FC<TableControlProps> = (p: TableControlProps) => {
                   option={option}
                   onCurrentOption={(option) => {
                     setSwitchOption(option);
+                    p.onChange(option);
                   }}
                 />
               ))}
