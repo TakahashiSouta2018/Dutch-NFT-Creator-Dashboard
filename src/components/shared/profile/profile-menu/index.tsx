@@ -123,7 +123,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = (props) => {
         theme={theme}
       />
       <DutchC.ProfileMenu isOpen={isOpen}>
-        {!isConnected ? (
+        {isConnected ? (
           <div className="flex flex-col gap-y-3">
             <DutchC.ProfileMenuHeaderWrapper href="/profile">
               <DutchC.ProfileMenuHeaderContent>

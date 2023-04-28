@@ -70,7 +70,7 @@ const ProfileContent: React.FC = () => {
               </DutchC.ProfileSettingInnerLine>
               <DutchC.ProfileSettingInnerLine>
                 <InputLabel>Timezone</InputLabel>
-                <select className="w-full my-1 p-1">
+                <select className="w-full my-1 p-2 rounded-md text-sm ">
                   {timezones?.map((timezone) => (
                     <option key={timezone} value={timezone}>
                       {timezone}

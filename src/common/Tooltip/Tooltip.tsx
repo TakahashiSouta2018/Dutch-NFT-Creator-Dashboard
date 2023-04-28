@@ -38,9 +38,11 @@ const Tooltip: React.FC<TooltipType> = ({
           </OutlineButton>
         )}
       </div>
-      <div className="absolute bottom-full right-6 z-50 mb-3 whitespace-nowrap rounded-md py-[6px] px-4 font-medium text-white  text-xs bg-black/70 dark:bg-white/70  opacity-0 group-hover:opacity-100">
-        {tooltipTitle}
-      </div>
+      {isHover && (
+        <div className="absolute bottom-full right-6 z-20 mb-3 whitespace-nowrap rounded-md py-[6px] px-4 font-medium text-white  text-xs bg-black/70 dark:bg-white/70 ">
+          {tooltipTitle}
+        </div>
+      )}
     </div>
   );
 };
