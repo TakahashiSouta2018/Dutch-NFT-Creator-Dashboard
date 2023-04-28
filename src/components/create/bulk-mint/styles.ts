@@ -70,7 +70,7 @@ export const CreateBulkMintContentNFTPreviewWrapper = styled.div.attrs({
 })``;
 
 export const CreateBulkMintContentNFTPreviewInner = styled.div.attrs({
-  className: 'relative w-full h-full overflow-x-auto',
+  className: 'relative w-full h-full overflow-auto',
 })``;
 
 export const CreateBulkMintContentActions = styled.div.attrs({

@@ -1,5 +1,4 @@
 import React, { useState, useCallback, SyntheticEvent } from 'react';
-import { useDetectClickOutside } from 'react-detect-click-outside';
 import { useTheme } from 'next-themes';
 
 // components
