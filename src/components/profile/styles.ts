@@ -26,7 +26,7 @@ export const ProfileSettingInner = styled.div.attrs({
 })``;
 
 export const ProfileSettingInnerLine = styled.div.attrs({
-  className: 'relative flex-grow',
+  className: 'relative flex-grow ',
 })``;
 
 export const ProfileNotificationWrapper = styled.div.attrs({

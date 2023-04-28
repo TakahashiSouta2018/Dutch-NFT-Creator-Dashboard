@@ -3,7 +3,7 @@ import Image from 'next/image';
 import AvatarIcon from '@/assets/avatar.png';
 import ProfileCardTemplate from '../shared/profile/ProfileCardTemplate';
 import ProfileActions from '../shared/profile/ProfileActions';
-import { Button, OutlineButton, TextInput } from '@/common';
+import { Button, OutlineButton, Select, TextInput } from '@/common';
 import { InputLabel } from '@/common/Input/styles';
 import CheckIcon from '@/assets/check.png';
 import ProfileSocialIcon from '../shared/profile/ProfileSocialIcon';
@@ -26,16 +26,16 @@ import DepositFundModal from '../create/minting/DepositFundModal';
 import { useAppDispatch } from '@/redux/store';
 import { setDepositModalIsOpen } from '../create/ducks';
 import ContentMinting from '../create/minting/mint-modal-body/minting-content/ContentMinting';
-
-import moment from 'moment-timezone';
+import getTimezones from '@/helpers/timezones';
 
 const ProfileContent: React.FC = () => {
   const [isLogout, setLogout] = useState(false);
   const [isPhotoEdit, setPhotoEdit] = useState(false);
-  const [timezone, setTimezone] = useState('');
+  const [timezones, setTimezones] = useState([] as string[]);
 
-  const tzOptions = moment.tz.names();
-  console.log(tzOptions);
+  useEffect(() => {
+    setTimezones(getTimezones());
+  }, []);
 
   const dispatch = useAppDispatch();
 
@@ -70,6 +70,13 @@ const ProfileContent: React.FC = () => {
               </DutchC.ProfileSettingInnerLine>
               <DutchC.ProfileSettingInnerLine>
                 <InputLabel>Timezone</InputLabel>
+                <select className="w-full my-1 p-1">
+                  {timezones?.map((timezone) => (
+                    <option key={timezone} value={timezone}>
+                      {timezone}
+                    </option>
+                  ))}
+                </select>
               </DutchC.ProfileSettingInnerLine>
             </DutchC.ProfileSettingInner>
           </DutchC.ProfileSettingWrapper>
