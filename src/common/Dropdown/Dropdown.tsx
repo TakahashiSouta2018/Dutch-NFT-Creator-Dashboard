@@ -34,10 +34,6 @@ const Dropdown: React.FC<DropdownProps> = ({
     setOpen((open) => !open);
   }, []);
 
-  const handleClose = (e: Event) => {
-    setOpen(false);
-  };
-
   const handleClickOption = useCallback(
     (value: string, index: number) => {
       onSelect(value, index);
@@ -45,11 +41,16 @@ const Dropdown: React.FC<DropdownProps> = ({
     [onSelect]
   );
 
-  const ref = useDetectClickOutside({ onTriggered: handleClose });
-
-  console.log(open);
   return (
     <DutchC.DropdownWrapper onClick={handleToggle}>
+      {!!open && (
+        <DutchC.DropdownBackWrapper
+          onClick={(e: SyntheticEvent) => {
+            e.stopPropagation();
+            setOpen(false);
+          }}
+        />
+      )}
       {label && <DutchC.DropdownLabel>{label}</DutchC.DropdownLabel>}
       <DutchC.DropdownInner selected={open ? 1 : 0}>
         {/* value */}
@@ -62,7 +63,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           />
         </DutchC.DropdownIconWrapper>
         {/* dropdown options */}
-        <div ref={ref}>
+        <div>
           <DutchC.DropdownList position={position} isOpen={open}>
             {options.map((option, index) => (
               <DutchC.DropdownListItem
