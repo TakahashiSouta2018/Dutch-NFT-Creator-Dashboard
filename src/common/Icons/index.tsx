@@ -877,6 +877,7 @@ export const icons = {
   'lock-closed': ILockClosed,
   idocumentduplicateIcon: IDocumentDuplicateIcon,
   'arrow-right-on-rectangle': IArrowRightOnRectangle,
+  'iarrow-up-right': IArrowUpRight,
 };
 
 export type IconType = keyof typeof icons;

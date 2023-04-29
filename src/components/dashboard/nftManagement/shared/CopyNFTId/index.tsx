@@ -7,12 +7,14 @@ type CopyNFTIdProps = {
   id: string;
   type?: 'long' | 'short';
   onClick?: () => void;
+  text?: string;
 };
 
 const CopyNFTId: React.FC<CopyNFTIdProps> = ({
   type = 'short',
   id,
   onClick,
+  text = 'NFT id',
 }) => {
   const { theme } = useTheme();
   const [status, setStatus] = useState<'default' | 'active' | 'copied'>(
@@ -78,7 +80,7 @@ const CopyNFTId: React.FC<CopyNFTIdProps> = ({
             : 'white'
         }
       >
-        {type === 'long' ? id : 'NFT id'}
+        {type === 'long' ? id : text}
       </div>
     </div>
   );
