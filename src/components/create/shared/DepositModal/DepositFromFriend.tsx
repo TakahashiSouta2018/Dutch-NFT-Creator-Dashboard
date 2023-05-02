@@ -4,7 +4,7 @@ import QRCode from 'react-qr-code';
 
 import DepositModalHeader from './DepositModalHeader';
 import { ModalBody, Modal } from '@/common';
-import CopyNFTId from '@/components/dashboard/nftManagement/shared/CopyNFTId';
+import CopyNFTId from '@/components/dashboard/copy-nft-id';
 
 interface DepositFromFriendModalProps {
   className?: string;
