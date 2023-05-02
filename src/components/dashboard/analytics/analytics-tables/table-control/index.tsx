@@ -26,7 +26,7 @@ interface TableControlProps {
   isRanked?: boolean;
   isResultShowable?: boolean;
   isDateShowable?: boolean;
-  onChange: (currentHolding: any) => void;
+  onChange?: (currentHolding: any) => void;
 }
 
 const switchOptions = [
@@ -124,7 +124,7 @@ const TableControl: React.FC<TableControlProps> = (p: TableControlProps) => {
                   option={option}
                   onCurrentOption={(option) => {
                     setSwitchOption(option);
-                    p.onChange(option);
+                    p.onChange && p.onChange(option);
                   }}
                 />
               ))}
