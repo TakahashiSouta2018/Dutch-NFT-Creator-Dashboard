@@ -8,6 +8,7 @@ import {
   TabContainer,
   Tab,
   SearchInput,
+  Pagination,
 } from '@/common';
 import SortSelect from '@/common/Input/SortSelect';
 
@@ -114,12 +115,17 @@ const PhotoEdit: React.FC<PhotoEditProps> = ({ isPhotoEdit, onPhotoEdit }) => {
 export default PhotoEdit;
 
 export const FromNFTs = () => {
+  const [page, setPage] = useState(false);
   return (
     <DutchC.FromNFTsWrapper>
       <DutchC.FromNFTsNavbar>
-        <IconButton icon="funnel" rounded className="p-2" />
         <SearchInput className="flex-grow" />
         <SortSelect />
+        <Pagination
+          onChange={() => {
+            setPage(true);
+          }}
+        />
       </DutchC.FromNFTsNavbar>
       <DutchC.FromNFTsItem>
         {nfts.map((nft, i) => (
