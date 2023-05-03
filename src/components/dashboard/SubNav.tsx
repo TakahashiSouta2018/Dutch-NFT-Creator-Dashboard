@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 // components
 import { Link } from '@/common';
 import * as DutchC from './styles';
+
 import LottieAnimationPlayer from './lottie-animation-player';
 
 // Animations Json
